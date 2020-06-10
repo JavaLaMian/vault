@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <title>欢迎来到小母牛理财</title>
+    <script src="jquery.js"></script>
+    <style type="text/css">
+        #bod{
+            /* background: linear-gradient(to right, #ffdde1, #ef7a46, #a7bfe8); */
+            background-image: url(loginBg2.png);
+            background-repeat:no-repeat;
+            background-size: 220%;
+            background-position:100% 50%;
+            transition: background 1s ease;
+        }
+        .logbao{
+            width: 1500px;
+            height: 800px;
+            position: absolute;
+        }
+        #login{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 500px;
+            height: 100%;
+            transition: 0.5s;
+        }
+        #imgs{
+            background-color: #ee9ca7;
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 1000px;
+            height: 100%;
+            transition: 0.5s;
+        }
+        #new{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            transition: 0.5s;
+        }
+        .tiancon{
+            width: 100%;
+            height: 25%;
+        }
+        .tiancon2{
+            width: 100%;
+            height: 20%;
+        }
+        .kuang{
+            width: 73%;
+            height: 25px;
+            float: left;
+            font-size: 18px;
+            padding:3px 7px 3px 8px;
+            border: 1px #ccc solid;
+        }
+        .xiala{
+            float: left;margin: 0;
+            font-size: 16px;
+            height: 33px;
+            width: 21%;
+            padding-left: 5px;
+            border: 1px #ccc solid;
+            border-right: 0;
+        }
+        .mkuang{
+            width: 72.5%;
+            float: left;
+            font-size: 18px;
+            height: 0;
+            transition: 0.5s;
+            padding: 0;
+            border: 0;
+        }
+        .cxMa{
+            height: 0px;font-size: 14px;
+            background-color: white;
+            width: 70px;
+            transition: 0.5s;
+            padding: 0;
+            border: 0;
+            background-color: #FF7F50;
+        }
+        .daanniu{
+            width: 52%;height: 33px;
+            border: 1px #ccc solid;
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size:200% 200%;
+            font-size: 16px;
+        }
+        .loginzy{
+            width: 22%;height: 33px;border: 1px #ccc solid;
+            background-color: white;
+            transition: 0.5s;
+        }
+        .loginzy:hover{
+            background-color: #FF7F50;
+            border-radius: 5px;
+        }
+        .pxian{
+            width: 20%;
+            height: 31px;
+            line-height: 31px;
+            text-align: center;
+            background-color: white;
+            float: left;
+            margin: 0;
+            font-size: 16px;border: 1px #ccc solid;
+            border-right: 0;
+        }
+        #zcYam{
+            height: 25px;padding:3px 7px 3px 8px;border: 1px #ccc solid;border-right:0;
+            float: left;
+            font-size: 18px;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body id="bod">
+<div class="logbao">
+    <div id="new">
+        <div id="news" style="height: 100%;display: none;">
+            <div class="tiancon2"></div>
+            <div style="width: 70%;height: 40%;margin: 0 auto;padding: 8% 0 12% 0;background-color: #cccccc80;border-radius: 10px;">
+                <h2 style="font-size: 30px;font-family: 宋体;margin: 0;text-align: center;">注册一个账户</h2>
+                <form>
+                    <div style="width: 90%;height: 30px;margin: 30px auto;">
+                        <p class="pxian">邮箱</p>
+                        <input class="kuang" oninput="zzsru(this)" type="text"/>
+                    </div>
+                    <div style="width: 90%;height: 30px;margin: 30px auto;">
+                        <p class="pxian">账号</p>
+                        <input class="kuang" oninput="zzsru(this)" type="text"/>
+                    </div>
+                    <div style="width: 90%;height: 30px;margin: 30px auto;">
+                        <p class="pxian">密码</p>
+                        <input class="kuang" oninput="zzsru(this)" type="text"/>
+                    </div>
+                    <div style="width: 90%;margin:0 auto;height: 30px;transition: 0.5s;margin-bottom:30px">
+                        <input class="mkuang" id="zcYam" type="text"/>
+                        <input class="cxMa" type="button" style="height:33px;border: 1px #ccc solid;padding: 0 5px;" onclick="getMa()" value="获取" />
+                        <input class="mkuang" id="yaoqing" placeholder="邀请人账号" style="width:0;float: right;margin-right:2%" type="text"/>
+                    </div>
+                    <div style="width: 90%;height: 30px;margin: 0 auto;">
+                        <input value="登陆" class="loginzy" type="button" onclick="logNew(1)"/>
+                        <input value="注册" id="goNew" class="daanniu" type="submit"/>
+                        <input value="有邀请人" class="loginzy" onclick="yaoQing(this)" type="button"/>
+                    </div>
+                </form>
+            </div>
+            <div class="tiancon2"></div>
+        </div>
+    </div>
+    <div id="imgs" style="background-image: url(loginBg.jpg);">
+    </div>
+    <div id="login">
+        <div id="logins" style="height: 100%;">
+            <div class="tiancon"></div>
+            <div style="width: 70%;height: 35%;margin: 0 auto;padding: 5% 0;background-color: #cccccc80;border-radius: 10px;">
+                <h2 style="font-size: 30px;font-family: 宋体;text-align: center;">登陆</h2>
+                <form>
+                    <div style="width: 90%;height: 30px;margin: 30px auto;">
+                        <select class="xiala" onchange="pwdEmail(this)">
+                            <option value="zh">账号</option>
+                            <option value="yx">邮箱</option>
+                        </select>
+                        <input class="kuang" oninput="zzsru(this)" type="text"/>
+                    </div>
+                    <div id="pwdYz" style="width: 90%;height: 30px;margin: 30px auto;transition: 0.5s;">
+                        <select class="xiala">
+                            <option>密码</option>
+                            <option>显示</option>
+                        </select>
+                        <input class="kuang" oninput="zzsru(this)" type="password"/>
+                    </div>
+                    <div id="emailYz" style="width: 90%;margin:0 auto;height: 0px;transition: 0.5s;">
+                        <input class="mkuang" type="text"/>
+                        <input class="cxMa" type="button" onclick="getMa()" value="获取" />
+                    </div>
+                    <div style="width: 90%;height: 30px;margin: 0 auto;">
+                        <input value="注册" class="loginzy" type="button" onclick="logNew(0)"/>
+                        <input value="登陆" id="gologin" class="daanniu" type="submit"/>
+                        <input value="忘记密码" class="loginzy" type="button" onclick="logNew(0)"/>
+                    </div>
+                </form>
+            </div>
+            <div class="tiancon"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function chuangKou(){
+        var kuan = window.outerWidth; //获取当前浏览器的宽度
+        var gao =  $(window).height();
+
+        if(kuan <= 1450){
+            var top = (gao - 800)/2;
+            if(kuan <= 400){
+                $(".logbao").css("top",top+"px");
+                $(".logbao").css("width","100%");
+                $(".logbao").css("left","0");
+            }else{
+                $(".logbao").css("width","500px");
+                var left = (kuan - 500)/2;
+            }
+
+            $("#imgs").css("display","none");
+            $(".logbao").css("top",top+"px");
+            $(".logbao").css("left",left+"px");
+
+            $("#bod").css("background-position","100% 0")
+        }else{
+            var top = (gao - 800)/2;
+            var left = (kuan - 1500)/2;
+            $("#imgs").css("display","block");
+            $(".logbao").css("width","1500px");
+            $(".logbao").css("top",top+"px");
+            $(".logbao").css("left",left+"px");
+        }
+    }
+    chuangKou();
+
+    window.onresize = function(){
+        chuangKou();
+    }
+
+    function zzsru(id){
+        $(id).css("border","1px #ccc solid")
+    }
+    var loginDong;
+    var newDong;
+    $("#gologin").mouseover(function(){
+        loginDong = setInterval("dontai()", "10");
+    })
+
+    $("#gologin").mouseleave(function(){
+        clearInterval(loginDong);
+    })
+
+    function yaoQing(id){
+        if($(id).val() == "有邀请人"){
+            $("#yaoqing").css("width","46%");
+            $("#yaoqing").css("height","25px");
+            $("#yaoqing").css("border","1px #ccc solid");
+            $("#yaoqing").css("border-left","0");
+            $("#yaoqing").css("padding","3px 5px");
+
+            $("#zcYam").css("width","20.5%");
+            $(id).val("取消");
+        }else{
+            $("#yaoqing").css("width","0");
+            $("#yaoqing").css("height","0");
+            $("#yaoqing").css("border","0");
+            $("#yaoqing").css("padding","0");
+
+            $("#zcYam").css("width","72.5%");
+            $(id).val("有邀请人");
+        }
+    }
+
+    function pwdEmail(id){
+        var vs = $(id).val();
+        if(vs == 'zh'){
+            $("#emailYz input").css("height","0");
+            $("#emailYz input").css("padding","0");
+            $("#emailYz input").css("border","0");
+            $("#emailYz input").css("height","0");
+
+            $("#emailYz").css("height","0");
+            $("#emailYz").css("margin-bottom","0");
+
+            $("#pwdYz").css("height","30px");
+            $("#pwdYz").css("margin","30px auto");
+
+            $("#pwdYz .kuang").css("height","25px");
+            $("#pwdYz .kuang").css("padding","3px 7px 3px 8px");
+            $("#pwdYz .kuang").css("border","1px #ccc solid");
+
+            $("#pwdYz .xiala").css("height","33px");
+            $("#pwdYz .xiala").css("padding-left","5px");
+            $("#pwdYz .xiala").css("border","1px #ccc solid");
+            $("#pwdYz .xiala").css("border-right","0");
+        }else{
+            $("#emailYz").css("height","33px");
+            $("#emailYz").css("margin","0 auto");
+            $("#emailYz").css("margin-bottom","30px");
+
+            $("#emailYz .mkuang").css("height","25px");
+            $("#emailYz .mkuang").css("padding","3px 7px 3px 8px");
+            $("#emailYz .mkuang").css("border","1px #ccc solid");
+            $("#emailYz .mkuang").css("border-right","0");
+
+            $("#emailYz .cxMa").css("height","33px");
+            $("#emailYz .cxMa").css("border","1px #ccc solid");
+            $("#emailYz .cxMa").css("padding","0 5px");
+
+            $("#pwdYz").css("height","0");
+            $("#pwdYz").css("margin","0");
+
+            $("#pwdYz .kuang").css("height","0");
+            $("#pwdYz .kuang").css("padding","0");
+            $("#pwdYz .kuang").css("border","0");
+
+            $("#pwdYz .xiala").css("height","0");
+            $("#pwdYz .xiala").css("padding","0");
+            $("#pwdYz .xiala").css("border","0");
+        }
+    }
+
+    var jishi = 59;
+    var jishuTishi;
+
+    function getMa(){
+        if($(".cxMa").val() == "获取"){
+            $(".cxMa").val('获取(59)')
+            $(".cxMa").css("background-color","white");
+            jishuTishi  = setInterval("daojishi()", "1000");
+        }else{
+            //已经在获取验证码
+        }
+
+    }
+    function daojishi(){
+        jishi -= 1;
+        if(jishi == 0){
+            jishi = 59;
+            clearInterval(jishuTishi);
+            $(".cxMa").val('获取')
+            $(".cxMa").css("background-color","#FF7F50");
+        }else{
+            $(".cxMa").val("获取("+jishi+")");
+        }
+
+    }
+
+    function logNew(type){
+        if(type == 1){//登陆
+            $("#login").css("width","500px");
+            $("#imgs").css("left","0");
+            $("#new").css("width","0");
+            bianBg('right')
+            setTimeout("changNei(1);",250);
+            clearInterval(newDong);
+        }else{
+            newDong = setInterval("dontai2()", "10");
+            $("#login").css("width","0");
+            $("#imgs").css("left","500px");
+            $("#new").css("width","500px");
+            bianBg('left')
+            setTimeout("changNei(0);",250)
+        }
+    }
+
+    function bianBg(type){
+        var kuan = window.outerWidth; //获取当前浏览器的宽度
+        if(type == 'left'){
+            var text = "";
+            if(kuan <= 1450) text = "0 0";
+            else text = "0 50%";
+            document.getElementById("bod").style.backgroundPosition=text;
+        }else if(type == 'center'){
+            document.getElementById("bod").style.backgroundPosition="50% 50%";
+        }else{
+            var text = "";
+            if(kuan <= 1450) text = "100% 0";
+            else text = "100% 50%";
+            document.getElementById("bod").style.backgroundPosition=text;
+        }
+    }
+
+    function changNei(type){
+        if(type == 1){//登陆
+            $("#news").css("display","none");
+            $("#logins").css("display","block");
+        }else{
+            $("#logins").css("display","none");
+            $("#news").css("display","block");
+        }
+    }
+
+    var zuo = 50;
+    var zt = 0;
+    function dontai(){
+        if(zt == 0){
+            zuo -= 1;
+            document.getElementById("gologin").style.backgroundPosition=zuo+"% 50%";
+            if(zuo == 0) zt = 1;
+        }else if(zt == 1){
+            zuo += 1;
+            document.getElementById("gologin").style.backgroundPosition=zuo+"% 50%";
+
+            if(zuo == 100) zt = 0;
+        }
+    }
+    var zuo2 = 50;
+    var zt2 = 0;
+    function dontai2(){
+        if(zt2 == 0){
+            zuo2 -= 1;
+            document.getElementById("goNew").style.backgroundPosition=zuo2+"% 50%";
+            if(zuo2 == 0) zt2 = 1;
+        }else if(zt2 == 1){
+            zuo2 += 1;
+            document.getElementById("goNew").style.backgroundPosition=zuo2+"% 50%";
+
+            if(zuo2 == 100) zt2 = 0;
+        }
+    }
+</script>
+</html>
