@@ -147,7 +147,7 @@
                     <div style="width: 90%;margin:0 auto;height: 30px;transition: 0.5s;margin-bottom:30px">
                         <input class="mkuang" id="zcYam" type="text"/>
                         <input class="cxMa" type="button" style="height:33px;border: 1px #ccc solid;padding: 0 5px;" onclick="getMa('zc',this)" value="获取" />
-                        <input class="mkuang" id="yaoqing" placeholder="邀请人账号" style="width:0;float: right;margin-right:2%" type="text"/>
+                        <input class="mkuang" id="yaoqing" name="refereer" placeholder="邀请人账号" style="width:0;float: right;margin-right:2%" type="text"/>
                     </div>
                     <div style="width: 90%;height: 30px;margin: 0 auto;">
                         <input value="登陆" class="loginzy" type="button" onclick="logNew(1)"/>
@@ -241,7 +241,7 @@
         for(var j = 0;j < value.length; j++){
             var vnm = value.charAt(j);
             var ascl = vnm.charCodeAt();
-            if(ascl == 46 || (ascl >= 48 && ascl <= 57) || (ascl >= 64 && ascl <= 90)|| (ascl >= 97 && ascl <= 122)){
+            if(ascl === 46 || (ascl >= 48 && ascl <= 57) || (ascl >= 64 && ascl <= 90)|| (ascl >= 97 && ascl <= 122)){
                 tian += vnm;
             }else{
                 errorShuru(id);
@@ -302,11 +302,11 @@
         if(tis >=0 ){
             tis -= 1;
             $(idd).css("background-color", "rgb(255,"+tis+","+tis+")");
-            if (tis == 0) tis = -1;
+            if (tis === 0) tis = -1;
         }else{
             tis2 += 1;
             $(idd).css("background-color", "rgb(255,"+tis2+","+tis2+")");
-            if(tis2 == 255){
+            if(tis2 === 255){
                 clearInterval(errorJishi);
                 errorJishi = null;
                 tis = 255;
@@ -324,6 +324,10 @@
 
     $("#gologin").mouseleave(function(){
         clearInterval(loginDong);
+    });
+
+    $("#zcYam").click(function(){
+        $("#zcYam").css("background-color","white");
     });
 
     function yaoQing(id){
@@ -421,7 +425,6 @@
     var dlMa = 0;
     function getMa(type,id){
         if((getMapad !== 0 && type === "zc")||(getMaDl !== 0 && type === "dl")){
-            alert("huoq");
             if($(id).val() === "获取"){
                 $(id).val('获取(59)')
                 $(id).css("background-color","white");
@@ -429,7 +432,7 @@
 
                 var email = $("#zcEmail").val();
                 $.post("/user/getMa",{email:email,type:type},function (data) {
-                    if(data == "" || data == null){
+                    if(data === "" || data == null){
                         errorShuru($("#zcEmail"));
                         alert("请检查邮箱格式是否正确");
                     }else {
@@ -447,7 +450,7 @@
     }
     function daojishi(){
         jishi -= 1;
-        if(jishi == 0){
+        if(jishi === 0){
             jishi = 59;
             clearInterval(jishuTishi);
             $(".cxMa").val('获取');
@@ -459,6 +462,8 @@
     }
 
     function newZhang() {
+        var yunma = zcMa+"";
+        var shuru = $("#zcYam").val()+"";
         if($("#zcEmail").val() === ""){
             errorShuru($("#zcEmail"));
             return false;
@@ -468,8 +473,8 @@
         }else if($("#pwd").val() !== $("#pwd2").val()){
             errorShuru($("#pwd2"));
             return false;
-        }else if( $("#zcYam").val() === "" || $("#zcYam").val() !== zcMa){
-            errorShuru($("#zcYam"));
+        }else if(yunma !== shuru || zcMa === 0){
+            $("#zcYam").css("background-color","red");
             return false;
         }else {
             return true;
@@ -545,7 +550,6 @@
         }else if(zt2 === 1){
             zuo2 += 1;
             document.getElementById("goNew").style.backgroundPosition=zuo2+"% 50%";
-
             if(zuo2 === 100) zt2 = 0;
         }
     }

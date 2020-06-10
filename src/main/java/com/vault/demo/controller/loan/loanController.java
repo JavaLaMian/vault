@@ -33,9 +33,4 @@ public class loanController {
     public String main2() {
         return "loan/loanHead";
     }
-
-    @RequestMapping("/toUselog")
-    public String toUserLogin(){
-        return "loan/login";
-    }
 }
