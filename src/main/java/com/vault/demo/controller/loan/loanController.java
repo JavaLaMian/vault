@@ -26,6 +26,7 @@ public class loanController {
     public String login(String account ,String password){
         System.out.println("账号"+account+"密码:"+password);
 
+
         return "redirect:/loan/main2";
     }
 
