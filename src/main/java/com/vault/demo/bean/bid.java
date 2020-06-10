@@ -7,8 +7,8 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 @Table(name = "bid")
 public class bid {
 
-    @Column(name = "id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
-    private Integer	id;
+    @Column(name = "bId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
+    private Integer	bId;
     @Column(name = "bidName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String bidName;
     @Column(name = "bidType",type = MySqlTypeConstant.INT)
@@ -48,12 +48,12 @@ public class bid {
     @Column(name = "maxTime",type = MySqlTypeConstant.INT)
     private String maxTime;
 
-    public Integer getId() {
-        return id;
+    public Integer getbId() {
+        return bId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setbId(Integer bId) {
+        this.bId = bId;
     }
 
     public String getBidName() {
