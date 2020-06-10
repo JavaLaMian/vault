@@ -15,6 +15,9 @@ public class userimf {
     @Column(name = "uname",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String	username;
 
+    @Column(name = "account",type = MySqlTypeConstant.VARCHAR,length = 100)
+    private String	account;
+
     @Column(name = "phe",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String	phe;
 
@@ -75,6 +78,14 @@ public class userimf {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPhe() {
