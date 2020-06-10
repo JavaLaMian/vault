@@ -1,6 +1,6 @@
 package com.vault.demo.controller.user;
 
-import com.vault.demo.bean.user.userimf;
+//import com.vault.demo.bean.user.userimf;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
@@ -15,11 +15,13 @@ public class UserController {
     @Resource
     private UserService service;
 
-    @RequestMapping("/add")
-    public String addUser(userimf user){
-        System.out.println(user.toString());
-        return "";
-    }
+//    @RequestMapping("/add")
+//    public String addUser(userimf user){
+//        System.out.println(user.toString());
+//        return "";
+//    }
+
+
 
     @RequestMapping("/getMa")
     @ResponseBody
