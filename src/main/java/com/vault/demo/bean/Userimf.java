@@ -18,7 +18,7 @@ public class Userimf { //6月10日15点23
     private int	uId;
 
     @Column(name = "uName",type = MySqlTypeConstant.VARCHAR,length = 100)
-    private String	userName;
+    private String	uName;
 
     @Column(name = "account",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String account;
@@ -70,7 +70,7 @@ public class Userimf { //6月10日15点23
     public String toString() {
         return "Userimf{" +
                 "uId=" + uId +
-                ", userName='" + userName + '\'' +
+                ", uName='" + uName + '\'' +
                 ", account='" + account + '\'' +
                 ", phe='" + phe + '\'' +
                 ", email='" + email + '\'' +
@@ -105,12 +105,12 @@ public class Userimf { //6月10日15点23
         this.uId = uId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUName() {
+        return uName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUName(String userName) {
+        this.uName = userName;
     }
 
     public String getAccount() {

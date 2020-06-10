@@ -14,8 +14,8 @@ public class Test1Controller {
 
     @RequestMapping("/toTest1Page")
     public ModelAndView toTest1Page(ModelAndView mv, Userimf userimf){
-        userimf.setUserName("kk");
-        System.out.println(userimf.getUserName());
+        userimf.setUName("kk");
+        System.out.println(userimf.getUName());
         mv.setViewName("sss");
 
         return mv;
