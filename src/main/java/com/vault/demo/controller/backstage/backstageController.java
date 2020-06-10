@@ -36,9 +36,16 @@ public class backstageController {
         mv.setViewName("backstage/404");
         return mv;
     }
+    //理财订单页面
     @RequestMapping("/LiCaiDOC")
     public ModelAndView LiCaiDOC(ModelAndView mv){
         mv.setViewName("backstage/Blicaidoc");
+        return mv;
+    }
+    //投标类别页面
+    @RequestMapping("/BidList")
+    public ModelAndView BidList(ModelAndView mv){
+        mv.setViewName("backstage/BidList");
         return mv;
     }
 }
