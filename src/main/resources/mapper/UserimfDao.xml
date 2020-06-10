@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.UserimfDao">
+    <select id="allList" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf
+        ]]>
+    </select>
+
+    <delete id="deleteById" parameterType="com.vault.demo.bean.Userimf">
+        delete from userimf where uId = #{uId}
+    </delete>
+
+    <select id="selectOneByLogin" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf where 1 = 1
+        ]]>
+        <if test="account != null and account != ''">
+            and account = #{account} and loginPsw = #{loginPsw}
+        </if>
+        <if test="email != null and email != ''">
+            and email = #{email} and loginPsw = #{loginPsw}
+        </if>
+    </select>
+
+</mapper>

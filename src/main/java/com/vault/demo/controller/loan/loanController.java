@@ -1,11 +1,18 @@
 package com.vault.demo.controller.loan;
 
+import com.vault.demo.bean.Userimf;
+import com.vault.demo.dao.UserimfDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
 
 @RequestMapping("loan")
 @Controller
 public class loanController {
+
+    @Resource
+    UserimfDao userimfDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -26,6 +33,16 @@ public class loanController {
     public String login(String account ,String password){
         System.out.println("账号"+account+"密码:"+password);
 
+        Userimf userimf = new Userimf();
+        userimf.setAccount(account);
+        userimf.setLoginPsw(password);
+
+        Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
+
+        System.out.println(userimfEX);
+        if ("".equals(userimfEX.getUName()) || userimfEX.getUName() == null){
+            System.out.println("登录失败");
+        }
 
         return "redirect:/loan/main2";
     }
