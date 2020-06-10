@@ -30,4 +30,15 @@ public class backstageController {
         mv.setViewName("backstage/BupdatePwd");
         return mv;
     }
+    //跳往404页面
+    @RequestMapping("/B404")
+    public ModelAndView B404(ModelAndView mv){
+        mv.setViewName("backstage/404");
+        return mv;
+    }
+    @RequestMapping("/LiCaiDOC")
+    public ModelAndView LiCaiDOC(ModelAndView mv){
+        mv.setViewName("backstage/Blicaidoc");
+        return mv;
+    }
 }
