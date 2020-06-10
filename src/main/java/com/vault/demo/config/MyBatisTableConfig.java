@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
-@Configuration
+//@Configuration
 @ComponentScan(basePackages = {"com.gitee.sunchenbin.mybatis.actable.manager.*"})
 public class MyBatisTableConfig {
 
