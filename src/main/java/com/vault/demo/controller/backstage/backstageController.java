@@ -9,7 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class backstageController {
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv){
-        mv.setViewName("");
+        mv.setViewName("backstage/main");
         return mv;
     }
+    @RequestMapping("/text")
+    public ModelAndView text(ModelAndView mv){
+        mv.setViewName("backstage/text");
+        return mv;
+    }
+
 }
