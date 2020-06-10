@@ -53,20 +53,14 @@ public class Userimf { //6月10日15点23
     @Column(name = "sex",type = MySqlTypeConstant.VARCHAR,length = 5)
     private String	sex;
 
-    @Column(name = "refereer",type = MySqlTypeConstant.VARCHAR,length = 20)
+    @Column(name = "refereer",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String	refereer;
-
-    @Column(name = "refereerId",type = MySqlTypeConstant.INT)
-    private int	refereerId;
 
     @Column(name = "creditLv",type = MySqlTypeConstant.INT)
     private int	creditLv;
 
     @Column(name = "age",type = MySqlTypeConstant.INT)
     private int	age;
-
-    @Column(name = "registerTime",type = MySqlTypeConstant.DATETIME)
-    private Date registerTime;
 
     @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
     private Date lastLoginTime;
@@ -89,20 +83,10 @@ public class Userimf { //6月10日15点23
                 ", bounty=" + bounty +
                 ", sex='" + sex + '\'' +
                 ", refereer='" + refereer + '\'' +
-                ", refereerId=" + refereerId +
                 ", creditLv=" + creditLv +
                 ", age=" + age +
-                ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
                 '}';
-    }
-
-    public Date getRegisterTime() {
-        return registerTime;
-    }
-
-    public void setRegisterTime(Date registerTime) {
-        this.registerTime = registerTime;
     }
 
     public Date getLastLoginTime() {
@@ -223,14 +207,6 @@ public class Userimf { //6月10日15点23
 
     public void setRefereer(String refereer) {
         this.refereer = refereer;
-    }
-
-    public int getRefereerId() {
-        return refereerId;
-    }
-
-    public void setRefereerId(int refereerId) {
-        this.refereerId = refereerId;
     }
 
     public int getCreditLv() {

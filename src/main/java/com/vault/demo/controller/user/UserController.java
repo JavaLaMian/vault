@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/user")
@@ -15,10 +18,20 @@ public class UserController {
     @Resource
     private UserService service;
 
+    @RequestMapping("/tologin")
+    public String toUserLogin(){
+        return "loan/login";
+    }
+
     @RequestMapping("/add")
     public String addUser(Userimf user){
         System.out.println(user.toString());
-        return "";
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        String dates = format1.format(date);
+
+        System.out.println(dates+"|"+user.toString());
+        return "redirect:tologin";
     }
 
     @RequestMapping("/getMa")

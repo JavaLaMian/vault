@@ -26,16 +26,25 @@ public class loanController {
     public String login(String account ,String password){
         System.out.println("账号"+account+"密码:"+password);
 
+
         return "redirect:/loan/main2";
     }
 
+    //借贷中心
     @RequestMapping("/main2")
     public String main2() {
-        return "loan/loanHead";
+        return "loan/loanJie";
     }
-
-    @RequestMapping("/toUselog")
-    public String toUserLogin(){
-        return "loan/login";
+    @RequestMapping("/toloanHuan")
+    public String toloanHuan() {
+        return "loan/loanHuan";
+    }
+    @RequestMapping("/toloanRecord")
+    public String toloanRecord() {
+        return "loan/loanRecord";
+    }
+    @RequestMapping("/toloanPersonage")
+    public String toloanPersonage() {
+        return "loan/loanPersonage";
     }
 }
