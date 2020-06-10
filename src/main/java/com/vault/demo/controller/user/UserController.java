@@ -1,7 +1,6 @@
 package com.vault.demo.controller.user;
 
 import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.userimf;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
