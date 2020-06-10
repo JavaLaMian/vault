@@ -29,9 +29,22 @@ public class loanController {
         return "redirect:/loan/main2";
     }
 
+    //借贷中心
     @RequestMapping("/main2")
     public String main2() {
-        return "loan/loanHead";
+        return "loan/loanJie";
+    }
+    @RequestMapping("/toloanHuan")
+    public String toloanHuan() {
+        return "loan/loanHuan";
+    }
+    @RequestMapping("/toloanRecord")
+    public String toloanRecord() {
+        return "loan/loanRecord";
+    }
+    @RequestMapping("/toloanPersonage")
+    public String toloanPersonage() {
+        return "loan/loanPersonage";
     }
 
     @RequestMapping("/toUselog")
