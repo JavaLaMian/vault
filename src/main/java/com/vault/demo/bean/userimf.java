@@ -1,4 +1,4 @@
-package com.vault.demo.bean.user;
+package com.vault.demo.bean;
 
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;

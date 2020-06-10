@@ -1,6 +1,6 @@
 package com.vault.demo.controller.test;
 
-import com.vault.demo.bean.user.userimf;
+import com.vault.demo.bean.userimf;
 import com.vault.demo.service.test.Test1Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
