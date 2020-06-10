@@ -1,5 +1,7 @@
 package com.vault.demo.service.backstage.admin;
 
-public interface AdminService {
+import com.vault.demo.bean.Admin;
 
+public interface AdminService {
+    Admin checkLogin(String account,String pwd);
 }
