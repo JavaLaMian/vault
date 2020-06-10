@@ -64,9 +64,4 @@ public class loanController {
     public String toloanPersonage() {
         return "loan/loanPersonage";
     }
-
-    @RequestMapping("/toUselog")
-    public String toUserLogin(){
-        return "loan/login";
-    }
 }
