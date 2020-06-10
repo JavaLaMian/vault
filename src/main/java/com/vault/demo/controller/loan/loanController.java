@@ -31,4 +31,8 @@ public class loanController {
         return "账号"+account+password;
     }
 
+    @RequestMapping("/toUselog")
+    public String toUserLogin(){
+        return "loan/login";
+    }
 }
