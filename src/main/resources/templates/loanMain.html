@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="description" content="梦想贷－小母牛在线有限公司旗下网贷平台 小额贷款平台，专注小微企业、个人消费者和农村用户贷款融资服务，纯信用，无抵押，闪电放款，可随时还款，最长24个月。"/>
+    <meta name="keywords" content="小母牛在线有限公司旗下网贷平台,小微企业贷款，信用贷款，无抵押贷款，随借随还，消费贷款，农村贷款，农户贷款，网商贷，旺农贷"/>
+    <meta name="data-bizType" content="MYBANKPC"/>
+    <meta name="data-aspm" content="a1705"/>
+    <title>小母牛普惠</title>
+    <link rel="icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <script>
+        window._to = {
+            autoExpo: true,
+            abTest: true,
+        };
+    </script>
+    <script type="text/javascript" src="https://g.alicdn.com/dt/tracker/4.2.0/??tracker.Tracker.js,tracker.performanceTrackerPlugin.js" crossorigin></script>
+    <script type="text/javascript">
+        var tracker = new window.Tracker({
+            pid: 'mybank-site',
+            plugins: [
+                [window.performanceTrackerPlugin]
+            ],
+            resourceError: true,
+            resourceErrorSampleRate: 1,
+        });
+        tracker.log({
+            pid: 'mybank-site',
+            code: 11,
+        });
+        // 启动 tracker 并监听全局 JS 异常
+        tracker.install();
+    </script>
+    <!--[if lt IE 8]>
+    <script>
+        window.location.href = '//loan.mybank.cn/kill-ie.html'
+    </script>
+    <![endif]-->
+    <style>
+        body,
+        html {
+            min-height: 100%;
+        }
+        .header,
+        body {
+            position: relative;
+        }
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            min-width: 990px;
+            background-color: #fff;
+            line-height: 1.5;
+            color: #333;
+            font-family: Tahoma,Arial,"\5b8b\4f53",sans-serif;
+        }
+        blockquote,
+        body,
+        dd,
+        div,
+        dl,
+        dt,
+        fieldset,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        input,
+        legend,
+        li,
+        ol,
+        p,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+        * ,
+        :after,
+        :before {
+            -webkit-tap-highlight-color: transparent;
+        }
+        a,
+        img {
+            -webkit-touch-callout: none;
+        }
+        li {
+            list-style: none;
+        }
+        img {
+            border: 0;
+        }
+        a {
+            color: #0ae;
+        }
+        a,
+        a:hover {
+            text-decoration: none;
+        }
+
+        .fn-clear:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+
+        .fn-left {
+            float: left;
+        }
+        .fn-right {
+            float: right;
+        }
+        .slider-1 {
+            background: url(/img/loan/轮播图.jpg) no-repeat;
+        }
+        .slider-2 {
+            background: url(/img/loan/轮播3.jpg) no-repeat;
+        }
+
+        .header {
+            z-index: 999;
+            height: 70px;
+            line-height: 70px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .header .header-inner-wrap {
+            margin: 0 auto;
+            min-width: 990px;
+            max-width: 1190px;
+        }
+        .header .logo {
+            margin-top: 20px;
+            margin-left: 10px;
+            width: 169px;
+            height: 30px;
+        }
+        .header .others {
+            height: 26px;
+            line-height: 26px;
+            font-size: 12px;
+            color: #fff;
+        }
+        .header .others a {
+            float: left;
+            margin-top: 27px;
+            margin-right: 10px;
+            height: 16px;
+            line-height: 16px;
+            color: #333;
+        }
+        .header .others a .phone {
+            margin-right: 10px;
+            height: 16px;
+            width: 14px;
+        }
+
+        .login-wrap {
+            position: absolute;
+            left: 50%;
+            top: 135px;
+            margin-left: -595px;
+            width: 1190px;
+            z-index: 998;
+        }
+        .login-wrap .login-inner-wrap {
+            position: absolute;
+            right: 70px;
+            top: 14px;
+            width: 365px;
+            background-color: #00c2c2;
+        }
+        .login-wrap .black-bg {
+            position: absolute;
+            /* right: 57px;
+            top: 0; */
+            right: 70px;
+            top: 15px;
+            width: 365px;
+            height: 195px;
+            background: url(/img/loan/背景.png);z-index: -1;
+        }
+        .login-wrap .login-logo {
+            width: 99px;
+            z-index: 2;
+        }
+        .login-wrap ul {
+            position: absolute;
+            left: 27px;
+            z-index: 2;
+        }
+        .login-wrap li {
+            height: 88px;
+        }
+        .login-wrap li a {
+            position: relative;
+            display: block;
+            padding-left: 78px;
+            padding-top: 28px;
+            height: 60px;
+            width: 228px;
+            border-bottom: 1px solid #00b4b4;
+        }
+        .login-wrap li a:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 44px;
+            margin-top: -7px;
+            height: 14px;
+            width: 8px;
+            background: url(/img/loan/dl-bg-jt.png) no-repeat;
+        }
+        .login-wrap li a:hover .login-hover {
+            display: block;
+        }
+        .login-wrap li.last a {
+            border-bottom-width: 0;
+        }
+        .login-wrap .login-title {
+            display: block;
+            font-size: 14px;
+            color: #fff;
+        }
+        .login-wrap .login-tip {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #99e7e7;
+        }
+        .login-wrap .login-hover {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -14px;
+            margin-right: -9px;
+            display: none;
+            height: 28px;
+            width: 28px;
+            background: url(/img/loan/背景.png) no-repeat;
+        }
+
+        .slider-wrap {
+            position: relative;
+            width: 100%;
+            height: 470px;
+            overflow: hidden;
+        }
+        .slider-wrap .scroller {
+            height: 100%;
+        }
+        .slider-wrap .slider-ul {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .slider-wrap .item-inner-wrap {
+            position: relative;
+            margin: 0 auto;
+            width: 1190px;
+        }
+        .slider-wrap .apply-wrap2 {
+            position: absolute;
+            top: 95px;
+            left: 104px;
+            width: 377px;
+            height: 213px;
+            /*log还没写！！*/
+            background: url(/img/loan/dl-bg-log2.png) no-repeat;
+        }
+        .slider-wrap .apply-wrap {
+            position: absolute;
+            top: 95px;
+            left: 104px;
+            width: 377px;
+            height: 213px;
+            /*log还没写！！*/
+            background: url(/img/loan/dl-bg-log4.png) no-repeat;
+        }
+        .slider-wrap .slider-inner-wrap {
+            position: absolute;
+            left: 50%;
+            margin-left: -595px;
+            top: 0;
+            height: 1px;
+            width: 1190px;
+            z-index: 999;
+        }
+        .slider-wrap .arrow {
+            margin-top: 200px;
+            height: 39px;
+            width: 39px;
+            background: url(/img/loan/轮播箭头.png) no-repeat;cursor: pointer;
+        }
+        .slider-wrap .arrow-right {
+            background-position: -39px 0;
+        }
+        .slider-wrap .slider-cover {
+            width: 100%;
+            height: 100%;
+            background: url(img/loan/背景.png);
+        }
+        .slider-wrap .slider-li {
+            display: none;
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 100%;
+            background-position: center 0;
+        }
+
+        .feature-wrap {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .feature-wrap .feature-img {
+            margin: 0 auto;
+            height: 130px;
+            width: 919px;
+        }
+        .feature-wrap .blue {
+            color: #00c2c2;
+        }
+        .feature-wrap ul {
+            margin: 15px auto;
+            /* width: 994px; */
+            width: 1016px;
+        }
+        .feature-wrap ul li {
+            /* width: 25%; */
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .step-wrap {
+            margin-top: 65px;
+            height: 460px;
+            overflow: hidden;
+            background-color: #f4fbfb;
+        }
+        .step-wrap .step-inner-wrap {
+            margin: 100px auto 0;
+            width: 864px;
+            height: 236px;
+            background: url(/img/loan/流程.png) no-repeat;
+        }
+
+        .rate-wrap {
+            height: 522px;
+            overflow: hidden;
+            background: url(/img/loan/背景2.png) no-repeat;
+        }
+        .rate-wrap .rate-bg-wrap {
+            height: 100%;
+            overflow: hidden;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAABlBMVEUAAAAAYGCNKLMwAAAAAnRSTlMARAciSLEAAAAQSURBVAjXY2hgcGBQYBAAAAU4APGTncxnAAAAAElFTkSuQmCC);
+        }
+        .rate-wrap .rate-inner-wrap {
+            position: relative;
+            margin: 80px auto 0;
+            width: 787px;
+            height: 378px;
+            background: url(/img/loan/利率.png) no-repeat;
+        }
+        .rate-wrap .rate-inner-wrap span {
+            position: absolute;
+            line-height: 40px;
+            font-size: 22px;
+            color: #fff;
+        }
+        .rate-wrap .rate-inner-wrap .rate-item1 {
+            top: 128px;
+            left: 54px;
+        }
+        .rate-wrap .rate-inner-wrap .rate-item2 {
+            top: 206px;
+            left: 344px;
+        }
+        .rate-wrap .rate-inner-wrap .rate-item3 {
+            top: 231px;
+            left: 666px;
+        }
+
+        .bias {
+            background: url(/img/loan/背景.png);
+        }
+
+        .customer-wrap {
+            position: relative;
+            padding-top: 94px;
+            height: 532px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .customer-wrap .customer {
+            height: 100%;
+            background: #f4fbfb;
+        }
+        .customer-wrap .customer-inner-wrap {
+            position: relative;
+            top: 53px;
+            left: 50%;
+            margin-left: -1000px;
+            height: 460px;
+            background-position: 50% 0;
+        }
+        .customer-wrap [class^=item] {
+            position: absolute;
+            padding: 18px;
+            top: 0;
+            height: 154px;
+            width: 154px;
+            line-height: 1.5;
+            overflow: hidden;
+            background-color: #fff;
+            font-size: 13px;
+        }
+        .customer-wrap p {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .customer-wrap .mt {
+            margin-top: 15px;
+        }
+        .customer-wrap .text-right {
+            text-align: right;
+        }
+        .customer-wrap .title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .customer-wrap .item1 {
+            padding: 45px 20px;
+            height: 100px;
+            width: 150px;
+            left: 0;
+            color: #fff;
+            background-color: #d2f6e2;
+        }
+        .customer-wrap .slogen {
+            position: absolute;
+            padding-top: 90px;
+            padding-left: 20px;
+            left: 400px;
+            top: -70px;
+            height: 170px;
+            width: 170px;
+            background-color: #00c2c2;
+        }
+        .customer-wrap .slogen h3 {
+            margin-bottom: 20px;
+            font-size: 23px;
+            color: #fff;
+            font-weight: 700;
+        }
+        .customer-wrap .slogen p {
+            font-size: 13px;
+            color: #fff;
+        }
+        .customer-wrap .item2 {
+            left: 200px;
+        }
+        .customer-wrap .item3 {
+            padding: 45px 20px;
+            height: 100px;
+            width: 150px;
+            left: 200px;
+            color: #fff;
+            background-color: #d6f5f5;
+        }
+        .customer-wrap .item4 {
+            padding-left: 210px;
+            left: 400px;
+            width: 162px;
+            background: url(/img/loan/name3.jpg) no-repeat #fff;
+        }
+        .customer-wrap .item5 {
+            padding-left: 210px;
+            left: 600px;
+            width: 162px;
+            background: url(/img/loan/name4.jpg) no-repeat #fff;
+        }
+        .customer-wrap .item6 {
+            height: 354px;
+            left: 1000px;
+            background: url(/img/loan/name2.jpg) 0 200px no-repeat #fff;
+        }
+        .customer-wrap .item7 {
+            padding: 45px 20px;
+            height: 100px;
+            width: 150px;
+            left: 1200px;
+            color: #fff;
+            background-color: #ffaf25;
+        }
+        .customer-wrap .item8 {
+            left: 1400px;
+            padding-top: 218px;
+            height: 154px;
+            background: url(/img/loan/name.jpg) no-repeat #fff;
+        }
+        .customer-wrap .item10,.customer-wrap .item9 {
+            padding: 45px 20px;
+            height: 100px;
+            width: 150px;
+            color: #fff;
+        }
+        .customer-wrap .item9 {
+            left: 1600px;
+            background-color: #d2f6e2;
+        }
+        .customer-wrap .item10 {
+            left: 1800px;
+            background-color: #d6f5f5;
+        }
+        .customer-wrap .offset-top {
+            top: 200px;
+        }
+
+        .contact-wrap {
+            height: 311px;
+            /*客服支持*/
+            background: url(/img/loan/客服支持.png) 50% 0 no-repeat;
+        }
+
+        .join-btn {
+            position: fixed;
+            right: 0;
+            top: 305px;
+            z-index: 999;
+        }
+        .join-btn img {
+            width: 31px;
+            height: 87px;
+        }
+
+        .mybank-foot-wrap {
+             background-color: #f8f8f8
+         }
+        .mybank-foot-wrap img {
+            display: block
+        }
+
+        .mybank-foot-content {
+            width: 990px;
+            margin: 0 auto;
+            padding: 30px 0 32px;
+            font-size: 14px;
+            line-height: 1.5;
+            background: url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png)right -1px no-repeat
+        }
+        .mybank-foot-content a,.mybank-foot-content a:hover {
+            color: #333;
+            text-decoration: none
+        }
+        .mybank-foot-content:after,.mybank-foot-content:before {
+            display: table;
+            content: ""
+        }
+        .mybank-foot-content:after {
+            clear: both
+        }
+        .mybank-foot-left {
+            float: left;
+        }
+        .mybank-foot-right {
+            float: right;
+            text-align: right
+        }
+
+        .mybank-foot-logo {
+            width: 209px;
+            height: 26px
+        }
+
+        .mybank-foot-intro {
+            padding-top: 12px
+        }
+
+        .mybank-foot-copyright {
+            padding-top: 13px
+        }
+
+        .mybank-foot-link {
+            padding-top: 20px
+        }
+
+        @media screen and (max-width:1190px) {
+            .login-wrap,.slider-wrap .slider-inner-wrap {
+                margin-left: -495px;
+                width: 990px;
+            }
+        }
+    </style>
+    <script charset="utf-8" crossorigin="crossorigin" src="https://gw.alipayobjects.com/as/g/component/tracert/3.1.2/index.js"></script>
+</head>
+<body data-aspm="b15346"><script>
+    with(document)with(body)with(insertBefore(createElement("script"),firstChild))setAttribute("exparams","category=&userid=&aplus&ali_apache_track=&yunid=&asid=AABipd1eehQ5bwWDnTY=",id="tb-beacon-aplus",src=(location>"https"?"//s":"//a")+".tbcdn.cn/s/aplus_v2.js")
+</script>
+
+<!-- 页头 -->
+<div class="header" data-aspm="c37338" data-aspm-expo>
+    <div class="header-inner-wrap fn-clear">
+        <a th:href="@{/loan/main}" data-aspm-click="d75308">
+            <img class="fn-left logo" th:src="@{/img/loan/log6.png}">
+        </a>
+        <div class="fn-right others fn-clear">
+            <a href="" data-aspm-click="d75309" target="_blank">帮助大厅</a>
+            <a href="##"><img class="phone fn-left" src='//img.alicdn.com/tps/TB16.HXLXXXXXcxXVXXXXXXXXXX-28-32.png' data-aspm-click="d75310">95188-3</a>
+        </div>
+    </div>
+</div>
+<!-- 登陆框 -->
+<div class="login-wrap" data-aspm="c37338" data-aspm-expo>
+    <div class="login-inner-wrap fn-clear">
+        <img class="fn-left login-logo" th:src="@{/img/loan/lg-bg.png}">
+        <ul>
+            <li><a th:href="@{/loan/tologin}" target="_blank" data-aspm-click="d75312" data-aspm-param="seed=mybank_yuhang_rukoualipaylogin" id="url-changer"><span class="login-hover high"></span><span class="login-title">我是小母牛在线会员</span><span class="login-tip">用小母牛在线账户登录</span></a></li>
+            <li class="last"><a href="" target="_blank" data-aspm-click="d75313" data-aspm-param="seed=mybank_yuhang_rukoutblogin"><span class="login-hover high"></span><span class="login-title">我绑定了微信</span><span class="login-tip">用微信登录</span></a></li>
+         </ul>
+    </div>
+    <div class="black-bg"></div>
+</div>
+<!-- 幻灯 -->
+<div class="slider-wrap fn-clear" id="J_carousel">
+    <div class="scroller">
+        <ul class="slider-ul ui-switchable-content" data-role="content">
+            <li class="slider-li slider-1 ui-switchable-panel">
+                <div class="slider-cover">
+                    <!-- 飞机贷幻灯-->
+                    <div class="item-inner-wrap fn-clear">
+                        <div class="apply-wrap">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="slider-li slider-2 ui-switchable-panel">
+                <div class="slider-cover">
+                    <!-- 梦想贷幻灯-->
+                    <div class="item-inner-wrap fn-clear">
+                        <div class="apply-wrap2">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- 幻灯箭头 -->
+    <div class="slider-inner-wrap">
+        <div class="arrow-left arrow fn-left ui-switchable-prev-btn" data-role="prev" id="arrow-left"></div>
+        <div class="arrow-right arrow fn-right ui-switchable-next-btn" data-role="next" id="arrow-right"></div>
+    </div>
+</div>
+<!-- 特性 -->
+<div class="feature-wrap">
+    <img src="https://img.alicdn.com/tps/TB1RYwXKVXXXXc7XFXXXXXXXXXX-1838-260.png" class="feature-img" alt="">
+    <ul class="fn-clear">
+        <li class="fn-left" style="padding-left:32px;">纯信用，<span class="blue">0</span> 抵押，<span class="blue">0</span> 担保</li>
+        <li class="fn-left" style="padding-left:99px;"><span class="blue">30</span> 秒在线申请，最快 <span class="blue">3</span> 分钟到账</li>
+
+        <li class="fn-left" style="padding-left:84px;padding-right: 70px;">可随时还款，最长可贷 <span class="blue">24</span> 个月</li>
+
+        <li class="fn-left">再小的需求，我们也认真对待</li>
+    </ul>
+</div>
+<!-- 步骤 -->
+<div class="step-wrap"  data-aspm="c37339" data-aspm-expo>
+    <div class="step-inner-wrap"></div>
+</div>
+<!-- 利率 -->
+<div class="rate-wrap">
+    <div class="rate-bg-wrap">
+        <div class="rate-inner-wrap">
+
+            <span class="rate-item1">0.047%</span>
+            <span class="rate-item2">0.038%</span>
+            <span class="rate-item3">0.016%</span>
+
+        </div>
+    </div>
+</div>
+<!-- 客户声音 -->
+<div class="customer-wrap" data-aspm="c37340" data-aspm-expo>
+    <div class="customer">
+        <div class="customer-inner-wrap clearfix">
+            <div class="slogen">
+                <h3>听他们的声音</h3>
+                <p>我们的每一次进步，</p>
+                <p>都源自你的帮助。</p>
+            </div>
+            <div class="item1 bias">“<br>再小的梦想，也值得被尊重，再小的需求，也值得被认真对待。<br><p class="text-right">”</p></div>
+            <div class="item2">
+                <p class="title">任小伙</p>
+                <p>90后大学生淘宝掌柜</p>
+                <p class="mt">跟朋友创业开了淘宝店，没啥本钱，一直都用着小母牛普惠的创业贷款在经营，每次需要的时候点下鼠标瞬间到账，随借随还很方便&#160;</p>
+            </div>
+            <div class="item3 bias offset-top">
+                “<br>再小的梦想，也值得被尊重，再小的需求，也值得被认真对待。<br><p class="text-right">”</p></div>
+            <div class="item4 offset-top horizontal">
+                <p class="title">王女士</p>
+                <p>湖南某企业主</p>
+                <p class="mt">在小母牛普惠，哪怕是再小额的贷款，也能获得优质及时的服务。小母牛普惠真是咱小微企业自己的银行啊</p>
+            </div>
+            <div class="item5 horizontal">
+                <p class="title">张先生</p>
+                <p>河北返乡创业青年</p>
+                <p class="mt">这几年城市经济不景气，筹划着回乡建个养猪场。在村淘合伙人的推荐下申请了梦想贷，不需担保就借到了5万元，对回乡创业的我而言帮助很大</p>
+            </div>
+            <div class="item6 vertical">
+                <p class="title">姜小姐</p>
+                <p>杭州某私房菜馆老板</p>
+                <p class="mt">一直梦想开家自己的私房菜馆，对刚毕业的我而言几万元也是一笔大数字。在小母牛普惠没有用任何抵押，我竟然也贷到了第一笔创业资金</p>
+            </div>
+            <div class="item7 offset-top">
+                “<br>再小的梦想，也值得被尊重，再小的需求，也值得被认真对待。<br><p class="text-right">”</p>
+            </div>
+            <div class="item8 vertical">
+                <p class="title">廖先生</p>
+                <p>某网站站长</p>
+                <p class="mt">之前去借钱都因借款额度小，贷款不成，还得看脸色，后来看到小母牛普惠1元起贷的消息，就试了一下，竟然不到5分钟就获贷了，点赞</p>
+            </div>
+            <div class="item9 bias offset-top">
+                “<br>再小的梦想，也值得被尊重，再小的需求，也值得被认真对待。<br><p class="text-right">”</p>
+            </div>
+            <div class="item10 bias">
+                “<br>再小的梦想，也值得被尊重，再小的需求，也值得被认真对待。<br><p class="text-right">”</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 客服支持 -->
+<div class="contact-wrap"></div>
+<!-- #* mybank.cn统一尾 *# -->
+<div id="myft" class="mybank-foot-wrap">
+    <div class="mybank-foot-content">
+        <div class="mybank-foot-left">
+            <img width="209" th:src="@{/img/loan/log6.png}" class="mybank-foot-logo">
+        </div>
+        <div class="mybank-foot-right">
+            <div class="mybank-foot-intro"></div>
+            <p class="mybank-foot-copyright">
+                <a href="http://beian.miit.gov.cn" target="_blank">赣ICP备15020811号 </a> Copyright © 2015-至今 小母牛梦想贷
+            </p>
+        </div>
+    </div>
+</div>
+<!-- #* mybank.cn统一尾 *# -->
+</div>
+<!--自动轮播-->
+<script type="text/javascript">
+    (function(){
+        //自动轮播
+        var num = 0;
+        function ImgAuto(adress){
+            //获取li数组元素；
+            var liAnchors = document.getElementsByClassName("slider-li");
+            if (adress == "right") {
+                num++;
+                if (num >= liAnchors) {
+                    //当num大于等于图片数组长度时，归零；
+                    num = 0;
+                };
+            } else if (adress == "left"){
+                num--;
+                if(num < 0){
+                    num = liAnchors.length-1;
+                }
+            }
+            for(var i = 0;i < liAnchors.length;i++){
+                liAnchors[i].style.display = 'none';
+            }
+            if(num >= liAnchors.length) num=0;
+            liAnchors[num].style.display = 'block';
+        }
+
+        //每隔10秒执行一次
+        var move = setInterval(function(){
+            ImgAuto("right");
+        },10000);
+
+        //点击轮播左侧按钮
+        var arrowLeft = document.getElementById('arrow-left');
+        arrowLeft.onclick = function(){
+            ImgAuto('left')
+        }
+        //点击轮播右侧按钮
+        var arrowRight = document.getElementById('arrow-right');
+        arrowRight.onclick = function(){
+            ImgAuto('right')
+        }
+
+        //获取放图片的整个盒子；
+        var mouse = document.getElementById("J_carousel");
+
+        //鼠标移上去的事件（停止自动轮播）
+        mouse.onmouseover = function(){
+            clearInterval(move);
+        }
+        //鼠标移开事件（恢复自动轮播）
+        mouse.onmouseout = function(){
+            move = setInterval(function(){
+                ImgAuto("right")
+            },10000);
+        }
+        ImgAuto();
+    })();
+</script>
+</body>
+</html>
