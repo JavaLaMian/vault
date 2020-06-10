@@ -7,9 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/XMN")
 public class backstageController {
+    //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv){
-        mv.setViewName("backstage/main");
+        mv.setViewName("backstage/Bindex");
         return mv;
     }
     @RequestMapping("/text")
@@ -17,5 +18,4 @@ public class backstageController {
         mv.setViewName("backstage/text");
         return mv;
     }
-
 }
