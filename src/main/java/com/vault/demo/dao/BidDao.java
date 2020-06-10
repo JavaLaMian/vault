@@ -11,8 +11,7 @@ import java.util.List;
 @Transactional
 public interface BidDao {
     List<Bid> allList();
-    void deletById(@Param("b") Bid bid);
-    void updateById(@Param("b") Bid bid);
-    void insert(@Param("b") Bid bid);
-
+    void deleteById(Bid bid);
+    void updateById(Bid bid);
+    void insert(Bid bid);
 }

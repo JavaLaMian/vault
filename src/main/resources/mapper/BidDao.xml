@@ -10,20 +10,15 @@
     </select>
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
-        delete from bid where bId = #{b.bId}
+        delete from bid where bId = #{bId}
     </delete>
 
     <update id="updateById" parameterType="com.vault.demo.bean.Bid">
-        update bid set
-         bidName = #{b.bidName},bidType = #{b.bidType},rewardRate = #{b.rewardRate},addLimit = #{b.addLimit},singelLimit = #{b.singelLimit},sumLimit = #{b.sumLimit},startLimit = #{b.startLimit}
-         ,transLine = #{transLine},clockLine = #{b.clockLine},deposit = #{b.deposit},dealCount = #{b.dealCount},question = #{b.question},answer = #{b.answer},transfer = #{b.transfer}
-         ,aotuInverst = #{b.aotuInverst},exprie = #{b.exprie},bidStatus = #{b.bidStatus},bidTime = #{b.bidTime},maxTime = #{b.maxTime}
-         where aId = 1
+        update bid set bidName = #{bidName},bidType = #{bidType},rewardRate = #{rewardRate},rate = #{rate},addLimit = #{addLimit},singelLimit = #{singelLimit},sumLimit = #{sumLimit},startLimit = #{startLimit},transLine = #{transLine},clockLine = #{clockLine},deposit = #{deposit},dealCount = #{dealCount},question = #{question},answer = #{answer},transfer = #{transfer},aotuInverst = #{aotuInverst},exprie = #{exprie},bidStatus = #{bidStatus},bidTime = #{bidTime},maxTime = #{maxTime} where bId = #{bId}
     </update>
 
-    <insert id="save" parameterType="com.vault.demo.bean.Bid">
-        insert into bid values(null,#{b.bidName},#{b.bidType},#{b.rewardRate},#{b.addLimit},#{b.singelLimit},#{b.sumLimit},#{b.startLimit},#{transLine}
-        ,#{b.clockLine},#{b.deposit},#{b.dealCount},#{b.question},#{b.answer},#{b.transfer},#{b.aotuInverst},#{b.exprie},#{b.bidStatus},#{b.bidTime},#{b.maxTime})
+    <insert id="insert" parameterType="com.vault.demo.bean.Bid">
+        insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
     </insert>
 
 </mapper>
