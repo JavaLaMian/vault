@@ -18,4 +18,16 @@ public class backstageController {
         mv.setViewName("backstage/text");
         return mv;
     }
+    //个人信息页面
+    @RequestMapping("/profile")
+    public ModelAndView profile(ModelAndView mv){
+        mv.setViewName("backstage/Bprofile");
+        return mv;
+    }
+    //修改密码页面
+    @RequestMapping("/updatePwd")
+    public ModelAndView updatePwd(ModelAndView mv){
+        mv.setViewName("backstage/BupdatePwd");
+        return mv;
+    }
 }
