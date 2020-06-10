@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>首页 - bootstrap中文后台管理系统模板</title>
+<title>小母牛理财后台管理</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 
 
@@ -21,64 +21,39 @@
       
       <!-- logo -->
       <div id="logo" class="sidebar-header">
-        <a href="index.html"><img th:src="@{/images/logo-sidebar.png}" title="" alt="" /></a>
+        <a th:href="@{/XMN/backstage}"><img th:src="@{/images/logo-sidebar.png}" title="" alt="" /></a>
       </div>
       <div class="layout-sidebar-scroll"> 
         
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
-            <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+            <li class="nav-item active"> <a th:href="@{/XMN/backstage}"><i class="mdi mdi-home"></i> 后台首页</a> </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> UI 元素</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 用户管理</a>
               <ul class="nav nav-subnav">
-                <li> <a href="ui_buttons.html">按钮</a> </li>
-                <li> <a href="ui_cards.html">卡片</a> </li>
-                <li> <a href="ui_grid.html">格栅</a> </li>
-                <li> <a href="ui_icons.html">图标</a> </li>
-                <li> <a href="ui_tables.html">表格</a> </li>
-                <li> <a href="ui_modals.html">模态框</a> </li>
-                <li> <a href="ui_tooltips_popover.html">提示 / 弹出框</a> </li>
-                <li> <a href="ui_alerts.html">警告框</a> </li>
-                <li> <a href="ui_pagination.html">分页</a> </li>
-                <li> <a href="ui_progress.html">进度条</a> </li>
-                <li> <a href="ui_tabs.html">标签页</a> </li>
-                <li> <a href="ui_typography.html">排版</a> </li>
-                <li> <a href="ui_step.html">步骤</a> </li>
-                <li> <a href="ui_other.html">其他</a> </li>
+                <li> <a href="ui_buttons.html">今日用户</a> </li>
+                <li> <a href="ui_buttons.html">用户分析</a> </li>
+                <li> <a href="ui_buttons.html">用户日志</a> </li>
+                <li> <a href="ui_buttons.html">用户信用</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 表单</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 小母牛理财</a>
               <ul class="nav nav-subnav">
-                <li> <a href="forms_elements.html">基本元素</a> </li>
-                <li> <a href="forms_radio.html">单选框</a> </li>
-                <li> <a href="forms_checkbox.html">复选框</a> </li>
-                <li> <a href="forms_switch.html">开关</a> </li>
+                <li> <a href="forms_elements.html">理财订单</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 示例页面</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 小母牛贷款</a>
               <ul class="nav nav-subnav">
-                <li> <a href="pages_doc.html">文档列表</a> </li>
-                <li> <a href="pages_gallery.html">图库列表</a> </li>
-                <li> <a href="pages_config.html">网站配置</a> </li>
-                <li> <a href="pages_rabc.html">设置权限</a> </li>
-                <li> <a href="pages_add_doc.html">新增文档</a> </li>
-                <li> <a href="pages_guide.html">表单向导</a> </li>
-                <li> <a href="pages_login.html">登录页面</a> </li>
-                <li> <a href="pages_error.html">错误页面</a> </li>
+                <li> <a href="pages_doc.html">贷款订单</a> </li>
+
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i> JS 插件</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i>管理员信息</a>
               <ul class="nav nav-subnav">
-                <li> <a href="js_datepicker.html">日期选取器</a> </li>
-                <li> <a href="js_sliders.html">滑块</a> </li>
-                <li> <a href="js_colorpicker.html">选色器</a> </li>
-                <li> <a href="js_chartjs.html">Chart.js</a> </li>
-                <li> <a href="js_jconfirm.html">对话框</a> </li>
-                <li> <a href="js_tags_input.html">标签插件</a> </li>
-                <li> <a href="js_notify.html">通知消息</a> </li>
+                <li> <a href="js_datepicker.html">管理员信息</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
