@@ -2,7 +2,6 @@ package com.vault.demo.controller.loan;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequestMapping("loan")
 @Controller
@@ -24,11 +23,19 @@ public class loanController {
 
     //登录
     @RequestMapping("/login")
-    @ResponseBody
     public String login(String account ,String password){
-        System.out.println("账号"+account+password);
+        System.out.println("账号"+account+"密码:"+password);
 
-        return "账号"+account+password;
+        return "redirect:/loan/main2";
     }
 
+    @RequestMapping("/main2")
+    public String main2() {
+        return "loan/loanHead";
+    }
+
+    @RequestMapping("/toUselog")
+    public String toUserLogin(){
+        return "loan/login";
+    }
 }
