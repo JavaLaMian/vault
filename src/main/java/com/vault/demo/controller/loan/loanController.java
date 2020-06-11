@@ -81,9 +81,20 @@ public class loanController {
         }
     }
 
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpSession session){
+        session.removeAttribute("user");
+
+        return "redirect:/loan/main";
+    }
+
     //借贷中心
     @RequestMapping("/main2")
-    public String main2() {
+    public String main2(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanJie";
     }
     @RequestMapping("/toloanJie")
@@ -101,5 +112,15 @@ public class loanController {
     @RequestMapping("/toloanPersonage")
     public String toloanPersonage() {
         return "loan/loanPersonage";
+    }
+
+    public Boolean checkSessionIsEmpty(HttpSession session){
+        Userimf userimf = (Userimf)session.getAttribute("user");
+
+        if (userimf == null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
