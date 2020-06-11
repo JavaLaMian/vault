@@ -111,12 +111,5 @@ public class UserController {
     public int updPwd(String email,String pwd){
         return service.updetaPwd(email,pwd);
     }
-    @RequestMapping("/toAO")
-    public String toAO(){
-        return "user/AccountOverview";
-    }
-    @RequestMapping("/toAS")
-    public String toAS(){
-        return "user/AccountSafe";
-    }
+
 }
