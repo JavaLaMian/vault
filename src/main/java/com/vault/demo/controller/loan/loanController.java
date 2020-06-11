@@ -60,6 +60,10 @@ public class loanController {
     public String main2() {
         return "loan/loanJie";
     }
+    @RequestMapping("/toloanJie")
+    public String toloanJie() {
+        return "loan/loanJieApply";
+    }
     @RequestMapping("/toloanHuan")
     public String toloanHuan() {
         return "loan/loanHuan";
