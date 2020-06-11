@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>修改密码 - bootstrap中文后台管理系统模板</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
-
-
 <meta name="author" content="yinqi">
   <!--引入相应的bootstrap.JS支持文件-->
   <div th:replace="/backstage/Brepetition::backstageJS"></div>
+  <div th:replace="/backstage/Brepetition::javascript"></div>
 </head>
   
 <body data-logobg="color_8" data-sidebarbg="color_8">
@@ -28,7 +27,7 @@
             <div class="card">
               <div class="card-body">
                 
-                <form method="post" action="#!" class="site-form">
+                <form method="post" action="@{/admin/repwd}" class="site-form">
                   <div class="form-group">
                     <label for="old-password">旧密码</label>
                     <input type="password" class="form-control" name="oldpwd" id="old-password" placeholder="输入账号的原登录密码">
@@ -41,7 +40,7 @@
                     <label for="confirm-password">确认新密码</label>
                     <input type="password" class="form-control" name="confirmpwd" id="confirm-password" placeholder="请输入正确的邮箱地址">
                   </div>
-                  <button type="submit" class="btn btn-primary">修改密码</button>
+                  <button id="basic_button" class="btn btn-block btn-primary" type="button">修改密码</button>
                 </form>
        
               </div>
@@ -58,6 +57,47 @@
 </div>
 
 <!--引入相应的javascript支持文件-->
-<div th:replace="/backstage/Brepetition::javascript"></div>
+<script type="text/javascript">
+    $('#basic_button').click(function () {
+        var oldpwd=$('#old-password').val();
+        var newpwd=$('#new-password').val();
+        var confirmpwd=$('#confirm-password').val();
+        var aid = '[[${session.admin.aid}]]';
+        $.ajax({
+            url: '/admin/checkold',
+            data: {
+                oldpwd: oldpwd,
+                aid: aid
+            },
+            cache: false,//false是不缓存，true为缓存
+            async: true,//true为异步，false为同步
+            success: function (obj) {
+                if(obj=='true') {
+
+                }
+            },
+            complete: function () {
+                //请求结束时
+            },
+            error: function () {
+                $.confirm({
+                    title: '错误提示',
+                    content: '服务器请求失败',
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: '重试',
+                            btnClass: 'btn-green',
+                        },
+                        close: {
+                            text: '关闭'
+                        }
+                    }
+                });
+            }
+        })
+    })
+</script>
 </body>
 </html>

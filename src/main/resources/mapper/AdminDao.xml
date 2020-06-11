@@ -8,4 +8,14 @@
           select * from admin where account=#{account} and pwd=#{pwd}
         ]]>
     </select>
+    <select id="getAdminById" resultType="com.vault.demo.bean.Admin">
+        <![CDATA[
+          select * from admin where aid=#{aid}
+        ]]>
+    </select>
+    <update id="setPwd" >
+        <![CDATA[
+          UPDATE admin set pwd=#{newpwd} where aid=#{aid}
+        ]]>
+    </update>
 </mapper>
