@@ -1,6 +1,6 @@
 package com.vault.demo.controller.user;
 
-import com.vault.demo.bean.user.userimf;
+import com.vault.demo.bean.userimf;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
@@ -26,5 +26,13 @@ public class UserController {
     public String getMa(String email,String type) throws EmailException {
         String ma = service.getEmailMa(email,type);
         return ma;
+    }
+    @RequestMapping("/toAO")
+    public String toAO(){
+        return "user/AccountOverview";
+    }
+    @RequestMapping("/toAS")
+    public String toAS(){
+        return "user/AccountSafe";
     }
 }
