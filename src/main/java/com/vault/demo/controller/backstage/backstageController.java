@@ -38,4 +38,28 @@ public class backstageController {
         mv.setViewName("backstage/BupdatePwd");
         return mv;
     }
+    //跳往404页面
+    @RequestMapping("/B404")
+    public ModelAndView B404(ModelAndView mv){
+        mv.setViewName("backstage/404");
+        return mv;
+    }
+    //理财订单页面
+    @RequestMapping("/LiCaiDOC")
+    public ModelAndView LiCaiDOC(ModelAndView mv){
+        mv.setViewName("backstage/Blicaidoc");
+        return mv;
+    }
+    //投标类别页面
+    @RequestMapping("/BidList")
+    public ModelAndView BidList(ModelAndView mv){
+        mv.setViewName("backstage/BidList");
+        return mv;
+    }
+    //去往投标新增页面
+    @RequestMapping("/Badd_Bid")
+    public ModelAndView Badd_Bid(ModelAndView mv){
+        mv.setViewName("backstage/Badd_Bid");
+        return mv;
+    }
 }

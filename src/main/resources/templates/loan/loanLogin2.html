@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
@@ -12,6 +11,9 @@
     <link href="https://a.alipayobjects.com" rel="dns-prefetch" />
     <link href="https://my.alipay.com" rel="dns-prefetch" />
     <link href="https://cashier.alipay.com" rel="dns-prefetch" />
+
+    <script th:src="@{/js/jquery-1.12.4.js}"></script>
+
     <!-- FD:106:alipay/tracker/iconfont.vm:START --><style>
     @font-face {
         font-family: "rei";
@@ -29,235 +31,12 @@
         -webkit-font-smoothing: antialiased;
     }
 </style>
-    <!-- FD:106:alipay/tracker/iconfont.vm:END -->
-    <!-- FD:106:alipay/tracker/monitor.vm:START --><!-- FD:106:alipay/tracker/sai_seer.vm:START --><script type="text/javascript">
-
-    !function(n){function o(r){if(t[r])return t[r].exports;var i=t[r]={exports:{},id:r,loaded:!1};return n[r].call(i.exports,i,i.exports,o),i.loaded=!0,i.exports}var t={};return o.m=n,o.c=t,o.p="",o(0)}([function(n,o){"use strict";window.Sai={log:function(){},error:function(){},lost:function(){},off:function(){},on:function(){},_DATAS:[],_EVENTS:[]}}]);
-
-</script>
-    <!-- FD:106:alipay/tracker/sai_seer.vm:END -->
-    <!-- FD:106:alipay/tracker/monitor.vm:END -->
-    <!-- FD:106:alipay/tracker/seajs.vm:START -->
-
-
-
-
-
-
-    <!-- monitor 防错代码 -->
-    <script>
-        (function(win){
-            if(!win.monitor){win.monitor = {};}
-
-            var METHODS = ["lost", "log", "error", "on", "off"];
-
-            for(var i=0,method,l=METHODS.length; i<l; i++){
-                method = METHODS[i];
-                if("function" !== typeof win.monitor[method]){
-                    win.monitor[method] = function(){};
-                }
-            }
-        })(window);
-    </script>
-
-    <!-- seajs以及插件 -->
-    <script charset="utf-8" crossorigin="anonymous" id="seajsnode" onerror="window.monitor && monitor.lost && monitor.lost(this.src)" src="https://gw.alipayobjects.com/a/??seajs/seajs/2.2.3/sea.js,seajs/seajs-combo/1.0.0/seajs-combo.js,seajs/seajs-style/1.0.2/seajs-style.js,seajs/seajs-log/1.0.0/seajs-log.js,jquery/jquery/1.7.2/jquery.js,gallery/json/1.0.3/json.js,alipay-request/3.0.8/index.js"></script>
-
-    <!-- seajs config 配置 -->
-    <script>
-        seajs.config({
-            alias: {
-                '$': 'jquery/jquery/1.7.2/jquery',
-                '$-debug': 'jquery/jquery/1.7.2/jquery',
-                'jquery': 'jquery/jquery/1.7.2/jquery',
-                'jquery-debug': 'jquery/jquery/1.7.2/jquery-debug',
-                'seajs-debug': 'seajs/seajs-debug/1.1.1/seajs-debug'
-            },
-            crossorigin: function(uri){
-
-                function typeOf(type){
-                    return function(object){
-                        return Object.prototype.toString.call(object) === '[object ' + type + ']';
-                    }
-                }
-                var isString = typeOf("String");
-                var isRegExp = typeOf("RegExp");
-
-                var whitelist = [];
-
-                whitelist.push('https://a.alipayobjects.com/');
-
-                for (var i=0, rule, l=whitelist.length; i<l; i++){
-                    rule = whitelist[i];
-                    if (
-                        (isString(rule) && uri.indexOf(rule) === 0) ||
-                        (isRegExp(rule) && rule.test(uri))
-                    ) {
-
-                        return "anonymous";
-                    }
-                }
-            },
-            vars: {
-                locale: 'zh-cn'
-            }
-        });
-    </script>
-
-    <!-- 兼容原有的 plugin-i18n 写法 -->
-    <!-- https://github.com/seajs/seajs/blob/1.3.1/src/plugins/plugin-i18n.js -->
-    <script>
-        seajs.pluginSDK = seajs.pluginSDK || {
-            Module: {
-                _resolve: function() {}
-            },
-            config: {
-                locale: ''
-            }
-        };
-        // 干掉载入 plugin-i18n.js，避免 404
-        seajs.config({
-            map: [
-                [/^.*\/seajs\/plugin-i18n\.js$/, ''],
-                [/^.*\i18n!lang\.js$/, '']
-            ]
-        });
-    </script>
-
-    <!-- 路由旧 ID，解决 seajs.use('select/x.x.x/select') 的历史遗留问题 -->
-    <script>
-        (function(){
-
-            var JQ = '/jquery/1.7.2/jquery.js';
-            seajs.cache['https://gw.alipayobjects.com/a/gallery' + JQ] = seajs.cache['https://gw.alipayobjects.com/a/jquery' + JQ];
-
-            var GALLERY_MODULES = [
-                'async','backbone','coffee','cookie','es5-safe','handlebars','iscroll',
-                'jasmine','jasmine-jquery','jquery','jquery-color','json','keymaster',
-                'labjs','less','marked','moment','mustache','querystring','raphael',
-                'socketio','store','swfobject','underscore','zepto','ztree'
-            ];
-
-            var ARALE_MODULES = [
-                'autocomplete','base','calendar','class','cookie','dialog','easing',
-                'events','iframe-uploader','iframe-shim','messenger','overlay','popup',
-                'position','select','switchable','tip','validator','widget'
-            ];
-
-            var util = {};
-            util.indexOf = Array.prototype.indexOf ?
-                function(arr, item) {
-                    return arr.indexOf(item);
-                } :
-                function(arr, item) {
-                    for (var i = 0; i < arr.length; i++) {
-                        if (arr[i] === item) {
-                            return i;
-                        }
-                    }
-                    return -1;
-                };
-            util.map = Array.prototype.map ?
-                function(arr, fn) {
-                    return arr.map(fn);
-                } :
-                function(arr, fn) {
-                    var ret = [];
-                    for (var i = 0; i < arr.length; i++) {
-                        ret.push(fn(arr[i], i, arr));
-                    }
-                    return ret;
-                };
-
-            function contains(arr, item) {
-                return util.indexOf(arr, item) > -1
-            }
-
-            function map(id) {
-                id = id.replace('#', '');
-
-                var parts = id.split('/');
-                var len = parts.length;
-                var root, name;
-
-                // id = root/name/x.y.z/name
-                if (len === 4) {
-                    root = parts[0];
-                    name = parts[1];
-
-                    // gallery 或 alipay 开头的没有问题
-                    if (root === 'alipay' || root === 'gallery') {
-                        return id;
-                    }
-
-                    // arale 开头的
-                    if (root === 'arale') {
-                        // 处理 arale/handlebars 的情况
-                        if (contains(GALLERY_MODULES, name)) {
-                            return id.replace('arale/', 'gallery/');
-                        } else {
-                            return id;
-                        }
-                    }
-                }
-                // id = name/x.y.z/name
-                else if (len === 3) {
-                    name = parts[0]
-
-                    // 开头在 GALLERY_MODULES 或 ARALE_MODULES
-                    if (contains(GALLERY_MODULES, name)) {
-                        return 'gallery/' + id;
-                    } else if (contains(ARALE_MODULES, name)) {
-                        return 'arale/' + id;
-                    }
-                }
-
-                return id;
-            }
-
-            var _use = seajs.use;
-
-            seajs.use = function(ids, callback) {
-                if (typeof ids === 'string') {
-                    ids = [ids];
-                }
-
-                ids = util.map(ids, function(id) {
-                    return map(id);
-                });
-
-                return _use(ids, callback);
-            }
-
-        })();
-    </script>
-    <!-- FD:106:alipay/tracker/seajs.vm:END -->
-    <!-- FD:106:alipay/tracker/tracker_time.vm:START --><!-- FD:106:alipay/tracker/tracker_time.vm:784:tracker_time.schema:全站 tracker 开关:START --><script charset="utf-8" crossorigin="crossorigin" src="https://a.alipayobjects.com/static/ar/alipay.light.base-1.8.js"></script>
-
-
-    <script type="text/javascript">
-        if (!window._to) {
-            window._to = { start: new Date() };
-        }
-    </script>
-
-    <script charset="utf-8" src="https://as.alipayobjects.com/??g/component/tracker/2.3.2/index.js,g/component/smartracker/2.0.2/index.js"></script>
-    <script charset="utf-8" src="https://a.alipayobjects.com/g/utiljs/rd/1.0.2/rd.js"></script>
-
-
 
     <script>
         window.Tracker && Tracker.start &&  Tracker.start();
     </script>
 
 
-
-
-
-
-
-    <!-- FD:106:alipay/tracker/tracker_time.vm:784:tracker_time.schema:全站 tracker 开关:END -->
-    <!-- FD:106:alipay/tracker/tracker_time.vm:END -->
     <link charset="utf-8" rel="stylesheet" type="text/css" href="https://gw.alipayobjects.com/a/authweb/app_views_mybankpaas_index_html_css-414e6ffdb447e670db11.css" /></head>
 <body>
 
@@ -271,46 +50,10 @@
         document.documentElement && document.documentElement.focus && document.documentElement.focus();
     </script>
 
-    <!-- FD:alipay-tracker:alipay/tracker/um.vm:START --><!-- FD:alipay-tracker:alipay/tracker/um.vm:um.schema:START -->
-
-
-
-
-
-
-
-
-
-
-
-
     <style type="text/css">
         .umidWrapper{display:block; height:1px;}
     </style>
     <span style="display:inline;width:1px;height:1px;overflow:hidden">
-
-
-<script type="text/javascript">
-var cimg = new Image(1,1);
-cimg.onload = function() {
-    cimg.onload = null;
-};
-cimg.src = "https://ynuf.alipay.com/service/clear.png?xt=ccf5c42f80527776406c6c2848744673&xa=000000000000782C3C301F020217";
-
-
-</script>
-
-<script type="text/javascript" src="https://assets.alicdn.com/g/security/umscript/3.0.11/um.js" charset="utf-8"></script>
-
-<script type="text/javascript">
-um.init({
-    enabled: 1, ratio: 1, timeout: 3000,
-    token: 'ccf5c42f80527776406c6c2848744673', timestamp: '0545746251595D45564D637F',
-    serviceUrl: 'https://ynuf.alipay.com/service/um.json',
-    appName:'000000000000782C3C301F020217'
-
-});
-</script>
 </span>
 
     <!-- FD:alipay-tracker:alipay/tracker/um.vm:um.schema:END -->
@@ -318,10 +61,10 @@ um.init({
 
     <div class="login-main false ">
         <div class="login-title">
-            <span>小母牛普惠欢迎你</span>
+            <span id="titleSpan">小母牛普惠欢迎你</span>
         </div>
         <div class="login-cnt">
-            <form autocomplete="off" id="login" action="/loan/login" method="POST" target="_top">
+            <form autocomplete="off" id="login" action="/loan/login" method="POST" target="_top" onsubmit="return toLogin()">
 
                 <div class="form-error form-item fn-hide" row>
 
@@ -329,71 +72,76 @@ um.init({
 
                 <div class="form-item form-item-major" row>
                     <i class="icon">&#xe604;</i>
-                    <input placeholder="小母牛在线账户登录" name="account" type="text"/>
+                    <input id="accountInput" placeholder="请输入邮箱或小母牛账号" name="account" type="text"/>
                 </div>
 
                 <div class="form-item J-password-item form-item-major" row>
                     <i class="icon">&#xe64c;</i>
-                    <input name="password" type="password" style="" />
+                    <input id="pwdInput" name="password" type="password" style="" />
                 </div>
                 <div class="form-explain">
                     <a href="https://accounts.alipay.com/console/querypwd/logonIdInputReset.htm?site=1&page_type=fullpage&scene_code=resetQueryPwd" target="_blank">忘记登录密码</a>
                 </div>
                 <div class="form-item form-item-submit" row>
                     <input type="submit" value="登 录" btn>
-                    <a href="" target="_blank">注册</a>
+                    <a th:href="@{/user/tologin(zc=zc)}" target="_blank">注册</a>
                 </div>
             </form>
         </div>
     </div>
 
+<script type="text/javascript">//登录验证
+    // <span style="text-align: center;color: red;font-size: 12px">请输入账号</span>
+    function toLogin() {
+        if (document.getElementById("accountInput").value == '' || document.getElementById("accountInput").value == null){
+            document.getElementById("titleSpan").innerHTML = "请输入账号";
+            document.getElementById("titleSpan").style.color = "red";
+
+            console.log("账号不通过");
+
+            return false;
+        }
+
+        if (document.getElementById("pwdInput").value == '' || document.getElementById("pwdInput").value == null){
+            document.getElementById("titleSpan").innerHTML = "请输入密码";
+            document.getElementById("titleSpan").style.color = "red";
+
+            console.log("密码不通过");
+
+            return false;
+        }
+
+        var loginCheck = 0;
+
+        $.ajax({
+            url:"http://localhost:8080/loan/checkUserAccountAndPwd"
+            ,data:{account:document.getElementById("accountInput").value,password:document.getElementById("pwdInput").value}
+            ,dataType:'text'
+            ,async:false
+            ,success:function (data) {
+                if (data == 'YES'){
+                    console.log("成功登录");
+
+                    loginCheck = 1;
+
+                }else if (data == 'NO'){
+                    document.getElementById("titleSpan").innerHTML = "账号或密码错误";
+                    document.getElementById("titleSpan").style.color = "red";
+
+                    loginCheck = 0;
+                }
+            }
+        });
+
+        if (loginCheck == 0){
+            return false;
+        }else {
+            return true;
+        }
+    }
+</script>
 
 </div>
-
-<!-- FD:106:alipay/tracker/tracker.vm:START --><!-- FD:106:alipay/tracker/tracker.vm:785:tracker.schema:全站自动化/性能/敏感信息打点开关:START -->
-
-
-
-<script type="text/javascript">
-    window.Smartracker && Smartracker.sow && Smartracker.sow();
-</script>
-
-
-
-
-
-
-<script type="text/javascript">
-
-    window.agp_custom_config = {
-        BASE_URL: '//kcart.alipay.com/p.gif',
-        TIMING_ACTION_URL: '//kcart.alipay.com/x.gif'
-    }
-
-</script>
-<script charset="utf-8" src="https://gw.alipayobjects.com/a/g/memberAsset/securityMsg/1.0.3/index.js"></script>
-
-
-
-
-
-<!-- FD:106:alipay/tracker/sai.vm:START --><script>
-    sensScanConfig={
-        ratio: 0.01,
-        modules: '*',
-        types: '*'
-    };
-</script>
-
-<script src='https://as.alipayobjects.com/g/alipay_security/monitor-sens/1.0.1/monitor-sens.min.js'></script>
-
-
-
-
-
-
-
-
 
 
 
@@ -421,19 +169,6 @@ um.init({
         })();
     } catch(e) {}
 </script>
-
-<!-- FD:106:alipay/tracker/cmsbuffer.vm:997:cmsbuffer.schema:main-CMS全站修复:END -->
-<!-- FD:106:alipay/tracker/cmsbuffer.vm:END -->
-<!-- FD:106:alipay/tracker/tracker.vm:785:tracker.schema:全站自动化/性能/敏感信息打点开关:END -->
-<!-- FD:106:alipay/tracker/tracker.vm:END -->
-
-
-<script type="text/javascript">
-    var json_ua = null;
-    var form_tk = '0YUg2Of0XJGxV7gscBE77AHFiCn6b3Bh';
-</script>
-<script type="text/javascript" charset="utf-8" src="https://rds.alipay.com/ua_authweb_mybankpaas_login.js?t=2020060811"></script>
-
-
+</body>
 <!--<script>window.context = {"TEXT":{"CHECKCODE_INVALID":"校验码输入错误。","CHECKCODE_BUSY":"网络繁忙，请稍候再试。","CHECKCODE_EMPTY":"请输入校验码。","ACCOUNT_EMPTY":"请输入邮箱/手机号","PASSWORD_EMPTY":"请输入密码。","ACCOUNT_INVALID":"账户名格式错误。","密码":"密码"},"uriBroker":{"umid.url":"https://ynuf.alipay.com","umidprod.url":"https://ynuf.alipay.com","membercenter.url":"https://accounts.alipay.com","personal.url":"https://lab.alipay.com","securitycenter.url":"https://securitycenter.alipay.com","memberprod.url":"https://memberprod.alipay.com","cloudauth.url":"https://auth.cloud.alipay.com","authcenter.url":"https://auth.alipay.com","antcloud.user.url":"https://user.cloud.alipay.com","tfsImage.url":"https://tfsimg.alipay.com","authweb.url":"https://authweb.alipay.com","custom.asset.url":"https://gw.alipayobjects.com/as","taobaoaccount.url":"https://member1.taobao.com/member/fresh/h5/h5_account_management.htm","publicexprodServer":"https://publicexprod.alipay.com","favicon.ico.url":"https://i.alipayobjects.com/common/favicon/favicon.ico","app.404.url":"https://www.alipay.com/404.html","zdrmdata.rest.url":"http://zdrmdata-pool.gz00d.alipay.com","app.errorpage.url":"https://www.alipay.com/50x.html","app.goto.url":"https://my.alipay.com/portal/i.htm","bumng.url":"https://bumng.alipay.com","rds.url":"https://rds.alipay.com","omeo.check.url":"http://omeo-pool.gz00d.alipay.com","omeo.get.url":"https://omeo.alipay.com","assets.url":"https://gw.alipayobjects.com/a"}};</script><script crossorigin="anonymous" type="text/javascript" src="https://gw.alipayobjects.com/a/authweb/app_views_mybankpaas_index_html_js-f418a49c02af953b1b87.js"></script></body>-->
 </html>
