@@ -301,51 +301,30 @@
 		<span class="tag">仅限累积投标少于3次用户</span>
 	</div>
 	<div class="novice-list">
-
-
-
-
-
+		<div th:each="nc:${ncList}">
 		<a class="row-item g-cf " href="/product/bid/detail/165362847" target="_blank">
 			<div class="label-content">
-
-
-
-
 			</div>
 			<dl class="col-1">
 				<dt>
-					<big>7.70</big>%
-
+					<big th:text="${nc.rate}">%</big>
 					<span class="orange">+
-											<big>5.00</big>%</span>
-
+						<big th:text="${nc.rewardRate}"></big>%</span>
 					<span class="text-tag">新手奖励</span>
 				</dt>
 				<dd>参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></dd>
 			</dl>
 			<dl class="col-2">
-				<dt><span class="bold">6</span>
+				<dt><span class="bold" th:text="${nc.clockLine}"></span>
 					个月
 				</dt>
-				<dd>
-
-
-
+				<dd th:if="${nc.transfer==1}">
 					锁定期 | 持满自动转让
-
-
 				</dd>
 			</dl>
 			<dl class="col-3">
-				<dt>
-
-
-					100万
-
-
-
-
+				<dt th:text="${nc.singelLimit}">
+					万
 				</dt>
 				<dd>单笔限额</dd>
 			</dl>
@@ -354,151 +333,20 @@
 				<dd>可加入</dd>
 			</dl>
 			<dl class="col-5">
-				<dd class="item">
-
-
-
-
-					<em class="btn-primary disabled">已售罄</em>
-
-
+				<dd class="item" th:if="${nc.bidStatus==1}">
+					<em class="btn-primary disabled">预售</em>
+				</dd>
+				<dd class="item" th:if="${nc.bidStatus==2}">
+					<em class="btn-primary disabled">可投</em>
+				</dd>
+				<dd class="item" th:if="${nc.bidStatus==3}">
+					<em class="btn-primary disabled">售罄</em>
 				</dd>
 			</dl>
 		</a>
-
-
-
-
-
-		<a class="row-item g-cf " href="/product/bid/detail/166439468" target="_blank">
-			<div class="label-content">
-
-
-
-
-			</div>
-			<dl class="col-1">
-				<dt>
-					<big>7.00</big>%
-
-					<span class="orange">+
-											<big>5.00</big>%</span>
-
-					<span class="text-tag">新手奖励</span>
-				</dt>
-				<dd>参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></dd>
-			</dl>
-			<dl class="col-2">
-				<dt><span class="bold">3</span>
-					个月
-				</dt>
-				<dd>
-
-
-
-					锁定期 | 持满自动转让
-
-
-				</dd>
-			</dl>
-			<dl class="col-3">
-				<dt>
-
-
-					200万
-
-
-
-
-				</dt>
-				<dd>单笔限额</dd>
-			</dl>
-			<dl class="col-4">
-				<dt>0元</dt>
-				<dd>可加入</dd>
-			</dl>
-			<dl class="col-5">
-				<dd class="item">
-
-
-
-
-					<em class="btn-primary disabled">已售罄</em>
-
-
-				</dd>
-			</dl>
-		</a>
-
-
-
-
-
-		<a class="row-item g-cf " href="/product/bid/detail/164832073" target="_blank">
-			<div class="label-content">
-
-
-
-
-			</div>
-			<dl class="col-1">
-				<dt>
-					<big>5.00</big>%
-
-					<span class="orange">+
-											<big>5.00</big>%</span>
-
-					<span class="text-tag">新手奖励</span>
-				</dt>
-				<dd>参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></dd>
-			</dl>
-			<dl class="col-2">
-				<dt><span class="bold">7</span>天
-
-				</dt>
-				<dd>
-
-
-
-					锁定期 | 持满自动转让
-
-
-				</dd>
-			</dl>
-			<dl class="col-3">
-				<dt>
-
-
-					1万
-
-
-
-
-				</dt>
-				<dd>单笔限额</dd>
-			</dl>
-			<dl class="col-4">
-				<dt>0元</dt>
-				<dd>可加入</dd>
-			</dl>
-			<dl class="col-5">
-				<dd class="item">
-
-
-
-
-					<em class="btn-primary disabled">已售罄</em>
-
-
-				</dd>
-			</dl>
-		</a>
-
-
-
-
-
+		</div>
 	</div>
+
 	<div class="novice-ft">
 		<dl class="icon-before icon-after f1">
 			<dt>注册</dt>
@@ -551,13 +399,7 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2">
-
-
 				<div class="item " data-url="/product/common/66890440">
-
-
-
-
 					<div class="panel">
 						<div class="rate">11.40<span>%</span></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
@@ -571,20 +413,11 @@
 							</div>
 						</div>
 						<div class="extend">
-
-
-
 							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
 						</div>
 					</div>
 				</div>
-
 				<div class="item " data-url="/product/common/68865618">
-
-
-
-
 					<div class="panel">
 						<div class="rate">10.80<span>%</span></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
@@ -598,20 +431,11 @@
 							</div>
 						</div>
 						<div class="extend">
-
-
-
 							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
 						</div>
 					</div>
 				</div>
-
 				<div class="item last" data-url="/product/common/66890357">
-
-
-
-
 					<div class="panel">
 						<div class="rate">10.80<span>%</span></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
@@ -625,11 +449,7 @@
 							</div>
 						</div>
 						<div class="extend">
-
-
-
 							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
 						</div>
 					</div>
 				</div>
