@@ -85,11 +85,11 @@
                 <li data-reactid=".0.2.1.0.0.1.0">
                     <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
                         <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
-                        <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                        <span data-reactid=".0.2.1.0.0.1.0.0.1" th:text="${session.user.uName}">284***@qq.com</span>
                     </a>
                 </li>
                 <li data-reactid=".0.2.1.0.0.1.1">
-                    <a data-aspm-click="d18793" th:href="@{/loan/main}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
+                    <a data-aspm-click="d18793" th:href="@{/loan/loginOut}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
                 </li>
                 <li data-reactid=".0.2.1.0.0.1.2">
                     <a href="#" target="_blank" data-reactid=".0.2.1.0.0.1.2.0">服务大厅</a>
