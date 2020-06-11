@@ -31,17 +31,35 @@
                 <form action="#!" method="post" class="row">
                   <!--标名-->
                   <div class="form-group col-md-12">
-                    <label for="title">标名</label>
-                    <input type="text" class="form-control" id="title" name="title" value="" placeholder="请输入投标名" />
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">标名</label>
+                      <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                        <input type="text" class="form-control" id="title" name="title" value="" placeholder="请输入投标名" />
+                      </div>
+                    </div>
                   </div>
                   <!--标类-->
                   <div class="form-group col-md-12">
-                    <label for="type">标种</label>
-                    <div class="form-controls">
-                      <select name="type" class="form-control" id="type">
-                        <option value="1">新手标</option>
-                        <option value="2">散标</option>
-                      </select>
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">标种</label>
+                      <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                        <select name="type" class="form-control" id="type">
+                          <option value="1">新手标</option>
+                          <option value="2">散标</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--标期 （活期 和 定期）-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">标期</label>
+                      <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                        <select name="type" class="form-control" id="">
+                          <option value="1">活期</option>
+                          <option value="2">定期</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <!--基础利率-->
@@ -94,10 +112,38 @@
                   <!--时间-->
                   <div class="form-group col-md-12">
                     <label for="type">标期时间</label>
-                    <div class="input-daterange input-group">
+                    <div class="input-daterange input-group col-lg-8">
                       <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange1" name="example-daterange1" placeholder="封标期时间">
                       <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
                       <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange2" name="example-daterange2" placeholder="转让期">
+                    </div>
+                  </div>
+                  <!--是否可以自动转让-->
+                  <div class="form-group col-xs-6">
+                    <label for="type">是否可以自动转让</label>
+                    <div class="input-daterange input-group col-lg-8">
+                      <div class="example-box">
+                        <label class="radio radio-inline radio-primary">
+                          <input type="radio" name="transfer" value="1"><span>是</span>
+                        </label>
+                        <label class="radio radio-inline radio-primary">
+                          <input type="radio" name="transfer" value="2"><span>否</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!--是否可以自动复投-->
+                  <div class="form-group col-xs-6">
+                    <label for="type">是否可以自动复投</label>
+                    <div class="input-daterange input-group col-lg-8">
+                      <div class="example-box">
+                        <label class="radio radio-inline radio-primary">
+                          <input type="radio" name="aotuInverst" value="1"><span>是</span>
+                        </label>
+                        <label class="radio radio-inline radio-primary">
+                          <input type="radio" name="aotuInverst" value="2"><span>否</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                   <!--图片上传-->
@@ -200,7 +246,10 @@
         from: 5.0,
         prefix: "%"
       });
-
+      //默认选中
+      $("input[name='transfer']:radio:last").attr('checked', 'checked');
+      //默认选中
+      $("input[name='aotuInverst']:radio:last").attr('checked', 'checked');
   })
   </script>
 </body>
