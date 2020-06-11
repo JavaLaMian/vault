@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>新增文档 - bootstrap中文后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+
+
+<meta name="author" content="yinqi">
+  <!--引入相应的bootstrap.JS支持文件-->
+  <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+  
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+  <div class="layout-container">
+    <!--引入头html代码-->
+    <div th:replace="/backstage/Brepetition::head"></div>
+    
+    <!--页面主要内容-->
+    <main class="layout-content">
+      
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                
+                <form action="#!" method="post" class="row">
+                  <!--标名-->
+                  <div class="form-group col-md-12">
+                    <label for="title">标名</label>
+                    <input type="text" class="form-control" id="title" name="title" value="" placeholder="请输入投标名" />
+                  </div>
+                  <!--标类-->
+                  <div class="form-group col-md-12">
+                    <label for="type">标种</label>
+                    <div class="form-controls">
+                      <select name="type" class="form-control" id="type">
+                        <option value="1">新手标</option>
+                        <option value="2">散标</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!--基础利率-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">基础利率</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_01">
+                        <small class="form-text text-muted">酌情增加</small>
+                      </div>
+                    </div>
+                  </div>
+                  <!--新手利率-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">新手利率</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_05">
+                        <small class="form-text text-muted">酌情增加</small>
+                      </div>
+                    </div>
+                  </div>
+                  <!--总金额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">标类总金额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_02">
+                      </div>
+                    </div>
+                  </div>
+                  <!--单笔追加金额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">单笔限额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_03">
+                      </div>
+                    </div>
+                  </div>
+                  <!--起投最小金额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">起投最小金额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_04">
+                      </div>
+                    </div>
+                  </div>
+                  <!--时间-->
+                  <div class="form-group col-md-12">
+                    <label for="type">标期时间</label>
+                    <div class="input-daterange input-group">
+                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange1" name="example-daterange1" placeholder="封标期时间">
+                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
+                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange2" name="example-daterange2" placeholder="转让期">
+                    </div>
+                  </div>
+                  <!--图片上传-->
+                  <div class="form-group col-md-12">
+                    <label>多图上传</label>
+                    <div class="form-controls">
+                      
+                      <ul class="list-inline clearfix uploads-pic">
+                        <li class="col-xs-4 col-sm-3 col-md-2">
+                          <figure>
+                            <img th:src="@{/images/gallery/15.jpg}" alt="图片一">
+                            <figcaption>
+                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                            </figcaption>
+                          </figure>
+                        </li>
+                        <li class="col-xs-4 col-sm-3 col-md-2">
+                          <figure>
+                            <img th:src="@{/images/gallery/16.jpg}" alt="图片二">
+                            <figcaption>
+                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                            </figcaption>
+                          </figure>
+                        </li>
+                        <li class="col-xs-4 col-sm-3 col-md-2">
+                          <figure>
+                            <img th:src="@{/images/gallery/17.jpg}" alt="图片三">
+                            <figcaption>
+                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                            </figcaption>
+                          </figure>
+                        </li>
+                        <li class="col-xs-4 col-sm-3 col-md-2">
+                          <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">确 定</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                  </div>
+                </form>
+       
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+  <!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+  <script type="text/javascript">
+    $(function () {
+      $("#range_01").ionRangeSlider({
+        grid: true,
+        min: 0.0,
+        max: 15.0,
+        step: 0.1,
+        from: 7.0,
+        prefix: "%"
+      });
+      $("#range_02").ionRangeSlider({
+        min: 0,
+        max: 1000,
+        grid: true,
+        prefix: "万"
+
+      });
+      $("#range_03").ionRangeSlider({
+        min: 0,
+        max: 1000000,
+        grid: true,
+        from: 1000000,
+        prefix: "万"
+      });
+      $("#range_04").ionRangeSlider({
+        grid: true,
+        from: 0,
+        to: 5,
+        values: [0.5, 1, 5, 10, 50, 100, 1000],
+        prefix: "万"
+      });
+      $("#range_05").ionRangeSlider({
+        grid: true,
+        min: 0.0,
+        max: 10.0,
+        step: 0.1,
+        from: 5.0,
+        prefix: "%"
+      });
+
+  })
+  </script>
+</body>
+</html>
