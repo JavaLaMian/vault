@@ -48,4 +48,10 @@ public class backstageController {
         mv.setViewName("backstage/BidList");
         return mv;
     }
+    //去往投标新增页面
+    @RequestMapping("/Badd_Bid")
+    public ModelAndView Badd_Bid(ModelAndView mv){
+        mv.setViewName("backstage/Badd_Bid");
+        return mv;
+    }
 }
