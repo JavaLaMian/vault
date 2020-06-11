@@ -63,7 +63,7 @@
                             <option value="mm">密码</option>
                             <option value="xs">显示</option>
                         </select>
-                        <input class="kuang" id="pwdyc" name="pwd" oninput="tonBu('yc')" type="password"/>
+                        <input class="kuang" id="pwdyc" name="pwd" placeholder="区分大小写" oninput="tonBu('yc')" type="password"/>
                         <input id="pwdLook" class="kuang" type="text" oninput="tonBu('lk')" style="display: none"/>
                     </div>
                     <div id="emailYz" style="width: 90%;margin:0 auto;height: 0px;transition: 0.5s;">
@@ -73,7 +73,7 @@
                     <div style="width: 90%;height: 30px;margin: 0 auto;">
                         <input value="注册" class="loginzy" type="button" onclick="logNew(0)"/>
                         <input value="登陆" id="gologin" class="daanniu" type="submit" onclick="return loginUser()"/>
-                        <input value="忘记密码" class="loginzy" type="button" onclick="logNew(0)"/>
+                        <a class="loginzy" type="button" style="padding: 5px;font-size: 14px;color: black;text-decoration: none;" target="_blank" th:href="@{/user/tozhao}"/>忘记密码</a>
                     </div>
                 </form>
                 <p class="logmsg" style="text-align: center;color: yellow" th:if="${session.msg!='' || session.msg != null}"
@@ -401,7 +401,6 @@
         }else{
             $(".cxMa").val("获取("+jishi+")");
         }
-
     }
 
     function newZhang(){
@@ -429,11 +428,9 @@
         var shuru = $("#dlmaKun").val()+"";
         if(loginType === 0){//密码验证
             if($("#zhanghao").val() === ''){
-                alert("zhk");
                 errorShuru($("#zhanghao"));
                 return false;
             }else if($("#pwdyc").val() === ''){
-                alert("mm");
                 if(pwdlook === 0)errorShuru($("#pwdyc"));
                 else errorShuru($("#pwdLook"));
                 return false;
@@ -442,7 +439,6 @@
             }
         }else if(loginType === 1){
             if($("#dlEmail").val() === ''){
-                alert("yxk");
                 errorShuru($("#dlEmail"));
                 return false;
             }else if(shuru === '' || shuru !== yunma || shuru === '0'){

@@ -26,6 +26,11 @@ public class UserController {
         else return "loan/login";
     }
 
+    @RequestMapping("/tozhao")
+    public String toZhaoPwd(String zc){
+        return "user/zhaohui";
+    }
+
     @RequestMapping("/add")
     public String addUser(Userimf user,HttpSession session){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -100,4 +105,11 @@ public class UserController {
         session.removeAttribute("msg");
         return "";
     }
+
+    @RequestMapping("/updpwd")
+    @ResponseBody
+    public int updPwd(String email,String pwd){
+        return service.updetaPwd(email,pwd);
+    }
+
 }

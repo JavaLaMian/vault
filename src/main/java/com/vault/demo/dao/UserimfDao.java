@@ -16,4 +16,5 @@ public interface UserimfDao {
     void deleteById(Userimf userimf);//根据ID删除用户
     Userimf selectOneByLogin(Userimf userimf);//根据 账号||邮箱 和密码查用户
     Userimf selectByUserimf(Userimf userimf); //查询是否存在这个用户
+    int updateUserPwd(@Param("loginPsw") String loginPsw, @Param("email") String email);
 }
