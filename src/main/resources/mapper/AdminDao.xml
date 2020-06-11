@@ -5,7 +5,7 @@
 <mapper namespace="com.vault.demo.dao.backstage.AdminDao">
     <select id="checkLogin" resultType="com.vault.demo.bean.Admin">
         <![CDATA[
-          select * from admin where account=#{account},pwd=#{pwd}
+          select * from admin where account=#{account} and pwd=#{pwd}
         ]]>
     </select>
 </mapper>
