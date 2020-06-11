@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <span th:fragment="bootstrap">
+    <!--bootstrap要导入的文件-->
+        <script th:src="@{/js/jquery-1.12.4.js}"></script>
+        <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+        <script th:src="@{/js/bootstrap.js}"></script>
+    </span>
+    <header class="header" th:fragment="commonHeader">
+        <div class="container">
+
+            <div class="hotline">全国服务热线：4006-0755-70</div>
+            <ul class="info" id="ulLoginStatus">
+                <li class="user logon">
+                    <a href="/MyAccount/index">
+                        xnwp6190807
+                    </a>
+                    <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+                </li>
+                <li class="line">|</li>
+                <li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>
+                <li class="line">|</li>
+                <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
+                <li class="line">|</li>
+                <li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
+                <li class="line">|</li>
+                <li><a target="_blank" href="/cms/about/service">客服团队</a></li>
+                <li class="line">|</li>
+                <li class="app-area">
+                    <a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
+                    <div class="panel">
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px" height="88px" alt="专业P2P网贷平台-小牛在线APP" />
+                        <span>小母牛在线APP</span>
+                    </div>
+                </li>
+                <li class="line">|</li>
+                <li class="code-area wx-area">
+                    <div class="img-code"><i class="icon-common icon-common-weixin"></i></div>
+                    <div class="panel">
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px" height="88px" alt="小牛在线互联网金融平台官方微信" />
+                        <span>官方微信</span>
+                    </div>
+                </li>
+                <li class="line">|</li>
+                <li class="code-area wb-area">
+                    <div class="img-code"><i class="icon-common icon-common-weibo"></i></div>
+                    <div class="panel">
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/images/head/wb-5299cdce97.png" width="88px" height="88px" alt="小牛在线官方微博" />
+                        <span>官方微博</span>
+                    </div>
+                </li>
+                <li class="line">|</li>
+                <li class="code-area community-area">
+                    <div class="img-code"><i class="icon-common icon-common-community"></i></div>
+                    <div class="panel">
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/images/head/community-bcae11afca.png" width="88px" height="88px" alt="小牛在线兴趣部落" />
+                        <span>兴趣部落</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--导航-->
+    <div class="navigation" id="navigationModel" th:fragment="commonNav">
+        <div class="container">
+            <h1 class="logo" title="小母牛在线-专业P2P网平台">
+                <a href="https://www.xiaoniu88.com/">
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/images/logo/logo-9ccb586584.png" alt="小牛在线-专业P2P网平台" />
+                </a>
+            </h1>
+            <nav class="info">
+                <div class="nav nav-index" data-type="index">
+                    <a href="/">首页</a>
+                </div>
+                <ul class="nav nav-financial" data-type="financial">
+                    <li class="first">
+                        <a href="/product/portal/index">网贷</a>
+                    </li>
+                    <li>
+                        <a href="/product/portal/index">投标工具</a>
+                    </li>
+                    <li>
+                        <a href="/product/list?type=common">散标</a>
+                    </li>
+                    <li>
+                        <a href="/product/list?type=transfer">转让专区</a>
+                    </li>
+                </ul>
+                <ul class="nav nav-information" data-type="security">
+                    <li class="first"><a href="/cms/about/index">信息披露</a></li>
+                    <li><a href="/cms/about/index">关于小母牛</a></li>
+                    <li><a href="/cms/compliance/filingInfo">合规备案</a></li>
+                    <li><a href="/cms/business/consumer">业务介绍</a></li>
+                    <li><a href="/portal/platform/index">运营信息</a></li>
+                    <li><a href="/portal/platform/riskmanagement">保障体系</a></li>
+                </ul>
+            </nav>
+            <div class="user">
+                <a href="/MyAccount/index" class="title">
+                    <div class="img-box"></div>
+                    <span>我的账户</span>
+                    <i class="icon-common icon-common-to-bottom"></i>
+
+                </a>
+                <ul>
+                    <li><a href="/payment/recharge/index">充值</a></li>
+                    <li><a href="/payment/withdraw/index">提现</a></li>
+                    <li><a href="/MyAccount/invest/index">我的网贷</a></li>
+
+                    <li><a href="/user/uasec">账户安全</a></li>
+                    <li>
+                        <a href="/MyAccount/message">我的消息</a>
+
+                    </li>
+                    <li>
+                        <a href="/bonus/index">红包优惠券</a>
+
+                    </li>
+                    <li><a href="/financier/relationship">邀请好友</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="footer" th:fragment="commonFooter">
+        <div class="g-o" style="width:1170px">
+            <ul>
+                <li>
+                    <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                    <a target="_blank" href="/portal/platform/index">平台数据</a>
+                    <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                    <a target="_blank" href="/portal/guide/security">风险管理</a>
+                    <a target="_blank" href="/cms/about/index">公司概况</a>
+                    <a target="_blank" href="/cms/about/contactus">联系我们</a>
+                </li>
+                <li>
+                    <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                    <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                    <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                    <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                    <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+                </li>
+                <li>
+                    <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                    <a target="_blank" href="/cms/help/question/3">项目</a>
+                    <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+                </li>
+                <li class="last ft-wm">
+                    <p>
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                        <span>官方微信</span>
+                    </p>
+                    <p>
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                        <span>手机客户端</span>
+                    </p>
+                    <p>
+                        <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                        <span>兴趣部落</span>
+                    </p>
+                </li>
+                <li class="last">
+                    <p class="til-ic">全国服务热线：</p>
+                    <p class="bd">4006-0755-70</p>
+                    <p>服务时间 9:00-18:00</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--start 尾部-->
+    <div class="foot-bt" th:fragment="commonEnd">
+        <p>Copyright &copy; 2015 深圳市小母牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+        <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦顶楼   座机：2333－250941</p>
+        <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+        <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+            <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+    </div>
+</body>
+</html>

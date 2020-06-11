@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @RequestMapping("loan")
 @Controller
@@ -31,7 +32,7 @@ public class loanController {
 
     //登录
     @RequestMapping("/login")
-    public String login(String account ,String password){
+    public String login(String account , String password , HttpSession session){
         Userimf userimf = new Userimf();
 
         if (account.length() < 9){//字符总长小于9，是为邮箱登录
@@ -45,6 +46,8 @@ public class loanController {
         userimf.setLoginPsw(password);
 
         Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
+
+        session.setAttribute("user",userimfEX);
 
         return "redirect:/loan/main2";
     }
@@ -78,10 +81,25 @@ public class loanController {
         }
     }
 
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpSession session){
+        session.removeAttribute("user");
+
+        return "redirect:/loan/main";
+    }
+
     //借贷中心
     @RequestMapping("/main2")
-    public String main2() {
+    public String main2(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanJie";
+    }
+    @RequestMapping("/toloanJie")
+    public String toloanJie() {
+        return "loan/loanJieApply";
     }
     @RequestMapping("/toloanHuan")
     public String toloanHuan() {
@@ -94,5 +112,15 @@ public class loanController {
     @RequestMapping("/toloanPersonage")
     public String toloanPersonage() {
         return "loan/loanPersonage";
+    }
+
+    public Boolean checkSessionIsEmpty(HttpSession session){
+        Userimf userimf = (Userimf)session.getAttribute("user");
+
+        if (userimf == null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

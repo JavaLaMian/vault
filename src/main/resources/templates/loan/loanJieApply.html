@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>借款申请</title>
+    <link rel="icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/common.css"/>
+    <link rel="stylesheet" type="text/css" href="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/newLendApply.css"/>
+    <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/common.js"></script>
+    <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/newLendApply.js"></script>
+    <style>
+        .processThird ul .rightSpan {
+            display: inline-block;
+            width: 85%;
+            text-align: right;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .mybank-foot-wrap {
+            background-color: #f8f8f8
+        }
+        .mybank-foot-wrap img {
+            display: block
+        }
+
+        .mybank-foot-content {
+            width: 990px;
+            margin: 0 auto;
+            padding: 30px 0 32px;
+            font-size: 14px;
+            line-height: 1.5;
+            background: url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png)right -1px no-repeat
+        }
+        .mybank-foot-content a,.mybank-foot-content a:hover {
+            color: #333;
+            text-decoration: none
+        }
+        .mybank-foot-content:after,.mybank-foot-content:before {
+            display: table;
+            content: ""
+        }
+        .mybank-foot-content:after {
+            clear: both
+        }
+        .mybank-foot-left {
+            float: left;
+        }
+        .mybank-foot-right {
+            float: right;
+            text-align: right
+        }
+
+        .mybank-foot-logo {
+            width: 209px;
+            height: 26px
+        }
+
+        .mybank-foot-intro {
+            padding-top: 12px
+        }
+
+        .mybank-foot-copyright {
+            padding-top: 13px
+        }
+
+        .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
+    </style>
+</head>
+<body>
+    <!--    导航-->
+    <div class="header" data-aspm="c37338" data-aspm-expo>
+        <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
+            <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
+                <a th:href="@{/loan/mian}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+                    <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
+                </a>
+            </h1>
+                <ul data-reactid=".0.2.1.0.0.1">
+                    <li data-reactid=".0.2.1.0.0.1.0">
+                        <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                            <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
+                            <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                        </a>
+                    </li>
+                    <li data-reactid=".0.2.1.0.0.1.1">
+                        <a data-aspm-click="d18793" th:href="@{/loan/main}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
+                    </li>
+                    <li data-reactid=".0.2.1.0.0.1.2">
+                        <a href="#" target="_blank" data-reactid=".0.2.1.0.0.1.2.0">服务大厅</a>
+                    </li>
+                    <li class="last" data-reactid=".0.2.1.0.0.1.3">
+                        <img class="phone fn-left" th:src="@{/img/loan/cion.png}" data-reactid=".0.2.1.0.0.1.3.0">
+                        <span data-reactid=".0.2.1.0.0.1.3.1">95188 - 3</span>
+                    </li>
+                </ul>
+            </div>
+            <noscript data-reactid=".0.2.1.0.1"></noscript>
+        </div>
+    </div>
+    <div class="nav" data-aspm="c10121" data-aspm-expo="true" data-reactid=".0.2.1.1:0">
+        <div class="navBox" data-reactid=".0.2.1.1:0.0">
+            <h2 data-reactid=".0.2.1.1:0.0.0" >飞机贷</h2>
+            <ul data-reactid=".0.2.1.1:0.0.1">
+                <li data-aspm-click="d18478" class=" active" data-reactid=".0.2.1.1:0.0.1.$0">
+                    <a th:href="@{/loan/main2}" data-reactid=".0.2.1.1:0.0.1.$0.0">借款</a>
+                </li>
+                <li data-aspm-click="d18479" class="" data-reactid=".0.2.1.1:0.0.1.$1">
+                    <a th:href="@{/loan/toloanHuan}" data-reactid=".0.2.1.1:0.0.1.$1.0">还款</a>
+                </li>
+                <li data-aspm-click="d18480" class="" data-reactid=".0.2.1.1:0.0.1.$2">
+                    <a th:href="@{/loan/toloanRecord}" data-reactid=".0.2.1.1:0.0.1.$2.0">记录查询</a>
+                </li>
+                <li data-aspm-click="d18481" class="" data-reactid=".0.2.1.1:0.0.1.$3">
+                    <a th:href="@{/loan/toloanPersonage}" data-reactid=".0.2.1.1:0.0.1.$3.0">信息管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 内容-->
+    <div style="width: 100%;height: auto">
+        <div class="breadCrumb " data-reactid=".0.2.1.1:1">
+            <div class="crumbBox" data-reactid=".0.2.1.1:1.0">
+                <p data-reactid=".0.2.1.1:1.0.0">
+                    <span data-reactid=".0.2.1.1:1.0.0.0">借款 /</span>
+                    <span data-reactid=".0.2.1.1:1.0.0.1"> </span>
+                    <strong data-reactid=".0.2.1.1:1.0.0.2">借款申请</strong>
+                </p>
+            </div>
+        </div>
+
+<!--        1.申请-->
+        <div th:if="false" class="processBox" data-reactid=".0.2.1.1:2">
+        <div data-reactid=".0.2.1.1:2.0"></div>
+        <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
+            <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
+                <ul data-reactid=".0.2.1.1:2.1.0.0">
+                    <li class="active" data-reactid=".0.2.1.1:2.1.0.0.$0">
+                        <h3 data-reactid=".0.2.1.1:2.1.0.0.$0.0">1</h3>
+                        <p data-reactid=".0.2.1.1:2.1.0.0.$0.1">确认借款金额</p>
+                        <strong data-reactid=".0.2.1.1:2.1.0.0.$0.2"></strong>
+                        <h5 data-reactid=".0.2.1.1:2.1.0.0.$0.3"></h5>
+                    </li>
+                    <li class="" data-reactid=".0.2.1.1:2.1.0.0.$1">
+                        <h3 data-reactid=".0.2.1.1:2.1.0.0.$1.0">2</h3>
+                        <p data-reactid=".0.2.1.1:2.1.0.0.$1.1">签署支用合同</p>
+                        <strong data-reactid=".0.2.1.1:2.1.0.0.$1.2"></strong>
+                        <h5 data-reactid=".0.2.1.1:2.1.0.0.$1.3"></h5>
+                    </li>
+                    <li class="" data-reactid=".0.2.1.1:2.1.0.0.$2">
+                        <h3 data-reactid=".0.2.1.1:2.1.0.0.$2.0">3</h3>
+                        <p data-reactid=".0.2.1.1:2.1.0.0.$2.1">借款完成</p>
+                        <strong data-reactid=".0.2.1.1:2.1.0.0.$2.2"></strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
+                <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
+                <div data-reactid=".0.2.1.1:2.1.1.1:0">
+                    <div class="processFirst" data-reactid=".0.2.1.1:2.1.1.1:0.0">
+                        <ul data-reactid=".0.2.1.1:2.1.1.1:0.0.1">
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.0">借款金额：</h5>
+                                <div class="iptBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1">
+                                    <div style="visibility:hidden;" class="nT" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0">
+                                        <ul class="numberTable big" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0">
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6.0">百万</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5.0">十万</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4.0">万</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3.0">千</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2.0">百</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1">
+                                                <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1.0">十</strong>
+                                                <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1.1"></p>
+                                            </li>
+                                            <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0">
+                                                <strong class="last" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0.0">个</strong>
+                                                <p class="last" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0.1"></p>
+                                            </li>
+                                        </ul>
+                                        <div class="outterArrow" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.1">
+                                            <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.1.0"></p>
+                                        </div>
+                                    </div>
+                                    <div class="iptIpt" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1">
+                                        <input value="" class="normal" placeholder="请输入1.00-30.00元" name="checker" type="text" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.0">
+                                        <div class="iptPlus" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.1">
+                                            <strong style="visibility:hidden;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.1.1"></strong>
+                                        </div>
+                                    </div>
+                                    <div style="visibility:hidden;" class="iptTip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.2">请输入1.00-30.00元</div>
+                                </div>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.0">借款期限：</h5>
+                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1">
+                                    <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1.0">12个月</strong>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1.1"> 实际以合同为准</span>
+                                </p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.0">还款方式：</h5>
+                                <p class="repayOptCls" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1">
+                                    <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1.0">等额本金</strong>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1.1">(每期本金一致，利息递减)</span>
+                                </p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3.0">提前还款：</h5>
+                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3.1">无手续费</p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5">
+                                <h5 class="small_bk_tip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0">
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.0">日利费率</span>
+                                    <strong style="top:1px;right:-25px;" class="bk_tip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.1"></strong>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.2">：</span>
+                                </h5>
+                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1">
+                                    <span class="delete" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1.0"></span>
+                                    <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1.1">0.04%</strong>
+                                </p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.0">还款计划：</h5>
+                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.1">
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.1.0">根据输入金额计算</span>
+                                </p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9">
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9.0">经营范围：</h5>
+                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9.1">
+                                    <select class="normal"  name="type">
+                                        <!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==1">厢式货车</option>-->
+                                        <!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==2">全挂车</option>-->
+                                        <!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==3">半挂车</option>-->
+                                        <!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==4">平板车</option>-->
+                                        <!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==5">栏板车</option>-->
+                                        <option value="1">餐饮住宿</option>
+                                        <option value="2">零售</option>
+                                        <option value="3">生活服务</option>
+                                        <option value="4">教育</option>
+                                        <option value="5">娱乐</option>
+                                    </select>
+                                </p>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.a">
+                                <div class="line" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.a.0"></div>
+                            </li>
+                            <div class="lendInfo" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b">
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0">
+                                    <h5 class="mgBottomFix" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.0">收款账户：</h5>
+                                    <h5 class="fixLeft bankCardTitle" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.0">银行卡</span>
+                                        <div class="cardPosition" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1">
+                                            <div class="addBankcard word" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1.0">
+                                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1.0.0">+ 添加银行卡</p>
+                                            </div>
+                                        </div>
+                                    </h5>
+                                    <!--                                        银行卡-->
+                                    <div class="bankCardsNew clearfix" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7">
+                                        <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0">
+                                            <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*KI45T6tiZR4AAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*KI45T6tiZR4AAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0">
+                                                <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.1">
+                                                    <img src="https://pic.alipayobjects.com/e/201305/PoNx9ndzb.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.1.0">
+                                                </div>
+                                                <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2">
+                                                    <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.0">林学明</h3>
+                                                    <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.1">中国农业银行</h4>
+                                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.2">622848*********1675</p>
+                                                </div>
+                                                <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.3"></div>
+                                                <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/gpZxVLXaINQfkAk.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.4">
+                                            </div>
+                                        </div>
+                                        <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1">
+                                            <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0">
+                                                <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.1">
+                                                    <img src="https://pic.alipayobjects.com/e/201304/DedcCjhGf.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.1.0">
+                                                </div>
+                                                <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2">
+                                                    <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.0">林学明</h3>
+                                                    <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.1">南京银行</h4>
+                                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.2">621259******1002</p>
+                                                </div>
+                                                <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.3"></div>
+                                                <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/ATNZTzBfLouHYxl.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.4">
+                                            </div>
+                                        </div>
+                                        <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2">
+                                            <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*RwD0RKTDBYMAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*RwD0RKTDBYMAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0">
+                                                <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.1">
+                                                    <img src="https://pic.alipayobjects.com/i/mobileapp/png/201410/3jU228X11B.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.1.0">
+                                                </div>
+                                                <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2">
+                                                    <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.0">林学明</h3>
+                                                    <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.1">中国建设银行</h4>
+                                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.2">621700*********4358</p>
+                                                </div>
+                                                <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.3"></div>
+                                                <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/WZDhJqHAbgWJKNu.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.4">
+                                            </div>
+                                        </div>
+                                        <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3">
+                                            <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0">
+                                                <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.1">
+                                                    <img src="https://pic.alipayobjects.com/i/mobileapp/png/201410/3irGlSet6r.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.1.0">
+                                                </div>
+                                                <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2">
+                                                    <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.0">林学明</h3>
+                                                    <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.1">中国工商银行</h4>
+                                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.2">621281*********9737</p>
+                                                </div>
+                                                <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.3"></div>
+                                                <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/fkPGAvfjCwisGCd.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.0">还款账户：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1">
+                                        <strong class="accountWithIcon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0">
+                                            <span class="alipay accountIcon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0.0"></span>
+                                            <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0.1">131******15</span>
+                                        </strong>
+                                    </p>
+                                    <div class="repTip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.2">还款日当天，每次从还款账户余额、储蓄卡、余额宝、小母牛普惠活期余额、按顺序扣款（其中余额、储蓄卡、余额宝顺序以还款账户在小母牛在线钱包的支付设置为准）</div>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.0">到账时间：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.1">
+                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.1.0">最快3分钟到账</strong>
+                                    </p>
+                                </li>
+                            </div>
+                        </ul>
+                        <div class="buttonBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.2">
+                            <button data-aspm-click="d18417" class="" style="width:320px;" disabled="" data-reactid=".0.2.1.1:2.1.1.1:0.0.2.0">下一步</button>
+                        </div>
+                        <div id="_umfp" data-reactid=".0.2.1.1:2.1.1.1:0.0.3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--        2.签署合同-->
+        <div th:if="false" class="processBox" data-reactid=".0.2.1.1:2">
+            <div data-reactid=".0.2.1.1:2.0"></div>
+            <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
+                <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
+                    <ul data-reactid=".0.2.1.1:2.1.0.0">
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$0">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$0.0">1</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$0.1">确认借款金额</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$0.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$0.3"></h5>
+                        </li>
+                        <li class="active" data-reactid=".0.2.1.1:2.1.0.0.$1">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$1.0">2</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$1.1">签署支用合同</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$1.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$1.3"></h5>
+                        </li>
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$2">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$2.0">3</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$2.1">借款完成</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$2.2"></strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
+                    <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
+                    <div class="processSecond" data-reactid=".0.2.1.1:2.1.1.1:0">
+                        <div class="stepRippleBox" data-reactid=".0.2.1.1:2.1.1.1:0.0">
+                            <div class="info" data-reactid=".0.2.1.1:2.1.1.1:0.0.0">
+                                <div data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.0">借款金额(元)</h5>
+                                    <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1">
+                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.0">1</strong>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.1">.</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.2">00</span>
+                                    </h3>
+                                </div>
+                                <ul class="clearfix" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1">
+                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.0">借款期限</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.1">：</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.2">12个月</span>
+                                    </li>
+                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.0">首个还款日</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.1">：</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.2">7月20日</span>
+                                    </li>
+                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.0">日利费率</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.1">：</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.2">0.040000%</span>
+                                    </li>
+                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3.0">还款方式</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3.1">：</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3.2">等额本金</span>
+                                    </li>
+                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.0">贷款服务机构</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.1">：</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.2">天津信托</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="loanProtocal" data-reactid=".0.2.1.1:2.1.1.1:0.0.1">
+                                <div class="protocalBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0">
+                                    <p align="center">
+                                        <strong>贷款合同</strong>&nbsp; </p>
+            <p align="left">合同版本号20191213通用 </p><p align="center">合同编号： </p>
+            <p>
+
+                感谢您<strong>向</strong><strong></strong><strong>天津信托有限责任公司（即“贷款人”）
+            </strong><strong></strong><strong>申请贷款（也称“本贷款”）</strong>，您作为借款人正通过登录支付宝账户或贷款人认可的其他方式签署本合同。在您确认签署本合同之前，<strong>请您务必充分阅读本合同条款的全部内容（含合同正文和附件等），尤其是加粗的部分。您应确保已核对您的身份信息无误，且您承诺您具有签订和履行本合同的资格和能力</strong>。如您无法准确理解或不同意本合同任一条款，请您停止签约操作。如有疑问，您可致电客服电话【95188-3】，以便我们为您解释和说明。<strong>一旦您点击确认同意本合同，即意味着您已充分阅读、理解并认可以数据电文形式签署本合同，本合同成立并生效，但贷款资金在贷款人审核通过后方可发放。 </strong>
+            </p>
+            <p><strong>第一条</strong><strong>&nbsp;</strong><strong>贷款基本信息</strong> </p>
+            <p> <strong>您知晓并同意本合同项下您的身份信息以您用以签约的账户所留存的信息、或您以网商银行认可的方式提交的身份信息</strong><strong>为准。</strong>为了保护您的信息，本合同在贷款平台展示时可能部分隐藏您的身份信息和收款账户信息。 </p>
+            <p><strong><u>借款人名称：</u></strong> *兵</p>
+            <p> <strong><u>证件号码：</u></strong>3****************3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong><u>证件类型：</u></strong> 居民身份证</p>
+            <p><strong><u>贷款金额：</u></strong> &nbsp;1.00元&nbsp;&nbsp; &nbsp;(大写： 壹元整&nbsp;&nbsp; ) </p>
+            <p><strong>贷款期限：</strong>自贷款发放之日起至2021年06月20日</p>
+            <p> 注：本合同所涉时间如无特别说明，均为北京时间。 </p>
+            <p><strong>贷款初始日利率：0.040000%, 对应初始年利率为 14.400000%</strong></p>
+            <strong>贷款实际日利率：</strong>
+            <p><strong>第1期 至 第12期：0.040000%, 对应实际年利率为 14.400000%</strong></p>
+
+            【注：以上日利率=年利率/360。本合同贷款年初始利率=本合同签署日前一个工作日全国银行间同业拆借中心最新1年期贷款市场报价利率（LPR）
+            +1055.00
+            个基点（其中，1个基点=0.01%）。】
+
+
+            <p align="left"><strong>收款账户： </strong></p>
+            <p align="left"><strong>&nbsp; </strong><strong>［支付宝账户］ </strong></p>
+            <p align="left"><strong>&nbsp; </strong><strong>［131******15］</strong></p>
+            <p align="left"><strong>还款方式：等额本金</strong><strong> </strong>&nbsp;&nbsp; </p>
+            <p align="left"><strong>还款日：自贷款发放之日起每月 20 日（如遇节假日，不顺延）</strong>&nbsp; </p>
+            <p align="left"><strong>合同生效日期：2020年06月11日</strong></p>
+            <p align="left"><strong>合同签订地及履行地：杭州市西湖区</strong></p>
+            <p align="left">&nbsp;</p>
+            <p><strong>第二条</strong><strong>&nbsp;</strong><strong>贷款利率与利息 </strong></p>
+            <p> <strong>一、</strong><strong>贷款利率与罚息利率 </strong></p>
+            <p> <strong>（一）贷款利率 </strong></p>
+            <p> 1．您的贷款利率将按日固定利率计算，具体参见本合同第一条，日利率=年利率/360 。本合同第一条贷款初始日利率为不含优惠的贷款原始日利率。 </p>
+            <p> 2．本合同第一条的贷款实际日利率即为在贷款初始利率的基础上计入折扣、减让等优惠之后的贷款实际执行利率。<strong>若您违反本合同的约定或未按贷款平台页面选用优惠，则优惠可能被取消或不生效，则本合同以贷款初始日利率计息</strong>。 </p>
+            <p> 3．尽管有前款约定，请您使用优惠前特别注意关于折扣优惠的所有页面文案及规则（以下简称“优惠规则”），特别是其中优惠使用条件等规定。<strong>若您不认可优惠规则的，请勿使用相应的优惠。 </strong></p>
+            <p> 4.本合同相关所有计算均依据“四舍五入”的计算规则，通常保留小数点后六位（适用于利率）或小数点后两位（适用于金额）。例如：日利率为0.015688%、或应还款为1000.23元。 </p>
+            <p> 5.本合同执行固定利率。本合同贷款年初始利率基于本合同签署日前一个工作日全国银行间同业拆借中心最新1年期贷款市场报价利率（LPR）上下浮动形成。 </p>
+            <p> <strong>（二）罚息利率 </strong></p>
+            <p> 本合同项下贷款<strong>逾期后的罚息利率</strong>为在上述（一）项贷款初始日利率水平上<strong>加收50%；您未按本合同约定用途使用贷款的罚息利率为</strong>在上述（一）项贷款初始日利率水平上<strong>加收100%。</strong> </p>
+            <p> <strong>二、利息 </strong></p>
+            <p> 1.<strong>贷款利息自贷款发放之日起(含发放之日当日)计算，按日计息</strong>，按本合同第十一条的约定进行结息、付息。因不同支付机构或银行之间系统延迟等原因，发放之日（即贷款资金从贷款人系统划出之日）和您实际收到款项的日期可能有差异，不影响前述计息。本合同利息采用积数计息法按日利率及实际使用天数计算。 </p>
+            <p> 2.<strong>如您未能按期归还贷款本金（包括提前到期的贷款本金）</strong>，贷款人有权自逾期之日起按本合同约定的逾期罚息利率<strong>计收罚息。对您未按时支付的利息，按逾期罚息利率计收复利</strong>。 </p>
+            <p> 3. 如您未按本合同约定用途使用贷款的，贷款人有权自贷款被挪用之日起，对挪用部分按本合同约定的挪用贷款罚息利率计收罚息，<strong>贷款被挪用期间未按时支付的利息，按挪用贷款罚息利率计收复利</strong>。 </p>
+            <p> 4.对于既逾期又未按本合同约定用途使用贷款的，<strong>择较重者计收罚息，不予并处。 </strong></p>
+            <p> 5.尽管有前款约定，若法律法规或监管规定对利率或利息有强制性规定的，本合同遵照最新规定执行。 </p>
+            <p><strong>第三条</strong><strong>&nbsp;</strong><strong>贷款发放</strong> </p>
+            <p>1.贷款人将自行或（当贷款人非网商银行时）委托网商银行把贷款资金全额发放至本合同第一条约定的收款账户。该收款账户在自主支付业务项下为您持有并使用；<strong>在受托支付业务项下，为您知晓并同意作为贷款收款账户的第三方收款账户。贷款人不对受托支付所对应的交易的真实性、合法性负责。 </strong></p>
+            <p> 2.您应确保签约账户和收款账户未受任何限制。<strong>如因前述账户信息有误、受限等不可归责于贷款人或网商银行的原因造成任何损失的，您需要自行承担所产生的损失</strong>。<strong>您同意在您未清偿所有应还款项前，您名下网商银行账户或支付宝账户的变更、注销将受到限制。</strong>如因不可归咎于贷款<strong>人或（当贷款人并非网商银行时）网商银行的原因</strong>（例如法律法规要求、您存在违法违规嫌疑、或收款账户受限等等）<strong>导致部分或全部资金无法正常发放的情况下，视为放款失败。放款失败的情况下，您同意贷款人有权选择采取</strong>将放款资金退回并结清贷款、通知您更换收款账户、或根据贷款平台的系统规则视情况将贷款发放至您的支付宝或网商银行账户（如有）等<strong>措施</strong>。<strong>请您关注放款情况，如遇放款失败也可</strong>在贷款平台选择重新申请支用贷款。 </p>
+            <p> 3.如本合同中有多个贷款人的，各贷款人按本合同第一条放款比例承担贷款资金中的份额，为方便本合同履行之目的，前述放款比例可经由全体贷款人协商一致另行做出变通的安排，但该等安排不影响本合同项下各贷款人对您发放贷款资金的总额，<strong>您同意不以贷款人之间的放款比例分配问题而由拒绝履行合同义务或拒绝承担相应的责任。</strong></p>
+            <p>&nbsp;<strong>第四条</strong><strong>&nbsp;</strong><strong>贷款用途</strong> </p>
+            <p> 本合同项下的贷款专用于日常经营周转。您承诺严格按本合同约定的用途使用贷款，不挤占挪用贷款，<strong>不将贷款用于购买住房、从事股本权益性投资、股票、基金、期货、金融衍生品投资或从事赌博、洗钱等其他违法违规用途。</strong>贷款人有权要求您提供用途相关证明，如您不配合的，则视为您违反本条约定。 </p>
+            <p><strong>第五条</strong><strong>&nbsp;</strong><strong>贷款期限</strong> </p>
+            <p> 1.除本合同另有约定外，您的贷款期限具体参见本合同第一条。您应该在贷款期限结束之日前，按照本合同的条款清偿其在本合同项下所欠的全部债务。 </p>
+            <p> 2.贷款期限的展期需获得贷款人的同意。 </p>
+            <p><strong>第六条</strong><strong>&nbsp;</strong><strong>还款</strong> </p>
+            <p> 一、还款方式 </p>
+            <p>本合同项下贷款的还款方式为下述方式其中之一或组合，<strong>具体以本合同第一条约定为准</strong>： </p>
+            <p>1. 按月等额本金还款：即每月以固定金额偿还贷款本金，并偿付当月实际产生的利息，贷款到期日归还剩余贷款本金及利息。 </p>
+            <p> 2. 按月付息，到期还本：即每月偿付当月实际产生的利息，贷款到期日归还全部贷款本金及剩余利息。 </p>
+            <p> 3. 按月等额本息还款：即每月以固定金额偿还贷款本息，贷款到期日归还剩余本金和利息。 </p>
+            <p> 4. 前X月付息后Y月等额本金（又称“组合贷”）：即前X个月每月偿付当月实际产生的利息，后Y个月每月以固定金额偿还贷款本金，并偿付当月实际产生的利息，贷款到期日归还剩余贷款本金及利息。其中X和Y以本合同第一条约定为准。 </p>
+            <p> 5. 一次性还本付息：即贷款到期日一次性归还全部本金和利息。 </p>
+            <p><strong>尽管有上述约定，如若您的还款计划并非按月度的、或贷款人与您之间另行约定特殊还款方式的，以贷款平台中展示的还款计划或其他书面约定为准。 </strong></p>
+            <p><strong>二、还款日 </strong></p>
+            <p> 1．您每期还款日参见本合同第一条。 </p>
+            <p> 2．<strong>若本合同第一条未展示每期还款日的，原则上，您每月还款日为您贷款发放之日所对应的自然日</strong>，但是若贷款发放之日为29日、30日或31日，则您每月还款日为25日~27日中的某一天，具体以贷款平台页面提示的还款日或<strong>还款计划展示</strong>为准）。 </p>
+            <p> 3. 尽管有前款约定，如您的贷款因任何原因被宣布提前到期的，还款日则为贷款人指定日期（以贷款平台页面展示或相关通知为准）。 </p>
+            <p><strong>三、应还款额 </strong></p>
+            <p> 对于本合同项下之贷款本金和相应利息，您应按本合同还款方式约定还款。贷款人将根据您的还款方式、贷款本金、还款日期、贷款期限和贷款利率等为您计算您每个还款日的应还款额。<strong>您可在贷款平台查询您每个还款日的应还款额。</strong></p>
+            <p><strong>四、主动还款 </strong></p>
+            <p> 针对未逾期的贷款，您可以通过贷款平台自主操作及归还全部或部分贷款本金和利息。贷款<strong>人建议您应及时主动积极的归还贷款</strong>，避免逾期给您造成不利影响。 </p>
+            <p><strong>五、自动还款</strong> </p>
+            <p> <strong>1.</strong>自动还款功能是贷款平台为方便您还款而向贷款人提供的技术功能，除您主动还款外，<strong>您同意自动还款功能可根据贷款平台系统规则自动启用或关闭，无须另行通知您</strong>。 </p>
+            <p> 2. <strong>除非与您另有约定，您同意贷款人可通过自动还款功能<strong>于您的每个还款日、费用支付日发起扣款操作，且直至您的债务清偿完毕。</strong></strong><strong>自动还款途径（不论顺序）包括：</strong> </p>
+            <p>（1）通过支付宝账户或其绑定的银行账户自动还款； </p>
+            <p> （2）通过网商银行账户或其绑定的银行账户自动还款； </p>
+            <p> （3）通过贷款平台绑定的银行账户（如有）自动还款； </p>
+            <p>（4）若您在阿里巴巴集团、蚂蚁金服集团、贷款人的其他关联方处有任何应收或留存款项，您同意并授权贷款人在可实现的情况下直接通过前述公司自前述款项中扣收相应金额用以偿还您在本合同项下的欠款。 </p>
+            <p><strong>3.</strong><strong>&nbsp;</strong><strong>作为实现上述自动还款的条件之一，您应在每个还款日指定时间（具体扣款时点以贷款平台展示为准）之前将应还款额足额存入您的上述自动还款相关账户</strong><strong>。因此</strong>您的还款时间以贷款人收到还款资金的时间为准，还款金额以贷款人实际收到您的还款金额为准。 </p>
+            <p><strong>4.</strong><strong>&nbsp;</strong><strong>各自动还款途径的扣款顺位根据贷款平台自动还款的代扣规则及相关支付机构的支付规则而定且可能随时变换，因此您同意自动还款的扣款顺序以实际发生的为准。</strong>在贷款平台功能可支持的情况下，您可至贷款相关页面选择各扣款途径自动还款的先后顺序，在此之前，您认可贷款人可自主通过任一途径扣款。 </p>
+            <p> 5.&nbsp;请您知晓并理解，您理解资金充足并非自动还款成功的唯一条件，<strong>自动还款功能可能受您账户情况、系统、技术、网络、合作方等各类因素的限制</strong>（如您的还款账户或绑定的银行账户及余额宝、余利宝等余额不足、份额不足、功能或支付额度受限、被限权、合作方网络故障等）<strong>而导致自动还款失败或不能。您应密切注意自动还款提示及结果，若出现自动还款失败或不能，您应及时发起主动还款</strong>或联系95188-3申请线下还款，<strong>避免您因未及时还款导致</strong>贷款逾期、您的不良信用记录被上传至中国人民银行金融信用信息基础数据库（以下简称“金融信用信息基础数据库”）、您的利率或利息优惠被取消、您被收取罚息等<strong>不利影响</strong>。<strong> </strong></p>
+            <p> 6. <strong>鉴于贷款人无法预期自动还款各途径自身可能发生的情况，除非法律法规另有明确规定，您同意贷款人和贷款平台对自动还款功能所导致的任何责任或损失不应承担责任。</strong></p>
+            <p><strong>六、提前还款</strong> </p>
+            <p> <strong>（一）主动提前还款 </strong></p>
+            <p> 贷款期限届满前，<strong>在征得贷款人同意的前提下，</strong>您可提前归还全部或部分贷款本金。贷款人有权按照您届时所提前归还的贷款本金的一定比例<strong>收取提前还款手续费</strong>，具体收费标准详见本合同第一条提前还款手续费费率，若本合同第一条无提前还款手续费费率或费率为0，则您提前还款不收任何费用。<strong>贷款人有权在贷款期限内调整前述提前还款手续费费用收取标准，调整后的费用收取标准将在贷款平台提前进行公告。</strong>如有分期还款的情况，如您需在每一期还款日到期前对当期欠款提前还款，也适用前述约定。 </p>
+            <p> <strong>（二）强制提前还款 </strong></p>
+            <p>根据您的财务变化情况，贷款有权要求您提前还款，您应按照贷款人要求提前还款。 </p>
+            <p> &nbsp;<strong>（三）逾期扣款</strong><strong> </strong></p>
+            <p> 除非与您另有约定，您同意贷款人在您的债务逾期后，可使用自动还款功能每日持续发起扣款操作直至您的债务清偿完毕。 </p>
+            <p><strong> </strong></p>
+            <p><strong>七、清偿顺序 </strong></p>
+            <p> 除本合同另有约定外，您的还款资金通常按以下顺序清偿：首先用于偿还本合同约定的提前还款的费用（如有），再用于偿还应由您承担由贷款人垫付的各项费用以及贷款人实现债权的费用（如诉讼费、律师代理费、催收费用等），剩余款项按照先还息后还本、利随本清的原则偿还。<strong><u>贷款人可能根据贷款风险政策和您的信用状况对上述还款的清偿顺序作出调整，或变更还款方式（如调整每期偿还金额）等。遇到多笔需要归还的贷款时，您同意贷款人可自行决定还款的先后顺序和金额。</u></strong><u> </u></p>
+            <p>&nbsp;<strong>第七条</strong><strong>&nbsp;</strong><strong>您的声明和保证</strong> </p>
+            <p> <strong>您在签署和履行本合同期间向贷款人作如下声明和保证： </strong></p>
+            <p> <strong>1.</strong><strong>资格能力 </strong></p>
+            <p> 您具有签订和履行本合同的民事权利能力和行为能力、必要资质或资格，也具足够的偿债能力。 </p>
+            <p> <strong>2.</strong><strong>有效授权 </strong></p>
+            <p> 您签署并履行贷款合同所需的所有授权均已获得，并且完全有效，本合同由其授权签字人有效签署。 </p>
+            <p> <strong>3.</strong><strong>合法许可 </strong></p>
+            <p> 为合法地拥有资产、经营业务、签署并履行本合同，您已经获得了必需的各项批准、许可、同意、登记及备案，并且完全有效。 </p>
+            <p> <strong>4.</strong><strong>信息报送 </strong></p>
+            <p> 您或您所经营的企业已经按照相关法律的要求报送年度报告，按贷款人的要求提交或披露信息，并且未被列入经营异常名录或者严重违法企业名单。 </p>
+            <p><strong>5.</strong><strong>条款效力 </strong></p>
+            <p> 您在本合同项下的义务合法、有效、对您具有约束力。 </p>
+            <p><strong>6.</strong><strong>无冲突 </strong></p>
+            <p> 您签订和履行本合同没有且不会违反下列任何一项或与之冲突： </p>
+            <p>（1）对您或您的资产有约束力的任何合同、协议或其他文件； </p>
+            <p>（2）股东协议、公司章程及其他公司治理文件；及/ 或 </p>
+            <p>（3）任何法律法规和监管政策。 </p>
+            <p> <strong>7.</strong><strong>诉讼和仲裁 </strong></p>
+            <p> 您或您所经营的企业没有发生、也不存在针对其提起的、对您履行本合同产生或可能产生任何<strong><u>重大不利影响</u></strong>的任何法院诉讼、仲裁、行政程序、司法或行政机关的执行程序或类似性质的其他程序。 </p>
+            <p><strong>8.</strong><strong>破产和清算 </strong></p>
+            <p> 您或您所经营的企业没有启动或被启动任何停业、解散、清算、破产、重整、和解、整顿或类似的程序。 </p>
+            <p> <strong>9.</strong><strong>违约事件 </strong></p>
+            <p> 没有发生或存续任何本合同约定的违约事件。 </p>
+            <p> <strong>10.</strong><strong>遵守法律 </strong></p>
+            <p>您或您所经营的企业在所有方面遵守适用于您的所有法律法规，并且没有违反与您业务和经营有关的任何法律法规。 </p>
+            <p><strong>11.</strong><strong>债权顺位 </strong></p>
+            <p>贷款人在本合同项下对您的债权与您其他债权人对您的无担保或法定优先权的债权至少处于同一受偿顺位。 </p>
+            <p><strong>12.</strong><strong>司法豁免 </strong></p>
+            <p> 在任何司法程序中，<u>您</u>及您的资产在起诉、 判决、 执行、 财产保全或其他程序方面不享有任何豁免权和特权。 </p>
+            <p> <strong>13.</strong><strong>信息披露 </strong></p>
+            <p>（1）您提交或披露的所有信息在所有实质方面均为真实、完整及准确的，并且没有遗漏具有或可能具有任何重大不利影响的任何信息。 </p>
+            <p>（2）您的法律地位、业务状况、财务状况或资产状况没有发生产生或可能产生任何重大不利影响的任何情况。 </p>
+            <p> （3）您提交或披露的财务报表和报告（如有）是依照所适用的会计准则制作的，公允、真实、完整并准确地反映了您在该等财务报表和报告制作之日的财务状况；并且，该等财务报表和报告没有遗漏您的任 何重大负债、重大收入或重大损失。 </p>
+            <p> （4）您或您所经营的企业提供的所有材料均为真实、可靠、完整和有效的，不存在任何虚假记载、重大遗漏或误导性陈述。 </p>
+            <p> （5）您保证在贷款人要求时提交相关信息、证明和资料，以证实您有足够的偿债能力归还本合同项下的贷款本息。 </p>
+            <p> <strong>14.</strong><strong>不利影响 </strong></p>
+            <p> 您或您所经营的企业无任何重大不利影响的事件或情况。 </p>
+            <p> <strong>15.</strong><strong>诚信经营 </strong></p>
+            <p> 您或您所经营的企业（如有）不存在任何虚假交易、不诚信经营行为。 </p>
+            <p><strong>16.</strong><strong>账户保管 </strong></p>
+            <p> 您作为签约账户的支付宝账户或网商银行账户已经实名认证并设置了密码，且您承诺妥善保管前述账户的账户名、账号（如有）、密码、及其绑定的手机号码、手机验证码等信息<strong>。</strong> </p>
+            <p> <strong>17.</strong><strong>关联账户 </strong></p>
+            <p> 当您为阿里巴巴集团旗下网站会员（如淘宝、天猫、菜鸟、速卖通或阿里妈妈商家会员等，以前述网站记录为准）且您在阿里巴巴集团旗下网站已开立会员账户绑定了用以签约的支付宝账户或网商银行账户时，或，您在网商银行账户中关联了您的签约支付宝账户（以网商银行系统记录为准）时，您通过前述会员账户或网商银行账户提交的贷款申请、贷款支用申请等行为即视为您自身行为。 </p>
+            <p> <strong>18.</strong><strong>完整守约 </strong></p>
+            <p> 您承诺遵守本合同及全部附件的条款约定,及贷款人依国家法律、法规、监管政策所不时要求您需遵守的其他要求。 </p>
+            <p><strong>第八条 约定事项 </strong></p>
+            <p> <strong>1.</strong><strong>通知义务 </strong></p>
+            <p> <strong>发生下列情形之一的，您应当在知悉后立即通知贷款人 ： </strong></p>
+            <p><strong>（1）发生任何一项违约事件或潜在违约事件 ； </strong></p>
+            <p>（2）发生针对您或您所经营的企业提起的，或者您或您所经营的企业针对他人提起的，标的金额达到或超过叁拾万元人民币金额的任何法院诉讼、仲裁、行政程序、司法或行政机关的执行程序或类似性质的其他程序； </p>
+            <p>（3）总额达到或超过其净资产10% 的关联交易情况，包括：交易各方的关联关系、交易项目和交易性质、交易金额和相应比例、定价政策等；及/或 </p>
+            <p>（4）如您发现有他人冒用或盗用您前述账户或信息、或任何其他无合法授权之情形时，您应立即通知贷款人以便及时解决； </p>
+            <p>（5）发生产生或可能产生重大不利影响的事件。 </p>
+            <p><strong>2.</strong><strong>贷款管理 </strong></p>
+            <p> <strong>贷款人可随时对您使用贷款资金的情况进行检查和监督，您应当配合贷款人进行贷款支付管理、贷后管理及相关检查。</strong>贷款人进行检查和监督的方式包括但不限于：(i) 要求您提供其使用贷款资金的有效证明资料； (ii)对贷款资金使用情况进行账户分析、凭证检验或现场调查；以及(iii) 法律法规允许的其他方式。 </p>
+            <p><strong>3</strong><strong>．追加担保 </strong></p>
+            <p><strong>您同意在贷款人提出要求时，向贷款人提供如下支持或担保： </strong></p>
+            <p>（1）保证合同项下的保证； </p>
+            <p>（2）抵押合同项下的抵押担保；及/或 </p>
+            <p>（3）质押合同项下的质押担保。 </p>
+            <p> 如您未能按贷款人要求提供贷款人认为适合的担保，您同意贷款人有权追加担保人，担保内容以贷款人与担保人之间的约定为准<strong>。</strong>如您对担保人有疑问的，可向贷款人咨询进行确认。&nbsp;<strong> </strong></p>
+            <p> <strong>4. </strong><strong>委托操作 </strong></p>
+            <p> <strong>在贷款人并非网商银行的情况下，贷款人有权委托网商银行及其关联方履行本合同中部分义务（包括提供贷款平台相关服务、催收、通知等），而无需另行通知借款人，根据监管要求必须由贷款人亲自履行的除外。 </strong></p>
+
+            <p><strong>第九条 限制事项 </strong></p>
+            <p> <strong>1.</strong><strong>担保权益 </strong></p>
+            <p> 除依据担保合同设置的担保权益外，<strong>您应当确保在其任何资产上不会设置或存在任何可能导致您无法履行本合同义务的重大担保权益</strong>，除非获得了贷款人的同意。 </p>
+            <p>  <strong>2.</strong><strong>资产处置和投资 </strong></p>
+            <p> 您应当确保不会通过单笔或多笔交易或一系列交易出售、出租、出让、转让或以其他方式处置其任何重大资产、进行任何重大投资，从而导致您无法履行本合同项下义务，除非获得了贷款人的同意。 </p>
+            <p> <strong>3.</strong><strong>分立和合并 </strong></p>
+            <p>  您或您所经营的企业应当确保不会进行任何合并、分立、被承包经营或类似安排，从而导致您无法履行本合同项下义务，除非获得了贷款人的同意。 </p>
+            <p> <strong>4.</strong><strong>减少注册资本 </strong></p>
+            <p> 您或您所经营的企业应当确保不会减少其注册资本，从而导致您无法履行本合同项下义务，除非获得了贷款人的同意。 </p>
+            <p>  <strong>5.</strong><strong>实际资金需求 </strong></p>
+            <p> 您应当确保其在本合同项下的贷款金额与您已经或将要获得的其他流动资金贷款的总额不超过您的实际资金需求。 </p>
+            <p><strong>第十条</strong><strong>&nbsp;</strong><strong>信息收集、使用、共享与保护</strong> </p>
+            <p> <strong>一、信息收集</strong> </p>
+            <p>为了客观、准确地评估您的信用情况和授信额度，防范可能的风险，方便您更好的使用贷款服务，在下列情形下您需要提供一些信息，同时贷款人（包括但不限于以贷款发放主体的身份）也会在遵循合法、正当、必要原则的前提下，按照如下方式收集您的相关信息： </p>
+            <p><strong>1.</strong><strong>在您申请或使用贷款服务过程中，您向贷款人提交的信息或新产生的信息。</strong> </p>
+            <p><strong>2.</strong><strong>为了风险控制等合法目的，向贷款人的关联方及合法留存您信息的其他方</strong>（如支付宝、商户等）<strong>收集与贷款服务相关的必要信息</strong>，如您的姓名/名称、证件类型及号码、联系电话及地址、支付宝账户信息、履约情况、交易信息、资产负债信息、财税信息等。<strong>如您为企业身份或您作为企业的法定代表人或个体工商户的经营者时，您并同意贷款人向合法留存您信息的其他方</strong>（例如税务局、征信机构或相关服务机构等）<strong>采集包括您企业的工商登记信息、经营信息、发票信息、纳税人名称、识别号、注册地址/经营地址、纳税人基本信息，以及纳税信用等级、纳税申报表、财务报表等与税务相关的信息</strong>。<strong>特别的，若您申请贷款服务是用于淘宝、天猫、饿了么、或其他电子商务全部或部分店铺的经营相关用途，或用于您与贷款人的关联方之间服务/产品相关的经营用途，您理解并同意贷款人向其关联方和/或其他合法留存您信息的其他方收集前述所有店铺的经营信息，以便综合评估您的还款能力或风险</strong>。例如：当贷款人是浙江网商银行股份有限公司 （以下简称“网商银行”）时，您天猫/淘宝店铺的经营时长、聚划算及阿里妈妈广告等相关营销投入以及店铺处罚信息、为贷款支付等目的所调取的交易应付账款（账单）信息等。 </p>
+            <p> <strong>3.</strong>&nbsp;<strong>基于贷款人风险评估的需要，自行或通过关联方向芝麻信用管理有限公司以及其他法律、监管机构许可设立的信用服务机构采集您的芝麻分、履约信息、资产情况（如有）等信息；及向中国人民银行金融信用信息基础数据库（以下简称“金融信用信息基础数据库”）采集您的信用信息和信用报告。</strong> </p>
+            <p> <strong>4.</strong><strong>向部分政府机构、司法机关及公共事业单位、行业组织（如人力资源和社会保障部门、公积金中心、人民法院等）采集</strong>与贷款服务相关的<strong>必要信息</strong>，如您的社保信息、公积金信息、诉讼信息等。 </p>
+            <p> <strong>5.</strong><strong>向您同意的其他来源收集与贷款服务相关的必要信息。</strong> </p>
+            <p> <strong>6.</strong>为了取得与您的联系、降低您的违约成本，以及出于反欺诈等风险控制的目的<strong>，贷款人需要收集您向贷款人及贷款人的关联方提供的联系信息等必要信息。如您提供的前述信息是您的关联人</strong>（例如亲戚、朋友的）<strong>的姓名及联系方式，根据法律法规的要求，</strong>请您事先向关联人进行必要的告知（如信息范围、用途等），<strong>并获得其同意。</strong> </p>
+            <p> <strong>二、信息使用</strong> </p>
+            <p><strong>为完整地向您提供服务以及保护各方的合法权益，您理解和同意贷款人在为您提供服务的整个周期内可能会将您的信息用于如下用途： </strong></p>
+            <p>1.为保护您交易及账户安全，校验信息的准确性，对您的身份及其他必要信息进行识别、验证等。 </p>
+            <p>2.为提供适合您的服务，提供服务状态通知及查询服务，并持续维护、改善这些服务，对您的信息进行分析、加工和处理。 </p>
+            <p>3.为合理评估您的资信状况、还款能力和还款意愿，防控风险。 </p>
+            <p> 4.为使您知晓贷款人的服务情况或向您推荐更优质的服务，自行或与关联方、其他方合作，通过电子邮件、网络客户端消息提示或推送、手机短信等方式向您发送服务通知、营销活动或其他商业性电子信息，若您认为前述方式对您造成了打扰，请拨打本合同提供的服务热线或在您收到营销信息后按照信息提示的方式退订。 </p>
+            <p> 5.预防或阻止违法、违规的活动，如识别、打击洗钱等。 </p>
+            <p> 6.为了维护您的权益（例如预防或阻止非法或危及您人身、财产安全的活动），或者为了解决贷款人与您之间的争议。 </p>
+            <p><strong>7.</strong><strong>当您逾期欠款或存在无法自行按时还款的情形，且贷款人经合理努力仍无法与您取得直接联络的情况下，为了尽快避免或者降低逾期或违约给您造成的不利后果，请您理解和同意（1）贷款人可通过您在贷款人、</strong>（如贷款人非网商银行）<strong>网商银行、及贷款人或网商银行的关联公司留存的其他联系方式联络您，或联系您的担保人、共同还款人、代偿人、或通过合法渠道取得联络的您的联系人告知您的逾期情况，</strong>以便在前述人士自愿的前提下及时向您转达相关信息，提示您及时履约；<strong>（2）若您的关联人接听了电话，我们可能会向您的关联人告知您的逾期情况</strong>，您的关联人主动联系贷款人，愿意为您代为还款的，则贷款人将向您的关联人告知您的融资情况，以便其为您还款。 </p>
+            <p>8.根据法律法规、监管部门要求或其他经您另行明确同意的用途。 </p>
+            <p><strong>三、信息共享</strong> </p>
+            <p><strong>贷款人承诺会根据法律法规及监管规定严格保护您的信息，不会为满足与贷款服务无关的第三方的营销目的而向其披露您的信息，您同意贷款人可能会在下列情况下将必要的信息与第三方共享</strong>： </p>
+            <p> <strong>1.</strong>当若干贷款人分别或联合向您提供贷款服务时，<strong>贷款人之间将严格依据法律法规或监管要求基于贷款服务需要对您的信息进行共享。</strong> </p>
+            <p><strong>2.</strong>为了促进社会信用体系的建立及完善，如实反馈您在使用贷款服务时的记录，<strong>您同意将您提供的及您的履约信息（包括不良信息）提供给金融信用信息基础数据库、芝麻信用管理有限公司等信用服务机构、行业自律组织或其他合法有权机构。</strong> </p>
+            <p> <strong>3.</strong>某些情况下，只有共享您的信息给关联方、合作方、外包服务方等，才能核实您的身份、评估您的资信、向您提供相关贷款服务、处理与您相关的争议、或维护您和/或贷款人的合法权益的。 </p>
+            <p> <strong>4.</strong>若贷款人的关联方或其他方根据其与您的约定可以获取您的相关信息（如履约情况等），<strong>贷款人将依据您同意的范围向关联方或其他方提供该等信息。</strong> </p>
+            <p> <strong>5.</strong><strong>为了满足网商银行和/或贷款人的审计需要</strong>，您同意网商银行向自己及/或贷款人的审计机构或审计监管机构提供审计所需的必要信息； </p>
+            <p> 6.行政和司法机关根据法律及行政法规的合法要求。 </p>
+            <p><strong>四、委托处理</strong> </p>
+            <p> <strong>为了提升服务效率，降低服务成本，或提高服务质量，贷款人可能需要委托关联方或专业机构（以下合称“受托机构”） 协助完成本合同项下的部分服务或职责</strong>，例如： </p>
+            <p>1.委托受托机构按照本合同的约定采集您的信息或对您的信息进行分析、加工和处理，用于贷款服务的风险控制或维护、改善贷款服务。 </p>
+            <p>2.委托受托机构评估您的履约能力和履约意愿，供贷款人决策参考。 </p>
+            <p>3.委托受托机构提供客户服务（如客服热线接听等）。 </p>
+            <p> 4.当您逾期欠款或发生其他违约行为时，贷款人可委托专业公司、律师事务所等合法合规的机构代为催收。 </p>
+            <p> <strong>为此，贷款人将在与贷款服务相关的必要范围内向受托机构提供您的部分信息</strong>。贷款人承诺受托机构同样遵守严格的保密义务及采取有效的保密措施，禁止其将这些信息用于未经您同意的用途，贷款人对您的信息安全承担相应的责任。 </p>
+            <p> <strong>五、信息保护</strong> </p>
+            <p> 除根据法律法规规定及本合同对您的个人信息和隐私予以保护外；在收集、使用、分享您的信息时，<strong>各贷款人将按照其发布的隐私权政策（例如蚂蚁金服旗下贷款人将依据</strong><strong><u><a href="https://docs.alipay.com/policies/privacy/antfin">《蚂蚁金服隐私权政策》</a></u></strong><strong>，网商银行将依据</strong><strong><u><a href="https://mobilehelp.mybank.cn/bkebank/knowledgeDetail.htm?id=3958#toMainCat">《网商银行隐私权政策》</a></u></strong><strong>）或与您签署的其他条款（如有）的要求严格保护您的信息</strong>。请您仔细阅读相关政策、条款；如有疑问，请随时联系贷款人。 </p>
+            <p><strong>第十一条</strong><strong>&nbsp;</strong><strong>违约及其违约处理</strong> </p>
+            <p> <strong>一、违约情形：</strong> </p>
+            <p><strong>请您知晓，发生下列任一情况的，您将构成违约：</strong> </p>
+            <p> 1．您未按本合同规定按时足额偿还贷款本息或其他应付款项； </p>
+            <p> 2．您未按本合同约定用途使用贷款的； </p>
+            <p> 3．您或您所经营的企业向贷款人提供虚假的信息，或故意隐瞒和贷款相关的重要变更事项的； </p>
+            <p> 4．您或您所经营的企业存在逃避债务、偷逃税款、转移资产、套取现金、洗钱、违反与第三人的约定、存在到期不履行债务，已经或可能影响您履行本合同项下义务的； </p>
+            <p> 5．您或您所经营的企业有拖欠第三方债务、未按约履行义务或其他违反诚信的行为，已经或可能导致无法履行本合同的； </p>
+            <p> 6．您或您所经营的企业在贷款人处或在阿里巴巴集团、蚂蚁金服集团及贷款人的其他关联方处有违法违规操作、受到电商平台的处罚、<strong>被发现存在经营异常、虚假或疑似虚假交易的、店铺相关电商平台会员资格被暂停或终止的（以电商平台认定的为准）、</strong>涉嫌违法违规侵权或存在其他异常情况的； </p>
+            <p> 7.您在贷款人处的账户、您的支付宝账户、网商银行账户或其他账户被司法机关冻结、划扣或账户被限权或止付等可能对您履行本合同项下还款义务产生不利影响的； </p>
+            <p> <strong>8.</strong><strong>您的或您所经营的企业的股权、控股关系、合伙关系、联营关系、实际控制人或关键管理人员发生变化，或被解散、停业、撤销、吊销或注销营业执照、清算、破产、关闭的； </strong></p>
+            <p> <strong>9.</strong><strong>您或您的家庭成员、您所经营的企业、您的法定代表人（如有）财务情况、资产、信用、声誉等情况发生重大负面变化</strong>（包括但不限于工作调整，收入降低、失业、重大疾病、拖欠其他债务、承担重大负债、减少注册资本、进行重大资产或股权转让、发生重大财务亏损、资产损失、申请破产等，被政府部门、司法机关、征信机构、第三方机构等警告、处罚、宣布列入失信人名单、或有信用相关不良记录等）<strong>，而贷款人认为已经或有可能影响您履行本合同项下义务的；</strong> </p>
+            <p><strong>10. </strong>您违反本合同任一约定、或违反国家法律法规禁止性规定的。 </p>
+            <p><strong>二、违约救济措施</strong> </p>
+            <p> <strong>如出现前述违约情形的，贷款人有权采取如下措施以保障自身的合法权益：</strong> </p>
+            <p> 1．要求您限期纠正违约行为。 </p>
+            <p> <strong>2</strong><strong>．停止依据本合同或您与贷款人之间的其他合同向您发放任何贷款。</strong><strong> </strong></p>
+            <p> 3．<strong>自主决定本合同、以及您与贷款人之间其他合同项下您未偿还的债务全部或部分提前到期，并要求您提前全部清偿。</strong> </p>
+            <p> 4．处分抵押/质押财产或要求保证人代偿（如有），实现贷款人的债权。 </p>
+            <p> 5.&nbsp;<strong>通知支付宝公司对您任何一个或几个支付宝账户权限和/或功能进行限制</strong>，包括但不限于止付部分或全部账户余额、停止向您提供所有支付宝账户支付、提现等服务。 </p>
+            <p> 6.&nbsp;<strong>自行或</strong>（当贷款人并非网商银行时）<strong>通知网商银行对您的一个或多个网商银行账户或服务权限（如有）采取限制措施</strong>，包括但不限于冻结全部或部分资金、停止向您提供取款、转账、支付等服务。 </p>
+            <p>7. <strong>通知阿里巴巴集团、蚂蚁金服集团或贷款人的其他关联方</strong>依据其相关规则对您注册的电商平台账户或会员账户<strong>采取关闭店铺、限制营销、账户限权或关闭等处理措施</strong>。 </p>
+            <p> 8．<strong>若您被欺诈或您的支付宝账户被盗期间，前述支付宝账户名下产生了因本贷款服务涉及的欠款，</strong>为避免您承担不必要的还款义务或其他责任，<strong>您同意并授权支付宝/网商银行将您因此可能获得的补偿/赔付资金直接或从您的相关账户中扣划至贷款人账户用于清偿相应欠款</strong>。然而，除非法律另有明确规定，您可能需自行承担所产生的损失。<strong> </strong> </p>
+            <p> 9.在贷款人认为必要的情况下，贷款人有权参与您的对外投资等重大事项或重大关联方交易，落实有效担保以及还本付息等事宜。 </p>
+            <p> 10．贷款人根据法律法规规定或本合同约定以合法手段追偿贷款（包括但不限于委托债务催讨公司、律师事务所等其他第三方机构代为追讨，申请相关部门进行调查、向法院提起诉讼等），由此引起的费用（如诉讼费、财产保全费、执行费、仲裁费、律师代理费、差旅费、评估费、拍卖费、催收费用、调查费用、公证费用等）由您承担。 </p>
+            <p><strong>第十二条</strong><strong>&nbsp;</strong><strong>免责条款和特殊约定</strong> </p>
+            <p> <strong>一、请您理解并同意，因下列原因导致贷款人无法正常提供服务的，贷款人不承担相应责任，但会尽合理努力积极促使服务恢复正常：</strong> </p>
+            <p> <strong>1.</strong><strong>&nbsp;</strong><strong>在贷款平台及支付宝平台系统维护或升级期间；</strong> </p>
+            <p> <strong>2.</strong><strong>&nbsp;</strong><strong>因病毒、木马、恶意程序攻击、网络拥堵、系统不稳定、系统或设备故障、通讯故障、电力故障、电信设备故障、银行原因</strong><strong>&nbsp;</strong><strong>、第三方服务瑕疵或政府行为等原因造成不能执行业务的；</strong> </p>
+            <p> <strong>3.</strong><strong>&nbsp;</strong><strong>因台风、地震、海啸、洪水、停电、战争、恐怖袭击等不可抗力之因素，造成系统障碍不能执行业务的；</strong> </p>
+            <p> <strong>4.</strong><strong>&nbsp;</strong><strong>您使用的通信线路或供电线路故障等原因而造成的服务中断或者延迟的；</strong> </p>
+            <p> <strong>5.</strong><strong>&nbsp;</strong><strong>您操作不当或通过非授权或认可的方式使用贷款平台服务的。</strong></p>
+            <p><strong>二、</strong>本合同有效期内，<strong>因国家相关主管部门颁布、变更的法律、法规、规章、规定、指引、通知、政策及其他规范性文件等</strong>导致贷款人不能继续为您服务的，<strong>贷款人可根据相关规定采取变更合同内容、中止或终止本合同、提前收回贷款、或停止继续向您提供贷款等措施。 </strong></p>
+            <p><strong>三、</strong>您理解本合同所涉服务有赖于贷款平台系统的准确运行及操作，<strong>若出现贷款平台系统差错、故障或其他原因引发了展示错误、您或贷款人不当获利等情形的，贷款人可以自行或通过第三方采取更正差错、扣划款项、暂停服务等适当纠正措施。</strong><strong> </strong></p>
+            <p><strong>第十三条</strong><strong>&nbsp;</strong><strong>合同的适用法律及争议解决方式 </strong></p>
+            <p> <strong>本合同适用中华人民共和国法律</strong>（仅为本合同之目的，为避免疑义，不包括香港特别行政区、澳门特别行政区及台湾地区法律）。本合同在履行过程中发生争议，可以协商解决，<strong>协商不成</strong>的<strong>，</strong><strong>向本合同签订地或</strong><strong>贷款人</strong><strong>所在地有管辖权的人民法院提起诉讼（含申请支付令）</strong><strong>。</strong>在此基础上，为减轻双方争议解决成本，加快争议解决的效率，您同意贷款人可以决定向浙江法院电子商务网上法庭（网址为www.yuncourt.com）或贷款人住所地有管辖权的其他电子商务网上法庭提起诉讼（含在线申请支付令），<strong>并同意采用视听传输技术</strong>等在线审理方式（如同步在线审理，异步在线审理等）方式开庭。在争议处理期间，本合同不涉及争议部分的条款仍须履行。&nbsp; </p>
+            <p><strong>第十四条</strong><strong>&nbsp;</strong><strong>合同的变更、终止和权利义务的转让</strong> </p>
+            <p> <strong>一、合同的变更</strong> </p>
+            <p>  1．基于数据电文合同的特点，为不断改进服务质量，贷款人将在不违反法律法规的前提下适时优化或修改本合同条款。<strong>一旦合同条款变更，贷款人将按本合同约定的通知方式通知您；</strong>除法律法规或监管规定另有强制性规定外，<strong>经修订的内容生效时间以通知载明日期为准。若您无法同意修改本合同，则请停止使用贷款并立即归还欠款；若您在修订生效后继续使用贷款，视为您接受修改后的合同内容。</strong>尽管有前述约定，您亦可通过与贷款人协商一致的方式进行合同变更。<strong> </strong></p>
+            <p><strong>二、合同的终止 </strong></p>
+            <p> <strong>1</strong><strong>．基于您的资金使用方身份，为保护贷款人的资金安全，您理解本合同生效后，除本合同另有约定或另行协商确认外，您无法要求单方变更或解除本合同。 </strong></p>
+            <p>  <strong>2.</strong><strong>贷款人可能因额度不足、风险控制、政策变化、终止合作以及本合同约定的其他相关情形等原因而暂停或终止为您提供部分或全部服务</strong>。 </p>
+            <p><strong>三、合同权利义务的转让</strong> </p>
+            <p> <strong>为保护您的合法权益，避免额外负债或影响信用，未经贷款人书面同意，您不可以将本合同项下的权利和义务转让给任何第三方。</strong>在不对您使用贷款造成不利影响的前提下，<strong>贷款人有权将本合同项下权利和义务转让给第三方，而无需另行通知或征得您的同意<strong>。</strong></strong></p>
+            <p>&nbsp;<strong>第十五条</strong><strong>&nbsp;</strong><strong>通知及法律文书的送达</strong> </p>
+            <p><strong>一、通知</strong> </p>
+            <p> 本合同履行过程中，贷款人发送给您的书面通知，以邮寄送达的，按照<strong>您在贷款平台信息系统中填写的通讯地址或在阿里巴巴集团、蚂蚁金服集团以及贷款人的其他关联方、合作方网站填写的通讯地址、收货地址或您住所地交邮后的第三个自然日即视为送达</strong><strong>。</strong>书面通知的形式还包括但不限于贷款人采用在贷款平台公告、淘宝网站公告、天猫网站公告、阿里巴巴网站公告、支付宝公司网站公告、支付宝服务窗推送、向您发送电子邮件、贷款平台/淘宝（天猫）/支付宝账户/阿里巴巴站内信息、支付宝钱包消息、旺旺系统信息、手机短信和传真等电子方式，<strong>在采用电子方式进行书面通知的情况下发送当日即视为送达。贷款人有权决定以前述任何一种或几种形式书面通知您。贷款人以多种方式向您发送通知的，通知送达时间以最先送达的为准。</strong> </p>
+            <p> <strong>二、法律文书的送达</strong> </p>
+            <p><strong>您同意司法机关按照本合同附件四《法律文书送达地址确认书》的约定向您送达法律文书。</strong></p>
+            <p><strong>第十六条 合同的组成</strong><strong> </strong></p>
+
+            <p><strong>本合同由本合同条款（含签约提示、合同正文条款、本合同附件）、您在贷款平台信息系统填写的所有信息、以及贷款平台各项规则以及与本贷款相关的网络页面信息组成，各组成部分均具有法律效力；与本合同条款有冲突的以本合同条款为准。</strong></p>
+            <p><strong>本合同附件清单如下</strong>： </p>
+            <p>附件一《网络公示和终止服务同意函》； </p>
+            <p>附件二《授权书-支付宝》； </p>
+            <p>附件三《授权书-网商银行》； </p>
+            <p>附件四《法律文书送达地址确认书》； </p>
+            <p>  <strong>第十七条</strong><strong>&nbsp;</strong><strong>术语定义</strong> </p>
+            <p> 1. 贷款平台：本合同中指您申请本合同项下贷款服务所使用的网商银行及/或其合作方所运营的网站或软件客户端，包括但不限于mybank.cn，网商银行客户端，alipay.com，支付宝客户端等。由于技术限制、运营需要等原因，您理解各贷款平台页面功能可能有所差异。 </p>
+            <p> 2. 支付宝公司：指支付宝（中国）网络技术有限公司。 </p>
+            <p> 3. 网商银行：指浙江网商银行股份有限公司。 </p>
+            <p> 4. 合作机构：如有，则指与网商银行合作，作为贷款人之一与网商银行按约定放款比例联合向您提供贷款服务的其他机构。 </p>
+            <p> 5. 签约账户：是指获得支付宝公司身份验证的支付宝账户或获得网商银行身份验证的银行账户，具体以实际签约的账户类型为准。 </p>
+            <p> 6．阿里巴巴电商平台：本合同中也简称“电商平台”，指阿里巴巴集团旗下淘宝网站（taobao.com）、天猫网站（tmall.com）、阿里巴巴中文站（1688.com）等电子商务平台。 </p>
+            <p> 7. 店铺：本合同中指您在阿里巴巴电商平台以本人真实身份作为经营者所开立的网上店铺（以电商平台系统记录为准）。 </p>
+            <p> 8.商户：指电商平台中有售卖权限的店铺经营者（含个人经营人或企业经营者），商户身份和权限以电商平台记录的为准。 </p>
+            <p> 9. 阿里巴巴集团：指阿里巴巴集团控股有限公司及与其有关联关系的公司，具体以阿里巴巴集团公示的为准。 </p>
+            <p> 10.蚂蚁金服集团：指浙江蚂蚁小微金融服务集团股份有限公司及与其有关联关系的公司，具体以蚂蚁金服集团公示的为准。 </p>
+            <p> 11.关联方：网商银行的关联方在本合同项下特指浙江蚂蚁小微金融服务集团股份有限公司及旗下公司以及阿里巴巴集团控股有限公司及与其有关联关系的公司。其他贷款人的关联方以其公布的信息为准。</p>
+            <p> 12. 关联人：指您自主提供或服务提供方通过其他合作方或任何合法途径获取的与您有代表关系、管理关系、亲属关系、合伙关系、朋友关系和/或其他密切联系关系的自然人。</p>
+            <p> 13. 止付：根据支付宝公司官方公布的定义内容为准。</p>
+            <p> 14. 担保人：指为本合同项下全部或部分债务提供担保的人。</p>
+            <p> 15. 重大不利影响：指您的法律地位、资产状况、财务状况或经营状况发生重大变化，并且依照<u>贷款人</u>的合理判断，该等变化已经或将要对<u>您</u>完全履行其在任何<u>本合同</u>项下义务的能力产生重大不利影响。 </p>
+            <p><strong>第十八条</strong><strong> </strong><strong>解释规则</strong><strong> </strong></p>
+            <p> 在本合同中： </p>
+            <p>  1．目录及标题仅为阅读方便的目的，在解释合同条款时可以忽略。 </p>
+            <p>  2．“资产”应当被理解为包括所有目前和将来的、有形或无形的资产、财产、收入、收益、应收账款以及其他各种权益。 </p>
+            <p>  3．“人” 应当被理解为包括任何自然人、公司、合伙、企业或任何其他法人或非法人组织或法律实体。 </p>
+            <p>  4．一项违约事件的“存续” 指该违约事件已经发生且没有消除，也没有按照本合同条款被完全补救或豁免。 </p>
+            <p>  5. 任何人的“ 停业”、“ 解散”、“ 清算”、“ 破产”、“ 重整”、“ 和解” 或“ 整顿” 应当被理解为包括依照其成立地的或业务经营地的法律进行的任何相同或类似的法律程序，进入该等法律程序包括其自己通过决议或任何其他人申请开始该等法律程序。 </p>
+            <p><strong>附件一：网络公示和终止服务同意函</strong> </p>
+            <p> 鉴于本人/本公司将向
+                天津信托有限责任公司 &nbsp;（以下简称“贷款人”）申请贷款，本人/本公司同意，并声明如下： </p>
+            <p> 1．一旦本人/本公司违反与贷款人的合同约定，贷款人有权自行决定并直接或委托网商银行通知蚂蚁金服集团和阿里巴巴集团旗下公司（以下统称“贷款人相关公司”）在贷款人相关公司旗下网站、其他媒体和贷款人认为必要的区域范围内的任意位置公示本人/本公司违反合同等其他相关信息，包括但不限于本人/本公司姓名名称、肖像、证件号码、住所地、个人信息、具体违约状况等信息。 </p>
+            <p> 2．除公示上述信息外，贷款人相关公司亦有权中止或提前终止与本人/本公司之间的已签订未履行，或仍在履行期内的服务合同，且无须退还任何服务费用（如有）；本人/本公司同意并确认，贷款人相关公司有权拒绝向本人/本公司提供任何服务并无需承担任何责任。 </p>
+            <p>3．本人/本公司同意并确认，一旦本人/本公司违反与贷款人的合同约定，贷款人有权自行决定并通知或委托网商银行通知贷款人相关公司依据其相关规则对本人/本公司或本人/本公司的关联人士注册的的所有淘宝网和天猫网、阿里巴巴网站店铺采取关闭店铺、止付账户、限制营销等处理措施。 </p>
+            <p> 4．如本人/本公司已归还逾期的贷款或以其它方式消除违约情形的，则本人/本公司同意自行督促贷款人及时通知贷款人相关公司删除相关信息或恢复相关服务合同的履行，贷款人相关公司不接受来自本人/本公司的任何通知。 </p>
+            <p> 5．如贷款人因合同第十五条所述原因导致其向本人/本公司所提供的信息有误，则本人/本公司了解并同意贷款人没有过错，无须向本人/本公司承担任何责任。 </p>
+            <p> 特此声明，且本声明一经确认，不可撤回或撤销。 </p>
+            <p><strong>附件二：授权书-支付宝</strong> </p>
+            <p>  鉴于本人/本公司将向 天津信托有限责任公司 （以下简称“贷款人”）申请贷款，为便于贷款人同意本人/本公司贷款申请，本人/本公司现授权支付宝（中国）网络技术有限公司（以下简称“支付宝公司”）以下事项： </p>
+            <p> 1．将本人/本公司向支付宝公司提供的所有信息，包括但不限于个人身份信息，银行账号信息，信用信息、交易信息等提供给贷款人； </p>
+            <p> 2．将本人/本公司所有支付宝账户使用状况和账户信息随时通知贷款人，包括但不限于买方申请退款、交易纠纷、交易信息、账户余额等； </p>
+            <p> 3.按照贷款人或网商银行系统的指令，自本人/本公司任何一个或几个支付宝账户和银行账户资金（包括但不限于已冻结的各类保证金）中优先代扣相应款项用于偿还贷款本息； </p>
+            <p> 4. 按照贷款人或网商银行系统的指令，对本人/本公司任何一个或几个支付宝账户权限进行限制，包括但不限于止付部分或全部账户余额、对本人/本公司支付宝账户采取停止支付、提现等限制措施以及停止为本人/本公司提供全部或部分支付宝服务； </p>
+            <p> 5. 按照贷款人或网商银行系统的指令，发起余额宝代扣，转让或赎回 “余额宝”服务项下的理财份额用于偿还本人/本公司在贷款人处的债务直至清偿止，且该等授权不受本人/本公司是否与支付宝公司签署相关代扣合同的影响；因此造成的全部损失，由本人/本公司自行承担； </p>
+            <p> 6．本人/本公司同意，本人/本公司在未清偿贷款人全部贷款本息前若申请变更、注销本人/本公司任何一个支付宝账户，均应事先征得贷款人同意； </p>
+            <p> 7．按照贷款人指示，在支付宝网站任意位置公示本人/本公司违反贷款合同等其他相关信息，包括但不限于本人/本公司姓名、肖像、证件号码、住所地、个人信息、具体违约状况等信息。 </p>
+            <p>  支付宝公司无须接受来自本人/本公司的任何通知。 </p>
+            <p>  本授权书一经确认，不得撤回或撤销。 </p>
+            <p><strong>附件三：授权书-网商银行</strong> </p>
+            <p> 鉴于本人/本公司将向 天津信托有限责任公司 （以下简称“贷款人”）申请贷款，为便于贷款人同意本人/本公司贷款申请，本人/本公司现授权浙江网商银行股份有限公司（以下简称“网商银行”）以下事项： </p>
+            <p>一、在贷款人非网商银行的情况下： </p>
+            <p> 1．将本人/本公司向网商银行提供的所有信息，包括但不限于个人身份信息，银行账号信息，信用信息、交易信息和关联的银行卡信息等提供给贷款人； </p>
+            <p> 2．将本人/本公司所有网商银行账户使用状况和账户信息随时通知贷款人，包括但不限于申请退款、交易纠纷、交易信息、账户余额、理财信息、保险信息等； </p>
+            <p> 3. 按照贷款人指令或授权，自行或指令第三方从本人/本公司任何一个或几个网商银行账户（如有）关联的银行账户、本人/本公司在贷款平台添加的银行账户资金（包括但不限于已冻结的各类保证金）中优先代扣应还款项，并通过网商银行系统代付至贷款人指定账户用于偿还贷款本息； </p>
+            <p>  4. 根据贷款人的授权，向支付宝（中国）网络技术有限公司发起代扣、代付指令，持续从本人/本公司一个或多个支付宝账户余额（包括但不限于已冻结的各类保证金）、支付宝账户关联的银行账户中代扣应还款项或发起余额宝转让或赎回，并将代扣或转让款项直接代付或通过网商银行系统代付至贷款人指定账户； </p>
+            <p> 5.若本人于《天猫服务协议》（以天猫网站确认的为准，不论名称）项下的保证金被用于偿还本合同项下欠款，为确保天猫网站买家的权益，在您未及时向其赔付的情况下,贷款人将以其已扣划的保证金为限,通过天猫为您先行垫付,并有权在垫付后向您追偿； </p>
+            <p> 5. 按照贷款人指令，对本人/本公司任何一个或几个网商银行账户权限进行限制，包括但不限于冻结部分或全部账户余额、对本人/本公司网商银行账户采取停止转账等限制措施以及停止为本人/本公司提供全部或部分网商银行服务。 </p>
+            <p>二、贷款人为网商银行的情况下，网商银行可自行发起本附件第一条第3、4、5款措施。 </p>
+            <p> 三、本人/本公司同意，本人/本公司在未清偿贷款人全部贷款本息前若申请变更、注销本人/本公司任何一个网商银行账户，均应事先征得贷款人同意。 </p>
+            <p> 四、 本人/本公司同意，若本人/本公司贷款逾期，网商银行有权自行或根据贷款人的指令在网商银行网站或软件客户端（域名为mybank.cn）任意位置公示本人/本公司违反贷款合同等其他相关信息，包括但不限于本人/本公司姓名、肖像、证件号码、住所地、个人信息、具体违约状况等信息。 </p>
+            <p> 本授权书一经确认，不得撤回或撤销。 </p>
+            <p><strong>附件四：《法律文书送达地址确认书》</strong> </p>
+            <p> 1. 本人/本公司同意向 天津信托有限责任公司 （以下简称“贷款人”）申请贷款，对于因合同争议引起的任何纠纷，<strong>本人/本公司声明司法机关（包括但不限于人民法院）可以向本人签约账户绑定的手机发送短信或电子邮件等现代通讯方式或邮寄到本人住所地的方式向本人/本公司送达法律文书（包括诉讼文书）。</strong> </p>
+            <p> <strong>2.</strong><strong>&nbsp;</strong><strong>本人/本公司指定接收法律文书的手机号码或电子邮箱为用于确认本合同的支付宝账户或网商银行账户绑定的任一手机号码或电子邮箱，或贷款平台留存的本人/本公司的任一手机号码或电子邮箱；司法机关以前述任一码址发出法律文书即视为送达。</strong> </p>
+            <p> 3. 本人/本公司指定邮寄地址为本人/本公司的户籍地址/注册地址或本人/本公司在贷款平台留存的本人/本公司通讯地址、收件地址或住址。 </p>
+            <p> 4. 本人/本公司同意司法机关可采取以上一种或多种送达方式向本人/本公司送达法律文书，司法机关采取多种方式向本人/本公司送达法律文书，送达时间以上述送达方式中最先送达的为准。 </p>
+            <p> <strong>5.</strong><strong>&nbsp;</strong><strong>本人/本公司确认的上述送达方式适用于各个司法阶段，包括但不限于一审、二审、再审、执行以及督促程序（含支付令送达）。</strong> </p>
+            <p>  6. 本人/本公司承诺在贷款平台、支付宝账户或网商银行账户中留存的本人/本公司上述送达地址真实、准确，若本人/本公司上述送达地址有变更，本人/本公司应当及时告知贷款人和/或司法机关变更后的送达地址，<strong>若本人/本公司提供的送达地址不真实、不准确，或未及时向贷款人和/或司法机关告知变更后的地址，导致司法机关向本人/本公司发送的法律文书未被实际接收的，司法机关以前述任一送达地址发出法律文书均视为送达，本人/本公司愿意承担由此产生的相应法律后果</strong>。 </p>
+            <p><strong>7.</strong><strong>&nbsp;</strong><strong>本人/本公司已阅读本确认书所有条款，并保证上述送达地址是准确、有效的；如果提供的送达地址不确切，或不及时告知变更后的地址，使法律文书无法送达或未及时送达，本人/本公司自行承担由此可能产生的法律后果。</strong></p>
+            <p>——协议正文结束—— </p>
+
+        </div>
+                                <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1">
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.0">请仔细阅读</span>
+                                    <a href="javascript:void(0)" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1:$0">《贷款合同》</a>
+                                    <a href="javascript:void(0)" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1:$1">《信用报告查询授权书》</a>
+                                    <a href="javascript:void(0)" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1:$2">《委托代扣服务协议》</a>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.2">，您同意通过输入密码并确定即视为签署前述协议</span>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.3"></span>
+                                    <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.4">。</span>
+                                </h5>
+                            </div>
+                            <div style="width:638px;" class="ripple" data-reactid=".0.2.1.1:2.1.1.1:0.0.2"></div>
+                        </div>
+                        <div class="alipayAccount" data-reactid=".0.2.1.1:2.1.1.1:0.2">
+                            <p data-reactid=".0.2.1.1:2.1.1.1:0.2.0">
+                                <span data-reactid=".0.2.1.1:2.1.1.1:0.2.0.0">小母牛账号：</span>
+                                <strong data-reactid=".0.2.1.1:2.1.1.1:0.2.0.1">131******15</strong>
+                            </p>
+                        </div>
+                        <iframe id="J_alipayPwd" name="alipayPwd" frameborder="0" scrolling="no" src="https://mobileic.alipay.com/enterFlow.htm?verifyId=walletVerify_1b24a52eb5f9e734f1820122460ad8d916RZ41A_bank_withdraw_ppw" width="510" height="180" data-reactid=".0.2.1.1:2.1.1.1:0.3"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--         3.借款完成-->
+        <div  class="processBox" data-reactid=".0.2.1.1:2">
+            <div data-reactid=".0.2.1.1:2.0"></div>
+            <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
+                <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
+                    <ul data-reactid=".0.2.1.1:2.1.0.0">
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$0">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$0.0">1</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$0.1">确认借款金额</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$0.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$0.3"></h5>
+                        </li>
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$1">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$1.0">2</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$1.1">签署支用合同</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$1.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$1.3"></h5>
+                        </li>
+                        <li class="active" data-reactid=".0.2.1.1:2.1.0.0.$2">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$2.0">3</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$2.1">借款完成</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$2.2"></strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
+                    <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
+                    <div class="processThird" data-reactid=".0.2.1.1:2.1.1.1:0">
+                        <div class="poster" data-reactid=".0.2.1.1:2.1.1.1:0.0"></div>
+                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.1">成功提交，等着收钱吧</h3>
+                        <p data-reactid=".0.2.1.1:2.1.1.1:0.2">
+                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.0">预计</span>
+                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.1">两小时</span>
+                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.2">内到账，我们会以邮箱通知你</span>
+                        </p>
+                        <ul data-reactid=".0.2.1.1:2.1.1.1:0.2.3">
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0">
+                                <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0.0">贷款金额</span>
+                                <span class="rightSpan" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0.1">1000.00</span>
+                                <span class="rightSpan" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1">
+                                    <strong class="accountWithIcon" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0">
+                                        <span class="bank accountIcon" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.0">
+                                            <img src="https://pic.alipayobjects.com/e/201305/PoNx9ndzb.png" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.0.0">
+                                        </span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.1">中国农业银行（尾号1675）</span>
+                                    </strong>
+                                </span>
+                            </li>
+                            <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1">
+                                <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.0">收款账户</span>
+
+                            </li>
+                        </ul>
+                        <p></p>
+                        <div class="buttonBox" data-reactid=".0.2.1.1:2.1.1.1:0.3">
+                            <button class="" style="width:320px;" data-reactid=".0.2.1.1:2.1.1.1:0.3.0">回到首页</button>
+                        </div>
+                        <div class="lendImatchBanner" data-reactid=".0.2.1.1:2.1.1.1:0.4">
+                            <div id="qc-launchMarketing-52" style="width:100%;" data-reactid=".0.2.1.1:2.1.1.1:0.4.0">
+                                <noscript data-reactid=".0.2.1.1:2.1.1.1:0.4.0.0"></noscript>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    统一尾-->
+    <div id="myft" class="mybank-foot-wrap">
+        <div class="mybank-foot-content">
+            <div class="mybank-foot-left">
+                <img width="209" th:src="@{/img/loan/log6.png}" class="mybank-foot-logo">
+            </div>
+            <div class="mybank-foot-right">
+                <div class="mybank-foot-intro"></div>
+                <p class="mybank-foot-copyright">
+                    <a href="http://beian.miit.gov.cn" target="_blank">赣ICP备15020811号 </a> Copyright © 2015-至今 小母牛普惠
+                </p>
+            </div>
+        </div>
+    </div>
+<!--    添加银行卡，弹出框-->
+<!--    <div class="ant-modal-container">-->
+<!--        <div class="ant-modal-wrap" data-reactid=".1">-->
+<!--        <div class="ant-modal-mask" data-reactid=".1.$mask"></div>-->
+<!--        <div class="ant-modal popBox undefined" tabindex="0" role="dialog" style="width: 565px; left: 445.994px; top: 299.994px;" data-reactid=".1.$dialog">-->
+<!--            <div class="ant-modal-content" data-reactid=".1.$dialog.0">-->
+<!--                <a tabindex="0" class="ant-modal-close" data-reactid=".1.$dialog.0.0">-->
+<!--                    <span class="ant-modal-close-x" data-reactid=".1.$dialog.0.0.0"></span>-->
+<!--                </a>-->
+<!--                <div class="ant-modal-header" data-reactid=".1.$dialog.0.1">-->
+<!--                    <div class="ant-modal-title" data-reactid=".1.$dialog.0.1.0">添加银行卡</div>-->
+<!--                </div>-->
+<!--                <div class="ant-modal-body" data-reactid=".1.$dialog.0.2">-->
+<!--                    <div class="addBankcardBox" data-reactid=".1.$dialog.0.2.0">-->
+<!--                        <ul data-reactid=".1.$dialog.0.2.0.0">-->
+<!--                            <li data-reactid=".1.$dialog.0.2.0.0.0">-->
+<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.0.0">真实姓名：</div>-->
+<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.0.1">-->
+<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.0.1.0">*兵</h5>-->
+<!--                                    <p data-reactid=".1.$dialog.0.2.0.0.0.1.1">目前只支持绑定本人同名的储蓄卡</p>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li data-reactid=".1.$dialog.0.2.0.0.1">-->
+<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.1.0">身份证号：</div>-->
+<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.1.1">-->
+<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.1.1.0"> 3607  3***  ****  **** 13</h5>-->
+<!--                                </div></li><li data-reactid=".1.$dialog.0.2.0.0.2">-->
+<!--                            <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.2.0">银行卡卡号：</div>-->
+<!--                            <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.2.1">-->
+<!--                                <div class="iptBox" data-reactid=".1.$dialog.0.2.0.0.2.1.0">-->
+<!--                                    <div style="visibility:hidden;" class="nT" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0">-->
+<!--                                        <ul class="numberTable big" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0">-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.0">百万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.0">十万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.0">万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.0">千</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.0">百</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.0">十</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.1"></p>-->
+<!--                                            </li><li class="active" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0">-->
+<!--                                            <strong class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.0">个</strong>-->
+<!--                                            <p class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.1">0</p>-->
+<!--                                        </li></ul><div class="outterArrow" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1">-->
+<!--                                        <p data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1.0"></p>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="iptIpt" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1">-->
+<!--                                        <input value="" class="normal" type="text" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.0">-->
+<!--                                        <div class="iptPlus" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1">-->
+<!--                                            <strong style="visibility:hidden;" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1.1"></strong>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div style="visibility:hidden;" class="iptTip" data-reactid=".1.$dialog.0.2.0.0.2.1.0.2"></div>-->
+<!--                                </div>-->
+<!--                                <div style="display:none;" class="bankCardIptPanel" data-reactid=".1.$dialog.0.2.0.0.2.1.1"></div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        </ul>-->
+<!--                        <div class="bankcardDeleteFoot" data-reactid=".1.$dialog.0.2.0.1">-->
+<!--                            <button class="" style="width:190px;" data-reactid=".1.$dialog.0.2.0.1.0">确定</button>-->
+<!--                            <a href="javascript:void(0);" data-reactid=".1.$dialog.0.2.0.1.1">取消</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div tabindex="0" style="width:0;height:0;overflow:hidden;" data-reactid=".1.$dialog.1">sentinel</div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+</body>
+</html>
