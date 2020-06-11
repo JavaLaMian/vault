@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vault.demo.dao.UserimfDao">
+    <insert id="addUser" parameterType="com.vault.demo.bean.Userimf" useGeneratedKeys="true">
+        <selectKey keyColumn="uId" resultType="integer" keyProperty="uId" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+          insert into userimf values(#{uId},#{uName},#{account},#{phe},#{email},#{loginPsw},
+          #{dealPsw},#{regTime},#{avaBalance},#{interest},#{frozfund},#{bounty},
+          #{sex},#{refereer},#{creditLv},#{age},#{lastLoginTime})
+        ]]>
+    </insert>
     <select id="allList" resultType="com.vault.demo.bean.Userimf">
         <![CDATA[
           select * from userimf
@@ -12,6 +22,21 @@
     <delete id="deleteById" parameterType="com.vault.demo.bean.Userimf">
         delete from userimf where uId = #{uId}
     </delete>
+
+    <select id="selectByUserimf" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf where 1 = 1
+        ]]>
+        <if test="account != null and account != ''">
+            and account = #{account}
+        </if>
+        <if test="email != null and email != ''">
+            and email = #{email}
+        </if>
+        <if test="uId != null and uId != ''">
+            and uId = #{uId}
+        </if>
+    </select>
 
     <select id="selectOneByLogin" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Userimf">
         <![CDATA[
@@ -25,4 +50,9 @@
         </if>
     </select>
 
+    <update id="updateUserAccount">
+        <![CDATA[
+          update userimf set account=#{account} where uId = #{uId}
+        ]]>
+    </update>
 </mapper>
