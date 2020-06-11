@@ -4,19 +4,24 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
+import java.util.Date;
+
 @Table(name = "userimf")
-public class userimf {
+public class Userimf { //6月10日15点23
+    private static final int NO = 1;
+    private static final int BAD = 2;
+    private static final int GOOD = 3;
+    private static final int GREAT = 4;
 
-    private static final long serialVersionUID = 5199200306752426433L;
 
-    @Column(name = "uid",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
-    private Integer	uid;
+    @Column(name = "uId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
+    private int	uId;
 
-    @Column(name = "uname",type = MySqlTypeConstant.VARCHAR,length = 200)
-    private String	username;
+    @Column(name = "uName",type = MySqlTypeConstant.VARCHAR,length = 100)
+    private String	uName;
 
     @Column(name = "account",type = MySqlTypeConstant.VARCHAR,length = 100)
-    private String	account;
+    private String account;
 
     @Column(name = "phe",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String	phe;
@@ -31,53 +36,81 @@ public class userimf {
     private String	dealPsw;
 
     @Column(name = "regTime",type = MySqlTypeConstant.DATETIME)
-    private String	regTime;
+    private Date regTime;
 
     @Column(name = "avaBalance",type = MySqlTypeConstant.DOUBLE)
-    private String	avaBalance;
+    private float	avaBalance;
 
     @Column(name = "interest",type = MySqlTypeConstant.DOUBLE)
-    private String	interest;
+    private float	interest;
 
     @Column(name = "frozfund",type = MySqlTypeConstant.DOUBLE)
-    private String	frozfund;
+    private float	frozfund;
 
     @Column(name = "bounty",type = MySqlTypeConstant.DOUBLE)
-    private String	bounty;
+    private float	bounty;
 
-    @Column(name = "sex",type = MySqlTypeConstant.CHAR)
+    @Column(name = "sex",type = MySqlTypeConstant.VARCHAR,length = 5)
     private String	sex;
 
-    @Column(name = "refereer",type = MySqlTypeConstant.VARCHAR,length = 20)
+    @Column(name = "refereer",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String	refereer;
 
-    @Column(name = "refereerId",type = MySqlTypeConstant.INT)
-    private String	refereerId;
-
     @Column(name = "creditLv",type = MySqlTypeConstant.INT)
-    private String	creditLv;
+    private int	creditLv;
 
     @Column(name = "age",type = MySqlTypeConstant.INT)
-    private String	age;
+    private int	age;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
+    private Date lastLoginTime;
+
+
+    @Override
+    public String toString() {
+        return "Userimf{" +
+                "uId=" + uId +
+                ", uName='" + uName + '\'' +
+                ", account='" + account + '\'' +
+                ", phe='" + phe + '\'' +
+                ", email='" + email + '\'' +
+                ", loginPsw='" + loginPsw + '\'' +
+                ", dealPsw='" + dealPsw + '\'' +
+                ", regTime=" + regTime +
+                ", avaBalance=" + avaBalance +
+                ", interest=" + interest +
+                ", frozfund=" + frozfund +
+                ", bounty=" + bounty +
+                ", sex='" + sex + '\'' +
+                ", refereer='" + refereer + '\'' +
+                ", creditLv=" + creditLv +
+                ", age=" + age +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
     }
 
-    public Integer getUid() {
-        return uid;
+    public Date getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
-    public String getUsername() {
-        return username;
+    public int getuId() {
+        return uId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setuId(int uId) {
+        this.uId = uId;
+    }
+
+    public String getUName() {
+        return uName;
+    }
+
+    public void setUName(String userName) {
+        this.uName = userName;
     }
 
     public String getAccount() {
@@ -120,43 +153,43 @@ public class userimf {
         this.dealPsw = dealPsw;
     }
 
-    public String getRegTime() {
+    public Date getRegTime() {
         return regTime;
     }
 
-    public void setRegTime(String regTime) {
+    public void setRegTime(Date regTime) {
         this.regTime = regTime;
     }
 
-    public String getAvaBalance() {
+    public float getAvaBalance() {
         return avaBalance;
     }
 
-    public void setAvaBalance(String avaBalance) {
+    public void setAvaBalance(float avaBalance) {
         this.avaBalance = avaBalance;
     }
 
-    public String getInterest() {
+    public float getInterest() {
         return interest;
     }
 
-    public void setInterest(String interest) {
+    public void setInterest(float interest) {
         this.interest = interest;
     }
 
-    public String getFrozfund() {
+    public float getFrozfund() {
         return frozfund;
     }
 
-    public void setFrozfund(String frozfund) {
+    public void setFrozfund(float frozfund) {
         this.frozfund = frozfund;
     }
 
-    public String getBounty() {
+    public float getBounty() {
         return bounty;
     }
 
-    public void setBounty(String bounty) {
+    public void setBounty(float bounty) {
         this.bounty = bounty;
     }
 
@@ -176,27 +209,19 @@ public class userimf {
         this.refereer = refereer;
     }
 
-    public String getRefereerId() {
-        return refereerId;
-    }
-
-    public void setRefereerId(String refereerId) {
-        this.refereerId = refereerId;
-    }
-
-    public String getCreditLv() {
+    public int getCreditLv() {
         return creditLv;
     }
 
-    public void setCreditLv(String creditLv) {
+    public void setCreditLv(int creditLv) {
         this.creditLv = creditLv;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 }

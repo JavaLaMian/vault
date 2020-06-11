@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>借款申请</title>
+    <link rel="icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/common.css"/>
+    <link rel="stylesheet" type="text/css" href="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/newLendApply.css"/>
+    <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/common.js"></script>
+    <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/newLendApply.js"></script>
+    <script th:src="@{/js/jquery-1.12.4.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <style>
+
+        .fold {
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #00c2c2;
+            line-height: 14px;
+            margin: 0 auto;
+            text-align: right;
+            cursor: pointer;
+            padding-right: 35px;
+        }
+        .mybank-foot-wrap {
+            background-color: #f8f8f8
+        }
+        .mybank-foot-wrap img {
+            display: block
+        }
+
+        .mybank-foot-content {
+            width: 990px;
+            margin: 0 auto;
+            padding: 30px 0 32px;
+            font-size: 14px;
+            line-height: 1.5;
+            background: url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png)right -1px no-repeat
+        }
+        .mybank-foot-content a,.mybank-foot-content a:hover {
+            color: #333;
+            text-decoration: none
+        }
+        .mybank-foot-content:after,.mybank-foot-content:before {
+            display: table;
+            content: ""
+        }
+        .mybank-foot-content:after {
+            clear: both
+        }
+        .mybank-foot-left {
+            float: left;
+        }
+        .mybank-foot-right {
+            float: right;
+            text-align: right
+        }
+
+        .mybank-foot-logo {
+            width: 209px;
+            height: 26px
+        }
+
+        .mybank-foot-intro {
+            padding-top: 12px
+        }
+
+        .mybank-foot-copyright {
+            padding-top: 13px
+        }
+
+        .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
+    </style>
+</head>
+<body>
+    <!--    导航-->
+    <div class="header" data-aspm="c37338" data-aspm-expo>
+        <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
+            <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
+                <a th:href="@{/loan/mian}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+                    <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
+                </a>
+            </h1>
+                <ul data-reactid=".0.2.1.0.0.1">
+                    <li data-reactid=".0.2.1.0.0.1.0">
+                        <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                            <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
+                            <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                        </a>
+                    </li>
+                    <li data-reactid=".0.2.1.0.0.1.1">
+                        <a data-aspm-click="d18793" th:href="@{/loan/main}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
+                    </li>
+                    <li data-reactid=".0.2.1.0.0.1.2">
+                        <a href="#" target="_blank" data-reactid=".0.2.1.0.0.1.2.0">服务大厅</a>
+                    </li>
+                    <li class="last" data-reactid=".0.2.1.0.0.1.3">
+                        <img class="phone fn-left" th:src="@{/img/loan/cion.png}" data-reactid=".0.2.1.0.0.1.3.0">
+                        <span data-reactid=".0.2.1.0.0.1.3.1">95188 - 3</span>
+                    </li>
+                </ul>
+            </div>
+            <noscript data-reactid=".0.2.1.0.1"></noscript>
+        </div>
+
+    </div>
+    <div class="nav" data-aspm="c10121" data-aspm-expo="true" data-reactid=".0.2.1.1:0">
+        <div class="navBox" data-reactid=".0.2.1.1:0.0">
+        <h2 data-reactid=".0.2.1.1:0.0.0"  th:text="飞机贷"></h2>
+        <ul data-reactid=".0.2.1.1:0.0.1">
+            <li data-aspm-click="d18478" class="" data-reactid=".0.2.1.1:0.0.1.$0">
+                <a th:href="@{/loan/main2}" data-reactid=".0.2.1.1:0.0.1.$0.0">借款</a>
+            </li>
+            <li data-aspm-click="d18479" class="" data-reactid=".0.2.1.1:0.0.1.$1">
+                <a th:href="@{/loan/toloanHuan}" data-reactid=".0.2.1.1:0.0.1.$1.0">还款</a>
+            </li>
+            <li data-aspm-click="d18480" class="active" data-reactid=".0.2.1.1:0.0.1.$2">
+                <a th:href="@{/loan/toloanRecord}" data-reactid=".0.2.1.1:0.0.1.$2.0">记录查询</a>
+            </li>
+            <li data-aspm-click="d18481" class="" data-reactid=".0.2.1.1:0.0.1.$3">
+                <a th:href="@{/loan/toloanPersonage}" data-reactid=".0.2.1.1:0.0.1.$3.0">信息管理</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+    <!-- 内容-->
+    <div style="width: 100%;height: auto">
+        <div class="breadCrumb " data-reactid=".0.2.1.1:1">
+            <div class="crumbBox" data-reactid=".0.2.1.1:1.0">
+                <p data-reactid=".0.2.1.1:1.0.0">
+                    <span data-reactid=".0.2.1.1:1.0.0.0">借款 /</span>
+                    <span data-reactid=".0.2.1.1:1.0.0.1"> </span>
+                    <strong data-reactid=".0.2.1.1:1.0.0.2">借款申请</strong>
+                </p>
+            </div>
+        </div>
+        <div class="processBox" data-reactid=".0.2.1.1:2">
+            <div data-reactid=".0.2.1.1:2.0"></div>
+            <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
+                <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
+                    <ul data-reactid=".0.2.1.1:2.1.0.0">
+                        <li class="active" data-reactid=".0.2.1.1:2.1.0.0.$0">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$0.0">1</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$0.1">确认借款金额</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$0.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$0.3"></h5>
+                        </li>
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$1">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$1.0">2</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$1.1">签署支用合同</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$1.2"></strong>
+                            <h5 data-reactid=".0.2.1.1:2.1.0.0.$1.3"></h5>
+                        </li>
+                        <li class="" data-reactid=".0.2.1.1:2.1.0.0.$2">
+                            <h3 data-reactid=".0.2.1.1:2.1.0.0.$2.0">3</h3>
+                            <p data-reactid=".0.2.1.1:2.1.0.0.$2.1">借款完成</p>
+                            <strong data-reactid=".0.2.1.1:2.1.0.0.$2.2"></strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
+                    <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
+                    <div data-reactid=".0.2.1.1:2.1.1.1:0">
+                        <div class="processFirst" data-reactid=".0.2.1.1:2.1.1.1:0.0">
+                            <ul data-reactid=".0.2.1.1:2.1.1.1:0.0.1">
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.0">借款金额：</h5>
+                                    <div class="iptBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1">
+                                        <div style="visibility:hidden;" class="nT" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0">
+                                            <ul class="numberTable big" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0">
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6.0">百万</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$6.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5.0">十万</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$5.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4.0">万</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$4.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3.0">千</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$3.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2.0">百</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$2.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1">
+                                                    <strong class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1.0">十</strong>
+                                                    <p class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$1.1"></p>
+                                                </li>
+                                                <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0">
+                                                    <strong class="last" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0.0">个</strong>
+                                                    <p class="last" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.0.$0.1"></p>
+                                                </li>
+                                            </ul>
+                                            <div class="outterArrow" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.1">
+                                                <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.0.1.0"></p>
+                                            </div>
+                                        </div>
+                                        <div class="iptIpt" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1">
+                                            <input value="" class="normal" placeholder="请输入1.00-30.00元" name="checker" type="text" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.0">
+                                            <div class="iptPlus" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.1">
+                                                <strong style="visibility:hidden;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.1.1.1"></strong>
+                                            </div>
+                                        </div>
+                                        <div style="visibility:hidden;" class="iptTip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.0.1.2">请输入1.00-30.00元</div>
+                                    </div>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.0">借款期限：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1">
+                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1.0">12个月</strong>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.1.1.1"> 实际以合同为准</span>
+                                    </p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.0">还款方式：</h5>
+                                    <p class="repayOptCls" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1">
+                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1.0">等额本金</strong>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.2.1.1">(每期本金一致，利息递减)</span>
+                                    </p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3.0">提前还款：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.3.1">无手续费</p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5">
+                                    <h5 class="small_bk_tip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.0">日利费率</span>
+                                        <strong style="top:1px;right:-25px;" class="bk_tip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.1"></strong>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.0.2">：</span>
+                                    </h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1">
+                                        <span class="delete" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1.0"></span>
+                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.5.1.1">0.04%</strong>
+                                    </p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.0">还款计划：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.1">
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.8.1.0">根据输入金额计算</span>
+                                    </p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9">
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9.0">经营范围：</h5>
+                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.9.1">
+                                        <select class="form-control"  name="type">
+<!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==1">厢式货车</option>-->
+<!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==2">全挂车</option>-->
+<!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==3">半挂车</option>-->
+<!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==4">平板车</option>-->
+<!--                                            <option selected th:value="${carList.type}" th:if="${carList.type}==5">栏板车</option>-->
+                                            <option value="1">餐饮住宿</option>
+                                            <option value="2">零售</option>
+                                            <option value="3">生活服务</option>
+                                            <option value="4">教育</option>
+                                            <option value="5">娱乐</option>
+                                        </select>
+                                    </p>
+                                </li>
+                                <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.a">
+                                    <div class="line" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.a.0"></div>
+                                </li>
+                                <div class="lendInfo" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b">
+                                    <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0">
+                                        <h5 class="mgBottomFix" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.0">收款账户：</h5>
+                                        <h5 class="fixLeft bankCardTitle" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6">
+                                            <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.0">银行卡</span>
+                                            <div class="cardPosition" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1">
+                                                <div class="addBankcard word" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1.0">
+                                                    <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.6.1.0.0">+ 添加银行卡</p>
+                                                </div>
+                                            </div>
+                                        </h5>
+<!--                                        银行卡-->
+                                        <div class="bankCardsNew clearfix" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7">
+                                            <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0">
+                                                <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*KI45T6tiZR4AAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*KI45T6tiZR4AAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0">
+                                                    <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.1">
+                                                        <img src="https://pic.alipayobjects.com/e/201305/PoNx9ndzb.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.1.0">
+                                                    </div>
+                                                    <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2">
+                                                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.0">林学明</h3>
+                                                        <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.1">中国农业银行</h4>
+                                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.2.2">622848*********1675</p>
+                                                    </div>
+                                                    <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.3"></div>
+                                                        <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/gpZxVLXaINQfkAk.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$0.0.4">
+                                                </div>
+                                            </div>
+                                            <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1">
+                                                <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0">
+                                                    <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.1">
+                                                        <img src="https://pic.alipayobjects.com/e/201304/DedcCjhGf.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.1.0">
+                                                    </div>
+                                                    <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2">
+                                                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.0">林学明</h3>
+                                                        <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.1">南京银行</h4>
+                                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.2.2">621259******1002</p>
+                                                    </div>
+                                                    <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.3"></div>
+                                                    <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/ATNZTzBfLouHYxl.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$1.0.4">
+                                                </div>
+                                            </div>
+                                            <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2">
+                                                <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*RwD0RKTDBYMAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*RwD0RKTDBYMAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0">
+                                                    <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.1">
+                                                        <img src="https://pic.alipayobjects.com/i/mobileapp/png/201410/3jU228X11B.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.1.0">
+                                                    </div>
+                                                    <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2">
+                                                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.0">林学明</h3>
+                                                        <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.1">中国建设银行</h4>
+                                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.2.2">621700*********4358</p>
+                                                    </div>
+                                                    <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.3"></div>
+                                                    <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/WZDhJqHAbgWJKNu.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$2.0.4">
+                                                </div>
+                                            </div>
+                                            <div class="bankCardBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3">
+                                                <div class="bankCard small" style="background-color:https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ;background-image:url(https://gw.alipayobjects.com/mdn/wangshang/afts/img/A*IYkgRrtcw4gAAAAAAAAAAABjARQnAQ);" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0">
+                                                    <div class="bankCard-icon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.1">
+                                                        <img src="https://pic.alipayobjects.com/i/mobileapp/png/201410/3irGlSet6r.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.1.0">
+                                                    </div>
+                                                    <div class="bankCard-info" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2">
+                                                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.0">林学明</h3>
+                                                        <h4 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.1">中国工商银行</h4>
+                                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.2.2">621281*********9737</p>
+                                                    </div>
+                                                    <div class="bankCard-btn" style="display:none;" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.3"></div>
+                                                    <img class="bankCard-corner" src="https://os.alipayobjects.com/rmsportal/fkPGAvfjCwisGCd.png" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.0.7.$3.0.4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1">
+                                        <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.0">还款账户：</h5>
+                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1">
+                                            <strong class="accountWithIcon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0">
+                                                <span class="alipay accountIcon" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0.0"></span>
+                                                <span data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.1.0.1">131******15</span>
+                                            </strong>
+                                        </p>
+                                        <div class="repTip" data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.1.2">还款日当天，每次从还款账户余额、储蓄卡、余额宝、小母牛普惠活期余额、按顺序扣款（其中余额、储蓄卡、余额宝顺序以还款账户在小母牛在线钱包的支付设置为准）</div>
+                                    </li>
+                                    <li data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2">
+                                        <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.0">到账时间：</h5>
+                                        <p data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.1">
+                                            <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.1.b.2.1.0">最快3分钟到账</strong>
+                                        </p>
+                                    </li>
+                                </div>
+                            </ul>
+                            <div class="buttonBox" data-reactid=".0.2.1.1:2.1.1.1:0.0.2">
+                                <button data-aspm-click="d18417" class="" style="width:320px;" disabled="" data-reactid=".0.2.1.1:2.1.1.1:0.0.2.0">下一步</button>
+                            </div>
+                            <div id="_umfp" data-reactid=".0.2.1.1:2.1.1.1:0.0.3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    统一尾-->
+    <div id="myft" class="mybank-foot-wrap">
+        <div class="mybank-foot-content">
+            <div class="mybank-foot-left">
+                <img width="209" th:src="@{/img/loan/log6.png}" class="mybank-foot-logo">
+            </div>
+            <div class="mybank-foot-right">
+                <div class="mybank-foot-intro"></div>
+                <p class="mybank-foot-copyright">
+                    <a href="http://beian.miit.gov.cn" target="_blank">赣ICP备15020811号 </a> Copyright © 2015-至今 小母牛普惠
+                </p>
+            </div>
+        </div>
+    </div>
+<!--    添加银行卡，弹出框-->
+<!--    <div class="ant-modal-container">-->
+<!--        <div class="ant-modal-wrap" data-reactid=".1">-->
+<!--        <div class="ant-modal-mask" data-reactid=".1.$mask"></div>-->
+<!--        <div class="ant-modal popBox undefined" tabindex="0" role="dialog" style="width: 565px; left: 445.994px; top: 299.994px;" data-reactid=".1.$dialog">-->
+<!--            <div class="ant-modal-content" data-reactid=".1.$dialog.0">-->
+<!--                <a tabindex="0" class="ant-modal-close" data-reactid=".1.$dialog.0.0">-->
+<!--                    <span class="ant-modal-close-x" data-reactid=".1.$dialog.0.0.0"></span>-->
+<!--                </a>-->
+<!--                <div class="ant-modal-header" data-reactid=".1.$dialog.0.1">-->
+<!--                    <div class="ant-modal-title" data-reactid=".1.$dialog.0.1.0">添加银行卡</div>-->
+<!--                </div>-->
+<!--                <div class="ant-modal-body" data-reactid=".1.$dialog.0.2">-->
+<!--                    <div class="addBankcardBox" data-reactid=".1.$dialog.0.2.0">-->
+<!--                        <ul data-reactid=".1.$dialog.0.2.0.0">-->
+<!--                            <li data-reactid=".1.$dialog.0.2.0.0.0">-->
+<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.0.0">真实姓名：</div>-->
+<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.0.1">-->
+<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.0.1.0">*兵</h5>-->
+<!--                                    <p data-reactid=".1.$dialog.0.2.0.0.0.1.1">目前只支持绑定本人同名的储蓄卡</p>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li data-reactid=".1.$dialog.0.2.0.0.1">-->
+<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.1.0">身份证号：</div>-->
+<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.1.1">-->
+<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.1.1.0"> 3607  3***  ****  **** 13</h5>-->
+<!--                                </div></li><li data-reactid=".1.$dialog.0.2.0.0.2">-->
+<!--                            <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.2.0">银行卡卡号：</div>-->
+<!--                            <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.2.1">-->
+<!--                                <div class="iptBox" data-reactid=".1.$dialog.0.2.0.0.2.1.0">-->
+<!--                                    <div style="visibility:hidden;" class="nT" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0">-->
+<!--                                        <ul class="numberTable big" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0">-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.0">百万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.0">十万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.0">万</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.0">千</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.0">百</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.1"></p>-->
+<!--                                            </li>-->
+<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1">-->
+<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.0">十</strong>-->
+<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.1"></p>-->
+<!--                                            </li><li class="active" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0">-->
+<!--                                            <strong class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.0">个</strong>-->
+<!--                                            <p class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.1">0</p>-->
+<!--                                        </li></ul><div class="outterArrow" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1">-->
+<!--                                        <p data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1.0"></p>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="iptIpt" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1">-->
+<!--                                        <input value="" class="normal" type="text" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.0">-->
+<!--                                        <div class="iptPlus" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1">-->
+<!--                                            <strong style="visibility:hidden;" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1.1"></strong>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div style="visibility:hidden;" class="iptTip" data-reactid=".1.$dialog.0.2.0.0.2.1.0.2"></div>-->
+<!--                                </div>-->
+<!--                                <div style="display:none;" class="bankCardIptPanel" data-reactid=".1.$dialog.0.2.0.0.2.1.1"></div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        </ul>-->
+<!--                        <div class="bankcardDeleteFoot" data-reactid=".1.$dialog.0.2.0.1">-->
+<!--                            <button class="" style="width:190px;" data-reactid=".1.$dialog.0.2.0.1.0">确定</button>-->
+<!--                            <a href="javascript:void(0);" data-reactid=".1.$dialog.0.2.0.1.1">取消</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div tabindex="0" style="width:0;height:0;overflow:hidden;" data-reactid=".1.$dialog.1">sentinel</div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+</body>
+</html>

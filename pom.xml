@@ -102,6 +102,7 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
         </dependency>
+
         <!-- 引入Mybatis自动创表 -->
         <dependency>
             <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>

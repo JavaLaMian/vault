@@ -1,14 +1,31 @@
 package com.vault.demo.service.user.impl;
 
+import com.vault.demo.bean.Userimf;
+import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class UserServiceImpl implements UserService {
+    @Resource
+    private UserimfDao dao;
+
+    @Override
+    public int addUserImf(Userimf user) {
+        int lie = dao.addUser(user);
+        dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
+        return lie;
+    }
+
     @Override
     public String getEmailMa(String shou,String type) throws EmailException {
+        if("".equals(shou)){
+            return "";
+        }
         //type 发送邮件的类型 zc 注册
         HtmlEmail email = new HtmlEmail();
         String ma = "";
@@ -18,7 +35,11 @@ public class UserServiceImpl implements UserService {
         System.out.println(ma);
         String text = "";
         if("zc".equals(type)){
-            text = "欢迎注册小刘理财 您的邮箱验证码为 "+ma;
+            text = "欢迎注册小刘理财，您的邮箱验证码为 "+ma+",若非本人操作请忽略";
+        }else if("dl".equals(type)){
+            text = "用户您好，您的邮箱登陆验证码为 "+ma;
+        }else if("zh".equals(type)){
+            text = "您的正在修改该邮箱绑定账号的密码，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com
@@ -30,5 +51,22 @@ public class UserServiceImpl implements UserService {
         email.setMsg(text);//设置发送内容
         email.send();//进行发送
         return ma;
+    }
+
+    @Override
+    public Userimf pandEmail(String email) {
+        Userimf user = new Userimf();
+        user.setEmail(email);
+        return dao.selectByUserimf(user);
+    }
+
+    @Override
+    public Userimf logPadUser(Userimf userimf) {
+        return dao.selectOneByLogin(userimf);
+    }
+
+    @Override
+    public int updetaPwd(String email, String pwd) {
+        return dao.updateUserPwd(pwd,email);
     }
 }

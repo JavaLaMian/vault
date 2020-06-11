@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.BidDao">
+    <select id="allList" resultType="com.vault.demo.bean.Bid">
+        <![CDATA[
+          select * from bid
+        ]]>
+    </select>
+
+    <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
+        delete from bid where bId = #{bId}
+    </delete>
+
+    <update id="updateById" parameterType="com.vault.demo.bean.Bid">
+        update bid set bidName = #{bidName},bidType = #{bidType},rewardRate = #{rewardRate},rate = #{rate},addLimit = #{addLimit},singelLimit = #{singelLimit},sumLimit = #{sumLimit},startLimit = #{startLimit},transLine = #{transLine},clockLine = #{clockLine},deposit = #{deposit},dealCount = #{dealCount},question = #{question},answer = #{answer},transfer = #{transfer},aotuInverst = #{aotuInverst},exprie = #{exprie},bidStatus = #{bidStatus},bidTime = #{bidTime},maxTime = #{maxTime} where bId = #{bId}
+    </update>
+
+    <insert id="insert" parameterType="com.vault.demo.bean.Bid">
+        insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
+    </insert>
+
+</mapper>

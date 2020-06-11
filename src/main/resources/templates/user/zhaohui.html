@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <title>找回密码</title>
+    <script th:src="@{/js/jquery-1.12.4.js}"></script>
+    <style>
+        .buZho{
+            float: left;
+            margin: 0 10px;
+            font-size: 18px;
+            color: #99a2aa;
+            cursor:pointer;
+        }
+        .shuru{
+            width: 318px;
+            height: 40px;
+            padding: 0 15px;
+            font-size: 16px;
+            border-radius:4px;
+            border: 1px solid #757575;
+        }
+        .tishi{
+            font-size: 17px;
+            position:absolute;
+            top: 7px;
+            right: 360px;
+            transition:0.5s;
+        }
+        .divk{
+            width: 100%;
+            height: 50px;
+            position:relative;
+            margin-bottom: 15px;
+        }
+        .anniu{
+            background-color: #FF7F50;
+            border: 1px solid #757575;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: 0.5s;
+        }
+        .anniu:hover{
+            background-color: #bb6647;
+            border-radius: 0;
+        }
+        #bods{
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 300% 300%;
+            background-position:0 50%;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body id="bods">
+<div id="beijin" style="width: 1000px;height: 800px;margin: 0 auto;">
+    <div style="width: 100%;height: 100px "></div>
+    <div style="width: 100%;height:50px;padding-top: 40px;font-size: 14px">
+        <a th:href="@{/user/tologin}" style="color: black">登录</a> > 找回密码
+    </div>
+    <div style="width: 465px;height: 25px;margin: 0 auto;">
+        <div id="No1t" onclick="buZhuo('1')" class="buZho" style="color: #FF7F50">1 确认账号</div>
+        <div style="float: left;color: #99a2aa">————</div>
+        <div id="No2t" onclick="buZhuo('2')" class="buZho">2 重置密码</div>
+        <div style="float: left;color: #99a2aa">————</div>
+        <div id="No3t" class="buZho" onclick="buZhuo('3')">3 成功找回</div>
+    </div>
+    <div id="No1" style="width: 100%;height: 200px;margin-top: 70px;display: block">
+        <div style="width: 350px;height: 50px;margin: 0 auto">
+            <input type="text" id="zhangHao" placeholder="输入绑定的邮箱号" class="shuru"\>
+        </div>
+        <div style="width: 350px;height: 50px;margin: 0 auto">
+            <input type="button" onclick="buZhuo('2')" value="确认" class="anniu" style="width: 350px;height: 40px;"\>
+        </div>
+    </div>
+    <div id="No2" style="width: 100%;height: 400px;margin-top: 70px;display: none">
+        <div style="width: 450px;height: 100%;margin: 0 auto">
+            <div class="divk">
+                <span class="tishi">新密码：</span>
+                <input type="password" id="pwd" name="pwd" placeholder="5-16字符 区分大小写" style="margin-left: 90px" class="shuru">
+            </div>
+            <div class="divk">
+                <span class="tishi">确认密码：</span>
+                <input type="password" id="pwd2" placeholder="再次输入" style="margin-left: 90px" class="shuru">
+            </div>
+            <div class="divk">
+                <span class="tishi">当前邮箱：</span>
+                <p class="shuru" style="padding-top: 7px;width: 275px;margin-left: 90px;height: 30px;border: 0" id="zhangHaoC"></p>
+                <a href="javascript:buZhuo('1')" style="color: #8033d8;position:absolute;right: 20px;top: 7px;">修改</a>
+            </div>
+            <div class="divk">
+                <span class="tishi">验证：</span>
+                <input type="text" placeholder="输入邮箱验证码" id="shuruma" class="shuru" style="margin-left: 90px;width: 220px">
+                <input type="button" value="获取验证码" onclick="faSonMa(this)" id="huoqu3" class="anniu"  style="width: 100px;height: 41px;font-size: 15px">
+            </div>
+            <div class="divk">
+                <input type="button" value="确认修改" onclick="return gengGai()" class="anniu" style="width: 350px;height: 40px;margin-left: 90px;">
+                <p id="zhmsg" style="text-align: center;margin-left: 85px;"></p>
+            </div>
+        </div>
+    </div>
+    <div id="No3" style="width: 100%;height: 200px;margin-top: 70px;display: none">
+        <div style="width: 350px;height: 100px;margin: 0 auto">
+            <h3>恭喜</h3>
+            <h2 align="center">密码已成功修改 !</h2>
+        </div>
+        <div style="width: 350px;height: 50px;margin: 0 auto">
+            <h4 align="center" style="height: 50px">立即 <a th:href="@{/user/tologin}" style="color: #FF7F50">登录</a></h4>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    function buZhuo(san){
+        if(san === '1'){
+            $("#No1t").css("color","#FF7F50");
+            $("#No2t").css("color","#99a2aa");
+            $("#No3t").css("color","#99a2aa");
+
+            $("#No1").css("display","block");
+            $("#No2").css("display","none");
+            $("#No3").css("display","none");
+            $("#bods").css("background-position","0 50%");
+        }else if(san === '2'){
+            var zhi = document.getElementById("zhangHao").value;
+            var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+            if(zhi !== ""){ //输入不能为空
+                if(!reg.test(zhi)){ //正则验证不通过，格式不对
+                    $("#zhangHao").css("border-color","red");
+                }else {
+                    $.post("/user/padEmail",{email:zhi},function (data) {//判断邮箱是否存在
+                        if(!data){
+                            $("#zhangHao").css("border-color","red");
+                        }else {
+                            $("#bods").css("background-position","50% 50%");
+                            $("#zhangHao").css("border-color","black");
+                            $("#No1t").css("color","#bb6647");
+                            $("#No2t").css("color","#FF7F50");
+
+                            $("#No1").css("display","none");
+                            $("#No2").css("display","block");
+                            $("#No3").css("display","none");
+                            document.getElementById("zhangHaoC").innerHTML = zhi;
+                        }
+                    },"json");
+                }
+            }else if(zhi === ''){
+                $("#zhangHao").css("border-color","red");
+            }
+        }else if(san === '3'){
+            if(dian3 === 1){
+                $("#No1t").css("color","#bb6647");
+                $("#No2t").css("color","#bb6647");
+                $("#No3t").css("color","#FF7F50");
+
+                $("#No1").css("display","none");
+                $("#No2").css("display","none");
+                $("#No3").css("display","block");
+            }
+        }
+    }
+
+    function gengGai() {
+        var mima1 = document.getElementById("pwd").value;
+        var mima2 = document.getElementById("pwd2").value;
+        var shuruma = $("#shuruma").val()+"";
+        var yunma = zhMa + "";
+        if(mima1 === "" || mima2 === "" || mima1 !== mima2){
+            $("#zhmsg").text("请检查输入的2次密码");
+        }else if(shuruma !== yunma || yunma === ""){
+            $("#zhmsg").text(shuruma+"请检查验证码"+yunma);
+        }else {
+            var id = document.getElementById("zhangHao").value;
+            xiuGai(id,mima1);
+        }
+    }
+    //限制只能输入数字
+    // function setShuzi() {
+    //     var time = document.getElementById("zhangHao").value;
+    //     for (var i = 0; i < time.length; i++) {
+    //         var t = time.charCodeAt(i);
+    //         if (!(t >= 48 && t <= 57)) {
+    //             document.getElementById("zhangHao").value=time.substr(0,time.length-1);
+    //             document.getElementById("zhangHao").style.borderColor="red";
+    //         }else {
+    //             document.getElementById("zhangHao").style.borderColor="black";
+    //         }
+    //     }
+    // }
+    var dian3 = 0;
+    function xiuGai(id,pwd) {
+        alert(id+"|"+pwd);
+        $.post("/user/updpwd",{email:id,pwd:pwd},function (data) {
+            if(data === 1){
+                buZhuo('3');
+                dian3 = 1;
+                $("#beijin").css("background-color","#00CC33");
+            }else {
+                dian3 = 0;
+                $("#zhmsg").text("修改失败 请重试");
+            }
+        },"json");
+    }
+    var zhMa;
+    var jishuTishi;
+    function faSonMa(id) {//获取验证码
+        if($(id).val() === "获取验证码"){
+            $(id).val('再次获取(59)');
+            $(id).css("background-color","white");
+            jishuTishi  = setInterval("daojishi()", "1000");
+            var email = document.getElementById("zhangHaoC").innerHTML;
+            $.post("/user/getMa",{email:email,type:'zh'},function (data) {
+                if(data === "" || data == null){
+                    buZhuo('1');
+                    alert("请检查邮箱格式是否正确");
+                }else {
+                    zhMa = data;
+                }
+            },"json");
+        }else {
+            $("#zhmsg").text("请稍后再试");
+        }
+    }
+    var jishi = 59;
+    function daojishi(){
+        jishi -= 1;
+        if(jishi === 0){
+            jishi = 59;
+            clearInterval(jishuTishi);
+            $("#huoqu3").val('获取验证码');
+            $("#huoqu3").css("background-color","#FF7F50");
+        }else{
+            $("#huoqu3").val("再次获取("+jishi+")");
+        }
+    }
+</script>
+</body>
+</html>

@@ -4,121 +4,7 @@
     <meta charset="utf-8">
     <title>欢迎来到小母牛理财</title>
     <script th:src="@{/js/jquery-1.12.4.js}"></script>
-    <style type="text/css">
-        #bod{
-            /* background: linear-gradient(to right, #ffdde1, #ef7a46, #a7bfe8); */
-            background: url(/img/loan/loginBg2.png) no-repeat;
-            background-size: 220%;
-            background-position:100% 50%;
-            transition: background 1s ease;
-        }
-        .logbao{
-            width: 1500px;
-            height: 800px;
-            position: absolute;
-        }
-        #login{
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 500px;
-            height: 100%;
-            transition: 0.5s;
-        }
-        #imgs{
-            background-color: #ee9ca7;
-            position: absolute;
-            left: 0px;
-            top: 0;
-            width: 1000px;
-            height: 100%;
-            transition: 0.5s;
-        }
-        #new{
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 0;
-            height: 100%;
-            transition: 0.5s;
-        }
-        .tiancon{
-            width: 100%;
-            height: 25%;
-        }
-        .tiancon2{
-            width: 100%;
-            height: 20%;
-        }
-        .kuang{
-            width: 73%;
-            height: 25px;
-            float: left;
-            font-size: 18px;
-            padding:3px 7px 3px 8px;
-            border: 1px #ccc solid;
-        }
-        .xiala{
-            float: left;margin: 0;
-            font-size: 16px;
-            height: 33px;
-            width: 21%;
-            padding-left: 5px;
-            border: 1px #ccc solid;
-            border-right: 0;
-        }
-        .mkuang{
-            width: 72.5%;
-            float: left;
-            font-size: 18px;
-            height: 0;
-            transition: 0.5s;
-            padding: 0;
-            border: 0;
-        }
-        .cxMa{
-            height: 0px;font-size: 14px;
-            background-color: white;
-            width: 70px;
-            transition: 0.5s;
-            padding: 0;
-            border: 0;
-            background-color: #FF7F50;
-        }
-        .daanniu{
-            width: 52%;height: 33px;
-            border: 1px #ccc solid;
-            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
-            background-size:200% 200%;
-            font-size: 16px;
-        }
-        .loginzy{
-            width: 22%;height: 33px;border: 1px #ccc solid;
-            background-color: white;
-            transition: 0.5s;
-        }
-        .loginzy:hover{
-            background-color: #FF7F50;
-            border-radius: 5px;
-        }
-        .pxian{
-            width: 20%;
-            height: 31px;
-            line-height: 31px;
-            text-align: center;
-            background-color: white;
-            float: left;
-            margin: 0;
-            font-size: 16px;border: 1px #ccc solid;
-            border-right: 0;
-        }
-        #zcYam{
-            height: 25px;padding:3px 7px 3px 8px;border: 1px #ccc solid;border-right:0;
-            float: left;
-            font-size: 18px;
-            transition: 0.5s;
-        }
-    </style>
+    <link th:href="@{/css/userlogin.css}" rel="stylesheet">
 </head>
 <body id="bod">
 <div class="logbao">
@@ -130,20 +16,20 @@
                 <form th:action="@{/user/add}" method="post">
                     <div style="width: 90%;height: 30px;margin: 30px auto;">
                         <p class="pxian">邮箱</p>
-                        <input class="kuang" id="zcEmail" name="email" oninput="zzsru(this)" type="text"/>
-                    </div>
-                    <div style="width: 90%;height: 30px;margin: 30px auto;">
-                        <p class="pxian">账号</p>
-                        <input class="kuang" id="zhanghao" name="uname" type="text"/>
+                        <input class="kuang" id="zcEmail" name="email" oninput="zzsru(this)" onblur="yanEmail(this,'zc')" type="text"/>
                     </div>
                     <div style="width: 90%;height: 30px;margin: 30px auto;">
                         <p class="pxian">密码</p>
-                        <input class="kuang" id="pwd" name="loginPsw" oninput="abc_123(this)" type="password"/>
+                        <input class="kuang" id="pwd2" oninput="abc_123(this)" type="password"/>
+                    </div>
+                    <div style="width: 90%;height: 30px;margin: 30px auto;">
+                        <p class="pxian" style="font-size: 13px">确认密码</p>
+                        <input class="kuang" id="pwd" name="loginPsw" onblur="yanPwd(this)" type="password"/>
                     </div>
                     <div style="width: 90%;margin:0 auto;height: 30px;transition: 0.5s;margin-bottom:30px">
                         <input class="mkuang" id="zcYam" type="text"/>
                         <input class="cxMa" type="button" style="height:33px;border: 1px #ccc solid;padding: 0 5px;" onclick="getMa('zc',this)" value="获取" />
-                        <input class="mkuang" id="yaoqing" placeholder="邀请人账号" style="width:0;float: right;margin-right:2%" type="text"/>
+                        <input class="mkuang" id="yaoqing" name="refereer" placeholder="邀请人账号" style="width:0;float: right;margin-right:2%" type="text"/>
                     </div>
                     <div style="width: 90%;height: 30px;margin: 0 auto;">
                         <input value="登陆" class="loginzy" type="button" onclick="logNew(1)"/>
@@ -162,31 +48,36 @@
             <div class="tiancon"></div>
             <div style="width: 70%;height: 35%;margin: 0 auto;padding: 5% 0;background-color: #cccccc80;border-radius: 10px;">
                 <h2 style="font-size: 30px;font-family: 宋体;text-align: center;">登陆</h2>
-                <form>
+                <form th:action="@{/user/login}" method="post">
+                    <input name="logtype" type="hidden" id="logtype" value="0">
                     <div style="width: 90%;height: 30px;margin: 30px auto;">
                         <select class="xiala" onchange="pwdEmail(this)">
                             <option value="zh">账号</option>
                             <option value="yx">邮箱</option>
                         </select>
-                        <input class="kuang" type="text"/>
+                        <input class="kuang" name="account" id="zhanghao" placeholder="也可以是邮箱" style="display: block" type="text"/>
+                        <input class="kuang" name="email" id="dlEmail" style="display: none" oninput="zzsru(this)" onblur="yanEmail(this,'dl')" type="text"/>
                     </div>
                     <div id="pwdYz" style="width: 90%;height: 30px;margin: 30px auto;transition: 0.5s;">
-                        <select class="xiala">
-                            <option>密码</option>
-                            <option>显示</option>
+                        <select class="xiala" onchange="pwdLookF(this)">
+                            <option value="mm">密码</option>
+                            <option value="xs">显示</option>
                         </select>
-                        <input class="kuang" type="password"/>
+                        <input class="kuang" id="pwdyc" name="pwd" placeholder="区分大小写" oninput="tonBu('yc')" type="password"/>
+                        <input id="pwdLook" class="kuang" type="text" oninput="tonBu('lk')" style="display: none"/>
                     </div>
                     <div id="emailYz" style="width: 90%;margin:0 auto;height: 0px;transition: 0.5s;">
-                        <input class="mkuang" type="text"/>
+                        <input class="mkuang" id="dlmaKun" type="text"/>
                         <input class="cxMa" type="button" onclick="getMa('dl',this)" value="获取" />
                     </div>
                     <div style="width: 90%;height: 30px;margin: 0 auto;">
                         <input value="注册" class="loginzy" type="button" onclick="logNew(0)"/>
-                        <input value="登陆" id="gologin" class="daanniu" type="submit"/>
-                        <input value="忘记密码" class="loginzy" type="button" onclick="logNew(0)"/>
+                        <input value="登陆" id="gologin" class="daanniu" type="submit" onclick="return loginUser()"/>
+                        <a class="loginzy" type="button" style="padding: 5px;font-size: 14px;color: black;text-decoration: none;" target="_blank" th:href="@{/user/tozhao}"/>忘记密码</a>
                     </div>
                 </form>
+                <p class="logmsg" style="text-align: center;color: yellow" th:if="${session.msg!='' || session.msg != null}"
+                 th:text="${session.msg}"></p>
             </div>
             <div class="tiancon"></div>
         </div>
@@ -231,26 +122,71 @@
 
     function zzsru(id){
         var value = $(id).val();
-        var zhi = "";
         var tian = "";
-        var pad = 0;
         for(var j = 0;j < value.length; j++){
             var vnm = value.charAt(j);
             var ascl = vnm.charCodeAt();
-            if(ascl == 46 || (ascl >= 48 && ascl <= 57) || (ascl >= 64 && ascl <= 90)|| (ascl >= 97 && ascl <= 122)){
+            if(ascl === 46 || (ascl >= 48 && ascl <= 57) || (ascl >= 64 && ascl <= 90)|| (ascl >= 97 && ascl <= 122)){
                 tian += vnm;
-                if(ascl !== 64){
-                    zhi += vnm;
-                }else{
-                    pad = 1;
-                    $("#zhanghao").val(zhi);
-                }
             }else{
                 errorShuru(id);
             }
         }
         $(id).val(tian);
-        if(pad == 0)$("#zhanghao").val(zhi);
+    }
+
+    function getParam() {
+
+        var url = location.search; //获取url中"?"符后的字串
+
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            if(str === 'zc'){
+                logNew(0);
+            }
+        }
+    }
+    getParam();
+
+    var getMapad = 0;
+    var getMaDl = 0;
+    function yanEmail(id,type){
+        var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+        if($(id).val() !== ""){ //输入不能为空
+            if(!reg.test($(id).val())){ //正则验证不通过，格式不对
+                getMapad = 0;
+                getMaDl = 0;
+                errorShuru(id);
+            }else {
+                if(type === "zc"){
+                    $.post("/user/padEmail",{email:$(id).val()},function (data) {//判断邮箱是否被注册
+                        if(data){
+                            getMaDl = 0;
+                            errorShuru(id);
+                        }else {
+                            getMapad = 1;
+                        }
+                    },"json");
+                }
+                if(type === "dl"){ //判断邮箱是否存在
+                    $.post("/user/padEmail",{email:$(id).val()},function (data) {
+                        if(data){
+                            getMaDl = 1;
+                        }else {
+                            getMaDl = 0;
+                            errorShuru(id);
+                        }
+                    },"json");
+                }
+
+            }
+        }
+    }
+
+    function yanPwd() { //验证两次密码是否一致
+        if($("#pwd").val() !== $("#pwd2").val()){
+            errorShuru($("#pwd"));
+        }
     }
 
     function abc_123(id){
@@ -283,11 +219,11 @@
         if(tis >=0 ){
             tis -= 1;
             $(idd).css("background-color", "rgb(255,"+tis+","+tis+")");
-            if (tis == 0) tis = -1;
+            if (tis === 0) tis = -1;
         }else{
             tis2 += 1;
             $(idd).css("background-color", "rgb(255,"+tis2+","+tis2+")");
-            if(tis2 == 255){
+            if(tis2 === 255){
                 clearInterval(errorJishi);
                 errorJishi = null;
                 tis = 255;
@@ -303,8 +239,20 @@
         loginDong = setInterval("dontai()", "10");
     });
 
+    $(".logmsg").mouseover(function(){
+        $(".logmsg").css("display","none");
+        $.post("/user/delmsg",function (date){},"json");
+    });
+
     $("#gologin").mouseleave(function(){
         clearInterval(loginDong);
+    });
+
+    $("#zcYam").click(function(){
+        $("#zcYam").css("background-color","white");
+    });
+    $("#dlmaKun").click(function(){
+        $("#dlmaKun").css("background-color","white");
     });
 
     function yaoQing(id){
@@ -328,9 +276,15 @@
         }
     }
 
+    var loginType = 0;
     function pwdEmail(id){
         var vs = $(id).val();
         if(vs == 'zh'){
+            loginType = 0;
+            $("#logtype").val('0');
+            $("#zhanghao").css("display","block");
+            $("#dlEmail").css("display","none");
+
             $("#emailYz input").css("height","0");
             $("#emailYz input").css("padding","0");
             $("#emailYz input").css("border","0");
@@ -351,14 +305,19 @@
             $("#pwdYz .xiala").css("border","1px #ccc solid");
             $("#pwdYz .xiala").css("border-right","0");
         }else{
+            loginType = 1;
+            $("#logtype").val('1');
+            $("#zhanghao").css("display","none");
+            $("#dlEmail").css("display","block");
+
             $("#emailYz").css("height","33px");
             $("#emailYz").css("margin","0 auto");
             $("#emailYz").css("margin-bottom","30px");
 
-            $("#emailYz .mkuang").css("height","25px");
-            $("#emailYz .mkuang").css("padding","3px 7px 3px 8px");
-            $("#emailYz .mkuang").css("border","1px #ccc solid");
-            $("#emailYz .mkuang").css("border-right","0");
+            $("#dlmaKun").css("height","25px");
+            $("#dlmaKun").css("padding","3px 7px 3px 8px");
+            $("#dlmaKun").css("border","1px #ccc solid");
+            $("#dlmaKun").css("border-right","0");
 
             $("#emailYz .cxMa").css("height","33px");
             $("#emailYz .cxMa").css("border","1px #ccc solid");
@@ -377,38 +336,64 @@
         }
     }
 
+    var pwdlook = 0;
+    function pwdLookF(id) {
+        var vs = $(id).val();
+        if(vs === 'xs'){
+            pwdlook = 1;
+            $("#pwdLook").css("display","block");
+            $("#pwdyc").css("display","none");
+        }else {
+            pwdlook = 0;
+            $("#pwdyc").css("display","block");
+            $("#pwdLook").css("display","none");
+        }
+    }
+
+    function tonBu(ty) {
+        if(ty === "yc"){
+            $("#pwdLook").val($("#pwdyc").val());
+        }else {
+            $("#pwdyc").val($("#pwdLook").val());
+        }
+    }
+
     var jishi = 59;
     var jishuTishi;
-
     var zcMa = 0;
+    var dlMa = 0;
     function getMa(type,id){
-        if($("#zcEmail").val() == ""){
-            errorShuru($("#zcEmail"));
-        }else {
-            if($(id).val() == "获取"){
-                $(id).val('获取(59)')
+        if((getMapad !== 0 && type === "zc")||(getMaDl !== 0 && type === "dl")){
+            if($(id).val() === "获取"){
+                $(id).val('获取(59)');
                 $(id).css("background-color","white");
                 jishuTishi  = setInterval("daojishi()", "1000");
 
-                var email = $("#zcEmail").val();
+                var email = "";
+                if(type === "zc") email = $("#zcEmail").val();
+                else email = $("#dlEmail").val();
                 $.post("/user/getMa",{email:email,type:type},function (data) {
-                    if(data == "" || data == null){
-                        errorShuru($("#zcEmail"));
+                    if(data === "" || data == null){
+                        if(type === "zc") errorShuru($("#zcEmail"));
+                        else errorShuru($("#dlEmail"));
+
                         alert("请检查邮箱格式是否正确");
                     }else {
-                        zcMa = data;
+                        if(type === "zc")zcMa = data;
+                        if(type === "dl")dlMa = data;
                     }
                 },"json");
             }else{
                 //已经在获取验证码
             }
+        }else {
+            if(type === "zc")errorShuru($("#zcEmail"));
+            if(type === "dl")errorShuru($("#dlEmail"));
         }
-
-
     }
     function daojishi(){
         jishi -= 1;
-        if(jishi == 0){
+        if(jishi === 0){
             jishi = 59;
             clearInterval(jishuTishi);
             $(".cxMa").val('获取');
@@ -416,24 +401,52 @@
         }else{
             $(".cxMa").val("获取("+jishi+")");
         }
-
     }
 
-    function newZhang() {
+    function newZhang(){
+        var yunma = zcMa+"";
+        var shuru = $("#zcYam").val()+"";
         if($("#zcEmail").val() === ""){
             errorShuru($("#zcEmail"));
-            return false;
-        }else if($("#zhanghao").val() === ""){
-            errorShuru($("#zhanghao"));
             return false;
         }else if($("#pwd").val() === ""){
             errorShuru($("#pwd"));
             return false;
-        }else if( zcMa === 0 || $("#zcYam").val() !== zcMa){
-            errorShuru($("#zcYam"));
+        }else if($("#pwd").val() !== $("#pwd2").val()){
+            errorShuru($("#pwd2"));
+            return false;
+        }else if(yunma !== shuru || zcMa === 0){
+            $("#zcYam").css("background-color","red");
             return false;
         }else {
             return true;
+        }
+    }
+
+    function loginUser() {
+        var yunma = dlMa+"";
+        var shuru = $("#dlmaKun").val()+"";
+        if(loginType === 0){//密码验证
+            if($("#zhanghao").val() === ''){
+                errorShuru($("#zhanghao"));
+                return false;
+            }else if($("#pwdyc").val() === ''){
+                if(pwdlook === 0)errorShuru($("#pwdyc"));
+                else errorShuru($("#pwdLook"));
+                return false;
+            }else {
+                return true;
+            }
+        }else if(loginType === 1){
+            if($("#dlEmail").val() === ''){
+                errorShuru($("#dlEmail"));
+                return false;
+            }else if(shuru === '' || shuru !== yunma || shuru === '0'){
+                $("#dlmaKun").css("background-color","red");
+                return false;
+            }else if(yunma === shuru){
+                return true;
+            }
         }
     }
 
@@ -506,7 +519,6 @@
         }else if(zt2 === 1){
             zuo2 += 1;
             document.getElementById("goNew").style.backgroundPosition=zuo2+"% 50%";
-
             if(zuo2 === 100) zt2 = 0;
         }
     }

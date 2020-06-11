@@ -62,7 +62,7 @@ public class MyBatisTableConfig {
         sqlSessionFactoryBean.setDataSource(dataSource());
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml"));
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.vault.demo.dao.*");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.vault.demo.dao.test.*");
         return sqlSessionFactoryBean;
     }
 }
