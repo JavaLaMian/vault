@@ -43,9 +43,10 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">标种</label>
                       <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
-                        <select name="type" class="form-control" id="type">
+                        <select name="type" class="form-control" id="type" onchange="pptf()">
                           <option value="1">新手标</option>
-                          <option value="2">散标</option>
+                          <option value="2">优享标</option>
+                          <option value="3">散标</option>
                         </select>
                       </div>
                     </div>
@@ -73,7 +74,7 @@
                     </div>
                   </div>
                   <!--新手利率-->
-                  <div class="form-group col-md-12">
+                  <div class="form-group col-md-12" id="aaa">
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">新手利率</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
@@ -82,12 +83,30 @@
                       </div>
                     </div>
                   </div>
-                  <!--总金额-->
+                  <!--标种总体累计限额-->
                   <div class="form-group col-md-12">
                     <div class="form-group row">
-                      <label class="col-form-label col-lg-3">标类总金额</label>
+                      <label class="col-form-label col-lg-3">总体金额</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
                         <input id="range_02">
+                      </div>
+                    </div>
+                  </div>
+                  <!--个人累计限额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">个人总金额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_06">
+                      </div>
+                    </div>
+                  </div>
+                  <!--起标额度-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">起标额度</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_07">
                       </div>
                     </div>
                   </div>
@@ -109,17 +128,8 @@
                       </div>
                     </div>
                   </div>
-                  <!--时间-->
-                  <div class="form-group col-md-12">
-                    <label for="type">标期时间</label>
-                    <div class="input-daterange input-group col-lg-8">
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange1" name="example-daterange1" placeholder="封标期时间">
-                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange2" name="example-daterange2" placeholder="转让期">
-                    </div>
-                  </div>
                   <!--是否可以自动转让-->
-                  <div class="form-group col-xs-6">
+                  <div class="form-group col-xs-4">
                     <label for="type">是否可以自动转让</label>
                     <div class="input-daterange input-group col-lg-8">
                       <div class="example-box">
@@ -133,7 +143,7 @@
                     </div>
                   </div>
                   <!--是否可以自动复投-->
-                  <div class="form-group col-xs-6">
+                  <div class="form-group col-xs-4">
                     <label for="type">是否可以自动复投</label>
                     <div class="input-daterange input-group col-lg-8">
                       <div class="example-box">
@@ -146,45 +156,18 @@
                       </div>
                     </div>
                   </div>
-                  <!--图片上传-->
+
+                  <!--时间-->
                   <div class="form-group col-md-12">
-                    <label>多图上传</label>
-                    <div class="form-controls">
-                      
-                      <ul class="list-inline clearfix uploads-pic">
-                        <li class="col-xs-4 col-sm-3 col-md-2">
-                          <figure>
-                            <img th:src="@{/images/gallery/15.jpg}" alt="图片一">
-                            <figcaption>
-                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
-                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
-                            </figcaption>
-                          </figure>
-                        </li>
-                        <li class="col-xs-4 col-sm-3 col-md-2">
-                          <figure>
-                            <img th:src="@{/images/gallery/16.jpg}" alt="图片二">
-                            <figcaption>
-                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
-                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
-                            </figcaption>
-                          </figure>
-                        </li>
-                        <li class="col-xs-4 col-sm-3 col-md-2">
-                          <figure>
-                            <img th:src="@{/images/gallery/17.jpg}" alt="图片三">
-                            <figcaption>
-                              <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
-                              <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
-                            </figcaption>
-                          </figure>
-                        </li>
-                        <li class="col-xs-4 col-sm-3 col-md-2">
-                          <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"></a>
-                        </li>
-                      </ul>
+                    <label for="type">标期时间</label>
+                    <div class="input-daterange input-group col-lg-8">
+                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange1" name="example-daterange1" placeholder="开始投标时间">
+                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
+                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange2" name="example-daterange2" placeholder="封标期时间">
                     </div>
                   </div>
+
+
 
                   <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">确 定</button>
@@ -219,16 +202,16 @@
       });
       $("#range_02").ionRangeSlider({
         min: 0,
-        max: 1000,
+        max: 2000,
         grid: true,
         prefix: "万"
 
       });
       $("#range_03").ionRangeSlider({
         min: 0,
-        max: 1000000,
+        max: 200,
         grid: true,
-        from: 1000000,
+        from: 200,
         prefix: "万"
       });
       $("#range_04").ionRangeSlider({
@@ -246,11 +229,46 @@
         from: 5.0,
         prefix: "%"
       });
+      $("#range_06").ionRangeSlider({
+        min: 0,
+        max: 200,
+        grid: true,
+        prefix: "万"
+      });
+      $("#range_07").ionRangeSlider({
+        min: 0,
+        max: 100,
+        from: 5,
+        grid: true,
+        prefix: "万"
+      });
       //默认选中
       $("input[name='transfer']:radio:last").attr('checked', 'checked');
       //默认选中
       $("input[name='aotuInverst']:radio:last").attr('checked', 'checked');
   })
+    //标种切换js
+    function pptf(){
+      var selects = document.getElementById("type");
+      var indexs = selects.selectedIndex;  //选中项的索引
+      var sanbiao = selects.options[indexs].text
+      if(sanbiao == '散标'){
+        $('#aaa').show();
+        $(document).one('click',function(){
+          $('#aaa').hide();
+        })
+
+      }else if(sanbiao == '新手标'){
+        $('#aaa').css("display","block");
+      }
+      else if(sanbiao == '优享标'){
+        $('#aaa').show();
+        $(document).one('click',function(){
+          $('#aaa').hide();
+        })
+      }
+    }
+
   </script>
 </body>
 </html>
