@@ -55,4 +55,10 @@
           update userimf set account=#{account} where uId = #{uId}
         ]]>
     </update>
+
+    <update id="updateUserPwd">
+        <![CDATA[
+          update userimf set loginPsw=#{loginPsw} where email = #{email}
+        ]]>
+    </update>
 </mapper>
