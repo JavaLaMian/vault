@@ -145,7 +145,7 @@
         </ul>
     </div>
     <div class="navShadow" data-reactid=".0.2.1.1:0.1"></div>
-</div>
+    </div>
     <!--    内容-->
     <div style="height: auto;width: 100%">
         <div class="tab-nav" data-aspm="c10382" data-aspm-expo="true" data-reactid=".0.3">
@@ -164,7 +164,6 @@
                 </li>
             </ul>
         </div>
-
 
         <div class="loanRecord" data-reactid=".0.4">
             <div class="tableNavBox" data-reactid=".0.4.0">
@@ -277,11 +276,138 @@
             </div>
 
             <div class="loanBox"  data-reactid=".0.4.1" >
-            <div class="noRecord " data-reactid=".0.4.1.0">
-                <div class="poster empty" data-reactid=".0.4.1.0.0"></div>
-                <h5 data-reactid=".0.4.1.0.1">抱歉，暂时没有找到相关的记录</h5>
+                <!-- 无记录-->
+                <div th:if="false" class="noRecord " data-reactid=".0.4.1.0">
+                    <div class="poster empty" data-reactid=".0.4.1.0.0"></div>
+                    <h5 data-reactid=".0.4.1.0.1">抱歉，暂时没有找到相关的记录</h5>
+                </div>
+                <!-- 有记录-->
+                <div class="loanList clearfix" data-reactid=".0.4.1.0">
+                    <table data-reactid=".0.4.1.0.0">
+                        <thead data-reactid=".0.4.1.0.0.0">
+                            <tr data-reactid=".0.4.1.0.0.0.0">
+                                <td class="td0" data-reactid=".0.4.1.0.0.0.0.$0">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$0.0">申请时间</h3>
+                                </td>
+                                <td class="td1" data-reactid=".0.4.1.0.0.0.0.$1">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$1.0">贷款编号</h3>
+                                </td>
+                                <td class="td2" data-reactid=".0.4.1.0.0.0.0.$2">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$2.0">推荐渠道</h3>
+                                </td>
+                                <td class="td3" data-reactid=".0.4.1.0.0.0.0.$3">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$3.0">贷款期限</h3>
+                                </td>
+                                <td class="td4" data-reactid=".0.4.1.0.0.0.0.$4">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$4.0">还款方式</h3>
+                                </td>
+                                <td class="td5" data-reactid=".0.4.1.0.0.0.0.$5">
+                                     <h3 data-reactid=".0.4.1.0.0.0.0.$5.0">借款金额</h3>
+                                </td>
+                                <td class="td6" data-reactid=".0.4.1.0.0.0.0.$6">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$6.0">状态</h3>
+                                </td>
+                                <td class="td7" data-reactid=".0.4.1.0.0.0.0.$7">
+                                    <h3 data-reactid=".0.4.1.0.0.0.0.$7.0">详情</h3>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody data-reactid=".0.4.1.0.0.1">
+                            <tr class="listEven" data-reactid=".0.4.1.0.0.1.$0">
+                                <td class="td0" data-reactid=".0.4.1.0.0.1.$0.$0">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$0.0">2020.06.01</div>
+                                </td>
+                                <td class="td1" data-reactid=".0.4.1.0.0.1.$0.$1">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$1.0">
+                                        <span data-reactid=".0.4.1.0.0.1.$0.$1.0.0">202006011010...</span>
+                                    </div>
+                                </td>
+                                <td class="td2" data-reactid=".0.4.1.0.0.1.$0.$2">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$2.0">其他</div>
+                                </td>
+                                <td class="td3" data-reactid=".0.4.1.0.0.1.$0.$3">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$3.0">12个月</div>
+                                </td>
+                                <td class="td4" data-reactid=".0.4.1.0.0.1.$0.$4">
+                                     <div data-reactid=".0.4.1.0.0.1.$0.$4.0">等额本金</div>
+                                </td>
+                                <td class="td5" data-reactid=".0.4.1.0.0.1.$0.$5">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$5.0">130.00</div>
+                                </td>
+                                <td class="td6" data-reactid=".0.4.1.0.0.1.$0.$6">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$6.0">使用中</div>
+                                </td>
+                                    <td class="td7" data-reactid=".0.4.1.0.0.1.$0.$7">
+                                        <div data-reactid=".0.4.1.0.0.1.$0.$7.0">
+                                            <a class="icon" target="_blank" href="#" data-reactid=".0.4.1.0.0.1.$0.$7.0.0">...</a>
+                                        </div>
+                                    </td>
+                            </tr>
+                            <tr class="listOdd" data-reactid=".0.4.1.0.0.1.$0">
+                                <td class="td0" data-reactid=".0.4.1.0.0.1.$0.$0">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$0.0">2020.06.01</div>
+                                </td>
+                                <td class="td1" data-reactid=".0.4.1.0.0.1.$0.$1">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$1.0">
+                                        <span data-reactid=".0.4.1.0.0.1.$0.$1.0.0">202006011010...</span>
+                                    </div>
+                                </td>
+                                <td class="td2" data-reactid=".0.4.1.0.0.1.$0.$2">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$2.0">其他</div>
+                                </td>
+                                <td class="td3" data-reactid=".0.4.1.0.0.1.$0.$3">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$3.0">12个月</div>
+                                </td>
+                                <td class="td4" data-reactid=".0.4.1.0.0.1.$0.$4">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$4.0">等额本金</div>
+                                </td>
+                                <td class="td5" data-reactid=".0.4.1.0.0.1.$0.$5">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$5.0">130.00</div>
+                                </td>
+                                <td class="td6" data-reactid=".0.4.1.0.0.1.$0.$6">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$6.0">使用中</div>
+                                </td>
+                                <td class="td7" data-reactid=".0.4.1.0.0.1.$0.$7">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$7.0">
+                                        <a class="icon" target="_blank" href="#" data-reactid=".0.4.1.0.0.1.$0.$7.0.0">...</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="listEven" data-reactid=".0.4.1.0.0.1.$0">
+                                <td class="td0" data-reactid=".0.4.1.0.0.1.$0.$0">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$0.0">2020.06.01</div>
+                                </td>
+                                <td class="td1" data-reactid=".0.4.1.0.0.1.$0.$1">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$1.0">
+                                        <span data-reactid=".0.4.1.0.0.1.$0.$1.0.0">202006011010...</span>
+                                    </div>
+                                </td>
+                                <td class="td2" data-reactid=".0.4.1.0.0.1.$0.$2">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$2.0">其他</div>
+                                </td>
+                                <td class="td3" data-reactid=".0.4.1.0.0.1.$0.$3">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$3.0">12个月</div>
+                                </td>
+                                <td class="td4" data-reactid=".0.4.1.0.0.1.$0.$4">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$4.0">等额本金</div>
+                                </td>
+                                <td class="td5" data-reactid=".0.4.1.0.0.1.$0.$5">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$5.0">130.00</div>
+                                </td>
+                                <td class="td6" data-reactid=".0.4.1.0.0.1.$0.$6">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$6.0">使用中</div>
+                                </td>
+                                <td class="td7" data-reactid=".0.4.1.0.0.1.$0.$7">
+                                    <div data-reactid=".0.4.1.0.0.1.$0.$7.0">
+                                        <a class="icon" target="_blank" href="#" data-reactid=".0.4.1.0.0.1.$0.$7.0.0">...</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <noscript data-reactid=".0.4.1.0.1"></noscript>
+                </div>
             </div>
-        </div>
         </div>
     </div>
     <!--    统一尾-->

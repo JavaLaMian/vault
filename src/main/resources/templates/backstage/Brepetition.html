@@ -10,6 +10,10 @@
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
+        <!--标签插件-->
+        <link rel="stylesheet" th:href="@{/js/jquery-tags-input/jquery.tagsinput.min.css}">
+        <!--滑块插件-->
+        <link rel="stylesheet" th:href="@{/js/ion-rangeslider/ion.rangeSlider.min.css}">
     </span>
     <span th:fragment="head">
           <!--左侧导航-->
@@ -36,7 +40,8 @@
                 <li class="nav-item nav-item-has-subnav">
                   <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 小母牛理财</a>
                   <ul class="nav nav-subnav">
-                    <li> <a href="forms_elements.html">理财订单</a> </li>
+                    <li> <a th:href="@{/XMN/BidList}">投标类别</a> </li>
+                    <li> <a th:href="@{/XMN/LiCaiDOC}">理财订单</a> </li>
                   </ul>
                 </li>
                 <li class="nav-item nav-item-has-subnav">
@@ -249,9 +254,17 @@
     </span>
     <span th:fragment="javascript">
         <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
         <script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/main.js}"></script>
+        <!--标签插件-->
+        <script th:src="@{/js/jquery-tags-input/jquery.tagsinput.min.js}"></script>
+        <!--滑块插件-->
+        <script th:src="@{/js/ion-rangeslider/ion.rangeSlider.min.js}"></script>
+      <!--日期选择插件-->
+      <script th:src="@{/js/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+      <script th:src="@{/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js}"></script>
     </span>
 </body>
 </html>

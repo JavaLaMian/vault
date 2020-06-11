@@ -12,78 +12,66 @@
     <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/profile.js"></script>
     <script src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
     <style>
-        .fold {
-            font-family: PingFangSC-Regular;
-            font-size: 14px;
-            color: #00c2c2;
-            line-height: 14px;
-            margin: 0 auto;
-            text-align: right;
-            cursor: pointer;
-            padding-right: 35px;
-        }
-        .mybank-foot-wrap {
-            background-color: #f8f8f8
-        }
-        .mybank-foot-wrap img {
-            display: block
-        }
 
-        .mybank-foot-content {
-            width: 990px;
-            margin: 0 auto;
-            padding: 30px 0 32px;
-            font-size: 14px;
-            line-height: 1.5;
-            background: url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png)right -1px no-repeat
-        }
-        .mybank-foot-content a,.mybank-foot-content a:hover {
-            color: #333;
-            text-decoration: none
-        }
-        .mybank-foot-content:after,.mybank-foot-content:before {
-            display: table;
-            content: ""
-        }
-        .mybank-foot-content:after {
-            clear: both
-        }
-        .mybank-foot-left {
-            float: left;
-        }
-        .mybank-foot-right {
-            float: right;
-            text-align: right
-        }
+    .fold {
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #00c2c2;
+        line-height: 14px;
+        margin: 0 auto;
+        text-align: right;
+        cursor: pointer;
+        padding-right: 35px;
+    }
+    .mybank-foot-wrap {
+        background-color: #f8f8f8
+    }
+    .mybank-foot-wrap img {
+        display: block
+    }
 
-        .mybank-foot-logo {
-            width: 209px;
-            height: 26px
-        }
+    .mybank-foot-content {
+        width: 990px;
+        margin: 0 auto;
+        padding: 30px 0 32px;
+        font-size: 14px;
+        line-height: 1.5;
+        background: url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png)right -1px no-repeat
+    }
+    .mybank-foot-content a,.mybank-foot-content a:hover {
+        color: #333;
+        text-decoration: none
+    }
+    .mybank-foot-content:after,.mybank-foot-content:before {
+        display: table;
+        content: ""
+    }
+    .mybank-foot-content:after {
+        clear: both
+    }
+    .mybank-foot-left {
+        float: left;
+    }
+    .mybank-foot-right {
+        float: right;
+        text-align: right
+    }
 
-        .mybank-foot-intro {
-            padding-top: 12px
-        }
+    .mybank-foot-logo {
+        width: 209px;
+        height: 26px
+    }
 
-        .mybank-foot-copyright {
-            padding-top: 13px
-        }
+    .mybank-foot-intro {
+        padding-top: 12px
+    }
 
-        .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
-    </style>
-    <script>
-        AWSC.use("um", function (state, umModule) {
-            if(state === "loaded") {
-                umModule.init({
-                    appName: 'bkloanportal',
-                }, function (initState, result) {
-                    if(initState === 'success') {
-                        window['newUmidToken'] = result.tn;
-                    }
-                });
-            }
-        });
-    </script>
+    .mybank-foot-copyright {
+        padding-top: 13px
+    }
+
+    .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
+</style>
 </head>
 <body>
 <!--    导航-->
@@ -184,7 +172,8 @@
                     </li>
                 </div>
             </ul>
-            <div data-reactid=".0.3.0.5.1">
+            <ul>
+                <div data-reactid=".0.3.0.5.1">
                 <li data-reactid=".0.3.0.5.1.2">
                     <div class="title" data-reactid=".0.3.0.5.1.2.0">登录支付宝帐号</div>
                     <div class="content" data-reactid=".0.3.0.5.1.2.1">
@@ -235,6 +224,7 @@
                     </div>
                 </li>
             </div>
+            </ul>
             <div class="fold" data-reactid=".0.3.0.6">
                 <span data-reactid=".0.3.0.6.0">展开</span>                <span class="down" data-reactid=".0.3.0.6.1"></span>
             </div>

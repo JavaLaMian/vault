@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>账户安全-小牛在线</title>
+    <script type="text/javascript" src="/user/static/rsa/utility.js?v=1.0.2"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
+    <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+    <script>
+        window.global = {
+            cdn: "//image.xiaoniu88.com",
+            siteroot: "http://www.xiaoniu88.com",
+            staticPath: "//image.xiaoniu88.com/static/WebXn/dist",
+            contextPath: "/user",
+            serverTime: "1591846713575"*1,
+            userId: "6086292",
+            isLogin: true
+        }
+    </script>
+    <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
+    <script>
+        $(function(){
+            seajs.use('module/common/common')
+        })
+    </script>
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/user/safety/css/style-ed9716a8f6.css" />
+</head>
+
+<body>
+<!--头部-->
+<!--[if lt IE 9]>
+<script src="http://image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
+<![endif]-->
+<input value="true" type="hidden" id="isLogin"/>
+<div class="affiche" id="afficheModel">
+<span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
+	<a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a>
+</span>
+    <i class="icon-common icon-common-close"></i>
+</div>
+
+<header th:replace="/common::commonHeader"></header>
+
+<!--导航-->
+<div th:replace="/common::commonNav"></div>
+
+<input type="hidden" value="" id="loctag"/>
+<input type="hidden" value="datum" id="userNavList"/>
+<input type="hidden" value="datum" id="userNavList"/>
+<!-- 最外层容器container -->
+<div class="container">
+    <div class="g-account-main">
+        <!-- 面包屑冬导航 -->
+        <div class="path">
+            您现在的位置：<span>我的账户 > 账户安全</span>
+
+        </div>
+        <div class="center user-box">
+            <!-- 我的账户菜单 -->
+
+            <!--start 我的账户左边菜单列表-->
+            <div class="account-list">
+                <div class="account-info">
+                    <div class="member-info">
+                        <div><span class="name" id="username">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>"></span></div>
+                        <div class="security-level">账户安全：<span id="security-level">*</span></div>
+                    </div>
+                    <div class="badge-info">
+                        <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                    </div>
+                    <div class="point-info" id="riskLevel-info">
+                        风险评估：***
+                        <a href="javascript:;" target="_blank">【重新测评】</a>
+                    </div>
+                    <div class="point-info">
+                        我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
+                        <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+                    </div>
+                    <div id="sign-info" class="sign-info"></div>
+
+                </div>
+                <ul class="g-cf left-menu">
+                    <li data-type="index">
+                        <a class="h2" href="/MyAccount/index"><b>账户总览</b></a>
+                    </li>
+                    <li data-type="invest">
+                        <a href="/MyAccount/invest/index">我的网贷</a>
+                    </li>
+                    <li data-type="record">
+                        <a href="/MyAccount/fundRecord">资金记录</a>
+                    </li>
+                    <li data-type="datum">
+                        <a href="/user/uasec">账户安全</a>
+                    </li>
+                    <li data-type="bankCard" class="last">
+                        <a href="/payment/bankcard/index">银行卡管理</a>
+                    </li>
+                    <li data-type="news">
+                        <a href="/MyAccount/message">我的消息<span id="msg-count"></span></a>
+                    </li>
+                    <li data-type="redEnvelope">
+                        <a href="/bonus/index">我的优惠<span id="bonus-count"></span></a>
+                    </li>
+                    <li data-type="point">
+                        <a href="/bonus/point/index">我的积分</a>
+                    </li>
+                    <li data-type="myactivity" class="last">
+                        <a href="/activity/limitTransfer/index">我的活动</a>
+                    </li>
+                    <li class="planner last" data-type="planner">
+                        <a href="/financier/relationship">邀请好友<span>赚收益</span></a>
+                    </li>
+
+                    <!-- <li class="investment" data-type="investment">
+                        <a href="/MyAccount/invest/index/holding">我的项目</a>
+                    </li>
+                    <li class="parent g-dn" data-type="financing">
+                        <a class="down">随心项目</a>
+                        <ul class="second">
+                            <li class="g-dn" data-type="my-smart">
+                                <a href="/MyAccount/smart/index">我的月月牛</a>
+                            </li>
+                            <li class="g-dn" data-type="flexible-1">
+                                <a href="/MyAccount/flexible/week/index">我的周升计划</a>
+                            </li>
+                            <li class="g-dn" data-type="flexible-2">
+                                <a href="/MyAccount/flexible/month/index">我的升财牛</a>
+                            </li>
+                            <li class="g-dn" data-type="flexible-3">
+                                <a href="/MyAccount/flexible/twomonth/index">我的双月计划</a>
+                            </li>
+                            <li class="g-dn" data-type="flexible-4">
+                                <a href="/MyAccount/flexible/quarter/index">我的季升计划</a>
+                            </li>
+                            <li class="g-dn" data-type="flexible-5">
+                                <a href="/MyAccount/flexible/year/index">我的年升计划</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="parent" data-type="autoinvest">
+                        <a class="down">我的投标工具</a>
+                        <ul class="second">
+                            <li>
+                                <a href="/MyAccount/autoInvest/index/recent">自动投标</a>
+                            </li>
+                            <li>
+                                <a href="/product/duration/disposable/user/statistics">一键投标</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li data-type="prize">
+                        <a href="/activity/mytreasure/index">我的夺宝</a>
+                    </li>
+                    <li data-type="myprize">
+                        <a href="/activity/pointmall/mein/index">我的宝贝</a>
+                    </li> -->
+
+                </ul>
+                <div class="qqun">
+                    <p class="q1 g-dn">客户交流群：
+                        <br/>521069624
+                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">
+                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群④" title="小牛在线客户交流群④" />
+                        </a>
+                    </p>
+                    <p class="q2">投标计划群：
+                        <br/>479230479
+                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">
+                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群②" title="小牛在线客户交流群②"/>
+                        </a>
+                    </p>
+                    <div class="g-cf">
+                        <span class="g-fl">微信客服号：<br/>niubaobao88888</span>
+                        <div class="weixin-icon" data-key="kfh01">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="http://image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
+            <script>
+                $(function () {
+                    seajs.use('module/userNavList/js/init');
+                });
+            </script>
+
+            <!--end 我的账户左边菜单列表-->
+            <!-- 右侧内容 -->
+            <div class="account-cont">
+                <!-- 右侧标题 -->
+                <div class="at-til">
+                    <span class="name">账户安全</span>
+                </div>
+
+                <!-- 具体内容-账户安全 -->
+                <div class="at-bd red-envelope">
+                    <!-- 顶部 -->
+                    <div class="zccount_msg">
+                        <div class="account_number">
+                            <span class="account_name">xnwp6190807</span>
+                            <span class="account_regTime">注册时间&nbsp;&nbsp;2020-06-10</span>
+                            <a href="javascript:" class="account_addrecommend">填写推荐人</a>
+                        </div>
+
+                        <div id="dialogCode">
+                            <div class="recommend_pop">
+                                <div class = "rp_step rp_step1">
+                                    <ul>
+                                        <li class="g-cf">
+                                            <div class="g-fl rp_field">我的推荐人：</div>
+                                            <div class="rp_value">
+                                                <input type="text" id="setrefferee" placeholder="请填写您的推荐人用户名或手机号" class="rp_txt" /><br><span class="rp_error">请输入正确的推荐人账号或手机号!</span>
+                                            </div>
+                                        </li>
+                                        <li class="g-cf">
+                                            <div class="g-fl rp_field"></div>
+                                            <div class="rp_value">
+                                                <input type="button" id="rp_btn" class="rp_btn" value="提交" />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p class="rp_tips">您的推荐人成功提交后,将不可更改。</p>
+                                </div>
+                                <div class = "rp_step rp_step2">
+                                    <h3>您已成功把<span class="rec_name">**</span>设置为您的推荐人。</h3>
+                                    <p>因推荐人唯一性且不可更改，推荐人不会在"我的资料"中显示。</p>
+                                    <input type="button" class="rp_btn" value="确定" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="security_level">
+                            <span class="inline_block">您的账户安全等级：</span>
+                            <span class="inline_block level_level_num">
+                                低
+                            </span>
+                            <span class="inline_block">
+									<div class='level_100'>
+										<div style="width:30%"></div>
+									</div>
+								</span>
+                            <a id="resetAccountLevel" class="inline_block">重新检验</a>
+                        </div>
+                    </div>
+                    <!-- 账户安全设置列表 -->
+                    <div class="account_list">
+                        <!-- 银行存管
+                        <div class="column">
+                                    <div class="column_name not_seted">
+                                银行存管
+                            </div>
+                            <div class="column_msg">
+                                        <span class="setting"><a href="/payment/deposit/apply">去开通</a></span>
+                                        <span class="column_info">开通存管电子账户，网贷资金更安全</span>
+                            </div>
+                        </div>
+                         已开通存管账户显示存管交易密码
+                         -->
+                        <!-- 实名认证 -->
+                        <div myid='realName' class="column">
+
+                            <div class="column_name not_seted">
+                                实名认证
+                            </div>
+                            <div class="column_msg">
+											<span class="setting">
+												<a myTarget="smdj_rz" href="/payment/deposit/apply">请设置</a>
+											</span>
+                                <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
+                                <span class="info_con"></span>
+                                <span class="info_con"></span>
+                            </div>
+                        </div>
+                        <!-- 交易密码 -->
+                        <div myid='tdpwd' class="column">
+
+                            <div class="column_name not_seted">
+                                交易密码
+                            </div>
+                            <div class="column_msg">
+                                <span class="setting"><a myTarget="step_1" class="showSetting">请设置</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">
+                                    原提现密码，保障账户资金安全，提现或改动账户信息的时候需要输入的密码
+								</span>
+                            </div>
+                            <form id="jymm_form" class="column_form">
+                                <div>
+                                    <div class="step_1">
+                                        <!-- 第一步 -->
+                                        <ul class="steps step1">
+                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
+                                        </ul>
+                                        <table class="form_type for_step1">
+                                            <tr>
+                                                <td class="align_right">当前号码：</td>
+                                                <td><span class="display_form">178****7767</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">验证码：</td>
+                                                <td><input class="code_form" id="jymm_rz_step1_phonecode" type="text" /><a id="jymm_rz_step1_get_phonecode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"><div id="jymm_rz_step1_phonecodeTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="jymm_rz_step1_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="step_2">
+                                        <!-- 第二步 -->
+                                        <ul class="steps step2">
+                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
+                                        </ul>
+                                        <table class="form_type for_step2">
+                                            <tr>
+                                                <td class="align_right">设置密码：</td>
+                                                <td><input id="jymm_rz_step2_new_pwd" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                                <td class="width250"><div id="jymm_rz_step2_new_pwdTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">再次输入密码：</td>
+                                                <td><input id="jymm_rz_step2_new_pwd_qr" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                                <td class="width250"><div id="jymm_rz_step2_new_pwd_qrTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="jymm_rz_step2_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="step_3">
+                                        <!-- 第三步 -->
+                                        <ul class="steps step3">
+                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
+                                        </ul>
+                                        <table class="form_type for_step3">
+                                            <tr>
+                                                <td class="align_center"><span class="size_16">设置密码成功</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_center"><a href="javascript:window.location.reload()" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="form_msg">
+                                    <p>
+                                        <font class='blod'>温馨提示：</font>请确保设置的交易密码与登录密码不同，并定期更换交易密码，以确保您的账户更安全。
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 银行卡认证 -->
+                        <div class="column">
+                            <div class="column_name not_seted">
+                                银行卡认证
+                            </div>
+                            <div class="column_msg">
+                                <span class="setting"><a myTarget="yykrz_xg" class="showSetting">请设置</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">提现时资金转入的银行卡账户</span>
+                                <span class="info_con"></span>
+                            </div>
+                            <form class="column_form">
+                                <table class="form_type yykrz_xg setting_other marginAuto">
+                                    <tr>
+                                        <td class="align_center"><span class="size_16">请先设置实名登记，<a class="link" href="/payment/deposit/apply">马上设置</a></span></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <!-- 登录密码 -->
+                        <div myid="lgPassword" class="column">
+                            <div class="column_name seted">
+                                登录密码
+                            </div>
+                            <div class="column_msg">
+                                <span class="setting"><a myTarget="dlmm_xg" class="showSetting">修改</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">定期修改密码，可以使您的账户更加安全</span>
+                            </div>
+                            <form id="dlmm_form" class="column_form">
+                                <div class="dlmm_xg">
+                                    <table class="form_type">
+                                        <tr>
+                                            <td class="align_right">原登录密码：</td>
+                                            <td><input id="dlmm_xg_old_pwd" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                            <td class="width250"><div id="dlmm_xg_old_pwdTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">新登录密码：</td>
+                                            <td><input id="dlmm_xg_new_pwd" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                            <td class="width250"><div id="dlmm_xg_new_pwdTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">确认新密码：</td>
+                                            <td><input id="dlmm_xg_new_pwd_qr" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                            <td class="width250"><div id="dlmm_xg_new_pwd_qrTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">绑定手机：</td>
+                                            <td><span class="display_form">178****7767</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">验证码：</td>
+                                            <td><input id="dl_xg_cdtx" class="code_form" type="text" /><a id="dl_xg_code" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                            <td class="width250"><div id="dl_xg_er" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips" colspan="2"><div id="dl_xg_codepot" class="msg_tips_con"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td class=""><a id="dlmm_xg_submit" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="form_msg">
+                                    <p>
+                                        <font class='blod'>温馨提示：</font>请定期修改密码，可以使您的账户更加安全
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 手机认证 -->
+                        <div myid="mobile" class="column">
+                            <div class="column_name seted">
+                                手机认证
+                            </div>
+                            <div class="column_msg">
+                                <!-- 判断是否是修改鉴权手机号 -->
+                                <span class="setting"><a myTarget="step_1_1" class="showSetting">修改</a></span>
+                                <span class="cancel_setting"><a class="cancel_action bk_cancel">取消</a></span>
+                                <span class="phone_info">
+										<span class="column_info">变动账户信息接收验证码，接收资金变动短信通知</span>
+										<span class="info_con">178****7767</span>
+									</span>
+                                <!-- 判断是否是修改鉴权手机号 -->
+                            </div>
+                            <form id="sjyz_form" class="column_form">
+                                <div class="step_1 step_1_1">
+                                    <ul class="steps step1">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <!-- 修改方式1 -->
+                                    <div class="modify_mode1">
+                                        <table class="form_type">
+                                            <tr>
+                                                <td class="align_right">当前号码：</td>
+                                                <td>
+                                                    <span class="display_form">178****7767</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">验证码：</td>
+                                                <td><input id="sjyz_xg_step1_type1_pcode" class="code_form" type="text" /><a id="sjyz_xg_step1_type1_getpcode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips">
+                                                    <div id="sjyz_xg_step1_type1_pcodeTip" class="msg_tips_con"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="sjyz_xg_step1_type1_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="form_msg">
+                                        <p>
+                                            <font class='blod'>温馨提示：</font>
+                                            如果您的手机号码注销或丢失，
+                                            请联系客服、拔打 4006-0755-70。
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="step_1_2" class="step_1">
+                                    <ul class="steps step1">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <!-- 修改方式2 -->
+                                    <div class="modify_mode1">
+                                        <table class="form_type">
+                                            <tr>
+                                                <td class="align_right">身份证号码：</td>
+                                                <td><input id="sjyz_xg_step1_type2_idno" type="text" /></td>
+                                                <td class="width250"><div id="sjyz_xg_step1_type2_idnoTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">交易密码：</td>
+                                                <td><input id="sjyz_xg_step1_type2_jypwd" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                                <td class="width250"><div id="sjyz_xg_step1_type2_jypwdTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="sjyz_xg_step1_type2_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="step_1_3" class="step_1">
+                                    <ul class="steps step1">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <!-- 修改方式3 -->
+                                    <div class="modify_mode1">
+                                        <table class="form_type">
+                                            <tr>
+                                                <td class="align_right">认证邮箱：</td>
+                                                <td>
+                                                    <span class="display_form"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">验证码：</td>
+                                                <td><input id="sjyz_xg_step1_type3_ecode" class="code_form" type="text" /><a id="sjyz_xg_step1_type3_getecode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips">
+                                                    <div id="sjyz_xg_step1_type3_ecodeTip" class="msg_tips_con"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">交易密码：</td>
+                                                <td><input id="sjyz_xg_step1_type3_jypwd" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false"  /></td>
+                                                <td class="width250"><div id=sjyz_xg_step1_type3_jypwdTip class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="sjyz_xg_step1_type3_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="change_type" class="change_type">
+                                    <table class="form_type change_type">
+                                        <tr>
+                                            <td class="align_center">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- 修改鉴权手机号 -->
+                                <div id="step_1_4" class="step_1 step_1_4">
+                                    <ul class="steps step1">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <!-- 修改方式4 -->
+                                    <div class="modify_mode1">
+                                        <table class="form_type change_bind_phone card_area">
+                                            <tr>
+                                                <td class="align_right">真实姓名：</td>
+                                                <td><input id="sjyz_xg_step1_type4_name" type="text" placeholder="请输入真实姓名"/></td>
+                                                <td class="width250"><div id="sjyz_xg_step1_type4_nameTip" class="tips_content" ></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">身份证号：</td>
+                                                <td><input id="sjyz_xg_step1_type4_idno" type="text" maxlength="18" placeholder="请输入身份证号"/></td>
+                                                <td class="width250"><div id="sjyz_xg_step1_type4_idnoTip" class="tips_content" ></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">银行卡号：</td>
+                                                <td>
+                                                    <input id="sjyz_xg_step1_type4_cardnum" type="text" maxlength="19" placeholder="请输入银行卡号"/>
+                                                    <div class="num_area"><span></span><em></em><i></i></div>
+                                                </td>
+                                                <td class="width250"><div id="sjyz_xg_step1_type4_cardnumTip" class="tips_content" ></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips" colspan="2"><div id="bk_sys_tip1" class="tips_content" ></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="sjyz_xg_step1_type4_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                        <p class="change_bk_p_tip">温馨提示： 修改过程中如果遇到问题，请联系QQ客服或拔打 4006-0755-70</p>
+                                    </div>
+                                </div>
+                                <!-- 其他流程第二步 -->
+                                <div class="step_2">
+                                    <ul class="steps step2">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <div class="for_step2">
+                                        <table class="form_type">
+                                            <tr>
+                                                <td class="align_right">手机号码：</td>
+                                                <td>
+                                                    <input id="sjyz_xg_step2_mobile" maxlength="11" type="text"/>
+                                                </td>
+                                                <td class="width250"><div id="sjyz_xg_step2_mobileTip" class="tips_content"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align_right">验证码：</td>
+                                                <td><input id="sjyz_xg_step2_pcode" class="code_form" type="text" /><a id="sjyz_xg_step2_getpcode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tips"></td>
+                                                <td class="tips">
+                                                    <div id="sjyz_xg_step2_pcodeTip" class="msg_tips_con"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class=""><a id="sjyz_xg_step2_submit" class="sbm_btn inline_block">下一步</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="step_3">
+                                    <ul class="steps step3">
+                                        <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                    </ul>
+                                    <div class="for_step3">
+                                        <table class="form_type marginAuto">
+                                            <tr>
+                                                <td class="align_center"><span class="size_16">修改成功</span></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="align_center"><a href="javascript:window.location.reload()" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- 邮箱认证 -->
+                        <!-- 紧急联系人 -->
+                        <div myid="contact" class="column">
+                            <div class="column_name not_seted">
+                                紧急联系人
+                            </div>
+                            <div class="column_msg">
+                                <span class="setting"><a myTarget="jjlxr_rz" class="showSetting">请设置</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">当有紧急情况联系不到您的时候，可以联系您的亲人朋友</span>
+                                <span class="info_con"></span>
+                                <span class="info_con"></span>
+                            </div>
+                            <form id="jjlxr_form" class="column_form">
+                                <div class="jjlxr_rz">
+                                    <table class="form_type">
+                                        <tr>
+                                            <td class="align_right">联系人关系：</td>
+                                            <td>
+                                                <div class="selectArea">
+                                                    <div id="jjlxr_rz_type" class="selected" val="">请选择</div>
+                                                    <ul class="options">
+                                                        <li val="1">配偶</li>
+                                                        <li val="2">父母</li>
+                                                        <li val="3">子女</li>
+                                                        <li val="4">亲戚</li>
+                                                        <li val="5">同学</li>
+                                                        <li val="6">朋友</li>
+                                                        <li val="7">同事</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td class="width250"><div id="jjlxr_rz_typeTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">联系人姓名：</td>
+                                            <td><input id="jjlxr_rz_name" type="text" /></td>
+                                            <td class="width250"><div id="jjlxr_rz_nameTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">联系人手机：</td>
+                                            <td><input id="jjlxr_rz_mobile" maxlength='11' type="text" /></td>
+                                            <td class="width250"><div id="jjlxr_rz_mobileTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td class=""><a id="jjlxr_rz_submit" class="sbm_btn inline_block">确认</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div myid="assess" class="column">
+                            <div class="column_name">风险评估</div>
+                            <div class="column_msg">
+                                <span class="setting"><a class="startAssess">评估</a></span>
+                                <span class="column_info">为了不影响您之后的投标，请您立即评估</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://image.xiaoniu88.com/static/WebXn/dist/user/safety/js/init-4d458ed0f9.js"></script>
+<script>
+    $(function(){
+        seajs.use('user/safety/js/init')
+    });
+</script>
+
+<!--footer-->
+<div class="footer" th:fragment="commonFooter">
+    <div class="g-o" style="width:1170px">
+        <ul>
+            <li>
+                <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                <a target="_blank" href="/portal/platform/index">平台数据</a>
+                <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                <a target="_blank" href="/portal/guide/security">风险管理</a>
+                <a target="_blank" href="/cms/about/index">公司概况</a>
+                <a target="_blank" href="/cms/about/contactus">联系我们</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                <a target="_blank" href="/cms/help/question/3">项目</a>
+                <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+            </li>
+            <li class="last ft-wm">
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                    <span>官方微信</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                    <span>手机客户端</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                    <span>兴趣部落</span>
+                </p>
+            </li>
+            <li class="last">
+                <p class="til-ic">全国服务热线：</p>
+                <p class="bd">4006-0755-70</p>
+                <p>服务时间 9:00-18:00</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--start 尾部-->
+<div class="foot-bt" th:fragment="commonEnd">
+    <p>Copyright &copy; 2015 深圳市小母牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+    <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦顶楼   座机：2333－250941</p>
+    <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+    <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+        <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+</div>
+
+<!--end 尾部-->
+
+<!--引入统计代码-->
+
+<div style="display:none">
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-104712537-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</div>
+
+<script>
+    //百度统计
+    var _hmt = _hmt || [];
+    var hm = document.createElement("script");
+    hm.src = "http://hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+</script>
+</body>
+</html>
