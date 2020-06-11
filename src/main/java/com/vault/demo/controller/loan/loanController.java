@@ -34,7 +34,15 @@ public class loanController {
         System.out.println("账号"+account+"密码:"+password);
 
         Userimf userimf = new Userimf();
-        userimf.setAccount(account);
+
+        if (account.length() < 9){//字符总长小于9，是为邮箱登录
+            userimf.setEmail(account);
+        }else if (account.substring(0,9).equals("xiaomuniu")){//字符前9为‘xiaomuniu’，是为账号登录
+            userimf.setAccount(account);
+        }else {//大于9且字符前9不为‘xiaomuniu’，是为邮箱登录
+            userimf.setEmail(account);
+        }
+
         userimf.setLoginPsw(password);
 
         Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
