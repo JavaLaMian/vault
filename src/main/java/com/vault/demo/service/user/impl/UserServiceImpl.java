@@ -1,14 +1,31 @@
 package com.vault.demo.service.user.impl;
 
+import com.vault.demo.bean.Userimf;
+import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class UserServiceImpl implements UserService {
+    @Resource
+    private UserimfDao dao;
+
+    @Override
+    public int addUserImf(Userimf user) {
+        int lie = dao.addUser(user);
+        dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
+        return lie;
+    }
+
     @Override
     public String getEmailMa(String shou,String type) throws EmailException {
+        if("".equals(shou)){
+            return "";
+        }
         //type 发送邮件的类型 zc 注册
         HtmlEmail email = new HtmlEmail();
         String ma = "";
@@ -32,5 +49,17 @@ public class UserServiceImpl implements UserService {
         email.setMsg(text);//设置发送内容
         email.send();//进行发送
         return ma;
+    }
+
+    @Override
+    public Userimf pandEmail(String email) {
+        Userimf user = new Userimf();
+        user.setEmail(email);
+        return dao.selectByUserimf(user);
+    }
+
+    @Override
+    public Userimf logPadUser(Userimf userimf) {
+        return dao.selectOneByLogin(userimf);
     }
 }
