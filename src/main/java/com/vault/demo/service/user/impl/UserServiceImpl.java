@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
             text = "欢迎注册小刘理财，您的邮箱验证码为 "+ma+",若非本人操作请忽略";
         }else if("dl".equals(type)){
             text = "用户您好，您的邮箱登陆验证码为 "+ma;
+        }else if("zh".equals(type)){
+            text = "您的正在修改该邮箱绑定账号的密码，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com
@@ -61,5 +63,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Userimf logPadUser(Userimf userimf) {
         return dao.selectOneByLogin(userimf);
+    }
+
+    @Override
+    public int updetaPwd(String email, String pwd) {
+        return dao.updateUserPwd(pwd,email);
     }
 }

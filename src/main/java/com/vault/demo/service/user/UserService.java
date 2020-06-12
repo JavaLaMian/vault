@@ -8,4 +8,5 @@ public interface UserService {
     String getEmailMa(String shou,String type) throws EmailException;
     Userimf pandEmail(String email);
     Userimf logPadUser(Userimf userimf);
+    int updetaPwd(String email,String pwd);
 }

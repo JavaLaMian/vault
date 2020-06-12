@@ -1,4 +1,4 @@
-package com.vault.demo.dao;
+package com.vault.demo.dao.test;
 
 import com.vault.demo.bean.Bid;
 import org.apache.ibatis.annotations.Param;
@@ -9,9 +9,10 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface BidDao {
+public interface BidDao{
     List<Bid> allList();
-    void deleteById(Bid bid);
-    void updateById(Bid bid);
+    void deleteById(int id);
+    void updateById(int id);
     void insert(Bid bid);
+    List<Bid> selectByType(int bType);
 }
