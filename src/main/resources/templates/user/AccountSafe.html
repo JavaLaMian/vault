@@ -7,6 +7,7 @@
     <script type="text/javascript" src="/user/static/rsa/utility.js?v=1.0.2"></script>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
+    <!--<link rel="stylesheet" href="/css/accountsafe.css" />-->
     <link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
     <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
     <script>
@@ -35,37 +36,31 @@
 <script src="http://image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
 <![endif]-->
 <input value="true" type="hidden" id="isLogin"/>
-<div class="affiche" id="afficheModel">
-<span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
-	<a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a>
-</span>
-    <i class="icon-common icon-common-close"></i>
-</div>
 
 <header th:replace="/common::commonHeader"></header>
 
 <!--导航-->
 <div th:replace="/common::commonNav"></div>
 
-<input type="hidden" value="" id="loctag"/>
-<input type="hidden" value="datum" id="userNavList"/>
-<input type="hidden" value="datum" id="userNavList"/>
 <!-- 最外层容器container -->
 <div class="container">
     <div class="g-account-main">
         <!-- 面包屑冬导航 -->
         <div class="path">
-            您现在的位置：<span>我的账户 > 账户安全</span>
+            您现在的位置：<span><a href="/user/toAO">我的账户</a> > 账户安全</span>
 
         </div>
         <div class="center user-box">
             <!-- 我的账户菜单 -->
 
             <!--start 我的账户左边菜单列表-->
-            <div class="account-list">
+            <div class="account-list" th:fragment="user">
                 <div class="account-info">
                     <div class="member-info">
-                        <div><span class="name" id="username">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>"></span></div>
+                        <div>
+                            <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
+                            <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
+                        </div>
                         <div class="security-level">账户安全：<span id="security-level">*</span></div>
                     </div>
                     <div class="badge-info">
@@ -88,14 +83,14 @@
                     <li data-type="index">
                         <a class="h2" href="/MyAccount/index"><b>账户总览</b></a>
                     </li>
-                    <li data-type="invest">
+                    <li data-type="">
                         <a href="/MyAccount/invest/index">我的网贷</a>
                     </li>
                     <li data-type="record">
                         <a href="/MyAccount/fundRecord">资金记录</a>
                     </li>
                     <li data-type="datum">
-                        <a href="/user/uasec">账户安全</a>
+                        <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
                         <a href="/payment/bankcard/index">银行卡管理</a>
@@ -186,7 +181,10 @@
             <script src="http://image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
             <script>
                 $(function () {
-                    seajs.use('module/userNavList/js/init');
+                    var islogin = "${sessionScope.user.userName}";
+                    if (islogin==null){
+                        window.location.href="/user/tologin";
+                    }
                 });
             </script>
 
@@ -270,7 +268,7 @@
                             </div>
                             <div class="column_msg">
 											<span class="setting">
-												<a myTarget="smdj_rz" href="/payment/deposit/apply">请设置</a>
+												<a myTarget="smdj_rz" href="/user/toApply">请设置</a>
 											</span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
                                 <span class="info_con"></span>

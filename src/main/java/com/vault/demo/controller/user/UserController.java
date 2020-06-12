@@ -74,12 +74,17 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:tologin";
+                return "redirect:toAO";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";
             }
         }
+    }
+    @RequestMapping("/loginout")
+    public String loginout(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:tologin";
     }
 
     @RequestMapping("/getMa")

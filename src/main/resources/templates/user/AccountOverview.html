@@ -12,6 +12,7 @@
 <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
 <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+	<span th:replace="/common::bootstrap"></span>
 <script>
     window.global = {
         cdn: "//image.xiaoniu88.com",
@@ -60,17 +61,17 @@
 <div class="center user-box">
 				
     <!--start 我的账户左边菜单列表-->
-    <div class="account-list">
+    <div class="account-list"th:fragment="inflist">
         <div class="account-info">
             <div class="member-info">
-                <div><span class="name" id="username">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>"></span></div>
+                <div><span class="name" id="username" th:text="${session.user.uName}">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span></div>
                 <div class="security-level">账户安全：<span id="security-level">*</span></div>
             </div>
-            <div class="badge-info">
-                <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-                <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
-            </div>
+			<div class="badge-info">
+				<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
+				<i class="badge-icon badge-realname middle pop-tip" id="badge-realname" style="padding:0px 41px"></i>
+				<i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+			</div>
             <div class="point-info" id="riskLevel-info">
                 风险评估：***
                 <a href="javascript:;" target="_blank">【重新测评】</a>
@@ -82,37 +83,37 @@
             <div id="sign-info" class="sign-info"></div>
 
         </div>
-                    
+
                 <ul class="g-cf left-menu">
                     <li data-type="index">
-                        <a class="h2" href="/MyAccount/index"><b>账户总览</b></a>
+                        <a class="h2" href="/user/toAO"><b>账户总览</b></a>
                     </li>
                     <li data-type="invest">
-                        <a href="/MyAccount/invest/index">我的网贷</a>
+                        <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="/MyAccount/fundRecord">资金记录</a>
+                        <a href="#">资金记录</a>
                     </li>
                     <li data-type="datum">
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="/payment/bankcard/index">银行卡管理</a>
+                        <a href="#">银行卡管理</a>
                     </li>
                     <li data-type="news">
-                        <a href="/MyAccount/message">我的消息<span id="msg-count"></span></a>
+                        <a href="#">我的消息<span id="msg-count"></span></a>
                     </li>
                     <li data-type="redEnvelope">
-                        <a href="/bonus/index">我的优惠<span id="bonus-count"></span></a>
+                        <a href="#">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li data-type="point">
-                        <a href="/bonus/point/index">我的积分</a>
+                        <a href="#">我的积分</a>
                     </li>
                     <li data-type="myactivity" class="last">
-                        <a href="/activity/limitTransfer/index">我的活动</a>
+                        <a href="#">我的活动</a>
                     </li>
                     <li class="planner last" data-type="planner">
-                        <a href="/financier/relationship">邀请好友<span>赚收益</span></a>
+                        <a href="#">邀请好友<span>赚收益</span></a>
                     </li>
 
                     <!-- <li class="investment" data-type="investment">
@@ -160,9 +161,9 @@
                     </li> -->
 
                 </ul>
-            
-            
-        
+
+
+
         <div class="qqun">
             <p class="q1 g-dn">客户交流群：
                 <br/>521069624
