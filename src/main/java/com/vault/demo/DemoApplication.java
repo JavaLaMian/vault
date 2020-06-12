@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @MapperScan("com.vault.demo.dao")
-public class DemoApplication extends SpringBootServletInitializer {
+public class DemoApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
