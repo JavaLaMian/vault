@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vault.demo.dao.backstage.AdminDao">
-    <select id="checkLogin" resultType="com.vault.demo.bean.test">
+    <select id="checkLogin" resultType="com.vault.demo.bean.Admin">
         <![CDATA[
           select * from admin where account=#{account} and pwd=#{pwd}
         ]]>
@@ -13,7 +13,7 @@
           select * from admin where aid=#{aid}
         ]]>
     </select>
-    <update id="setPwd" >
+    <update id="setPwd" parameterType="com.vault.demo.bean.Admin">
         <![CDATA[
           UPDATE admin set pwd=#{newpwd} where aid=#{aid}
         ]]>
