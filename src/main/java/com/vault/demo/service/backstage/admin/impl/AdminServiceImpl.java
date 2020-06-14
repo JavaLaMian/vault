@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 @Service
 public class AdminServiceImpl implements AdminService {
     @Resource
-    AdminDao adminDao;
+    private AdminDao adminDao;
 
     @Override
     public Admin checkLogin(String account, String pwd) {

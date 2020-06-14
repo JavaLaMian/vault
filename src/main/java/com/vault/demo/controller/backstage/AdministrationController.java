@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-@RequestMapping("/admin")
 @Controller
+@RequestMapping("/admin")
 public class AdministrationController {
     @Resource
-    AdminService adminService;
+    private AdminService adminService;
 
     @ResponseBody
     @RequestMapping("/login")

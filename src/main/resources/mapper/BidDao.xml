@@ -17,7 +17,7 @@
         ]]>
     </select>
 
-    <select id="selectPerB" resultType="PerBid">
+    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
         <![CDATA[
           select *,(rate-addRate) as inRate from perBid
         ]]>
