@@ -12,7 +12,13 @@
 
     <select id="selectByType" resultType="Bid">
         <![CDATA[
-          select * from bid where bType = #{bType}
+          select * from bid where bidType = #{bType}
+        ]]>
+    </select>
+
+    <select id="selectPerB" resultType="PerBid">
+        <![CDATA[
+          select *,(rate-addRate) as inRate from perBid
         ]]>
     </select>
 

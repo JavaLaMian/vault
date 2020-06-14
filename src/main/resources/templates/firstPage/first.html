@@ -294,15 +294,14 @@
 	</div>
 </div>
 
-
+<!--普通-->
 <div class="novice" id="noviceModel">
 	<div class="title">
 		<span class="name" title="小牛在线P2P网贷新手专享标">新手专享标</span>
 		<span class="tag">仅限累积投标少于3次用户</span>
 	</div>
 	<div class="novice-list">
-		<div th:each="nc:${ncList}">
-		<a class="row-item g-cf " href="/product/bid/detail/165362847" target="_blank">
+		<a class="row-item g-cf " href="/product/bid/detail/165362847" target="_blank" th:each="nc:${ncList}">
 			<div class="label-content">
 			</div>
 			<dl class="col-1">
@@ -323,7 +322,7 @@
 				</dd>
 			</dl>
 			<dl class="col-3">
-				<dt th:text="${nc.singelLimit}">
+				<dt th:text="${nc.singelLimit}+0+'万'">
 					万
 				</dt>
 				<dd>单笔限额</dd>
@@ -334,17 +333,16 @@
 			</dl>
 			<dl class="col-5">
 				<dd class="item" th:if="${nc.bidStatus==1}">
-					<em class="btn-primary disabled">预售</em>
+					<em class="btn-primary">预售</em>
 				</dd>
 				<dd class="item" th:if="${nc.bidStatus==2}">
-					<em class="btn-primary disabled">可投</em>
+					<em class="btn-primary">可投</em>
 				</dd>
 				<dd class="item" th:if="${nc.bidStatus==3}">
 					<em class="btn-primary disabled">售罄</em>
 				</dd>
 			</dl>
 		</a>
-		</div>
 	</div>
 
 	<div class="novice-ft">
@@ -386,7 +384,7 @@
 </div>
 
 
-
+<!--散标-->
 <div class="flexible" id="flexibleModel">
 	<div class="container">
 		<div class="title">
@@ -398,287 +396,76 @@
 			<div class="detail"><a href="/product/list?type=common" target="_blank">查看详情</a></div>
 		</div>
 		<div class="content">
-			<div class="items" data-type="2">
-				<div class="item " data-url="/product/common/66890440">
+			<div class="items" data-type="2" >
+				<div class="item " data-url="/product/common/66890440" th:each="per:${perList}" style="width:263px">
 					<div class="panel">
-						<div class="rate">11.40<span>%</span></div>
+						<div class="rate" th:text="${per.inRate}+'%'"><span></span></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 						<div class="about">
 							<div class="description">小额消费借款</div>
-							<div class="name">消费贷AH20190428-a19</div>
+							<div class="name" th:text="${per.perBidName}"></div>
 							<div class="info">
-								<div class="yield">
-									期限：18个月
+								<div class="yield" th:text="'期限：'+${per.clockLine}+'个月'">
 								</div>
 							</div>
 						</div>
 						<div class="extend">
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
+							<a href="javascript:" class="btn" th:if="${per.bidStatus==1}">预售</a>
+							<a href="javascript:" class="btn" th:if="${per.bidStatus==2}">可购</a>
+							<a href="javascript:" class="btn disabled-btn" th:if="${per.bidStatus==3}">售罄</a>
 						</div>
 					</div>
 				</div>
-				<div class="item " data-url="/product/common/68865618">
-					<div class="panel">
-						<div class="rate">10.80<span>%</span></div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
-						<div class="about">
-							<div class="description">小额消费借款</div>
-							<div class="name">消费贷AH20190505-a3</div>
-							<div class="info">
-								<div class="yield">
-									期限：15个月
-								</div>
-							</div>
-						</div>
-						<div class="extend">
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-						</div>
-					</div>
-				</div>
-				<div class="item last" data-url="/product/common/66890357">
-					<div class="panel">
-						<div class="rate">10.80<span>%</span></div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
-						<div class="about">
-							<div class="description">小额消费借款</div>
-							<div class="name">消费贷AH20190428-a18</div>
-							<div class="info">
-								<div class="yield">
-									期限：24个月
-								</div>
-							</div>
-						</div>
-						<div class="extend">
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-						</div>
-					</div>
-				</div>
-
-
-
 			</div>
 		</div>
 	</div>
 </div>
 
-
+<!--工具工具-->
 <div class="fixed" id="fixedModel">
 	<div class="container">
 		<div class="title">
 			<span class="name" title="互联网金融P2P网贷平台投资工具">投标工具</span>
 			<span class="tag">组合投标  分散风险</span>
 			<ul>
-
-
-
-
-
-
 				<li data-type="1">优享牛</li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			</ul>
 			<div class="sliding"></div>
 		</div>
 		<div class="box">
 			<div class="info">组合投标  分散风险</div>
-			<div class="detail"><a href="/product/portal/index" target="_blank">查看详情</a></div>
+			<div class="detail"><a href=" " target="_blank">查看详情</a></div>
 		</div>
-		<div class="content border">
 
-			<div class="items" data-type="1">
-
-
-				<div class="item item-new " data-url="/product/bid/detail/184587249">
-
-
-
-
-					<div class="panel">
-						<div class="rate">
-							<span class="max">7.00<label>%</label></span>
-
-						</div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
-						<div class="about">
-							<div class="name">优质资产，收益稳健</div>
-							<div class="info">
-								<div class="yield">
-									锁定期：3个月
-
-
-
-									<span>|</span> 持满自动转让
-
-
+		<div class="content border" style="width:945px">
+				<div class="items" data-type="1">
+					<div class="item item-new" th:each="nc:${ncList}" data-url=" ">
+						<div class="panel">
+							<div class="rate">
+								<span class="max" th:text="${nc.rate}+'%'"></span>
+							</div>
+							<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
+							<div class="about">
+								<div class="name">优质资产，收益稳健</div>
+								<div class="info">
+									<div class="yield" th:text="'锁定期：'+${nc.clockLine}+'个月'">
+										<span>|</span><span th:if="${nc.transfer==1}">持满可自动转让</span>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="extend">
-
-
-
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
+							<div class="extend">
+								<a href="javascript:" class="btn" th:if="${nc.bidStatus==1}">预售</a>
+								<a href="javascript:" class="btn" th:if="${nc.bidStatus==2}">可购</a>
+								<a href="javascript:" class="btn disabled-btn" th:if="${nc.bidStatus==3}">售罄</a>
+							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="item item-new " data-url="/product/bid/detail/182244589">
-
-
-
-
-					<div class="panel">
-						<div class="rate">
-							<span class="max">7.00<label>%</label></span>
-
-						</div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
-						<div class="about">
-							<div class="name">优质资产，收益稳健</div>
-							<div class="info">
-								<div class="yield">
-									锁定期：3个月
-
-
-
-									<span>|</span> 持满自动转让
-
-
-								</div>
-							</div>
-						</div>
-						<div class="extend">
-
-
-
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="item item-new last" data-url="/product/bid/detail/174339028">
-
-
-
-
-					<div class="panel">
-						<div class="rate">
-							<span class="max">7.00<label>%</label></span>
-
-						</div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
-						<div class="about">
-							<div class="name">优质资产，收益稳健</div>
-							<div class="info">
-								<div class="yield">
-									锁定期：3个月
-
-
-
-									<span>|</span> 持满自动转让
-
-
-								</div>
-							</div>
-						</div>
-						<div class="extend">
-
-
-
-							<a href="javascript:" class="btn disabled-btn">已售罄</a>
-
-						</div>
-					</div>
-				</div>
-
-
-
-			</div>
 
 			<div class="g-dn items" data-type="6">
-
-
 				<div class="g-tc data-empty">
 					<p>暂无记录</p>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -1136,7 +923,9 @@
 </script>
 
 
-<script src="//image.xiaoniu88.com/static/WebXn/dist/portal/index2016/js/init-403adaa419.js"></script>
+<script src="//image.xiaoniu88.com/static/WebXn/dist/portal/index2016/js/init-403adaa419.js">
+
+</script>
 <script>
     $(function(){
         seajs.use('portal/index2016/js/init');
