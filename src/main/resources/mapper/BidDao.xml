@@ -5,13 +5,13 @@
 
 <mapper namespace="com.vault.demo.dao.test.BidDao">
 
-    <select id="allList" resultType="Bid">
+    <select id="allList" resultType="com.vault.demo.bean.Bid">
         <![CDATA[
           select * from bid
         ]]>
     </select>
 
-    <select id="selectByType" resultType="Bid">
+    <select id="selectByType" resultType="com.vault.demo.bean.Bid">
         <![CDATA[
           select * from bid where bidType = #{bType}
         ]]>
@@ -23,15 +23,15 @@
         ]]>
     </select>
 
-    <delete id="deleteById" >
+    <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
         delete from bid where bId = #{id}
     </delete>
 
-    <update id="updateById" >
+    <update id="updateById" parameterType="com.vault.demo.bean.Bid">
         update bid set bidName = #{bidName},bidType = #{bidType},rewardRate = #{rewardRate},rate = #{rate},addLimit = #{addLimit},singelLimit = #{singelLimit},sumLimit = #{sumLimit},startLimit = #{startLimit},transLine = #{transLine},clockLine = #{clockLine},deposit = #{deposit},dealCount = #{dealCount},question = #{question},answer = #{answer},transfer = #{transfer},aotuInverst = #{aotuInverst},exprie = #{exprie},bidStatus = #{bidStatus},bidTime = #{bidTime},maxTime = #{maxTime} where bId = #{id}
     </update>
 
-    <insert id="insert">
+    <insert id="insert" parameterType="com.vault.demo.bean.Bid">
         insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
     </insert>
 
