@@ -5,7 +5,7 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
-
+//
 @Table(name = "perBid")
 public class PerBid {
 
