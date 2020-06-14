@@ -2,7 +2,7 @@ package com.vault.demo.service.test;
 
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
-
+//
 import java.util.List;
 
 public interface BidSer{

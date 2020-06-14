@@ -21,7 +21,7 @@ public class MainControl{
         List<Bid> nList =  bidSer.allList();
         List ncList = nList.subList(0,3);
         List<PerBid> perList = bidSer.selectPerB();
-        System.out.println("======================"+perList.size());
+        System.out.println("=================="+perList.size());
         request.setAttribute("ncList",ncList);
         request.setAttribute("perList",perList);
         return "firstPage/first";
