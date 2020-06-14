@@ -13,7 +13,7 @@
           select * from admin where aid=#{aid}
         ]]>
     </select>
-    <update id="setPwd" >
+    <update id="setPwd" parameterType="com.vault.demo.bean.Admin">
         <![CDATA[
           UPDATE admin set pwd=#{newpwd} where aid=#{aid}
         ]]>

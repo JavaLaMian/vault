@@ -9,8 +9,8 @@ import java.util.Date;
 @Table(name = "tender")
 public class tender {//6月10日15点59
 
-    private static final int ZHANGRANGQI = 1;
-    private static final int SUODINGQI = 2 ;
+//    private static final int ZHANGRANGQI = 1;
+//    private static final int SUODINGQI = 2 ;
 
     @Column(name = "tId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int	tId;
@@ -33,6 +33,21 @@ public class tender {//6月10日15点59
     @Column(name = "tenCicle",type = MySqlTypeConstant.DATETIME)
     private Date	tenCicle;
 
+    private  int bType;
+    public tender(){}
+
+
+    public tender(int tId, int bId, int uId, float tenMoney, Date tenTime, int tenType, Date tenCicle, int bType) {
+        this.tId = tId;
+        this.bId = bId;
+        this.uId = uId;
+        this.tenMoney = tenMoney;
+        this.tenTime = tenTime;
+        this.tenType = tenType;
+        this.tenCicle = tenCicle;
+        this.bType = bType;
+    }
+
     @Override
     public String toString() {
         return "tender{" +
@@ -43,6 +58,7 @@ public class tender {//6月10日15点59
                 ", tenTime=" + tenTime +
                 ", tenType=" + tenType +
                 ", tenCicle=" + tenCicle +
+                ", bType=" + bType +
                 '}';
     }
 
@@ -100,5 +116,13 @@ public class tender {//6月10日15点59
 
     public void setTenCicle(Date tenCicle) {
         this.tenCicle = tenCicle;
+    }
+
+    public int getbType() {
+        return bType;
+    }
+
+    public void setbType(int bType) {
+        this.bType = bType;
     }
 }

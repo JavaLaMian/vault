@@ -1,6 +1,7 @@
 package com.vault.demo.controller.backstage;
 
 import com.vault.demo.bean.Admin;
+import com.vault.demo.bean.Bid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +61,14 @@ public class backstageController {
     @RequestMapping("/Badd_Bid")
     public ModelAndView Badd_Bid(ModelAndView mv){
         mv.setViewName("backstage/Badd_Bid");
+        return mv;
+    }
+    //新增投标 专享标和新手标
+    @RequestMapping("/addBid")
+    public ModelAndView addBid(ModelAndView mv, Bid bid){
+        //判断当前是什么
+        System.out.println(bid);
+        mv.setViewName("");
         return mv;
     }
 }

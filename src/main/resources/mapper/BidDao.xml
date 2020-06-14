@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.vault.demo.dao.test.BidDao">
 
     <select id="allList" resultType="Bid">
@@ -12,7 +13,13 @@
 
     <select id="selectByType" resultType="Bid">
         <![CDATA[
-          select * from bid where bType = #{bType}
+          select * from bid where bidType = #{bType}
+        ]]>
+    </select>
+
+    <select id="selectPerB" resultType="PerBid">
+        <![CDATA[
+          select *,(rate-addRate) as inRate from perBid
         ]]>
     </select>
 
