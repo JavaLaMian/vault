@@ -56,11 +56,11 @@ public class Bid {//6月10日15：29
     @Column(name = "exprie", type = MySqlTypeConstant.DATETIME)
     private Date exprie;//标封期时间
     @Column(name = "bidStatus", type = MySqlTypeConstant.INT)
-    private int bidStatus;//状态
+    private int bidStatus;//状态     预售（READY=1），在售（ON=0），售罄（EMPTY=3），关闭交易（CLOSE=2）
     @Column(name = "bidTime", type = MySqlTypeConstant.DATETIME)
     private Date bidTime;//上线时间
     @Column(name = "maxTime", type = MySqlTypeConstant.VARCHAR, length = 50)
-    private int maxTime;//最长投标时间
+    private int maxTime;//最长投标时间  默认12个月，从买的时间开始算
 
     public Bid() {
     }
