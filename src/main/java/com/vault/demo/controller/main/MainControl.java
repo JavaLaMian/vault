@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-//
+
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -30,5 +30,10 @@ public class MainControl{
     @RequestMapping("prose")
     public String toProse(){
         return "firstPage/prose";
+    }
+
+    @RequestMapping("perlist")
+    public String toPerbid(){
+        return "firstPage/perbidList";
     }
 }

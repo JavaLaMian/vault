@@ -5,19 +5,19 @@
 
 <mapper namespace="com.vault.demo.dao.test.BidDao">
 
-    <select id="allList" resultType="Bid">
+    <select id="allList" resultType="com.vault.demo.bean.Bid">
         <![CDATA[
           select * from bid
         ]]>
     </select>
 
-    <select id="selectByType" resultType="Bid">
+    <select id="selectByType" resultType="com.vault.demo.bean.Bid">
         <![CDATA[
           select * from bid where bidType = #{bType}
         ]]>
     </select>
 
-    <select id="selectPerB" resultType="PerBid">
+    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
         <![CDATA[
           select *,(rate-addRate) as inRate from perBid
         ]]>

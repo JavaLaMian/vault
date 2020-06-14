@@ -60,7 +60,12 @@
     <div class="container">
         <div class="hotline">全国服务热线：4006-0755-70</div>
         <ul class="info" id="ulLoginStatus">
-            <li class="user">
+            <li class="user" th:if="${session.user!=null}">
+                <a href="/user/toAO" th:text="${session.user.getUName()}">
+                </a>
+                <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+            </li>
+            <li class="user" th:if="${session.user==null}">
                 <a href="/user/login" id="head-login-btn">登录</a>
                 <a href="/user/register">注册</a>
             </li>
@@ -142,8 +147,14 @@
                 <!--<li><a href="/portal/platform/riskmanagement">保障体系</a></li>-->
             <!--</ul>-->
         </nav>
-        <div class="user">
-            <span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
+        <div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/tologin')" class="title">
+                <div class="img-box"></div>
+                <span>点我登陆</span>
+            </span>
+        </div>
+        <div th:if="${session.user!=null}" class="user">
+            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/toAO')" class="title">
                 <div class="img-box"></div>
                 <span>我的账户</span>
                 <i class="icon-common icon-common-to-bottom"></i>
@@ -449,6 +460,9 @@
     $(function () {
         seajs.use('page/product/detail/ushare/js/detail');
     });
+    function  gotoLogin(url) {
+        window.location.href=url;
+    }
 </script>
 </body>
 </html>
