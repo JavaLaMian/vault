@@ -48,47 +48,11 @@
 		<ul></ul>
 	</div>
 </div>
-
-
 <input type="hidden" value="index" id="menuCur">
-
-
-
-
-
-
-
 <!--[if lt IE 9]>
 <script src="//image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
 <![endif]-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <input value="false" type="hidden" id="isLogin"/>
-
-
 <div class="affiche" id="afficheModel">
 
 <span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
@@ -439,7 +403,7 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<div class="item item-new" th:each="nc:${ncList}" data-url=" ">
+					<div class="item item-new" th:each="nc:${ncList}" data-url="toprose?id=${nc.id}">
 						<div class="panel">
 							<div class="rate">
 								<span class="max" th:text="${nc.rate}+'%'"></span>
