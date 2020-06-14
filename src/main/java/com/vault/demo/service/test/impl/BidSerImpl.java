@@ -1,6 +1,7 @@
 package com.vault.demo.service.test.impl;
 
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.PerBid;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class BidSerImpl implements BidSer{
+public class BidSerImpl implements BidSer {
 
     @Resource
     BidDao bidDao;
@@ -36,5 +37,10 @@ public class BidSerImpl implements BidSer{
     @Override
     public List<Bid> selectByType(int bType){
         return bidDao.selectByType(bType);
+    }
+
+    @Override
+    public List<PerBid> selectPerB() {
+        return bidDao.selectPerB();
     }
 }
