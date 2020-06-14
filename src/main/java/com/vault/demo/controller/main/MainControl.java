@@ -23,4 +23,9 @@ public class MainControl{
         request.setAttribute("nrList",nrList);
         return "firstPage/first";
     }
+
+    @RequestMapping("prose")
+    public String toProse(){
+        return "firstPage/prose";
+    }
 }
