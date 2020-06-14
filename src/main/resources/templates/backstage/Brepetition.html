@@ -10,7 +10,10 @@
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
-        <!--标签插件-->
+
+    <link rel="stylesheet" th:href="@{/js/jconfirm/jquery-confirm.min.css}"/>
+
+      <!--标签插件-->
         <link rel="stylesheet" th:href="@{/js/jquery-tags-input/jquery.tagsinput.min.css}">
         <!--滑块插件-->
         <link rel="stylesheet" th:href="@{/js/ion-rangeslider/ion.rangeSlider.min.css}">
@@ -106,8 +109,8 @@
               <ul class="topbar-right">
                 <li class="dropdown dropdown-profile">
                   <a href="javascript:void(0)" data-toggle="dropdown">
-                    <img class="img-avatar img-avatar-48 m-r-10" th:src="@{/images/users/avatar.jpg}" alt="管理员" />
-                    <span>管理员 <span class="caret"></span></span>
+                    <img class="img-avatar img-avatar-48 m-r-10" th:src="@{${session.admin.a_img}}" alt="管理员" />
+                    <span><span th:text="${session.admin.a_name}"></span><span class="caret"></span></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right">
                     <li> <a th:href="@{/XMN/profile}"><i class="mdi mdi-account"></i> 个人信息</a> </li>

@@ -16,4 +16,14 @@ public class AdminServiceImpl implements AdminService {
     public Admin checkLogin(String account, String pwd) {
         return adminDao.checkLogin(account,pwd);
     }
+
+    @Override
+    public Admin getAdminById(int aid) {
+        return adminDao.getAdminById(aid);
+    }
+
+    @Override
+    public void setPwd(int aid, String newpwd) {
+        adminDao.setPwd(aid,newpwd);
+    }
 }

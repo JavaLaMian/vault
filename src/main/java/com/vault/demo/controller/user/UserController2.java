@@ -20,4 +20,8 @@ public class UserController2 {
     public String toAS(){
         return "user/AccountSafe";
     }
+    @RequestMapping("/toApply")
+    public String toApply(){
+        return "user/apply";
+    }
 }

@@ -29,4 +29,21 @@ public class AdministrationController {
             return "shibai";
         }
     }
+    @ResponseBody
+    @RequestMapping("/repwd")
+    public String rePwd(int aid,String newpwd){
+        adminService.setPwd(aid,newpwd);
+        return "success";
+    }
+    @ResponseBody
+    @RequestMapping("/checkold")
+    public String checkOldPwd(String oldpwd,int aid){
+        Admin admin = adminService.getAdminById(aid);
+        if(oldpwd==admin.getPwd()){
+            return "true";
+        }else{
+            return "false";
+        }
+    }
+
 }

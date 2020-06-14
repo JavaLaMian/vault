@@ -9,4 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AdminDao {
     Admin checkLogin(@Param("account") String account,@Param("pwd") String pwd);
+    Admin getAdminById(int aid);
+    void setPwd(@Param("aid") int aid,@Param("newpwd") String newpwd);
 }
