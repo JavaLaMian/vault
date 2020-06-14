@@ -2,7 +2,9 @@ package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.UserimfDao;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -98,8 +100,17 @@ public class loanController {
         return "loan/loanJie";
     }
     @RequestMapping("/toloanJie")
-    public String toloanJie() {
+    public String toloanJie(@Param( "step") Integer step, Model model) {
+        System.out.println("step："+step);
+        if(step==null){
+            step = 1 ;
+        }
+         model.addAttribute("step",step);
         return "loan/loanJieApply";
+    }
+    @RequestMapping("/loanJie")
+    public String loanJie(){
+        return "";
     }
     @RequestMapping("/toloanHuan")
     public String toloanHuan() {
