@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vault.demo.dao.loan.LoanDao">
+    <select id="allList" resultType="com.vault.demo.bean.Loan">
+        select * from loan
+    </select>
+
+    <insert id="insert" parameterType="com.vault.demo.bean.Loan" useGeneratedKeys="true">
+        <selectKey keyColumn="lId" resultType="integer" keyProperty="lId" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into loan values(null,#{loanName},#{maxLimit},#{minLimit},#{maxAge},#{minAge},#{creditLv},#{guarantees},#{guaranter},#{guaCardId},#{review},#{interest},#{lowLimit},#{topLimit},#{online},#{offline},#{loanStatue},#{remark})
+    </insert>
+
+    <delete id="deleteById" parameterType="com.vault.demo.bean.Loan">
+        delete from loan where lId = #{lId}
+    </delete>
+</mapper>
