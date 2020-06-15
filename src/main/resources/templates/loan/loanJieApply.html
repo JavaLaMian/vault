@@ -87,7 +87,7 @@
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
             <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
-                <a th:href="@{/loan/mian}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+                <a th:href="@{/loan/mian2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
                     <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
                 </a>
             </h1>
@@ -1171,88 +1171,87 @@
 <!--    添加银行卡，弹出框-->
 <!--    <div class="ant-modal-container">-->
 <!--        <div class="ant-modal-wrap" data-reactid=".1">-->
-<!--        <div class="ant-modal-mask" data-reactid=".1.$mask"></div>-->
-<!--        <div class="ant-modal popBox undefined" tabindex="0" role="dialog" style="width: 565px; left: 445.994px; top: 299.994px;" data-reactid=".1.$dialog">-->
-<!--            <div class="ant-modal-content" data-reactid=".1.$dialog.0">-->
-<!--                <a tabindex="0" class="ant-modal-close" data-reactid=".1.$dialog.0.0">-->
-<!--                    <span class="ant-modal-close-x" data-reactid=".1.$dialog.0.0.0"></span>-->
-<!--                </a>-->
-<!--                <div class="ant-modal-header" data-reactid=".1.$dialog.0.1">-->
-<!--                    <div class="ant-modal-title" data-reactid=".1.$dialog.0.1.0">添加银行卡</div>-->
-<!--                </div>-->
-<!--                <div class="ant-modal-body" data-reactid=".1.$dialog.0.2">-->
-<!--                    <div class="addBankcardBox" data-reactid=".1.$dialog.0.2.0">-->
-<!--                        <ul data-reactid=".1.$dialog.0.2.0.0">-->
-<!--                            <li data-reactid=".1.$dialog.0.2.0.0.0">-->
-<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.0.0">真实姓名：</div>-->
-<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.0.1">-->
-<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.0.1.0">*兵</h5>-->
-<!--                                    <p data-reactid=".1.$dialog.0.2.0.0.0.1.1">目前只支持绑定本人同名的储蓄卡</p>-->
+<!--            <div class="ant-modal-mask" data-reactid=".1.$mask"></div>-->
+<!--            <div class="ant-modal popBox undefined" tabindex="0" role="dialog" style="width: 565px; left: 445.994px; top: 299.994px;" data-reactid=".1.$dialog">-->
+<!--                <div class="ant-modal-content" data-reactid=".1.$dialog.0">-->
+<!--                    <a tabindex="0" class="ant-modal-close" data-reactid=".1.$dialog.0.0">-->
+<!--                        <span class="ant-modal-close-x" data-reactid=".1.$dialog.0.0.0"></span>-->
+<!--                    </a>-->
+<!--                    <div class="ant-modal-header" data-reactid=".1.$dialog.0.1">-->
+<!--                        <div class="ant-modal-title" data-reactid=".1.$dialog.0.1.0">添加银行卡</div>-->
+<!--                    </div>-->
+<!--                    <div class="ant-modal-body" data-reactid=".1.$dialog.0.2">-->
+<!--                        <div class="addBankcardBox" data-reactid=".1.$dialog.0.2.0">-->
+<!--                            <ul data-reactid=".1.$dialog.0.2.0.0">-->
+<!--                                <li data-reactid=".1.$dialog.0.2.0.0.0">-->
+<!--                                    <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.0.0">真实姓名：</div>-->
+<!--                                    <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.0.1">-->
+<!--                                        <h5 data-reactid=".1.$dialog.0.2.0.0.0.1.0">*兵</h5>-->
+<!--                                        <p data-reactid=".1.$dialog.0.2.0.0.0.1.1">目前只支持绑定本人同名的储蓄卡</p>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                                <li data-reactid=".1.$dialog.0.2.0.0.1">-->
+<!--                                    <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.1.0">身份证号：</div>-->
+<!--                                    <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.1.1">-->
+<!--                                        <h5 data-reactid=".1.$dialog.0.2.0.0.1.1.0"> 3607  3***  ****  **** 13</h5>-->
+<!--                                    </div></li><li data-reactid=".1.$dialog.0.2.0.0.2">-->
+<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.2.0">银行卡卡号：</div>-->
+<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.2.1">-->
+<!--                                    <div class="iptBox" data-reactid=".1.$dialog.0.2.0.0.2.1.0">-->
+<!--                                        <div style="visibility:hidden;" class="nT" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0">-->
+<!--                                            <ul class="numberTable big" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0">-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.0">百万</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.1"></p>-->
+<!--                                                </li>-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.0">十万</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.1"></p>-->
+<!--                                                </li>-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.0">万</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.1"></p>-->
+<!--                                                </li>-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.0">千</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.1"></p>-->
+<!--                                                </li>-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.0">百</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.1"></p>-->
+<!--                                                </li>-->
+<!--                                                <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1">-->
+<!--                                                    <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.0">十</strong>-->
+<!--                                                    <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.1"></p>-->
+<!--                                                </li><li class="active" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0">-->
+<!--                                                <strong class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.0">个</strong>-->
+<!--                                                <p class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.1">0</p>-->
+<!--                                            </li></ul><div class="outterArrow" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1">-->
+<!--                                            <p data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1.0"></p>-->
+<!--                                        </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="iptIpt" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1">-->
+<!--                                            <input value="" class="normal" type="text" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.0">-->
+<!--                                            <div class="iptPlus" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1">-->
+<!--                                                <strong style="visibility:hidden;" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1.1"></strong>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div style="visibility:hidden;" class="iptTip" data-reactid=".1.$dialog.0.2.0.0.2.1.0.2"></div>-->
+<!--                                    </div>-->
+<!--                                    <div style="display:none;" class="bankCardIptPanel" data-reactid=".1.$dialog.0.2.0.0.2.1.1"></div>-->
 <!--                                </div>-->
 <!--                            </li>-->
-<!--                            <li data-reactid=".1.$dialog.0.2.0.0.1">-->
-<!--                                <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.1.0">身份证号：</div>-->
-<!--                                <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.1.1">-->
-<!--                                    <h5 data-reactid=".1.$dialog.0.2.0.0.1.1.0"> 3607  3***  ****  **** 13</h5>-->
-<!--                                </div></li><li data-reactid=".1.$dialog.0.2.0.0.2">-->
-<!--                            <div class="bankCardInfoTitle" data-reactid=".1.$dialog.0.2.0.0.2.0">银行卡卡号：</div>-->
-<!--                            <div class="bankCardInfoContent" data-reactid=".1.$dialog.0.2.0.0.2.1">-->
-<!--                                <div class="iptBox" data-reactid=".1.$dialog.0.2.0.0.2.1.0">-->
-<!--                                    <div style="visibility:hidden;" class="nT" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0">-->
-<!--                                        <ul class="numberTable big" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0">-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.0">百万</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$6.1"></p>-->
-<!--                                            </li>-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.0">十万</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$5.1"></p>-->
-<!--                                            </li>-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.0">万</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$4.1"></p>-->
-<!--                                            </li>-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.0">千</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$3.1"></p>-->
-<!--                                            </li>-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.0">百</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$2.1"></p>-->
-<!--                                            </li>-->
-<!--                                            <li class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1">-->
-<!--                                                <strong class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.0">十</strong>-->
-<!--                                                <p class="" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$1.1"></p>-->
-<!--                                            </li><li class="active" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0">-->
-<!--                                            <strong class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.0">个</strong>-->
-<!--                                            <p class="last" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.0.$0.1">0</p>-->
-<!--                                        </li></ul><div class="outterArrow" data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1">-->
-<!--                                        <p data-reactid=".1.$dialog.0.2.0.0.2.1.0.0.1.0"></p>-->
-<!--                                    </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="iptIpt" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1">-->
-<!--                                        <input value="" class="normal" type="text" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.0">-->
-<!--                                        <div class="iptPlus" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1">-->
-<!--                                            <strong style="visibility:hidden;" data-reactid=".1.$dialog.0.2.0.0.2.1.0.1.1.1"></strong>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div style="visibility:hidden;" class="iptTip" data-reactid=".1.$dialog.0.2.0.0.2.1.0.2"></div>-->
-<!--                                </div>-->
-<!--                                <div style="display:none;" class="bankCardIptPanel" data-reactid=".1.$dialog.0.2.0.0.2.1.1"></div>-->
+<!--                            </ul>-->
+<!--                            <div class="bankcardDeleteFoot" data-reactid=".1.$dialog.0.2.0.1">-->
+<!--                                <button class="" style="width:190px;" data-reactid=".1.$dialog.0.2.0.1.0">确定</button>-->
+<!--                                <a href="javascript:void(0);" data-reactid=".1.$dialog.0.2.0.1.1">取消</a>-->
 <!--                            </div>-->
-<!--                        </li>-->
-<!--                        </ul>-->
-<!--                        <div class="bankcardDeleteFoot" data-reactid=".1.$dialog.0.2.0.1">-->
-<!--                            <button class="" style="width:190px;" data-reactid=".1.$dialog.0.2.0.1.0">确定</button>-->
-<!--                            <a href="javascript:void(0);" data-reactid=".1.$dialog.0.2.0.1.1">取消</a>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
+<!--                <div tabindex="0" style="width:0;height:0;overflow:hidden;" data-reactid=".1.$dialog.1">sentinel</div>-->
 <!--            </div>-->
-<!--            <div tabindex="0" style="width:0;height:0;overflow:hidden;" data-reactid=".1.$dialog.1">sentinel</div>-->
 <!--        </div>-->
-<!--    </div>-->
-<!--    </div>-->
-    </div>
+<!--    </div></div>-->
 </body>
 </html>

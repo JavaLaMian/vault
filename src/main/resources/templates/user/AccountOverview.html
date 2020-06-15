@@ -24,7 +24,7 @@
     }
 </script>
 	<script type="text/javascript" th:src="@{/js/main/common-83987ed24e.js}"></script>
-<script>init-8cd8d5be3d
+<script>
     $(function(){
         seajs.use('module/common/common')
     })
@@ -32,14 +32,8 @@
 	<link th:href="@{/css/style-1ed5f9e4a1.css}" rel="stylesheet">
 </head>
 <body>
-<!--[if lt IE 9]>
-	<script src="http://image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
-<![endif]-->
 <input value="true" type="hidden" id="isLogin"/>
 <div class="affiche" id="afficheModel">
-<span>小母牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
-	<a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a>
-</span>
 	<i class="icon-common icon-common-close"></i>
 </div>
 <header th:replace="/common::commonHeader"></header>
@@ -56,7 +50,7 @@
 </div>
 <div class="center user-box">
     <!--start 我的账户左边菜单列表-->
-    <div class="account-list"th:fragment="inflist">
+    <div class="account-list" th:fragment="inflist">
         <div class="account-info">
             <div class="member-info">
                 <div><span class="name" id="username" th:text="${session.user.uName}">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span></div>
@@ -79,7 +73,7 @@
 
         </div>
                 <ul class="g-cf left-menu">
-                    <li data-type="index">
+                    <li data-type="index" id="ov">
                         <a class="h2" href="/user/toAO"><b>账户总览</b></a>
                     </li>
                     <li data-type="invest">
@@ -338,7 +332,12 @@
 	        </div>
 	    </div>
 	</div>
-	<script>		
+	<script type="text/javascript">
+
+        !function () {
+            $("#ov").addClass("cur");
+        }
+
 		var PAGE_DATA = {
       rewardedDetails: {
         investBonusSum: "0.00"*1,

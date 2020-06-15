@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.BankDao">
+    <insert id="bindBank" parameterType="UserBank" useGeneratedKeys="true">
+        <selectKey keyColumn="bankId" resultType="integer" keyProperty="bankId" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+          insert into userBank values(#{bankId},#{uId},#{uId},#{bankName},#{cardId})
+        ]]>
+    </insert>
+    <select id="getBC" resultType="UserBank">
+        <![CDATA[
+          select * from userBank where uId=#{uid}
+        ]]>
+    </select>
+</mapper>

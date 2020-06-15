@@ -6,8 +6,8 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
 
-@Table(name = "tender")
-public class tender {//6月10日15点59
+@Table(name = "Tender")
+public class Tender {//6月10日15点59
 
 //    private static final int ZHANGRANGQI = 1;
 //    private static final int SUODINGQI = 2 ;
@@ -34,10 +34,10 @@ public class tender {//6月10日15点59
     private Date	tenCicle;
 
     private  int bType;
-    public tender(){}
+    public Tender(){}
 
 
-    public tender(int tId, int bId, int uId, float tenMoney, Date tenTime, int tenType, Date tenCicle, int bType) {
+    public Tender(int tId, int bId, int uId, float tenMoney, Date tenTime, int tenType, Date tenCicle, int bType) {
         this.tId = tId;
         this.bId = bId;
         this.uId = uId;
@@ -50,7 +50,7 @@ public class tender {//6月10日15点59
 
     @Override
     public String toString() {
-        return "tender{" +
+        return "Tender{" +
                 "tId=" + tId +
                 ", bId=" + bId +
                 ", uId=" + uId +

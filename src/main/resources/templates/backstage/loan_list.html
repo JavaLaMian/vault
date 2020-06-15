@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>投标表</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+
+
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+
+        <!--页面主要内容-->
+        <main class="layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-toolbar clearfix">
+                                <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <input type="hidden" name="search_field" id="search-field" value="title">
+                                            <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                                                标种 <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">新手标</a> </li>
+                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="cat_name">散标</a> </li>
+                                            </ul>
+                                        </div>
+                                        <input type="text" class="form-control" value="" name="keyword" placeholder="请输入名称">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="loan">
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+<script type="text/javascript">
+    $(function(){
+        $('.search-bar .dropdown-menu a').click(function() {
+            var field = $(this).data('field') || '';
+            $('#search-field').val(field);
+            $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+        });
+        $('#loan').bootstrapTable({
+            method:'post',
+            url:'/back_loan/loanData',//请求数据路径
+            striped: true, // 是否显示行间隔色
+            pageNumber: 1, // 初始化加载第一页
+            pagination: true, // 是否分页
+            sidePagination: 'client', // server:服务器端分页|client：前端分页
+            pageSize: 10, // 单页记录数
+            pageList: [10, 20, 30],
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: $("#sname").val(),
+                    viewReason: $("#viewReason").val(),
+                };
+                return temp;
+            },
+            columns: [{
+                checkbox: true
+            },{
+                title:'lId',
+                field:'lId',
+                visible: false
+            },{
+                title:'借款人',
+                field:'uId'
+            },{
+                title:'贷款类型',
+                field:'loanType',
+                formatter: szloanType
+            },{
+                title:'期待借款金额',
+                field:'loanWantMoney'
+            },{
+                title:'贷款用途',
+                field:'loanPurpose'
+            },{
+                title:'利息',
+                field:'interest'
+            },{
+                title:'申请时间',
+                field:'applicationTime',
+                formatter: formatTime
+            },{
+                title:'状态',
+                field:'loanStatue',
+                formatter: szstatue
+            },{
+                title: '操作',
+                field: 'lId',
+                formatter: option
+            }]
+        });
+        
+        function option(value, row, index) {
+            var htm = "";
+            htm += '<a class="btn btn-success m-r-5" th:href="@{/back_loan/lookDetails}" target="_blank"><i class="mdi mdi-arrange-bring-forward"></i> 详情</a>'+
+                    '<a class="btn btn-success m-r-5" th:href="@{/back_loan/tooExamine}"><i class="mdi mdi-arrange-bring-forward"></i> 审核</a>'
+            return htm;
+        }
+        
+        function szloanType(value, row, index) {
+            if(value==1){
+                return '信用贷';
+            }else if(value==2){
+                return '抵押贷';
+            }else if(value==3){
+                return '担保贷';
+            }
+        };
+        function szstatue(value, row, index) {
+            if(value==0){
+                return '申请中';
+            }else if(value==1){
+                return '放款中';
+            }else if(value==2){
+                return '待偿还';
+            }else if(value==3){
+                return '已偿还';
+            }else if(value==4){
+                return '申请失败';
+            }
+        };
+        function formatTime(value, row, index) {
+            var date = new Date();
+            date.setTime(value);
+            var month = date.getMonth() + 1;
+            var hours = date.getHours();
+            if(hours < 10)
+                hours = "0" + hours;
+            var minutes = date.getMinutes();
+            if(minutes < 10)
+                minutes = "0" + minutes;
+            var time = date.getFullYear() + "-" + month + "-" + date.getDate() +
+                " " + hours + ":" + minutes;
+            return time;
+        }
+        function seeDetails() {
+
+        }
+    });
+</script>
+</body>
+</html>
