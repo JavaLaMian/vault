@@ -16,7 +16,7 @@ public class BidSerImpl implements BidSer {
     BidDao bidDao;
     @Override
     public List<Bid> allList() {
-        return bidDao.allList();
+        return bidDao.allList(0);
     }
 
     @Override
@@ -41,6 +41,18 @@ public class BidSerImpl implements BidSer {
 
     @Override
     public List<PerBid> selectPerB() {
-        return bidDao.selectPerB();
+        return bidDao.selectPerB(0);
+    }
+
+    @Override
+    public Bid selectByBid(int bid) {
+        List<Bid> bids = bidDao.allList(bid);
+        return bids.get(0);
+    }
+
+    @Override
+    public PerBid selectByPid(int pid) {
+        List<PerBid> pids = bidDao.selectPerB(pid);
+        return pids.get(0);
     }
 }

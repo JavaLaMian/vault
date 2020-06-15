@@ -60,7 +60,12 @@
     <div class="container">
         <div class="hotline">全国服务热线：4006-0755-70</div>
         <ul class="info" id="ulLoginStatus">
-            <li class="user">
+            <li class="user" th:if="${session.user!=null}">
+                <a href="/user/toAO" th:text="${session.user.getUName()}">
+                </a>
+                <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+            </li>
+            <li class="user" th:if="${session.user==null}">
                 <a href="/user/login" id="head-login-btn">登录</a>
                 <a href="/user/register">注册</a>
             </li>
@@ -133,17 +138,15 @@
                     <a href="/product/list?type=transfer">转让专区</a>
                 </li>
             </ul>
-            <!--<ul class="nav nav-information" data-type="security">-->
-                <!--<li class="first"><a href="/cms/about/index">信息披露</a></li>-->
-                <!--<li><a href="/cms/about/index">关于小牛</a></li>-->
-                <!--<li><a href="/cms/compliance/filingInfo">合规备案</a></li>-->
-                <!--<li><a href="/cms/business/consumer">业务介绍</a></li>-->
-                <!--<li><a href="/portal/platform/index">运营信息</a></li>-->
-                <!--<li><a href="/portal/platform/riskmanagement">保障体系</a></li>-->
-            <!--</ul>-->
         </nav>
-        <div class="user">
-            <span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
+        <div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/tologin')" class="title">
+                <div class="img-box"></div>
+                <span>点我登陆</span>
+            </span>
+        </div>
+        <div th:if="${session.user!=null}" class="user">
+            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/toAO')" class="title">
                 <div class="img-box"></div>
                 <span>我的账户</span>
                 <i class="icon-common icon-common-to-bottom"></i>
@@ -217,21 +220,19 @@
                             <span>%</span>
                         </dt>
                         <dd>
-                            "参考利率"
+                            参考利率
                             <i class="icon icon-question-mark js_poshytip" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i>
                         </dd>
                     </dl>
                     <dl class="borrow-amount">
                         <dt>
-                            <span class="f-rate js_term">24</span>
-                            个月
+                            <span class="f-rate js_term">24</span>个月
                         </dt>
                         <dd>锁定期 | 持满自动转让</dd>
                     </dl>
                     <dl class="lock-day">
                         <dt>
-                            <span class="f-rate">0.00</span>
-                            元
+                            <span class="f-rate">0.00</span>元
                         </dt>
                         <dd>可加入</dd>
                     </dl>
@@ -449,6 +450,9 @@
     $(function () {
         seajs.use('page/product/detail/ushare/js/detail');
     });
+    function  gotoLogin(url) {
+        window.location.href=url;
+    }
 </script>
 </body>
 </html>

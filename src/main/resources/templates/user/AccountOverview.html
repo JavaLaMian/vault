@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -7,11 +7,10 @@
 <meta content="如何投标计划、网络贷款、网贷平台、P2P网贷、小牛在线" name="keywords">
 <meta content="国内首批由第三方做资金托管账户的网络金融平台，网络出借专业首选——小牛母在线。小牛在线网络借贷平台，线上投标计划方便快捷，详情咨询：4006-0755-70。" name="description">
 
-
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
-<script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+	<link th:href="@{/css/main/base-ddb0535420.css}" rel="stylesheet">
+	<script type="text/javascript" th:src="@{/js/main/base-6100562494.js}"></script>
 	<span th:replace="/common::bootstrap"></span>
 <script>
     window.global = {
@@ -24,13 +23,13 @@
         isLogin: true
     }
 </script>
-<script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
-<script>
+	<script type="text/javascript" th:src="@{/js/main/common-83987ed24e.js}"></script>
+<script>init-8cd8d5be3d
     $(function(){
         seajs.use('module/common/common')
     })
 </script>
-<link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/account/index/css/style-1ed5f9e4a1.css" />
+	<link th:href="@{/css/style-1ed5f9e4a1.css}" rel="stylesheet">
 </head>
 <body>
 <!--[if lt IE 9]>
@@ -43,9 +42,7 @@
 </span>
 	<i class="icon-common icon-common-close"></i>
 </div>
-
 <header th:replace="/common::commonHeader"></header>
-
 <!--导航-->
 <div th:replace="/common::commonNav"></div>
 
@@ -56,10 +53,8 @@
 			
 <div class="path">
 	您现在的位置：<span>我的账户 > 账户总览</span>
-	
 </div>
 <div class="center user-box">
-				
     <!--start 我的账户左边菜单列表-->
     <div class="account-list"th:fragment="inflist">
         <div class="account-info">
@@ -83,7 +78,6 @@
             <div id="sign-info" class="sign-info"></div>
 
         </div>
-
                 <ul class="g-cf left-menu">
                     <li data-type="index">
                         <a class="h2" href="/user/toAO"><b>账户总览</b></a>
@@ -115,55 +109,7 @@
                     <li class="planner last" data-type="planner">
                         <a href="#">邀请好友<span>赚收益</span></a>
                     </li>
-
-                    <!-- <li class="investment" data-type="investment">
-                        <a href="/MyAccount/invest/index/holding">我的项目</a>
-                    </li>
-                    <li class="parent g-dn" data-type="financing">
-                        <a class="down">随心项目</a>
-                        <ul class="second">
-                            <li class="g-dn" data-type="my-smart">
-                                <a href="/MyAccount/smart/index">我的月月牛</a>
-                            </li>
-                            <li class="g-dn" data-type="flexible-1">
-                                <a href="/MyAccount/flexible/week/index">我的周升计划</a>
-                            </li>
-                            <li class="g-dn" data-type="flexible-2">
-                                <a href="/MyAccount/flexible/month/index">我的升财牛</a>
-                            </li>
-                            <li class="g-dn" data-type="flexible-3">
-                                <a href="/MyAccount/flexible/twomonth/index">我的双月计划</a>
-                            </li>
-                            <li class="g-dn" data-type="flexible-4">
-                                <a href="/MyAccount/flexible/quarter/index">我的季升计划</a>
-                            </li>
-                            <li class="g-dn" data-type="flexible-5">
-                                <a href="/MyAccount/flexible/year/index">我的年升计划</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="parent" data-type="autoinvest">
-                        <a class="down">我的投标工具</a>
-                        <ul class="second">
-                            <li>
-                                <a href="/MyAccount/autoInvest/index/recent">自动投标</a>
-                            </li>
-                            <li>
-                                <a href="/product/duration/disposable/user/statistics">一键投标</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li data-type="prize">
-                        <a href="/activity/mytreasure/index">我的夺宝</a>
-                    </li>
-                    <li data-type="myprize">
-                        <a href="/activity/pointmall/mein/index">我的宝贝</a>
-                    </li> -->
-
                 </ul>
-
-
-
         <div class="qqun">
             <p class="q1 g-dn">客户交流群：
                 <br/>521069624
@@ -186,7 +132,6 @@
         </div>
     </div>
 
-    <script src="http://image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
     <script>
         $(function () {
             seajs.use('module/userNavList/js/init');
@@ -357,11 +302,8 @@
 <div th:replace="/common::commonFooter"></div>
 <!--start 尾部-->
 <div th:replace="/common::commonEnd"></div>
-
 <!--end 尾部-->
-
 <!--引入统计代码-->
-
 <div style="display:none">
     <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -396,8 +338,6 @@
 	        </div>
 	    </div>
 	</div>
-	<script src="http://image.xiaoniu88.com/static/WebXn/dist/plugIn/Highcharts/js/highcharts-5-2197cdde07.0.0.js"></script>
-	<script src="http://image.xiaoniu88.com/static/WebXn/dist/account/index/js/init-20e6bd7ef5.js"></script>
 	<script>		
 		var PAGE_DATA = {
       rewardedDetails: {

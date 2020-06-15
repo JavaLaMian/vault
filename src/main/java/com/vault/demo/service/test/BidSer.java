@@ -24,4 +24,6 @@ public interface BidSer{
     List<Bid> selectByType(int bType);
     List<PerBid> selectPerB();
 
+    Bid selectByBid(int bid);
+    PerBid selectByPid(int pid);
 }

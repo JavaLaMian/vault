@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>新增文档 - bootstrap中文后台管理系统模板</title>
+<title>新增标类</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 
 
@@ -122,25 +122,24 @@
                       </div>
                     </div>
                   </div>
-                  <!--单笔追加金额-->
+                  <!--单笔限额-->
                   <div class="form-group col-md-12">
                     <div class="form-group row">
-                      <label class="col-form-label col-lg-3">单笔限额</label>
+                      <label class="col-form-label col-lg-3">单笔限额-</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_03" name="addLimit">
+                        <input id="range_03" name="singelLimit">
                       </div>
                     </div>
                   </div>
-<!--                  &lt;!&ndash;起投最小金额&ndash;&gt;-->
-<!--                  <div class="form-group col-md-12">-->
-<!--                    <div class="form-group row">-->
-<!--                      <label class="col-form-label col-lg-3">起投最小金额</label>-->
-<!--                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">-->
-<!--                        <input id="range_04">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-                  <!--是否可以自动转让-->
+                  <!--每次可以追加金额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">每次可以追加金额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_04" name="addLimit">
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group col-xs-4">
                     <label for="type">是否可以自动转让</label>
                     <div class="input-daterange input-group col-lg-8">
@@ -169,16 +168,25 @@
                     </div>
                   </div>
 
+<!--                  &lt;!&ndash;时间&ndash;&gt;-->
+<!--                  <div class="form-group col-md-12">-->
+<!--                    <label for="type">标期时间</label>-->
+<!--                    <div class="input-daterange input-group col-lg-8">-->
+<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="begTime" name="begTime" placeholder="开始投标时间">-->
+<!--                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>-->
+<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="gebTime" name="gebTime" placeholder="封标期时间">-->
+<!--                    </div>-->
+<!--                  </div>-->
                   <!--时间-->
                   <div class="form-group col-md-12">
-                    <label for="type">标期时间</label>
-                    <div class="input-daterange input-group col-lg-8">
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="bidTime" name="bidTime" placeholder="开始投标时间">
-                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="exprie" name="exprie" placeholder="封标期时间">
+                    <div class="card">
+                      <label for="type">标期时间</label>
+                      <div class="input-daterange input-group col-lg-8">
+                        <input class="form-control js-datetimepicker" type="text" id="begTime" name="begTime" placeholder="开始投标时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                        <input class="form-control js-datetimepicker" type="text" id="gebTime" name="gebTime" placeholder="封标期时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                      </div>
                     </div>
                   </div>
-
 
 
                   <div class="form-group col-md-12">

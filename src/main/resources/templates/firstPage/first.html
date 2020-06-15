@@ -1,6 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=7;IE=9" />
@@ -14,8 +13,8 @@
 
 	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<link rel="shortcut icon" href="//image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
-	<link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
-	<script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+	<link th:href="@{/css/main/base-ddb0535420.css}" rel="stylesheet">
+	<script type="text/javascript" th:src="@{/js/main/base-6100562494.js}"></script>
 
 
 	<script>
@@ -30,14 +29,13 @@
         }
 	</script>
 
-
 	<script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
 	<script>
         $(function(){
             seajs.use('module/common/common')
         })
 	</script>
-	<link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/portal/index2016/css/style-f85793ebc1.css" />
+	<link th:href="@{/css/main/style-f85793ebc1.css}" rel="stylesheet">
 
 </head>
 <body>
@@ -48,47 +46,11 @@
 		<ul></ul>
 	</div>
 </div>
-
-
 <input type="hidden" value="index" id="menuCur">
-
-
-
-
-
-
-
 <!--[if lt IE 9]>
 <script src="//image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
 <![endif]-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <input value="false" type="hidden" id="isLogin"/>
-
-
 <div class="affiche" id="afficheModel">
 
 <span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
@@ -103,15 +65,10 @@
 
 		<div class="hotline">全国服务热线：4006-0755-70</div>
 		<ul class="info" id="ulLoginStatus">
-
-
-
 			<li class="user">
 				<a href="/user/login" id="head-login-btn">登录</a>
 				<a href="/user/register">注册</a>
 			</li>
-
-
 			<li class="line">|</li>
 			<li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>
 			<li class="line">|</li>
@@ -155,9 +112,6 @@
 		</ul>
 	</div>
 </header>
-
-
-
 
 <!--导航-->
 <div class="navigation" id="navigationModel">
@@ -226,12 +180,9 @@
 		<!--<ul class="banner" id="banner" style="width: 30448px; position: absolute; left: 0px;">-->
 			<!--<li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-img: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;)center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-img: url(//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li>-->
 		<!--</ul>-->
-
 		<div class="but"><a href="javascript:;" onfocus="this.blur()" class="s">1</a><a href="javascript:;" onfocus="this.blur()">2</a><a href="javascript:;" onfocus="this.blur()">3</a><a href="javascript:;" onfocus="this.blur()">4</a><a href="javascript:;" onfocus="this.blur()">5</a><a href="javascript:;" onfocus="this.blur()">6</a><a href="javascript:;" onfocus="this.blur()">7</a><a href="javascript:;" onfocus="this.blur()">8</a></div>
 	</div>
 	<div class="container">
-
-
 
 	</div>
 	<div class="activity-christmas-line"></div>
@@ -293,7 +244,6 @@
 		<a class="reference" href="http://www.xiaoniu88.com/cms/article/index/2" target="_blank">查看全部<i class="icon icon-arrow-right-9-5"></i></a>
 	</div>
 </div>
-
 <!--普通-->
 <div class="novice" id="noviceModel">
 	<div class="title">
@@ -301,7 +251,7 @@
 		<span class="tag">仅限累积投标少于3次用户</span>
 	</div>
 	<div class="novice-list">
-		<a class="row-item g-cf " href="/product/bid/detail/165362847" target="_blank" th:each="nc:${ncList}">
+		<a class="row-item g-cf " th:href="@{/main/prose(t=0,id=${nc.bId})}" target="_blank" th:each="nc:${ncList}">
 			<div class="label-content">
 			</div>
 			<dl class="col-1">
@@ -360,8 +310,6 @@
 		</dl>
 	</div>
 </div>
-
-
 <div class="micro" id="microModel">
 	<div class="container">
 		<div class="title">
@@ -382,9 +330,6 @@
 		</div>
 	</div>
 </div>
-
-
-<!---->
 <div class="flexible" id="flexibleModel">
 	<div class="container">
 		<div class="title">
@@ -397,10 +342,12 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2" >
-				<div class="item " data-url="/product/common/66890440" th:each="per:${perList}" style="width:263px">
+				<a th:each="per:${perList}" th:href="@{/main/prose(t=1,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
+				<div class="item " style="width:263px">
 					<div class="panel">
 						<div class="rate" th:text="${per.inRate}+'%'"><span></span></div>
-						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
+						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所
+						有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 						<div class="about">
 							<div class="description">小额消费借款</div>
 							<div class="name" th:text="${per.perBidName}"></div>
@@ -416,6 +363,7 @@
 						</div>
 					</div>
 				</div>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -439,7 +387,8 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<div class="item item-new" th:each="nc:${ncList}" data-url=" ">
+					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=0,id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
+					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">
 								<span class="max" th:text="${nc.rate}+'%'"></span>
@@ -460,6 +409,7 @@
 							</div>
 						</div>
 					</div>
+					</a>
 				</div>
 
 			<div class="g-dn items" data-type="6">
