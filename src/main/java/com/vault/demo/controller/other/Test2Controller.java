@@ -38,7 +38,7 @@ public class Test2Controller {
 
 
 
-        System.out.println(bidDao.allList());
+        System.out.println(bidDao.allList(0));
 
         return "sss";
     }
