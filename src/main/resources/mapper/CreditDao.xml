@@ -13,7 +13,7 @@
     </insert>
     <select id="selectCreditByUserId" resultType="Credit" parameterType="com.vault.demo.bean.Userimf">
         <![CDATA[
-          select * from credit where uId=#{uid}
+          select * from credit where uId=#{uId}
 
         ]]>
     </select>

@@ -33,7 +33,8 @@ public class UserController2 {
             session.setAttribute("credit",credit);
             session.setAttribute("userBank",userBank);
         }catch (Exception e){
-
+            session.setAttribute("credit",null);
+            session.setAttribute("userBank",null);
         }
         return "user/AccountSafe";
     }
