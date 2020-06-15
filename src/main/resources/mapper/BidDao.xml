@@ -5,10 +5,13 @@
 
 <mapper namespace="com.vault.demo.dao.test.BidDao">
 
-    <select id="allList" resultType="com.vault.demo.bean.Bid">
+    <select id="allList" resultType="com.vault.demo.bean.Bid" parameterType="int">
         <![CDATA[
           select * from bid
         ]]>
+        <if test="bId != null and bId != 0">
+            where bId = #{bId}
+        </if>
     </select>
 
     <select id="selectByType" resultType="com.vault.demo.bean.Bid">
@@ -17,10 +20,13 @@
         ]]>
     </select>
 
-    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
+    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid" parameterType="int">
         <![CDATA[
           select *,(rate-addRate) as inRate from perBid
         ]]>
+        <if test="perBid != null and perBid != 0">
+            where perBid = #{perBid}
+        </if>
     </select>
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">

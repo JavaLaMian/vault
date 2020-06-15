@@ -138,14 +138,6 @@
                     <a href="/product/list?type=transfer">转让专区</a>
                 </li>
             </ul>
-            <!--<ul class="nav nav-information" data-type="security">-->
-                <!--<li class="first"><a href="/cms/about/index">信息披露</a></li>-->
-                <!--<li><a href="/cms/about/index">关于小牛</a></li>-->
-                <!--<li><a href="/cms/compliance/filingInfo">合规备案</a></li>-->
-                <!--<li><a href="/cms/business/consumer">业务介绍</a></li>-->
-                <!--<li><a href="/portal/platform/index">运营信息</a></li>-->
-                <!--<li><a href="/portal/platform/riskmanagement">保障体系</a></li>-->
-            <!--</ul>-->
         </nav>
         <div th:if="${session.user==null}" class="user">
             <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/tologin')" class="title">
@@ -228,21 +220,19 @@
                             <span>%</span>
                         </dt>
                         <dd>
-                            "参考利率"
+                            参考利率
                             <i class="icon icon-question-mark js_poshytip" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i>
                         </dd>
                     </dl>
                     <dl class="borrow-amount">
                         <dt>
-                            <span class="f-rate js_term">24</span>
-                            个月
+                            <span class="f-rate js_term">24</span>个月
                         </dt>
                         <dd>锁定期 | 持满自动转让</dd>
                     </dl>
                     <dl class="lock-day">
                         <dt>
-                            <span class="f-rate">0.00</span>
-                            元
+                            <span class="f-rate">0.00</span>元
                         </dt>
                         <dd>可加入</dd>
                     </dl>

@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 @Transactional
 public interface BidDao{
-    List<Bid> allList();
+    List<Bid> allList(@Param("bId")int bId);
     void deleteById(int id);
     void updateById(int id);
     void insert(Bid bid);
     List<Bid> selectByType(int bType);
-    List<PerBid> selectPerB();
+    List<PerBid> selectPerB(@Param("perBid")int perBid);
 }

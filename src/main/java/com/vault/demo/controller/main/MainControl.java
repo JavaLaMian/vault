@@ -5,6 +5,7 @@ import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.service.test.BidSer;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -27,12 +28,21 @@ public class MainControl{
         return "firstPage/first";
     }
 
-    @RequestMapping("prose")
-    public String toProse(){
+    @RequestMapping("/prose")
+    public String toProse(int t, int id, Model model){
+        //t == 1 散标
+        System.out.println(t+"|"+id);
+        if(t == 0){
+            Bid bid = bidSer.selectByBid(id);
+            model.addAttribute("biao",bid);
+        }else {
+            PerBid perBid = bidSer.selectByPid(id);
+            model.addAttribute("biao",perBid);
+        }
         return "firstPage/prose";
     }
 
-    @RequestMapping("perlist")
+    @RequestMapping("/perlist")
     public String toPerbid(){
         return "firstPage/perbidList";
     }
