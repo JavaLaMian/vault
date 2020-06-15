@@ -11,4 +11,9 @@
           insert into credit values(#{creId},#{uId},#{depart},#{identity},#{hId},#{funds},#{photo})
         ]]>
     </insert>
+    <select id="getCredit" resultType="Credit">
+        <![CDATA[
+          select * from credit where uId=#{uid}
+        ]]>
+    </select>
 </mapper>

@@ -12,6 +12,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -88,5 +89,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void bindBank(UserBank userBank) {
         bdao.bindBank(userBank);
+    }
+
+    @Override
+    public UserBank getBC(int uId) {
+        return bdao.getBC(uId);
+    }
+
+    @Override
+    public Credit getCredit(int uId) {
+        return cdao.getCredit(uId);
     }
 }

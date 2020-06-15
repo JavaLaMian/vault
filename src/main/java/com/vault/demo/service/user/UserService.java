@@ -5,6 +5,8 @@ import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import org.apache.commons.mail.EmailException;
 
+import java.util.List;
+
 public interface UserService {
     int addUserImf(Userimf user);
     String getEmailMa(String shou,String type) throws EmailException;
@@ -14,4 +16,6 @@ public interface UserService {
 
     void bindCredit(Credit credit);
     void bindBank(UserBank userBank);
+    UserBank getBC(int uId);
+    Credit getCredit(int uId);
 }
