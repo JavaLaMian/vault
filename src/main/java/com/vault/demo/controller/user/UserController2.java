@@ -25,12 +25,16 @@ public class UserController2 {
     }
 
     @RequestMapping("/toAS")
-    public String toAS(HttpSession session) throws NullPointerException{
+    public String toAS(HttpSession session){
         Userimf user = (Userimf) session.getAttribute("user");
-        Credit credit = service.getCredit(user.getuId());
-        UserBank userBank = service.getBC(user.getuId());
-        session.setAttribute("credit",credit);
-        session.setAttribute("userBank",userBank);
+        try {
+            Credit credit = service.getCredit(user.getuId());
+            UserBank userBank = service.getBC(user.getuId());
+            session.setAttribute("credit",credit);
+            session.setAttribute("userBank",userBank);
+        }catch (Exception e){
+
+        }
         return "user/AccountSafe";
     }
     @RequestMapping("/toApply")

@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <title>账户安全-小牛在线</title>
-    <script type="text/javascript" src="/user/static/rsa/utility.js?v=1.0.2"></script>
+    <script type="text/javascript" src="http://user/static/rsa/utility.js?v=1.0.2"></script>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
     <!--<link rel="stylesheet" href="/css/accountsafe.css" />-->
@@ -202,7 +202,7 @@
                     <div class="zccount_msg">
                         <div class="account_number">
                             <span class="account_name" th:text="${session.user.uName}">用户名</span>
-                            <span class="account_regTime" th:text="'注册时间&nbsp;&nbsp;'+${session.user.regTime}">注册时间&nbsp;&nbsp;****-**-**</span>
+                            <span class="account_regTime" th:text="'注册时间&nbsp;&nbsp;'+${#dates.format(session.user.regTime, 'yyyy-MM-dd')}">注册时间&nbsp;&nbsp;****-**-**</span>
                             <a href="javascript:" class="account_addrecommend">填写推荐人</a>
                         </div>
 
