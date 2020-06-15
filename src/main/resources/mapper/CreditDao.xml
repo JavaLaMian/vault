@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vault.demo.dao.loan.CreditDao">
+    <select id="allList" resultType="com.vault.demo.bean.Credit">
+        select * from credit
+    </select>
+
+    <insert id="insert" parameterType="com.vault.demo.bean.Credit">
+        insert into credit values(null,#{uId},#{depart},#{wages},#{name},#{identity},#{hId},#{cId},#{funds},#{positiveIDPhoto},#{negativeIDPhoto},#{creditLV},#{creditUpdateTime})
+    </insert>
+
+    <delete id="deleteById" parameterType="com.vault.demo.bean.Credit">
+        delete from credit where creId = #{creId}
+    </delete>
+
+    <select id="selectCreditByUserId" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Credit">
+        select * from credit where uId = #{uId}
+    </select>
+</mapper>
