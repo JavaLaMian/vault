@@ -16,11 +16,15 @@
 
             <div class="hotline">全国服务热线：4006-0755-70</div>
             <ul class="info" id="ulLoginStatus">
-                <li class="user logon">
-                    <a href="/MyAccount/index">
-                        xnwp6190807
+                <li class="user logon" th:if="${session.user} ne null">
+                    <a href="/loan/tologin" th:text="${session.user.uName}">
+                        用户名
                     </a>
-                    <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+                    <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
+                </li>
+                <li class="user logon" th:if="${session.user} eq null">
+                    <a href="/user/tologin" id="head-login-btn">登录</a>
+                    <a href="/user/tologin">注册</a>
                 </li>
                 <li class="line">|</li>
                 <li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>

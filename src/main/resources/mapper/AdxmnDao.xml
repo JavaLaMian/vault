@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.backstage.AdxmnDao">
+    <insert id="addBid">
+        <![CDATA[
+            insert into bid values(#{bId},#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit}
+            ,#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst}
+            ,#{exprie},#{bidStatus},#{bidTime},#{maxTime},#{personLimit});
+         ]]>
+    </insert>
+    <select id="Bidlist" resultType="Bid">
+         <![CDATA[
+          select * from bid
+        ]]>
+    </select>
+    <select id="selectgetBid" resultType="Bid">
+        <![CDATA[
+            select  * from bid where bId = #{bId}
+         ]]>
+    </select>
+</mapper>

@@ -63,30 +63,59 @@
                         <th>编号</th>
                         <th>标名</th>
                         <th>标种</th>
-                        <th>总利率</th>
-                        <th>转让期</th>
-                        <th>锁定期</th>
+                        <th>标期</th>
+                        <th>奖励+基本利率</th>
+                        <th>起标额</th>
+                        <th>总体金额</th>
+                        <th>上线时间</th>
+                        <th>标封期时间</th>
                         <th>状态</th>
                         <th>操作</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr th:each="p:${list}">
                         <td>
                           <label class="checkbox checkbox-primary">
                             <input type="checkbox" name="ids[]" value="1"><span></span>
                           </label>
                         </td>
-                        <td>1</td>
-                        <td>优享牛</td>
-                        <td>新手标</td>
-                        <td>7.70%+5.00%</td>
-                        <td>2020-06-10</td>
-                        <td>2020-07-10</td>
-                        <td><font class="text-success">预售</font></td>
+                        <td th:text="${p.bId}">1</td>
+                        <td th:text="${p.bidName}">优享标</td>
+                        <td th:if="${p.bidType eq 1}">新手标</td>
+                        <td th:if="${p.bidType eq 2}">优享标</td>
+                        <td th:if="${p.deposit eq 1}">定期</td>
+                        <td th:if="${p.deposit eq 2}">活期</td>
+                        <td th:if="${p.bidType eq 2}">
+                          <p>
+                            <a th:text="${p.rate}"></a>%
+                          </p>
+                        </td>
+                        <td th:if="${p.bidType eq 1}">
+                          <p>
+                            <a th:text="${p.rewardRate}" style="color: red"></a>% +<a th:text="${p.rate}"></a>%
+                          </p>
+                        </td>
+                        <td><a th:text="${p.startLimit}"></a>万</td>
+                        <td><a th:text="${p.sumLimit}"></a>万</td>
+                        <td th:text="${#dates.format(p.bidTime,'yyyy-MM-dd HH:mm')}">0</td>
+                        <td th:text="${#dates.format(p.exprie,'yyyy-MM-dd HH:mm')}">0</td>
+                        <td th:if="${p.bidStatus eq 1}">
+                          <font class="text-success">预售</font>
+                        </td>
+                        <td th:if="${p.bidStatus eq 0}">
+                          <font class="text-warning">在售</font>
+                        </td>
+                        <td th:if="${p.bidStatus eq 3}">
+                          <font class="text-danger">售罄</font>
+                        </td>
+                        <td th:if="${p.bidStatus eq 2}">
+                          <font class="text-dark">关闭</font>
+                        </td>
+
                         <td>
                           <div class="btn-group">
-                            <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                            <a class="btn btn-xs btn-default" th:href="@{/XMN/updataBid/(bId=${p.bId})}" title="修改" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                             <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                           </div>
                         </td>

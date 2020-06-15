@@ -17,20 +17,28 @@ public class Loan {//6月10日16点42
     @Column(name = "loanName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String loanName;
 
+    private int bidType;
+
+    private int bidId;
+
     @Column(name = "maxLimit",type = MySqlTypeConstant.DOUBLE)
     private float maxLimit;
 
     @Column(name = "minLimit",type = MySqlTypeConstant.DOUBLE)
     private float minLimit;
 
-    @Column(name = "maxAge",type = MySqlTypeConstant.INT)
-    private int maxAge;
+    private int loanType;
 
-    @Column(name = "minAge",type = MySqlTypeConstant.INT)
-    private int minAge;
+    private float loanWantMoney;
 
-    @Column(name = "creditLv",type = MySqlTypeConstant.INT)
-    private int creditLv;
+//    @Column(name = "maxAge",type = MySqlTypeConstant.INT)
+//    private int maxAge;
+//
+//    @Column(name = "minAge",type = MySqlTypeConstant.INT)
+//    private int minAge;
+//
+//    @Column(name = "creditLv",type = MySqlTypeConstant.INT)
+//    private int creditLv;
 
     @Column(name = "guarantees",type = MySqlTypeConstant.INT)
     private int guarantees;
@@ -53,12 +61,6 @@ public class Loan {//6月10日16点42
     @Column(name = "topLimit",type = MySqlTypeConstant.INT)
     private int topLimit;
 
-    @Column(name = "online",type = MySqlTypeConstant.DATETIME)
-    private Date online;
-
-    @Column(name = "offline",type = MySqlTypeConstant.DATETIME)
-    private Date offline;
-
     @Column(name = "loanStatue",type = MySqlTypeConstant.INT)
     private int loanStatue;
 
@@ -70,11 +72,12 @@ public class Loan {//6月10日16点42
         return "Loan{" +
                 "lId=" + lId +
                 ", loanName='" + loanName + '\'' +
+                ", bidType=" + bidType +
+                ", bidId=" + bidId +
                 ", maxLimit=" + maxLimit +
                 ", minLimit=" + minLimit +
-                ", maxAge=" + maxAge +
-                ", minAge=" + minAge +
-                ", creditLv=" + creditLv +
+                ", loanType=" + loanType +
+                ", loanWantMoney=" + loanWantMoney +
                 ", guarantees=" + guarantees +
                 ", guaranter='" + guaranter + '\'' +
                 ", guaCardId='" + guaCardId + '\'' +
@@ -82,11 +85,49 @@ public class Loan {//6月10日16点42
                 ", interest=" + interest +
                 ", lowLimit=" + lowLimit +
                 ", topLimit=" + topLimit +
-                ", online=" + online +
-                ", offline=" + offline +
                 ", loanStatue=" + loanStatue +
                 ", remark='" + remark + '\'' +
                 '}';
+    }
+
+    public static int getIN() {
+        return IN;
+    }
+
+    public static int getCLOSE() {
+        return CLOSE;
+    }
+
+    public int getBidType() {
+        return bidType;
+    }
+
+    public void setBidType(int bidType) {
+        this.bidType = bidType;
+    }
+
+    public int getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(int bidId) {
+        this.bidId = bidId;
+    }
+
+    public int getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(int loanType) {
+        this.loanType = loanType;
+    }
+
+    public float getLoanWantMoney() {
+        return loanWantMoney;
+    }
+
+    public void setLoanWantMoney(float loanWantMoney) {
+        this.loanWantMoney = loanWantMoney;
     }
 
     public int getlId() {
@@ -119,30 +160,6 @@ public class Loan {//6月10日16点42
 
     public void setMinLimit(float minLimit) {
         this.minLimit = minLimit;
-    }
-
-    public int getMaxAge() {
-        return maxAge;
-    }
-
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
-    }
-
-    public int getMinAge() {
-        return minAge;
-    }
-
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
-    }
-
-    public int getCreditLv() {
-        return creditLv;
-    }
-
-    public void setCreditLv(int creditLv) {
-        this.creditLv = creditLv;
     }
 
     public int getGuarantees() {
@@ -199,22 +216,6 @@ public class Loan {//6月10日16点42
 
     public void setTopLimit(int topLimit) {
         this.topLimit = topLimit;
-    }
-
-    public Date getOnline() {
-        return online;
-    }
-
-    public void setOnline(Date online) {
-        this.online = online;
-    }
-
-    public Date getOffline() {
-        return offline;
-    }
-
-    public void setOffline(Date offline) {
-        this.offline = offline;
     }
 
     public int getLoanStatue() {

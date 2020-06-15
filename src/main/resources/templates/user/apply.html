@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>绑定网贷银行卡—小牛在线</title>
+
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
+    <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+
+    <script>
+        window.global = {
+            cdn: "//image.xiaoniu88.com",
+            siteroot: "https://www.xiaoniu88.com",
+            staticPath: "//image.xiaoniu88.com/static/WebXn/dist",
+            contextPath: "/payment",
+            serverTime: "1591919679692"*1,
+            userId: "6086292",
+            isLogin: true
+        }
+    </script>
+
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
+    <script>
+        $(function(){
+            seajs.use('module/common/common')
+        })
+    </script>
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/css/apply-73c8a78781.css" />
+</head>
+<body>
+<input value="true" type="hidden" id="isLogin"/>
+
+<div class="affiche" id="afficheModel">
+
+<span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
+	<a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a>
+</span>
+    <i class="icon-common icon-common-close"></i>
+</div>
+
+
+<header th:replace="/common::commonHeader"></header>
+
+<!--导航-->
+<div th:replace="/common::commonNav"></div>
+
+<div class="container">
+    <div class="g-account-main">
+        <div class="path">您现在的位置：我的账户 &gt;
+            <span id="pathTitle">绑定网贷银行卡</span>
+        </div>
+        <div class="center user-box">
+
+            <!--start 我的账户左边菜单列表-->
+            <div class="account-list" th:replace="/user/AccountOverview::inflist"></div>
+
+            <script src="//image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
+            <script>
+                $(function () {
+                    seajs.use('module/userNavList/js/init');
+                });
+            </script>
+
+            <!--end 我的账户左边菜单列表-->
+            <input type="hidden" value="bankCard" id="userNavList">
+            <!-- 左侧当前选中菜单 -->
+            <div class="account-cont" id="contanier">
+                <div class="at-til">
+                    <span class="name">绑定网贷银行卡</span>
+                </div>
+                <div class="bindcard-form" id="bindcardForm">
+                    <img class="xn-logo" src="//image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
+                    <div>
+                        <label>真实姓名：</label> <input type="text" class="bindcard-input" name="uName" id="uName" value="">
+                        <span class="bindcard-tip" data-tip="真实姓名必须与您的银行卡开户名一致">真实姓名必须与您的银行卡开户名一致</span>
+                    </div>
+                    <div>
+                        <label>身份证号码：</label> <input type="text" class="bindcard-input" name="identity" id="identity" maxlength="18" value=""> <span class="bindcard-tip" data-tip="请输入身份证号码">请输入身份证号码</span>
+                    </div>
+                    <div class="bk_cardnum"> <label>银行卡号：</label> <input type="text" class="bindcard-input" name="cardId" id="cardId" maxlength="23" value=""> <span class="bindcard-tip" data-tip="仅支持储蓄卡">仅支持储蓄卡</span> </div>
+                    <div>
+                        <label>开户银行：</label>
+                        <select name="bankName" id="bankName" class="bindcard-input selected">
+                            <option value="">请选择开户银行</option>
+                            <option value="ABC">农业银行</option>
+                            <option value="BOC">中国银行</option>
+                            <option value="CCB">建设银行</option>
+                            <option value="CEB">光大银行</option>
+                            <option value="CGB">广发银行</option>
+                            <option value="CIB">兴业银行</option>
+                            <option value="CITIC">中信银行</option>
+                            <option value="CMB">招商银行</option>
+                            <option value="COMM">交通银行</option>
+                            <option value="ICBC">工商银行</option>
+                            <option value="PAB">平安银行</option>
+                            <option value="PSBC">邮政储蓄银行</option>
+                            <option value="SPDB">浦发银行</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>银行预留手机号：</label>
+                        <input class="bindcard-input" name="phe" value="${session.user.phe}" disabled="">
+                        <span class="bindcard-tip" data-tip="若您在银行预留的手机号码发生变更，请<a href='/user/uasec/mobile' target='_blank'>更新手机号</a>"> 该手机号不是银行预留手机号？请先<a href="/user/uasec/mobile" target="_blank">修改认证手机号</a> </span>
+                    </div>
+                    <div class="js_code">
+                        <label>邮箱验证码：</label>
+                        <input name="code" class="bk_ipt bk_code" type="text" disabled="" id="codeBtn">
+                        <button class="btn-getcode js_getcode" id="getcodeBtn">免费获取</button>
+                        <span class="bindcard-tip" data-tip="" id="emcode"></span>
+                    </div>
+                    <div class="code_msg js_code">
+                        <span id="code_msg">短信验证码已发送到您的手机 <i>178****7767</i><br>若您在银行预留的手机号码发生变更，将无法接收短信，请 <a href="/user/uasec/mobile" target="_blank">点击此处</a> 更新手机号 </span>
+                    </div>
+                    <div class="bk_arge_line">
+                        <input type="checkbox" name="arge" class="arge" id="arge" checked="checked">
+                    <span class="bk_arge">我已阅读并同意 <a class="bindcard-info" href="http://image.xiaoniu88.com/static/WebXn/dist/payment/agreement/fundManagement.html">《资金管理服务协议》</a> </span> </div>
+                    <div class="bindcard-msg" id="submitMsg"></div>
+                    <button class="bind-btn" id="submitBtn">立即绑定</button></div>
+                <dl class="bindcard-tips"> <dt>温馨提示</dt>
+                    <dd>
+                        1、银行卡的开户名必须与实名登记的姓名一致； <br>
+                        2、为了您的资金安全，仅限绑定一张银行卡；仅支持储蓄卡，不可用信用卡；<br>
+                        3、更改绑定银行卡，需要提交个人证明材料进行人工审核；如有其它问题咨询，请联系客服。
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="g-h30"></div>
+    </div>
+</div>
+<!--end 内容-->
+
+
+<script src="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/js/apply-ea73681945.js"></script>
+<script>
+</script>
+
+<!--footer-->
+<div class="footer" th:fragment="commonFooter">
+    <div class="g-o" style="width:1170px">
+        <ul>
+            <li>
+                <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                <a target="_blank" href="/portal/platform/index">平台数据</a>
+                <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                <a target="_blank" href="/portal/guide/security">风险管理</a>
+                <a target="_blank" href="/cms/about/index">公司概况</a>
+                <a target="_blank" href="/cms/about/contactus">联系我们</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                <a target="_blank" href="/cms/help/question/3">项目</a>
+                <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+            </li>
+            <li class="last ft-wm">
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                    <span>官方微信</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                    <span>手机客户端</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                    <span>兴趣部落</span>
+                </p>
+            </li>
+            <li class="last">
+                <p class="til-ic">全国服务热线：</p>
+                <p class="bd">4006-0755-70</p>
+                <p>服务时间 9:00-18:00</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--start 尾部-->
+<div class="foot-bt" th:fragment="commonEnd">
+    <p>Copyright &copy; 2015 深圳市小母牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+    <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦顶楼   座机：2333－250941</p>
+    <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+    <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+        <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+</div>
+
+<!--end 尾部-->
+
+<!--引入统计代码-->
+
+<div style="display:none">
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-104712537-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</div>
+
+<script>
+    //百度统计
+    var _hmt = _hmt || [];
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+</script>
+<div id="em" th:text="${session.user.email}"></div>
+<script>
+    function getCode() {
+        var email = $("#em").innerText;
+        $.post("/user/getMa",{email:email,type:'smrz'},function (deta) {
+            $("#emcode").attr("value",deta);
+        },"json");
+    }
+</script>
+</body>
+</html>
