@@ -45,7 +45,7 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="//image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
-    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+    <!--<script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>-->
 
 
     <script>
@@ -291,6 +291,7 @@
 <!-- body内容 -->
 <div class="main">
     <div class="container" id="contanier">
+     <!--条件筛选-->
         <div class="filtrate" id="filtrateModel">
             <div class="content">
                 <dl data-key="term" class="term">
@@ -330,6 +331,7 @@
         </div>
         <div class="content">
             <a name="listStart" class="list-start"></a>
+    <!--排序-->
             <div class="list-main">
                 <div class="sorting" id="sortingModel">
                     <span class="sort active" data-val="" data-sorttype="0">默认</span>
@@ -338,14 +340,103 @@
                     <span class="sort" data-val="" data-sorttype="4" id="leftAmountSort">剩余金额<i class="icon icon-down"></i></span>
                     <span class="sort sortCanHide" data-val="" data-sorttype="3" id="tsfProfitSort">让利金额<i class="icon icon-down"></i></span>
                 </div>
-                
-                <div id="pages"></div>
+    <!--具体列表-->
+                <div id="list">
+                    <div class="list" id="listModel">
+                        <div class="item sell-out" data-href="http://www.xiaoniu88.com/product/common/68865618">
+                            <div class="info">
+                                <dl class="title">
+                                    <dt>
+                                        小额消费借款
+                                    </dt>
+                                    <dd>
+                                        <a href="javascript:;" title="消费贷AH20190505-a3" class="name">消费贷AH20190505-a3</a>
+                                    </dd>
+                                </dl>
+                                <dl class="earnings">
+                                    <dt>
+                                        10.80
+                                        <span>%</span>
+                                    </dt>
+                                    <dd>
+                                        参考利率
+                                        <i class="icon icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，&lt;br&gt;并不代表实际收益，市场有风险，出借需谨慎。"></i>
+                                    </dd>
+                                </dl>
+                                <dl class="limit">
+                                    <dt>
+                                        15个月
+                                        <i class="text-tag">1个月可转</i>
+                                    </dt>
+                                    <dd>
+                                        期限
+                                    </dd>
+                                </dl>
+                                <dl class="starting-amount">
+                                    <dt>
+                                        0.00元
+                                    </dt>
+                                    <dd>
+                                        剩余金额
+                                    </dd>
+                                </dl>
+                                <dl class="build-date">
+                                    <dt>
+                                        每月还本付息
+                                    </dt>
+                                    <dd>
+                                        还款方式
+                                    </dd>
+                                </dl>
+                                <dl class="operate trading">
+                                    <dd>
+                                        成功交易时间
+                                    </dd>
+                                    <dd class="datetime">
+                                        2019-05-05
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 <!-- footer -->
-
+<!--分页-->
+<div id="pages" class="paginator" style="visibility: visible;">
+    <div class="paginator-main" id="paginator-main" style="display: block;">
+        <div class="paginator-info">
+            第5页/共30页
+        </div>
+        <div class="paginator-left">
+            <ol>
+                <li><a href="javascript:;" data-role="first" class="">首页</a></li>
+                <li><a href="javascript:;" data-role="prev" class="">上一页</a></li>
+            </ol>
+        </div>
+        <!--<div class="paginator-list" style="width: 175px;">-->
+        <!--<ol class="paginator-list-main" style="width: 1050px;">-->
+        <!--<li><a href="javascript:;" data-role="3">3</a></li>-->
+        <!--<li><a href="javascript:;" data-role="4">4</a></li>-->
+        <!--<li><a href="javascript:;" data-role="5" class="current">5</a></li>-->
+        <!--<li><a href="javascript:;" data-role="6">6</a></li>-->
+        <!--<li><a href="javascript:;" data-role="7">7</a></li>-->
+        <!--</ol>-->
+        <!--</div>-->
+        <div class="paginator-right">
+            <ol>
+                <li><a href="javascript:;" data-role="next">下一页</a></li>
+                <li><a href="javascript:;" data-role="last">末页</a></li>
+            </ol>
+        </div>
+    </div>
+    <!--<p class="paginator-none" style="display:none;"><i class="icon icon-no-data"></i> <span>您暂时没有数据可显示</span></p>-->
+</div>
 
 
 

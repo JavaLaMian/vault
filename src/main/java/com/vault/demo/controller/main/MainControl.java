@@ -27,8 +27,14 @@ public class MainControl{
         return "firstPage/first";
     }
 
-    @RequestMapping("prose")
+    @RequestMapping("/prose")
     public String toProse(){
         return "firstPage/prose";
+    }
+
+
+    @RequestMapping("/perList")
+    public String perList(){
+        return "firstPage/proseList";
     }
 }

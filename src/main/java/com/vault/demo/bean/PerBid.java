@@ -24,7 +24,7 @@ public class PerBid {
        private String answer;
        private int  transfer;
        private Date startTime;
-       private  int investor;
+
 
     @Override
     public String toString() {
@@ -44,7 +44,7 @@ public class PerBid {
                 ", answer='" + answer + '\'' +
                 ", transfer=" + transfer +
                 ", startTime=" + startTime +
-                ", investor=" + investor +
+
                 '}';
     }
 
@@ -168,11 +168,5 @@ public class PerBid {
         this.startTime = startTime;
     }
 
-    public int getInvestor() {
-        return investor;
-    }
 
-    public void setInvestor(int investor) {
-        this.investor = investor;
-    }
 }
