@@ -1,5 +1,7 @@
 package com.vault.demo.service.user;
 
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import org.apache.commons.mail.EmailException;
 
@@ -9,4 +11,7 @@ public interface UserService {
     Userimf pandEmail(String email);
     Userimf logPadUser(Userimf userimf);
     int updetaPwd(String email,String pwd);
+
+    void bindCredit(Credit credit);
+    void bindBank(UserBank userBank);
 }

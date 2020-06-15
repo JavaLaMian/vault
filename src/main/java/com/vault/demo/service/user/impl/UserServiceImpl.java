@@ -1,7 +1,11 @@
 package com.vault.demo.service.user.impl;
 
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
+import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
+import com.vault.demo.dao.CreditDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -13,6 +17,10 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserimfDao dao;
+    @Resource
+    private BankDao bdao;
+    @Resource
+    private CreditDao cdao;
 
     @Override
     public int addUserImf(Userimf user) {
@@ -70,5 +78,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updetaPwd(String email, String pwd) {
         return dao.updateUserPwd(pwd,email);
+    }
+
+    @Override
+    public void bindCredit(Credit credit) {
+        cdao.bindCredit(credit);
+    }
+
+    @Override
+    public void bindBank(UserBank userBank) {
+        bdao.bindBank(userBank);
     }
 }
