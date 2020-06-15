@@ -40,6 +40,20 @@
             margin: 40px auto;
             padding-bottom: 30px;
         }
+        .goumai{
+            width: 122px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 5px;
+            color: #ff7136;
+            border: 1px solid #ff7136;
+            background-color: white;
+        }
+        .goumai:hover{
+            color: white;
+            background-color: #ff7136;
+        }
     </style>
 </head>
 <body>
@@ -138,14 +152,6 @@
                     <a href="/product/list?type=transfer">转让专区</a>
                 </li>
             </ul>
-            <!--<ul class="nav nav-information" data-type="security">-->
-                <!--<li class="first"><a href="/cms/about/index">信息披露</a></li>-->
-                <!--<li><a href="/cms/about/index">关于小牛</a></li>-->
-                <!--<li><a href="/cms/compliance/filingInfo">合规备案</a></li>-->
-                <!--<li><a href="/cms/business/consumer">业务介绍</a></li>-->
-                <!--<li><a href="/portal/platform/index">运营信息</a></li>-->
-                <!--<li><a href="/portal/platform/riskmanagement">保障体系</a></li>-->
-            <!--</ul>-->
         </nav>
         <div th:if="${session.user==null}" class="user">
             <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/tologin')" class="title">
@@ -214,8 +220,8 @@
     </div>-->
     <div class="shoulder" id="shoulderModel">
         <div class="neck">
-            <h2 class="title">优享牛-24个月可转20190729-13</h2>
-            <span class="sub-title">到期自动转让</span>
+            <h2 th:if="${bx.bId != null}" th:text="${bx.bidName}+'-'+${bx.transLine}+'月可转'" class="title"></h2>
+            <span th:if="${bx.bId != null and bx.transfer == 1}" class="sub-title">到期自动转让</span>
             <a class="contract to-contract" href="javascript:;" data-url="/cms/contract/pcts/1/template/productId/93237853">《服务合同》</a>
             <a class="contract dialog-risk-info" href="javascript:;">《风险提示函》</a>
         </div>
@@ -224,60 +230,70 @@
                 <div class="sub-left-top">
                     <dl class="earnings">
                         <dt class="curRate">
-                            <b class="f-rate color-orange">10.00</b>
+                            <b class="f-rate color-orange" th:if="${bx.bId != null}" th:text="${bx.rate}"></b>
+                            <b class="f-rate color-orange" th:if="${bx.bId != null && bx.rewardRate != 0}" th:text="'+'+${bx.rewardRate}"></b>
                             <span>%</span>
                         </dt>
                         <dd>
-                            "参考利率"
+                            参考利率
                             <i class="icon icon-question-mark js_poshytip" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i>
                         </dd>
                     </dl>
                     <dl class="borrow-amount">
                         <dt>
-                            <span class="f-rate js_term">24</span>
-                            个月
+                            <span class="f-rate js_term" th:if="${bx.bId != null}" th:text="${bx.clockLine}"></span>个月
                         </dt>
                         <dd>锁定期 | 持满自动转让</dd>
                     </dl>
                     <dl class="lock-day">
-                        <dt>
-                            <span class="f-rate">0.00</span>
-                            元
+                        <dt th:if="${bx.bId != null}" >
+                            <span class="f-rate" th:if="${bx.bId != null}" th:text="${bx.personLimit}"></span>万
                         </dt>
                         <dd>可加入</dd>
                     </dl>
                 </div>
                 <ul class="sub-left-mid"></ul>
                 <ul class="subject-term g-cf" id="productTerm">
-                    <li data-productid="93237853" class="active disabled">
-                        <p class="p1">24 个月</p><p>已售罄</p>
+                    <li th:if="${bx.bId != null}" th:switch="${bx.bidStatus}" data-productid="93237853" class="active disabled" style="height: 64px">
+                        <p class="p1" th:case="1" th:text="|预售|"></p>
+                        <p class="p1" th:case="0" th:text="|正在销售|"></p>
+                        <p class="p1" th:case="3" th:text="|售罄|"></p>
+                        <p class="p1" th:case="2" th:text="|关闭交易|"></p>
                     </li>
                 </ul>
             </div>
             <div class="sub-right">
-                <div class="sellout abs">
+                <div class="sellout abs" th:if="${session.user==null}" style="background: aliceblue;">
+                    <div class="info">请先登陆您的账号</div>
+                </div>
+                <div class="sellout abs" th:if="${session.user!=null and to == null}" style="background: rgb(254,250,250)">
+                    <div class="info">将从余额扣除</div>
+                    <button class="goumai">立即购买</button>
+                </div>
+                <div class="sellout abs" th:if="${session.user!=null and to != null}">
                     <div class="info">成功交易时间：</div>
-                    <div class="describe">2019-07-29 23:59:59</div>
+                    <div class="describe" th:text="${#dates.format(to.tenTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
                 </div>
             </div>
         </div>
         <div class="plan-content">
             <ul class="plan g-cf">
                 <li class="plan-item plan-item1 active">
-                    <p class="p1">加入</p><p class="p2">2020-06-13</p>
+                    <p class="p1">加入</p>
+                    <p class="p2" th:if="${bx.bId != null}" th:text="${#dates.format(bx.bidTime, 'yyyy-MM-dd')}"></p>
                     <p class="p3">匹配项目</p>
                 </li>
                 <li class="plan-item plan-item2">
                     <p class="p1">开始收益</p>
-                    <p class="p2">2020-06-14</p>
+                    <p class="p2" id="kaishi" th:if="${bx.bId != null}" th:text="${#dates.format(bx.exprie, 'yyyy-MM-dd')}"></p>
                     <p class="p3">
-                        <span class="js_term">24</span>
+                        <span class="js_term"  id="suoding" th:if="${bx.bId != null}" th:text="${bx.clockLine}"></span>
                         个月锁定期
                     </p>
                 </li>
                 <li class="plan-item plan-item3">
                     <p class="p1">锁定期结束</p>
-                    <p class="p2">2022-06-14</p>
+                    <p class="p2" id="end"></p>
                     <p class="p3">锁定期结束自动转让</p>
                 </li>
                 <li class="plan-item plan-item4">
@@ -463,6 +479,22 @@
     function  gotoLogin(url) {
         window.location.href=url;
     }
+
+    function jishuanDate() {
+        var kai = $("#kaishi").text();//年 -月 -日
+        var sou = parseInt($("#suoding").text());
+        var dates = (new Date(kai + " 00:00:00")).getTime();
+        var cha = dates + sou * 30 *24 *60 *60 *1000;
+        var newDate = new Date(cha);
+        var nian = newDate.getFullYear();
+        var yue = newDate.getMonth()+1;
+        var day = newDate.getDate();
+        var endDate = nian+"-";
+        yue < 10 ? endDate+="0"+yue : endDate+=yue;
+        day < 10 ? endDate+="-0"+day : endDate+="-"+day;
+        $("#end").text(endDate);
+    }
+    jishuanDate();
 </script>
 </body>
 </html>

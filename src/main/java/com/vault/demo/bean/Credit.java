@@ -4,6 +4,8 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
+import java.util.Date;
+
 @Table(name = "credit")
 public class Credit {//6月10日15点31
 
@@ -13,14 +15,28 @@ public class Credit {//6月10日15点31
     private int uId;
     @Column(name = "depart",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String depart;
+
+    private String wages;
+
+    private String name;
+
     @Column(name = "identity",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String identity;
     @Column(name = "hId",type = MySqlTypeConstant.INT)
     private int hId;
+
+    private int cId;
+
     @Column(name = "funds",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String funds;
-    @Column(name = "photo",type = MySqlTypeConstant.VARCHAR,length = 200)
-    private String photo;
+
+    private String positiveIDPhoto;
+
+    private String negativeIDPhoto;
+
+    private String creditLV;
+
+    private Date creditUpdateTime;
 
     @Override
     public String toString() {
@@ -28,10 +44,16 @@ public class Credit {//6月10日15点31
                 "creId=" + creId +
                 ", uId=" + uId +
                 ", depart='" + depart + '\'' +
+                ", wages='" + wages + '\'' +
+                ", name='" + name + '\'' +
                 ", identity='" + identity + '\'' +
-                ", house='" + hId + '\'' +
+                ", hId=" + hId +
+                ", cId=" + cId +
                 ", funds='" + funds + '\'' +
-                ", photo='" + photo + '\'' +
+                ", positiveIDPhoto='" + positiveIDPhoto + '\'' +
+                ", negativeIDPhoto='" + negativeIDPhoto + '\'' +
+                ", creditLV='" + creditLV + '\'' +
+                ", creditUpdateTime=" + creditUpdateTime +
                 '}';
     }
 
@@ -59,6 +81,22 @@ public class Credit {//6月10日15点31
         this.depart = depart;
     }
 
+    public String getWages() {
+        return wages;
+    }
+
+    public void setWages(String wages) {
+        this.wages = wages;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getIdentity() {
         return identity;
     }
@@ -67,12 +105,20 @@ public class Credit {//6月10日15点31
         this.identity = identity;
     }
 
-    public int getHouse() {
+    public int gethId() {
         return hId;
     }
 
-    public void setHouse(int hId) {
+    public void sethId(int hId) {
         this.hId = hId;
+    }
+
+    public int getcId() {
+        return cId;
+    }
+
+    public void setcId(int cId) {
+        this.cId = cId;
     }
 
     public String getFunds() {
@@ -83,11 +129,35 @@ public class Credit {//6月10日15点31
         this.funds = funds;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPositiveIDPhoto() {
+        return positiveIDPhoto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPositiveIDPhoto(String positiveIDPhoto) {
+        this.positiveIDPhoto = positiveIDPhoto;
+    }
+
+    public String getNegativeIDPhoto() {
+        return negativeIDPhoto;
+    }
+
+    public void setNegativeIDPhoto(String negativeIDPhoto) {
+        this.negativeIDPhoto = negativeIDPhoto;
+    }
+
+    public String getCreditLV() {
+        return creditLV;
+    }
+
+    public void setCreditLV(String creditLV) {
+        this.creditLV = creditLV;
+    }
+
+    public Date getCreditUpdateTime() {
+        return creditUpdateTime;
+    }
+
+    public void setCreditUpdateTime(Date creditUpdateTime) {
+        this.creditUpdateTime = creditUpdateTime;
     }
 }

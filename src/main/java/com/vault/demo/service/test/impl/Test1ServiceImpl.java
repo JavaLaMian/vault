@@ -31,6 +31,6 @@ public class Test1ServiceImpl implements Test1Service {
 
     @Override
     public List<Bid> allBid() {
-        return bidDao.allList();
+        return bidDao.allList(0);
     }
 }
