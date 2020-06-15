@@ -12,10 +12,14 @@
         <selectKey keyColumn="lId" resultType="integer" keyProperty="lId" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into loan values(null,#{loanName},#{maxLimit},#{minLimit},#{maxAge},#{minAge},#{creditLv},#{guarantees},#{guaranter},#{guaCardId},#{review},#{interest},#{lowLimit},#{topLimit},#{online},#{offline},#{loanStatue},#{remark})
+        insert into loan values(null,#{loanName},#{bidType},#{bidId},#{uId},#{maxLimit},#{minLimit},#{loanType},#{loanWantMoney},#{loanPurpose},#{applicationTime},#{applicationEnd},#{guarantees},#{guaranter},#{guaCardId},#{review},#{interest},#{lowLimit},#{topLimit},#{loanStatue},#{remark})
     </insert>
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Loan">
         delete from loan where lId = #{lId}
     </delete>
+
+    <select id="loanNow" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Loan">
+        select * from loan where uId = #{u.uId} and loanStatue not in (3,4)
+    </select>
 </mapper>

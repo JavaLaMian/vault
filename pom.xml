@@ -32,7 +32,12 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.17</version>
         </dependency>
-
+        <!--fastJson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.41</version>
+        </dependency>
         <!--数据持久层-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
