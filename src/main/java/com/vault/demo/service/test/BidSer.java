@@ -2,6 +2,7 @@ package com.vault.demo.service.test;
 
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
+import com.vault.demo.bean.Tender;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface BidSer{
     List<Bid> selectByType(int bType);
     List<PerBid> selectPerB();
 
+    Bid selectByBid(int bid);
+    PerBid selectByPid(int pid);
+    Tender getTenderId(int tid);
 }

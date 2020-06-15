@@ -1,15 +1,21 @@
 package com.vault.demo.controller.loan;
 
+import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.UserimfDao;
+import com.vault.demo.dao.file.FileUpload;
+import com.vault.demo.service.loan.LoanService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RequestMapping("/loan")
 @Controller
@@ -17,6 +23,9 @@ public class loanController {
 
     @Resource
     UserimfDao userimfDao;
+
+    @Resource
+    LoanService loanService;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -50,6 +59,7 @@ public class loanController {
         Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
 
         session.setAttribute("user",userimfEX);
+        session.setAttribute("userLoan",loanService.LoanNow(userimfEX));//获取用户的贷款信息
 
         return "redirect:/loan/main2";
     }
@@ -99,8 +109,19 @@ public class loanController {
 
         return "loan/loanJie";
     }
+
     @RequestMapping("/toloanJie")
-    public String toloanJie(@Param( "step") Integer step, Model model) {
+    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
+        Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+
+        if (credit == null){
+            return "loan/creditNotPush";
+        }
+
         System.out.println("step："+step);
         if(step==null){
             step = 1 ;
@@ -108,6 +129,30 @@ public class loanController {
          model.addAttribute("step",step);
         return "loan/loanJieApply";
     }
+
+    @RequestMapping("/toCreditRegister")
+    public String toCreditRegister(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
+        return "creditRegister";
+    }
+
+    @RequestMapping("/registerCredit")
+    public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request){
+        String realPath =  request.getSession().getServletContext().getRealPath("");
+        String dirPath = "D:\\vault\\file\\identity\\";
+        //上传文件
+        String positiveIDPhotoEXFileName = FileUpload.upload(positiveIDPhotoEX,dirPath,request);
+        String negativeIDPhotoEXFileName = FileUpload.upload(negativeIDPhotoEX,dirPath,request);
+        credit.setPositiveIDPhoto(positiveIDPhotoEX.getOriginalFilename());
+        credit.setNegativeIDPhoto(negativeIDPhotoEX.getOriginalFilename());
+
+
+        return "";
+    }
+
     @RequestMapping("/loanJie")
     public String loanJie(){
         return "";
@@ -133,5 +178,15 @@ public class loanController {
         }else {
             return false;
         }
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(){
+        loanService.TestInsertLoan();
+
+        List loanList = loanService.TestAllLoan();
+
+        return loanList.toString();
     }
 }
