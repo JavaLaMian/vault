@@ -9,4 +9,6 @@ public interface selevicexmn {
     int addBid(Bid bid);//新增投标
     List<Bid> Bidlist();//查询投标信息
     List<Bid> selectgetBid(Bid bid);//根据id查询出投标信息
+    int updateBid(Bid bid);//修改投标信息
+    int dateBid(Bid bid);//删除投标信息
 }

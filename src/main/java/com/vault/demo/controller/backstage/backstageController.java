@@ -3,12 +3,14 @@ package com.vault.demo.controller.backstage;
 import com.vault.demo.bean.Admin;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -104,11 +106,46 @@ public class backstageController {
         mv.setViewName("redirect:/XMN/BidList");
         return mv;
     }
+    //请修改页面
     @RequestMapping("/updataBid")
-    public ModelAndView updataBid(Bid bid,ModelAndView mv,Model model){
+    public ModelAndView updataBid(Bid bid, ModelAndView mv, Model model, HttpSession session){
         List<Bid> list = is.selectgetBid(bid);
+        for(int i=0;i<list.size();i++){
+            bid = list.get(i);
+        }
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//开始时间
+        String bidTime  = sdf.format(bid.getBidTime());
+        String exprie  = sdf.format(bid.getExprie());
+        session.setAttribute("bidTime",bidTime);
+        session.setAttribute("exprie",exprie);
+
         model.addAttribute("list",list);
         mv.setViewName("backstage/Bidupdata");
+        return mv;
+    }
+    //修改页面
+    @RequestMapping("/BupdateBid")
+    public ModelAndView BupdateBid(ModelAndView mv,Bid bid,String begTime,String gebTime) throws ParseException {
+        //时间转换
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//这个是你要转成后的时间的格式
+        Date date1 = sdf.parse(begTime);//上线时间
+        Date date2 = sdf.parse(gebTime);//封标时间
+        bid.setBidTime(date1);
+        bid.setExprie(date2);
+        is.updateBid(bid);
+        mv.setViewName("redirect:/XMN/BidList");
+        return mv;
+    }
+    //删除投标信息
+    @RequestMapping("/dateBid")
+    public ModelAndView dateBid(ModelAndView mv,Bid bid){
+        int ok = is.dateBid(bid);
+        if(ok != 1){
+            mv.setViewName("backstage/404");
+        }else {
+            mv.setViewName("redirect:/XMN/BidList");
+
+        }
         return mv;
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期
@@ -116,7 +153,6 @@ public class backstageController {
         if(ok == 1){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            System.out.println(time);
             if(time == -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
@@ -134,7 +170,6 @@ public class backstageController {
         }else if(ok ==2){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            System.out.println(time);
             if(time == -1 ){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
@@ -154,7 +189,6 @@ public class backstageController {
         } else if(ok == 3){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            System.out.println(time);
             if(time == -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
@@ -174,7 +208,6 @@ public class backstageController {
         } else if(ok == 4){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            System.out.println(time);
             if(time == -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）

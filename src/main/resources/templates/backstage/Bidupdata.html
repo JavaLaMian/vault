@@ -9,7 +9,313 @@
     <!--引入相应的bootstrap.JS支持文件-->
     <div th:replace="/backstage/Brepetition::backstageJS"></div>
 </head>
-<body>
+<body data-logobg="color_8" data-sidebarbg="color_8" th:each="p:${list}">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
 
+        <!--页面主要内容-->
+        <main class="layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <form  method="post" class="row" th:action="@{/XMN/BupdateBid}">
+                                    <input id="bId" name="bId" th:value="${p.bId}" type="hidden">
+                                    <!--问答-->
+                                    <input id="question" name="question" th:value="${p.question}" type="hidden">
+                                    <input id="answer" name="answer" th:value="${p.question}" type="hidden">
+                                    <!--交易次数-->
+                                    <input id="dealCount" name="dealCount" th:value="${p.dealCount}" type="hidden">
+                                    <!--最长投标时间-->
+                                    <input id="maxTime" name="maxTime" th:value="${p.maxTime}" type="hidden">
+                                    <!--状态-->
+                                    <input id="bidStatus" name="bidStatus" th:value="${p.bidStatus}" type="hidden">
+                                    <!--转让期-->
+                                    <input id="transLine" name="transLine" th:value="${p.transLine}" type="hidden">
+
+                                    <!--标名-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">标名</label>
+                                            <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                                                <input type="text" class="form-control" id="bidName" name="bidName" th:value="${p.bidName}" placeholder="请输入投标名" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--标类-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">标种</label>
+                                            <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                                                <select name="bidType" class="form-control" id="bidType" onchange="pptf()">
+                                                    <option value="1" selected th:if="${p.bidType eq 1}">新手标</option>
+                                                    <option value="1" th:if="${p.bidType != 1}">新手标</option>
+                                                    <option value="2" selected th:if="${p.bidType eq 2}">优享标</option>
+                                                    <option value="2" th:if="${p.bidType != 2}">优享标</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--标期 （活期 和 定期）-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">标期</label>
+                                            <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                                                <select name="deposit" class="form-control" id="deposit" onchange="biaoqi()">
+                                                    <option value="1" selected th:if="${p.deposit eq 1}">定期</option>
+                                                    <option value="1" th:if="${p.deposit != 1}">定期</option>
+                                                    <option value="2" selected th:if="${p.deposit eq 2}">活期</option>
+                                                    <option value="2" th:if="${p.deposit != 2}">活期</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--定期锁期时间-->
+                                    <div class="form-group col-md-12" id="BBBB" th:if="${p.deposit eq 1}">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">定期锁期时间</label>
+                                            <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                                                <select name="clockLine" class="form-control" id="clockLine">
+                                                    <option value="1" selected th:if="${p.clockLine eq 1}">3个月</option>
+                                                    <option value="1" th:if="${p.clockLine != 1}">3个月</option>
+                                                    <option value="2" selected th:if="${p.clockLine eq 2}">6个月</option>
+                                                    <option value="2" th:if="${p.clockLine != 2}">6个月</option>
+                                                    <option value="3" selected th:if="${p.clockLine eq 3}">12个月</option>
+                                                    <option value="3" th:if="${p.clockLine != 3}">12个月</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--基础利率-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">基础利率</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_01" name="rate" th:value="${p.rate}">
+                                                <small class="form-text text-muted">酌情增加</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--新手利率-->
+                                    <div class="form-group col-md-12" id="aaa" th:if="${p.bidType eq 1}">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">新手利率</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_05" name="rewardRate" th:value="${p.rewardRate}">
+                                                <small class="form-text text-muted">酌情增加</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--标种总体累计限额-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">总体金额</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_02" name="sumLimit" th:value="${p.sumLimit}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--个人累计限额-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">个人总金额</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_06" name="personLimit" th:value="${p.personLimit}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--起投最小金额-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">起标额度</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_07" name="startLimit" th:value="${p.startLimit}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--单笔限额-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">单笔限额-</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_03" name="singelLimit" th:value="${p.singelLimit}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--每次可以追加金额-->
+                                    <div class="form-group col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">每次可以追加金额</label>
+                                            <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                                                <input id="range_04" name="addLimit" th:value="${p.addLimit}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-4">
+                                        <label for="type">是否可以自动转让</label>
+                                        <div class="input-daterange input-group col-lg-8">
+                                            <div class="example-box">
+                                                <label class="radio radio-inline radio-primary">
+                                                    <input type="radio" name="transfer" value="1"><span>是</span>
+                                                </label>
+                                                <label class="radio radio-inline radio-primary">
+                                                    <input type="radio" name="transfer" value="2"><span>否</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--是否可以自动复投-->
+                                    <div class="form-group col-xs-4">
+                                        <label for="type">是否可以自动复投</label>
+                                        <div class="input-daterange input-group col-lg-8">
+                                            <div class="example-box">
+                                                <label class="radio radio-inline radio-primary">
+                                                    <input type="radio" name="aotuInverst" value="1"><span>是</span>
+                                                </label>
+                                                <label class="radio radio-inline radio-primary">
+                                                    <input type="radio" name="aotuInverst" value="2"><span>否</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--时间-->
+                                    <div class="form-group col-md-12">
+                                        <div class="card">
+                                            <label for="type">标期时间</label>
+                                            <div class="input-daterange input-group col-lg-8">
+                                                <input class="form-control js-datetimepicker" type="text" id="begTime" name="begTime" placeholder="开始投标时间" th:value="${session.bidTime}" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                                                <input class="form-control js-datetimepicker" type="text" id="gebTime" name="gebTime" placeholder="封标期时间" th:value="${session.exprie}" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">修 改</button>
+                                        <button type="button" class="btn btn-default" onclick="sks()">返 回</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+<script type="text/javascript">
+    $(function () {
+        $("#range_01").ionRangeSlider({
+            grid: true,
+            min: 0.0,
+            max: 15.0,
+            step: 0.1,
+            from: 7.0,
+            prefix: "%"
+        });
+        $("#range_02").ionRangeSlider({
+            min: 0,
+            max: 2000,
+            grid: true,
+            prefix: "万"
+
+        });
+        $("#range_03").ionRangeSlider({
+            min: 0,
+            max: 200,
+            grid: true,
+            from: 200,
+            prefix: "万"
+        });
+        $("#range_04").ionRangeSlider({
+            grid: true,
+            from: 0,
+            to: 5,
+            values: [0.5, 1, 5, 10, 50, 100, 1000],
+            prefix: "万"
+        });
+        $("#range_05").ionRangeSlider({
+            grid: true,
+            min: 0.0,
+            max: 10.0,
+            step: 0.1,
+            from: 5.0,
+            prefix: "%"
+        });
+        $("#range_06").ionRangeSlider({
+            min: 0,
+            max: 200,
+            grid: true,
+            prefix: "万"
+        });
+        $("#range_07").ionRangeSlider({
+            min: 0,
+            max: 100,
+            from: 5,
+            grid: true,
+            prefix: "万"
+        });
+        th:var transfer = [[${p.transfer}]];
+        th:var aotuInverst =  [[${p.aotuInverst}]];
+        //默认选中
+        $("input[name='transfer'][value="+transfer+"]").attr("checked",true);
+        //默认选中
+        $("input[name='aotuInverst'][value="+aotuInverst+"]").attr("checked",true);
+        nt.getElementById('bidTime').value;
+        $("#begTime").val(bidTime);
+        var gebTime =document.getElementById('gebTime').value;
+        $("#gebTime").val(gebTime);
+
+
+
+
+
+
+    })
+    //标种切换js
+    function pptf(){
+        var selects = document.getElementById("bidType");
+        var indexs = selects.selectedIndex;  //选中项的索引
+        var sanbiao = selects.options[indexs].text
+        if(sanbiao == '优享标'){
+            $('#aaa').show();
+            $(document).one('click',function(){
+                $('#aaa').hide();
+            })
+
+        }else if(sanbiao == '新手标'){
+            $('#aaa').css("display","block");
+        }
+    }
+    //标期时间
+    function biaoqi(){
+        var selects = document.getElementById("deposit");
+        var indexs = selects.selectedIndex;  //选中项的索引
+        var sanbiao = selects.options[indexs].text
+        if(sanbiao == '活期'){
+            $('#BBBB').show();
+            $(document).one('click',function(){
+                $('#BBBB').hide();
+            })
+
+        }else if(sanbiao == '定期'){
+            $('#BBBB').css("display","block");
+        }
+    }
+</script>
 </body>
 </html>

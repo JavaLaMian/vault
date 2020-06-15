@@ -28,4 +28,16 @@ public class selevicexmnImpl implements selevicexmn {
     public List<Bid> selectgetBid(Bid bid) {
         return dao.selectgetBid(bid);
     }
+
+    @Override
+    public int updateBid(Bid bid) {
+        int ok = dao.updateBid(bid);
+        return ok;
+    }
+
+    @Override
+    public int dateBid(Bid bid) {
+        int ok = dao.dateBid(bid);
+        return ok;
+    }
 }
