@@ -2,6 +2,7 @@ package com.vault.demo.controller.backstage;
 
 import com.vault.demo.bean.Admin;
 import com.vault.demo.bean.Bid;
+import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/XMN")
 public class backstageController {
+    @Resource
+    selevicexmn is;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv, HttpSession session){
@@ -69,8 +72,13 @@ public class backstageController {
     }
     //去往投标新增页面
     @RequestMapping("/Badd_Bid")
-    public ModelAndView Badd_Bid(ModelAndView mv){
-        mv.setViewName("backstage/Badd_Bid");
+    public ModelAndView Badd_Bid(ModelAndView mv,HttpSession session){
+        Admin admin = (Admin)session.getAttribute("admin");
+        if(admin == null){
+            mv.setViewName("backstage/admin_login");
+        }else{
+            mv.setViewName("backstage/Badd_Bid");
+        }
         return mv;
     }
 }

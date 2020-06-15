@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 @Controller
 @RequestMapping("/back_loan")
 public class BackLoanController {
@@ -15,5 +14,13 @@ public class BackLoanController {
     public JSON loadLoanData(){
         JSON data = new JSONArray();
         return data;
+    }
+    @RequestMapping("/lookDetails")
+    public String toDetails(){
+        return "";
+    }
+    @RequestMapping("/tooExamine")
+    public String tooExamine(){
+        return "";
     }
 }

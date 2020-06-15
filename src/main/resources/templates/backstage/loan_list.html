@@ -20,9 +20,7 @@
 
         <!--页面主要内容-->
         <main class="layout-content">
-
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -42,74 +40,13 @@
                                         <input type="text" class="form-control" value="" name="keyword" placeholder="请输入名称">
                                     </div>
                                 </form>
-                                <div class="toolbar-btn-action">
-                                    <a class="btn btn-primary m-r-5" th:href="@{/XMN/Badd_Bid}"><i class="mdi mdi-plus"></i> 新增</a>
-                                    <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-check"></i> 启用</a>
-                                    <a class="btn btn-warning m-r-5" href="#!"><i class="mdi mdi-block-helper"></i> 禁用</a>
-                                    <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
-                                </div>
                             </div>
                             <div class="card-body">
-
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="loan">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="checkbox checkbox-primary">
-                                                    <input type="checkbox" id="check-all"><span></span>
-                                                </label>
-                                            </th>
-                                            <th>编号</th>
-                                            <th>标名</th>
-                                            <th>标种</th>
-                                            <th>总利率</th>
-                                            <th>转让期</th>
-                                            <th>锁定期</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>优享牛</td>
-                                            <td>新手标</td>
-                                            <td>7.70%+5.00%</td>
-                                            <td>2020-06-10</td>
-                                            <td>2020-07-10</td>
-                                            <td><font class="text-success">预售</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
+
                                     </table>
                                 </div>
-                                <ul class="pagination">
-                                    <li class="disabled"><span>«</span></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#1">2</a></li>
-                                    <li><a href="#1">3</a></li>
-                                    <li><a href="#1">4</a></li>
-                                    <li><a href="#1">5</a></li>
-                                    <li><a href="#1">6</a></li>
-                                    <li><a href="#1">7</a></li>
-                                    <li><a href="#1">8</a></li>
-                                    <li class="disabled"><span>...</span></li>
-                                    <li><a href="#!">14452</a></li>
-                                    <li><a href="#!">14453</a></li>
-                                    <li><a href="#!">»</a></li>
-                                </ul>
-
                             </div>
                         </div>
                     </div>
@@ -132,24 +69,106 @@
             $('#search-field').val(field);
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
+        $('#loan').bootstrapTable({
+            method:'post',
+            url:'/back_loan/loanData',//请求数据路径
+            striped: true, // 是否显示行间隔色
+            pageNumber: 1, // 初始化加载第一页
+            pagination: true, // 是否分页
+            sidePagination: 'client', // server:服务器端分页|client：前端分页
+            pageSize: 10, // 单页记录数
+            pageList: [10, 20, 30],
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: $("#sname").val(),
+                    viewReason: $("#viewReason").val(),
+                };
+                return temp;
+            },
+            columns: [{
+                checkbox: true
+            },{
+                title:'lId',
+                field:'lId',
+                visible: false
+            },{
+                title:'借款人',
+                field:'uId'
+            },{
+                title:'贷款类型',
+                field:'loanType',
+                formatter: szloanType
+            },{
+                title:'期待借款金额',
+                field:'loanWantMoney'
+            },{
+                title:'贷款用途',
+                field:'loanPurpose'
+            },{
+                title:'利息',
+                field:'interest'
+            },{
+                title:'申请时间',
+                field:'applicationTime',
+                formatter: formatTime
+            },{
+                title:'状态',
+                field:'loanStatue',
+                formatter: szstatue
+            },{
+                title: '操作',
+                field: 'lId',
+                formatter: option
+            }]
+        });
+        
+        function option(value, row, index) {
+            var htm = "";
+            htm += '<a class="btn btn-success m-r-5" th:href="@{/back_loan/lookDetails}" target="_blank"><i class="mdi mdi-arrange-bring-forward"></i> 详情</a>'+
+                    '<a class="btn btn-success m-r-5" th:href="@{/back_loan/tooExamine}"><i class="mdi mdi-arrange-bring-forward"></i> 审核</a>'
+            return htm;
+        }
+        
+        function szloanType(value, row, index) {
+            if(value==1){
+                return '信用贷';
+            }else if(value==2){
+                return '抵押贷';
+            }else if(value==3){
+                return '担保贷';
+            }
+        };
+        function szstatue(value, row, index) {
+            if(value==0){
+                return '申请中';
+            }else if(value==1){
+                return '放款中';
+            }else if(value==2){
+                return '待偿还';
+            }else if(value==3){
+                return '已偿还';
+            }else if(value==4){
+                return '申请失败';
+            }
+        };
+        function formatTime(value, row, index) {
+            var date = new Date();
+            date.setTime(value);
+            var month = date.getMonth() + 1;
+            var hours = date.getHours();
+            if(hours < 10)
+                hours = "0" + hours;
+            var minutes = date.getMinutes();
+            if(minutes < 10)
+                minutes = "0" + minutes;
+            var time = date.getFullYear() + "-" + month + "-" + date.getDate() +
+                " " + hours + ":" + minutes;
+            return time;
+        }
+        function seeDetails() {
+
+        }
     });
-    $('#loan').bootstrapTable({
-        method:'post',
-        url:'/back_loan/loanData',//请求数据路径
-        striped: true, // 是否显示行间隔色
-        pageNumber: 1, // 初始化加载第一页
-        pagination: true, // 是否分页
-        sidePagination: 'client', // server:服务器端分页|client：前端分页
-        pageSize: 10, // 单页记录数
-        pageList: [10, 20, 30],
-        queryParams: function(params) { // 上传服务器的参数
-            var temp = {
-                name: $("#sname").val(),
-                viewReason: $("#viewReason").val(),
-            };
-            return temp;
-        },
-    })
 </script>
 </body>
 </html>
