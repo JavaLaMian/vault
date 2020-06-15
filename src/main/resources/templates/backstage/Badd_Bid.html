@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>新增文档 - bootstrap中文后台管理系统模板</title>
+<title>新增标类</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 
 
@@ -28,13 +28,13 @@
             <div class="card">
               <div class="card-body">
                 
-                <form action="#!" method="post" class="row">
+                <form  method="post" class="row" th:action="@{/XMN/addBid}">
                   <!--标名-->
                   <div class="form-group col-md-12">
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">标名</label>
                       <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
-                        <input type="text" class="form-control" id="title" name="title" value="" placeholder="请输入投标名" />
+                        <input type="text" class="form-control" id="bidName" name="bidName" value="" placeholder="请输入投标名" />
                       </div>
                     </div>
                   </div>
@@ -43,10 +43,9 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">标种</label>
                       <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
-                        <select name="type" class="form-control" id="type" onchange="pptf()">
+                        <select name="bidType" class="form-control" id="bidType" onchange="pptf()">
                           <option value="1">新手标</option>
                           <option value="2">优享标</option>
-                          <option value="3">散标</option>
                         </select>
                       </div>
                     </div>
@@ -56,9 +55,22 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">标期</label>
                       <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
-                        <select name="type" class="form-control" id="">
-                          <option value="1">活期</option>
-                          <option value="2">定期</option>
+                        <select name="deposit" class="form-control" id="deposit" onchange="biaoqi()">
+                          <option value="1">定期</option>
+                          <option value="2">活期</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--定期锁期时间-->
+                  <div class="form-group col-md-12" id="BBBB">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">定期锁期时间</label>
+                      <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
+                        <select name="clockLine" class="form-control" id="clockLine">
+                          <option value="1">3个月</option>
+                          <option value="2">6个月</option>
+                          <option value="2">12个月</option>
                         </select>
                       </div>
                     </div>
@@ -68,7 +80,7 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">基础利率</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_01">
+                        <input id="range_01" name="rate">
                         <small class="form-text text-muted">酌情增加</small>
                       </div>
                     </div>
@@ -78,7 +90,7 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">新手利率</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_05">
+                        <input id="range_05" name="rewardRate">
                         <small class="form-text text-muted">酌情增加</small>
                       </div>
                     </div>
@@ -88,7 +100,7 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">总体金额</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_02">
+                        <input id="range_02" name="sumLimit">
                       </div>
                     </div>
                   </div>
@@ -97,38 +109,37 @@
                     <div class="form-group row">
                       <label class="col-form-label col-lg-3">个人总金额</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_06">
-                      </div>
-                    </div>
-                  </div>
-                  <!--起标额度-->
-                  <div class="form-group col-md-12">
-                    <div class="form-group row">
-                      <label class="col-form-label col-lg-3">起标额度</label>
-                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_07">
-                      </div>
-                    </div>
-                  </div>
-                  <!--单笔追加金额-->
-                  <div class="form-group col-md-12">
-                    <div class="form-group row">
-                      <label class="col-form-label col-lg-3">单笔限额</label>
-                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_03">
+                        <input id="range_06" name="personLimit">
                       </div>
                     </div>
                   </div>
                   <!--起投最小金额-->
                   <div class="form-group col-md-12">
                     <div class="form-group row">
-                      <label class="col-form-label col-lg-3">起投最小金额</label>
+                      <label class="col-form-label col-lg-3">起标额度</label>
                       <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
-                        <input id="range_04">
+                        <input id="range_07" name="startLimit">
                       </div>
                     </div>
                   </div>
-                  <!--是否可以自动转让-->
+                  <!--单笔限额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">单笔限额-</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_03" name="singelLimit">
+                      </div>
+                    </div>
+                  </div>
+                  <!--每次可以追加金额-->
+                  <div class="form-group col-md-12">
+                    <div class="form-group row">
+                      <label class="col-form-label col-lg-3">每次可以追加金额</label>
+                      <div class="col-lg-8" style="margin-left: -400px;margin-top: 15px">
+                        <input id="range_04" name="addLimit">
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group col-xs-4">
                     <label for="type">是否可以自动转让</label>
                     <div class="input-daterange input-group col-lg-8">
@@ -157,16 +168,25 @@
                     </div>
                   </div>
 
+<!--                  &lt;!&ndash;时间&ndash;&gt;-->
+<!--                  <div class="form-group col-md-12">-->
+<!--                    <label for="type">标期时间</label>-->
+<!--                    <div class="input-daterange input-group col-lg-8">-->
+<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="begTime" name="begTime" placeholder="开始投标时间">-->
+<!--                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>-->
+<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="gebTime" name="gebTime" placeholder="封标期时间">-->
+<!--                    </div>-->
+<!--                  </div>-->
                   <!--时间-->
                   <div class="form-group col-md-12">
-                    <label for="type">标期时间</label>
-                    <div class="input-daterange input-group col-lg-8">
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange1" name="example-daterange1" placeholder="开始投标时间">
-                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>
-                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="example-daterange2" name="example-daterange2" placeholder="封标期时间">
+                    <div class="card">
+                      <label for="type">标期时间</label>
+                      <div class="input-daterange input-group col-lg-8">
+                        <input class="form-control js-datetimepicker" type="text" id="begTime" name="begTime" placeholder="开始投标时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                        <input class="form-control js-datetimepicker" type="text" id="gebTime" name="gebTime" placeholder="封标期时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" autocomplete="off"/>
+                      </div>
                     </div>
                   </div>
-
 
 
                   <div class="form-group col-md-12">
@@ -249,10 +269,10 @@
   })
     //标种切换js
     function pptf(){
-      var selects = document.getElementById("type");
+      var selects = document.getElementById("bidType");
       var indexs = selects.selectedIndex;  //选中项的索引
       var sanbiao = selects.options[indexs].text
-      if(sanbiao == '散标'){
+      if(sanbiao == '优享标'){
         $('#aaa').show();
         $(document).one('click',function(){
           $('#aaa').hide();
@@ -261,14 +281,22 @@
       }else if(sanbiao == '新手标'){
         $('#aaa').css("display","block");
       }
-      else if(sanbiao == '优享标'){
-        $('#aaa').show();
+    }
+    //标期时间
+    function biaoqi(){
+      var selects = document.getElementById("deposit");
+      var indexs = selects.selectedIndex;  //选中项的索引
+      var sanbiao = selects.options[indexs].text
+      if(sanbiao == '活期'){
+        $('#BBBB').show();
         $(document).one('click',function(){
-          $('#aaa').hide();
+          $('#BBBB').hide();
         })
+
+      }else if(sanbiao == '定期'){
+        $('#BBBB').css("display","block");
       }
     }
-
   </script>
 </body>
 </html>

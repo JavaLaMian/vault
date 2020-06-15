@@ -9,8 +9,8 @@ import java.util.Date;
 @Table(name = "bid")
 public class Bid {//6月10日15：29
 
-    private static final int NEWHAND = 1;
-    private static final int NORM = 2;
+    private static final int NEWHAND = 1; //新手标
+    private static final int NORM = 2;  //优享标
     private static final int YES = 1;
     private static final int NO = 0;
     private static final int READY = 1;
@@ -19,73 +19,87 @@ public class Bid {//6月10日15：29
 
     @Column(name = "bId", type = MySqlTypeConstant.INT, length = 11, isKey = true, isAutoIncrement = true)
     private int bId;
-    @Column(name = "bidName", type = MySqlTypeConstant.VARCHAR, length = 100)
+    @Column(name = "bidName", type = MySqlTypeConstant.VARCHAR, length = 100) //标名       1
     private String bidName;
-    @Column(name = "bidType", type = MySqlTypeConstant.INT)
+    @Column(name = "bidType", type = MySqlTypeConstant.INT)  //标种 标类
     private int bidType;
     @Column(name = "rewardRate", type = MySqlTypeConstant.DOUBLE)
-    private float rewardRate;
+    private float rewardRate; //奖励利率
     @Column(name = "rate", type = MySqlTypeConstant.DOUBLE)
-    private float rate;
+    private float rate; //基本利率
     @Column(name = "addLimit", type = MySqlTypeConstant.DOUBLE)
-    private float addLimit;
+    private float addLimit; //每次可以追加金额
     @Column(name = "singelLimit", type = MySqlTypeConstant.DOUBLE)
-    private float singelLimit;
+    private float singelLimit; //单笔限额
     @Column(name = "sumLimit", type = MySqlTypeConstant.DOUBLE)
-    private float sumLimit;
+    private float sumLimit;//总体累计金额
+    @Column(name = "personLimit",type = MySqlTypeConstant.DOUBLE)
+    private float personLimit;//个人累计金额
     @Column(name = "startLimit", type = MySqlTypeConstant.DOUBLE)
-    private float startLimit;
+    private float startLimit;//起标额
     @Column(name = "transLine", type = MySqlTypeConstant.VARCHAR, length = 100)
-    private String transLine;
+    private String transLine;//转让期
     @Column(name = "clockLine", type = MySqlTypeConstant.VARCHAR, length = 100)
-    private String clockLine;
+    private String clockLine;//锁定期
     @Column(name = "deposit", type = MySqlTypeConstant.INT)
-    private int deposit;
+    private int deposit;//标期
     @Column(name = "dealCount", type = MySqlTypeConstant.INT)
-    private int dealCount;
+    private int dealCount;//用户交易次数限制
     @Column(name = "question", type = MySqlTypeConstant.VARCHAR, length = 2000)
-    private String question;
+    private String question;//问
     @Column(name = "answer", type = MySqlTypeConstant.VARCHAR, length = 2000)
-    private String answer;
+    private String answer;//答
     @Column(name = "transfer", type = MySqlTypeConstant.INT)
-    private int transfer;
+    private int transfer;//是否可自动转让
     @Column(name = "aotuInverst", type = MySqlTypeConstant.INT)
-    private int aotuInverst;
+    private int aotuInverst;//是否可自动复投
     @Column(name = "exprie", type = MySqlTypeConstant.DATETIME)
-    private Date exprie;
+    private Date exprie;//标封期时间
     @Column(name = "bidStatus", type = MySqlTypeConstant.INT)
-    private int bidStatus;
+    private int bidStatus;//状态     预售（READY=1），在售（ON=0），售罄（EMPTY=3），关闭交易（CLOSE=2）
     @Column(name = "bidTime", type = MySqlTypeConstant.DATETIME)
-    private Date bidTime;
+    private Date bidTime;//上线时间
     @Column(name = "maxTime", type = MySqlTypeConstant.VARCHAR, length = 50)
-    private int maxTime;
+    private int maxTime;//最长投标时间  默认12个月，从买的时间开始算
 
     public Bid() {
     }
 
 
-    public Bid(int bId, String bidName, int bidType, float rewardRate, float rate, float addLimit, float singelLimit, float sumLimit, float startLimit, String transLine, String clockLine, int deposit, int dealCount, String question, String answer, int transfer, int aotuInverst, Date exprie, int bidStatus, Date bidTime, int maxTime) {
-        this.bId = bId;
-        this.bidName = bidName;
-        this.bidType = bidType;
-        this.rewardRate = rewardRate;
-        this.rate = rate;
-        this.addLimit = addLimit;
-        this.singelLimit = singelLimit;
-        this.sumLimit = sumLimit;
-        this.startLimit = startLimit;
-        this.transLine = transLine;
-        this.clockLine = clockLine;
-        this.deposit = deposit;
-        this.dealCount = dealCount;
-        this.question = question;
-        this.answer = answer;
-        this.transfer = transfer;
-        this.aotuInverst = aotuInverst;
-        this.exprie = exprie;
-        this.bidStatus = bidStatus;
-        this.bidTime = bidTime;
-        this.maxTime = maxTime;
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "bId=" + bId +
+                ", bidName='" + bidName + '\'' +
+                ", bidType=" + bidType +
+                ", rewardRate=" + rewardRate +
+                ", rate=" + rate +
+                ", addLimit=" + addLimit +
+                ", singelLimit=" + singelLimit +
+                ", sumLimit=" + sumLimit +
+                ", personLimit=" + personLimit +
+                ", startLimit=" + startLimit +
+                ", transLine='" + transLine + '\'' +
+                ", clockLine='" + clockLine + '\'' +
+                ", deposit=" + deposit +
+                ", dealCount=" + dealCount +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", transfer=" + transfer +
+                ", aotuInverst=" + aotuInverst +
+                ", exprie=" + exprie +
+                ", bidStatus=" + bidStatus +
+                ", bidTime=" + bidTime +
+                ", maxTime=" + maxTime +
+                '}';
+    }
+
+    public float getPersonLimit() {
+        return personLimit;
+    }
+
+    public void setPersonLimit(float personLimit) {
+        this.personLimit = personLimit;
     }
 
     public static int getNEWHAND() {
@@ -284,30 +298,4 @@ public class Bid {//6月10日15：29
         this.maxTime = maxTime;
     }
 
-    @Override
-    public String toString() {
-        return "Bid{" +
-                "bId=" + bId +
-                ", bidName='" + bidName + '\'' +
-                ", bidType=" + bidType +
-                ", rewardRate=" + rewardRate +
-                ", rate=" + rate +
-                ", addLimit=" + addLimit +
-                ", singelLimit=" + singelLimit +
-                ", sumLimit=" + sumLimit +
-                ", startLimit=" + startLimit +
-                ", transLine='" + transLine + '\'' +
-                ", clockLine='" + clockLine + '\'' +
-                ", deposit=" + deposit +
-                ", dealCount=" + dealCount +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                ", transfer=" + transfer +
-                ", aotuInverst=" + aotuInverst +
-                ", exprie=" + exprie +
-                ", bidStatus=" + bidStatus +
-                ", bidTime=" + bidTime +
-                ", maxTime=" + maxTime +
-                '}';
-    }
 }
