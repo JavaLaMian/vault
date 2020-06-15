@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>小母牛在线积分商城</title>
+    <meta name="keywords" content="小母牛在线积分商城">
+    <meta name="description" content="小母牛在线积分商城服务于所有小母牛在线客户,小母牛在线会员可通过各种方式获取积分,通过登录个人账户查询积分获取情况并使用积分兑换礼物.">
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+
+
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/subject/pointMall/css/style-95d6dec6d2.css" />
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/module/share/css/repair-f4ed74971d.css" />
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <!--    <link href="css/bootstrap.css" rel="stylesheet"/>-->
+    <!--    <script src="js/bootstrap.js"></script>-->
+
+    <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+</head>
+<body>
+
+    <div class="ac_top">
+        <div class="g-o">
+            <div class="ac_menu" id="ulLoginStatus">
+                <span class="user" style="margin: 0; color: #999;">
+                    <a href="javascript:gotoLogin('/user/login')" rel="nofollow">登录</a>　
+                    <a href="/user/register" rel="nofollow">注册</a>
+                </span>
+                <span>│</span>
+                <a href="/">首页</a>
+                <span>│</span>
+                <a href="/cms/help/index">帮助</a>
+                <span>│</span>
+                全国服务热线：4006-0755-70
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+            <!-- banner -->
+        <div class="banner">
+            <img src="//image.xiaoniu88.com/static/WebXn/dist/images/subject/pointMall/01-edd3cac531.jpg">
+        </div>
+        <!-- 内容 -->
+        <div class="content">
+            <div class="f1 text-center">
+                <div class="inner">
+                    <img src="//image.xiaoniu88.com/static/WebXn/dist/images/subject/pointMall/02-e53eb13cc8.jpg">
+                </div>
+            </div>
+            <div class="f2 text-center"><img src="//image.xiaoniu88.com/static/WebXn/dist/images/subject/pointMall/03-4e91926974.jpg"></div>
+            <div class="f3 text-center"><img src="//image.xiaoniu88.com/static/WebXn/dist/images/subject/pointMall/04-8180293fde.jpg"></div>
+            <div class="f4 text-center">
+                <div class="inner">
+                    <img src="//image.xiaoniu88.com/static/WebXn/dist/images/subject/pointMall/05-2041228c8d.jpg">
+                    <!-- 我的积分 -->
+                    <a class="mypoint" href="/bonus/point/index" onclick="_hmt.push(['_trackEvent', 'pointMall我的积分', 'click'])"></a>
+                </div>
+            </div>
+        </div>
+        <a class="balloon" th:href="@{/integral/main}" onclick="_hmt.push(['_trackEvent', 'pointMall去兑换', 'click'])"></a>
+    </div>
+
+    <!--start 尾部-->
+    <div class="foot-bt">
+        <p>Copyright &copy; 2015 深圳市小牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="#">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+        <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦四楼   座机：0755－86160888</p>
+        <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+        <span>
+        <a class="lk01" href="#" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="#" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="#" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="#" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+    </span>
+    </div>
+</body>
+</html>
