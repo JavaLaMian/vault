@@ -2,6 +2,7 @@ package com.vault.demo.dao.test;
 
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
+import com.vault.demo.bean.Tender;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,4 +18,5 @@ public interface BidDao{
     void insert(Bid bid);
     List<Bid> selectByType(int bType);
     List<PerBid> selectPerB(@Param("perBid")int perBid);
+    Tender selectTouId(@Param("tid")int tid);
 }

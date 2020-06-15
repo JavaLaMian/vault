@@ -40,5 +40,9 @@
     <insert id="insert" parameterType="com.vault.demo.bean.Bid">
         insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
     </insert>
+    
+    <select id="selectTouId" resultType="com.vault.demo.bean.Tender" parameterType="int">
+        select * from tender where tid = #{tid}
+    </select>
 
 </mapper>

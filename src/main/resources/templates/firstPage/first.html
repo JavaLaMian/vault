@@ -251,7 +251,7 @@
 		<span class="tag">仅限累积投标少于3次用户</span>
 	</div>
 	<div class="novice-list">
-		<a class="row-item g-cf " th:href="@{/main/prose(t=0,id=${nc.bId})}" target="_blank" th:each="nc:${ncList}">
+		<a class="row-item g-cf " th:href="@{/main/prose(t=1,id=${nc.bId})}" target="_blank" th:each="nc:${ncList}">
 			<div class="label-content">
 			</div>
 			<dl class="col-1">
@@ -342,7 +342,7 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2" >
-				<a th:each="per:${perList}" th:href="@{/main/prose(t=1,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
+				<a th:each="per:${perList}" th:href="@{/main/prose(t=2,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
 				<div class="item " style="width:263px">
 					<div class="panel">
 						<div class="rate" th:text="${per.inRate}+'%'"><span></span></div>
@@ -387,7 +387,7 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=0,id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
+					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=1,id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
 					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">
