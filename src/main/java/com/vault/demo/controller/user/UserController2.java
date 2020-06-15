@@ -58,7 +58,9 @@ public class UserController2 {
         Userimf user = (Userimf) session.getAttribute("user");
         user.setUName(uName);
         userBank.setuId(user.getuId());
+        userBank.setBcUserName(uName);
         credit.setuId(user.getuId());
+        credit.setName(uName);
         System.out.println(user.toString());
         System.out.println(userBank.toString());
         System.out.println(credit.toString());
