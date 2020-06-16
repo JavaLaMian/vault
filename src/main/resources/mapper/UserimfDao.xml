@@ -10,7 +10,7 @@
         <![CDATA[
           insert into userimf values(#{uId},#{uName},#{account},#{phe},#{email},#{loginPsw},
           #{dealPsw},#{regTime},#{avaBalance},#{interest},#{frozfund},#{bounty},
-          #{sex},#{refereer},#{creditLv},#{age},#{lastLoginTime})
+          #{sex},#{refereer},#{creditLv},#{age},#{lastLoginTime},#{place})
         ]]>
     </insert>
     <select id="allList" resultType="com.vault.demo.bean.Userimf">
@@ -41,7 +41,7 @@
         <![CDATA[
           update userimf set uName=#{uName},account=#{account},phe=#{phe},email=#{email},loginPsw=#{loginPsw},
           dealPsw=#{dealPsw},regTime=#{regTime},avaBalance=#{avaBalance},interest=#{interest},frozfund=#{frozfund},bounty=#{bounty},
-          sex=#{sex},refereer=#{refereer},creditLv=#{creditLv},age=#{age},lastLoginTime=#{lastLoginTime} where uId=#{uId}
+          sex=#{sex},refereer=#{refereer},creditLv=#{creditLv},age=#{age},lastLoginTime=#{lastLoginTime},place=#{place} where uId=#{uId}
         ]]>
     </update>
 
