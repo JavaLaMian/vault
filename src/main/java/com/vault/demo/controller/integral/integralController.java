@@ -1,5 +1,7 @@
 package com.vault.demo.controller.integral;
 
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Userimf;
 import com.vault.demo.bean.integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -80,13 +83,26 @@ public class integralController {
         return "integral/shopingList";
     }
 
-    //物品兑换
+    //物品兑换页
     @RequestMapping("/detail")
-    public String detail(Integer id,Model model){
+    public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
         integral list  = service.selectById(id);
+
+        Userimf user = (Userimf) session.getAttribute("user");
+        Credit credit = service.selectCredit(user.getuId());
+        if(user == null){
+            return "/user/login";
+        }
+        model.addAttribute("user",user);
+        model.addAttribute("credit",credit);
         model.addAttribute("list",list);
         return "integral/integralDetail";
+    }
+
+    @RequestMapping("/conversion")
+    public String conversion(){
+        return "integral/conversion";
     }
     //积分商城主页面
     @RequestMapping("/main2")
