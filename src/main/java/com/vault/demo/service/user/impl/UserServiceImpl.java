@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void upUser(Userimf userimf) {
+
+    }
+
+    @Override
     public String getEmailMa(String shou,String type) throws EmailException {
         if("".equals(shou)){
             return "";
