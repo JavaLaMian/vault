@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.WorryCallDao">
+    <insert id="saveWorryCall" parameterType="com.vault.demo.bean.WorryCall" useGeneratedKeys="true">
+        <selectKey keyColumn="Id" resultType="integer" keyProperty="Id" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+          insert into worryCall values(null,#{uId},#{relationship},#{phe},#{name})
+        ]]>
+    </insert>
+    <select id="selectWorryByUId" resultType="com.vault.demo.bean.WorryCall" parameterType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from worryCall where uId=#{uId}
+        ]]>
+    </select>
+</mapper>

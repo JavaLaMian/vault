@@ -31,7 +31,7 @@
                   <div class="input-group">
                     <div class="input-group-btn">
                       <input type="hidden" name="search_field" id="search-field" value="title">
-                      <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
                       标题 <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
@@ -52,63 +52,10 @@
               <div class="card-body">
                 
                 <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>
-                          <label class="checkbox checkbox-primary">
-                            <input type="checkbox" id="check-all"><span></span>
-                          </label>
-                        </th>
-                        <th>编号</th>
-                        <th>标题</th>
-                        <th>书籍</th>
-                        <th>作者</th>
-                        <th>阅读量</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <label class="checkbox checkbox-primary">
-                            <input type="checkbox" name="ids[]" value="1"><span></span>
-                          </label>
-                        </td>
-                        <td>1</td>
-                        <td>第01章 天涯思君不可忘</td>
-                        <td>《倚天屠龙记》</td>
-                        <td>金庸</td>
-                        <td>36</td>
-                        <td><font class="text-success">正常</font></td>
-                        <td>
-                          <div class="btn-group">
-                            <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                            <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                          </div>
-                        </td>
-                      </tr>
+                  <table class="table table-bordered" id="tender">
 
-                    </tbody>
                   </table>
                 </div>
-                <ul class="pagination">
-                  <li class="disabled"><span>«</span></li>
-                  <li class="active"><span>1</span></li>
-                  <li><a href="#1">2</a></li>
-                  <li><a href="#1">3</a></li>
-                  <li><a href="#1">4</a></li>
-                  <li><a href="#1">5</a></li>
-                  <li><a href="#1">6</a></li>
-                  <li><a href="#1">7</a></li>
-                  <li><a href="#1">8</a></li>
-                  <li class="disabled"><span>...</span></li>
-                  <li><a href="#!">14452</a></li>
-                  <li><a href="#!">14453</a></li>
-                  <li><a href="#!">»</a></li>
-                </ul>
-       
               </div>
             </div>
           </div>
@@ -131,6 +78,116 @@ $(function(){
         $('#search-field').val(field);
         $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
     });
+    $('#tender').bootstrapTable({
+        method: 'get',
+        url: '/back_tender/tender_data',//请求数据路径
+        dataType: "json",
+        pagination: true, // 是否分页
+        sidePagination: 'server', // server:服务器端分页|client：前端分页
+        clickToSelect: true, // 单击行即可以选中
+        sortOrder: 'desc', // 设置排序为反序 desc
+        pageSize: 10, // 单页记录数
+        pageList: [10, 20, 30],
+        columns: [{
+            checkbox: true
+        }, {
+            title: 'tId',
+            field: 'tId',
+            visible: false
+        }, {
+            title: '投资人 ',
+            field: 'uName'
+        }, {
+            title: '标名',
+            field: 'bidName'
+        }, {
+            title: '标种',
+            field: 'bidType',
+            formatter: szbidtype
+        }, {
+            title: '投资金额',
+            field: 'tenMoney'
+        }, {
+            title: '利率',
+            field: 'lv',
+            formatter: addbfh
+        }, {
+            title: '投资日期',
+            field: 'tenTime',
+            formatter: formatTime
+        }, {
+            title: '状态',
+            field: 'tenType',
+            formatter: szstatue
+        }, {
+            title: '操作',
+            field: 'tId',
+            formatter: option
+        }]
+    });
+
+    function addbfh(value, row, index) {
+        return value+"%";
+    }
+    function option(value, row, index) {
+        var htm = "";
+        htm += '<a class="btn btn-success m-r-5" th:href="@{/back_tender/lookDetails}" target="_blank"><i class="mdi mdi-arrange-bring-forward"></i> 详情</a>'+
+            '<a class="btn btn-success m-r-5" th:href="@{/back_loan/tooExamine}"><i class="mdi mdi-arrange-bring-forward"></i> 审核</a>'
+        return htm;
+    }
+    function formatTime(value, row, index) {
+        console.log("haomiao"+value);
+
+        var date = formatDateTime(value)+"";
+        console.log("date"+date);
+
+        /*var month = date.getMonth() + 1;
+        var hours = date.getHours();
+        if(hours < 10)
+            hours = "0" + hours;
+        var minutes = date.getMinutes();
+        if(minutes < 10)
+            minutes = "0" + minutes;
+        var time = date.getFullYear() + "-" + month + "-" + date.getDate() +
+            " " + hours + ":" + minutes;*/
+        return date;
+    }
+
+
+    function formatDateTime(date) {
+        var time = new Date(date);
+        time.setTime(time.setHours(time.getHours() + 11));
+        var Y = time.getFullYear() + '-';
+        var  M = addZero(time.getMonth() + 1) + '-';
+        var D =addZero(time.getDate() - 1) + ' ';
+        var h = addZero(time.getHours()) + ':';
+        var m = addZero(time.getMinutes()) + ':';
+        var  s = addZero(time.getSeconds());
+        return Y + M + D + h+ m+ s;
+        // }
+    }
+
+    // 数字补0操作
+    function  addZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+
+    function szbidtype(value, row, index) {
+        if(value==1){
+            return "新手标";
+        }else if(value==2){
+            return "散标";
+        }
+    }
+    function szstatue(value, row, index) {
+        if(value==0){
+            return "活期";
+        }else if(value ==1){
+            return "转让期";
+        }else if(value ==2){
+            return "定期";
+        }
+    }
 });
 </script>
 </body>
