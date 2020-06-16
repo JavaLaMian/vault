@@ -144,7 +144,10 @@ public class loanController {
         String realPath =  request.getSession().getServletContext().getRealPath("");
         String dirPath = "D:\\vault\\file\\identity\\";
         //上传文件
-//        String fileName = FileUpload.upload(file,dirPath,request);
+        String positiveIDPhotoEXFileName = FileUpload.upload(positiveIDPhotoEX,dirPath,request);
+        String negativeIDPhotoEXFileName = FileUpload.upload(negativeIDPhotoEX,dirPath,request);
+        credit.setPositiveIDPhoto(positiveIDPhotoEX.getOriginalFilename());
+        credit.setNegativeIDPhoto(negativeIDPhotoEX.getOriginalFilename());
 
 
         return "";

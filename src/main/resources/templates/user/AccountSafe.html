@@ -261,7 +261,7 @@
                          已开通存管账户显示存管交易密码
                          -->
                         <!-- 实名认证 -->
-                        <div myid='realName' class="column" th:if="${session.credit} eq null">
+                        <div myid='realName' class="column" th:if="null eq ${session.credit}">
 
                             <div class="column_name not_seted">
                                 实名认证
@@ -275,7 +275,7 @@
                                 <span class="info_con"></span>
                             </div>
                         </div>
-                        <div myid='realName' class="column" th:if="${session.credit} ne null">
+                        <div myid='realName' class="column" th:if="null ne ${session.credit}">
 
                             <div class="column_name seted">
                                 实名认证
@@ -290,7 +290,7 @@
                             </div>
                         </div>
                         <!-- 交易密码 -->
-                        <div myid='tdpwd' class="column" th:if="null eq ${session.credit}">
+                        <div myid='tdpwd' class="column" th:if="null eq ${session.user.dealPsw}">
 
                             <div class="column_name not_seted">
                                 交易密码
@@ -381,7 +381,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div myid='tdpwd' class="column" th:if="null ne ${session.credit}">
+                        <div myid='tdpwd' class="column" th:if="null ne ${session.user.dealPsw}">
 
                             <div class="column_name not_seted">
                                 交易密码
