@@ -1,5 +1,6 @@
 package com.vault.demo.controller.integral;
 
+import com.vault.demo.bean.integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping("/integral")
@@ -28,10 +30,6 @@ public class integralController {
         //查询总行数
         pager.page(service.integral());
         String integralType ;
-//        System.out.println("spId:"+spId);
-//
-//        System.out.println("当前页1:"+pager.currPage);
-//        System.out.println("末页1:"+pager.totalPage);
 
 
         if(sort == 1){
@@ -78,9 +76,18 @@ public class integralController {
         model.addAttribute("pager",pager);
         model.addAttribute("spId",spId);
         model.addAttribute("sort",sort);
+        model.addAttribute("currPage",pager.currPage);
         return "integral/shopingList";
     }
 
+    //物品兑换
+    @RequestMapping("/detail")
+    public String detail(Integer id,Model model){
+        System.out.println("id:"+id);
+        integral list  = service.selectById(id);
+        model.addAttribute("list",list);
+        return "integral/integralDetail";
+    }
     //积分商城主页面
     @RequestMapping("/main2")
     public String integralMain2(){

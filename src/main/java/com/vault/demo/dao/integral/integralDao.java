@@ -18,5 +18,5 @@ public interface integralDao {
     List<integral> selectByType(@Param("startRow") int startRow, @Param("pageSize") int pageSize,@Param("integralType")String integralType);
     List<integral> selectByTypeSort(@Param("startRow") int startRow, @Param("pageSize") int pageSize,@Param("integralType")String integralType);
 
-
+    integral selectById(Integer id);
 }

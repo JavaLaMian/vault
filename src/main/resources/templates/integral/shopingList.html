@@ -18,20 +18,20 @@
     <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/list/css/style-048337cfe8.css" />
     <style>
-        body a{
-            color:black;
-            text-decoration: none;
-        }
-        body a{
-            text-decoration: none;
-        }
-    </style>
+    body a{
+        color:black;
+        text-decoration: none;
+    }
+    body a{
+        text-decoration: none;
+    }
+</style>
 </head>
 <body>
     <!--    导航-->
     <div class="menu-list head-menu">
         <div class="g-o" style="width:1170px;">
-            <a class="logo" href="/">
+            <a class="logo" th:href="@{/main/first}">
                 <img  th:src="@{/img/loan/小母牛.png}" alt="小牛在线-专业P2P网平台">
             </a>
             <input id="_point_current_menu" type="hidden" value="mall">
@@ -80,10 +80,10 @@
                 </dl>
 <!--                排序-->
                 <div class="mall-list-sort" id="sortList">
-                    <a th:href="@{/integral/list(spId=${spId},currPage=1,sort = 0)}">
+                    <a th:href="@{/integral/list(spId=${spId},currPage=${currPage},sort = 0)}">
                         <span class="filter js_sort_default" th:classappend="${sort} != 1 ? 'active' :''">默认排序 <i>↓</i></span>
                     </a>
-                    <a th:href="@{/integral/list(spId=${spId},currPage=1,sort = 1)}">
+                    <a th:href="@{/integral/list(spId=${spId},currPage=${currPage},sort = 1)}">
                         <span class="filter js_sort_points" th:classappend="${sort} == 1 ? 'active' :''">兑换积分 <i>↓</i></span>
                     </a>
 
@@ -93,14 +93,14 @@
             <div class="pointmall-container" id="container">
                 <ul class="floor-list lg-list g-cf" id="productList" style="display: block;" >
                     <li th:each="p:${pager.data}">
-                        <a href="#">
+                        <a th:href="@{/integral/detail(id = ${p.id})}">
                             <img th:src="'/img/integral/'+${p.integralImg}">
                         </a>
                         <div>
                             <p class="name" th:text="${p.integralName}"></p>
                             <p class="orange" th:text="'积分:'+${p.integral}">积分：</p>
                         </div>
-                        <label class="label" th:text="${p.tag}"></label>
+                        <label class="label" th:if="${p.tag} !=null" th:text="${p.tag}"></label>
                         <!--是否售罄-->
                         <div  th:if="${p.inventory}==0" class="sold-out">
                             <div class="sold-out-bg"></div>

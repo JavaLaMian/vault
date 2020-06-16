@@ -40,4 +40,11 @@ public class integralServiceImp implements integralService {
     public List<integral> selectByTypeSort(Pager pager, String integralType) {
         return dao.selectByTypeSort((pager.currPage-1)*pager.pageSize,pager.currPage*pager.pageSize,integralType);
     }
+
+    @Override
+    public integral selectById(Integer id) {
+        return dao.selectById(id);
+    }
+
+
 }
