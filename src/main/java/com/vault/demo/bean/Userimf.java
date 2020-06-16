@@ -65,6 +65,7 @@ public class Userimf { //6月10日15点23
     @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
     private Date lastLoginTime;
 
+    private String place;
 
     @Override
     public String toString() {
@@ -86,6 +87,7 @@ public class Userimf { //6月10日15点23
                 ", creditLv=" + creditLv +
                 ", age=" + age +
                 ", lastLoginTime=" + lastLoginTime +
+                ", place='" + place + '\'' +
                 '}';
     }
 
@@ -223,5 +225,13 @@ public class Userimf { //6月10日15点23
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }

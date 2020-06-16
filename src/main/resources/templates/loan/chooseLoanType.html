@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>借款</title>
+    <title>请选择您的借款类型</title>
     <link rel="icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
     <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
 
@@ -83,6 +83,9 @@
     </style>
 
     <script th:src="@{/js/jquery-1.12.4.js}"></script>
+
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <link th:href="@{/css/bootstrap.css}"/>
 </head>
 <body>
 <!--    导航-->
@@ -154,15 +157,20 @@
             </div>
         </div>
     </div>
-    <div style="width: 50%;margin: 0 auto;height: 120px;line-height: 120px;font-size: 30px">
-        <h2 style="text-align: center">请先完善用户实名信息</h2>
-
-        <p style="margin: 50px 0;text-align: center" th:text="${loanNotPushType}">您的xx信息未填写</p>
-
-        <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
-            <a  class="ajk" th:href="@{/user/toAS}" target="_blank">
-                <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >去绑定信用信息</button>
-            </a>
+    <div style="width: 50%;margin: 0 auto">
+        <div class="page-header">
+            <h1 style="text-align: center">
+                请选择您的借款类型
+            </h1>
+        </div>
+        <div style="height: 150px;text-align: center">
+            <h2 style="height: 150px;line-height: 150px"><a th:href="@{/loan/toloanJie(loanType='xinyong')}"><button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >信用贷款</button></a></h2>
+        </div>
+        <div style="height: 150px;text-align: center">
+            <h2 style="height: 150px;line-height: 150px"><a th:href="@{/loan/toChooseLoanType}"><button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >抵押贷款</button></a></h2>
+        </div>
+        <div style="height: 150px;text-align: center">
+            <h2 style="height: 150px;line-height: 150px"><a th:href="@{/loan/toChooseLoanType}"><button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >担保贷款</button></a></h2>
         </div>
     </div>
 </div>

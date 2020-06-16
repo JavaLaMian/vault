@@ -1,8 +1,11 @@
 package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
+import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
+import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.loan.LoanService;
 import org.apache.ibatis.annotations.Param;
@@ -26,6 +29,12 @@ public class loanController {
 
     @Resource
     LoanService loanService;
+
+    @Resource
+    BankDao bankDao;
+
+    @Resource
+    WorryCallDao worryCallDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -110,24 +119,56 @@ public class loanController {
         return "loan/loanJie";
     }
 
+    //去借款申请页面
     @RequestMapping("/toloanJie")
-    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session) {
+    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanType) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
 
-        Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+        if (loanType.equals("xinyong")){ //如果是信用贷款类型
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+            UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+            Userimf userimf = (Userimf)session.getAttribute("user");
+            List worryCallList = worryCallDao.selectWorryByUId(userimf);
 
-        if (credit == null || credit.getName() == null || "".equals(credit.getName())){
-            return "loan/creditNotPush";
+            if (credit == null
+                    || credit.getName() == null || "".equals(credit.getName())
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
+                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
+                    || userBank == null
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCallList.size() <= 0){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+
+                return "loan/creditNotPush";
+            }
         }
+
 
         System.out.println("step："+step);
         if(step==null){
             step = 1 ;
         }
-         model.addAttribute("step",step);
+        model.addAttribute("step",step);
         return "loan/loanJieApply";
+    }
+
+    @RequestMapping("/toChooseLoanType")
+    public String toChooseLoanType(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
+        return "loan/chooseLoanType";
     }
 
     @RequestMapping("/toCreditRegister")
