@@ -30,6 +30,7 @@ public class UserController2 {
         try {
             Credit credit = service.getCredit(user.getuId());
             UserBank userBank = service.getBC(user.getuId());
+
             session.setAttribute("credit",credit);
             session.setAttribute("userBank",userBank);
         }catch (Exception e){
@@ -65,6 +66,7 @@ public class UserController2 {
         System.out.println(user.toString());
         System.out.println(userBank.toString());
         System.out.println(credit.toString());
+        service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);
         return "";
