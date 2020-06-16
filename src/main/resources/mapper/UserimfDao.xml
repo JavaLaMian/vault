@@ -37,6 +37,13 @@
             and uId = #{uId}
         </if>
     </select>
+    <update id="upUser">
+        <![CDATA[
+          update userimf set uName=#{uName},account=#{account},phe=#{phe},email=#{email},loginPsw=#{loginPsw},
+          dealPsw=#{dealPsw},regTime=#{regTime},avaBalance=#{avaBalance},interest=#{interest},frozfund=#{frozfund},bounty=#{bounty},
+          sex=#{sex},refereer=#{refereer},creditLv=#{creditLv},age=#{age},lastLoginTime=#{lastLoginTime} where uId=#{uId}
+        ]]>
+    </update>
 
     <select id="selectOneByLogin" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Userimf">
         <![CDATA[

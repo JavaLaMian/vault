@@ -5,14 +5,13 @@ import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
-import com.vault.demo.dao.CreditDao;
+import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +27,11 @@ public class UserServiceImpl implements UserService {
         int lie = dao.addUser(user);
         dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
         return lie;
+    }
+
+    @Override
+    public void upUser(Userimf userimf) {
+
     }
 
     @Override
@@ -83,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void bindCredit(Credit credit) {
-        cdao.bindCredit(credit);
+        cdao.insert(credit);
     }
 
     @Override
@@ -98,6 +102,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Credit getCredit(int uId) {
-        return cdao.getCredit(uId);
+        Userimf userimf = new Userimf();
+        userimf.setuId(uId);
+        return cdao.selectCreditByUserId(userimf);
     }
 }

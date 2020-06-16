@@ -57,7 +57,7 @@
         <div class="center user-box">
 
             <!--start 我的账户左边菜单列表-->
-            <div class="account-list" th:replace="/user/AccountOverview::inflist"></div>
+            <div class="account-list" th:replace="/user/AccountSafe::usersafe"></div>
 
             <script src="//image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
             <script>
@@ -146,15 +146,15 @@
                     </div>
                     <div>
                         <label>身份证号码：</label>
-                        <input type="text" class="bindcard-input" value="${session.credit.identity}" disabled>
+                        <input type="text" class="bindcard-input" th:value="${session.credit.identity}" disabled>
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" value="${session.userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
+                        <input type="text" class="bindcard-input" th:value="${session.userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
                     </div>
                     <div>
                         <label>开户银行：</label>
-                        <input  class="bindcard-input" value="${session.userBank.bankName}" disabled/>
+                        <input  class="bindcard-input" th:value="${session.userBank.bankName}" disabled/>
                     </div>
                 </div>
                 <dl class="bindcard-tips"> <dt>温馨提示</dt>
@@ -366,7 +366,7 @@
                     cardId: cardId,
                     bankName: bankName
                 }, function (data) {
-                    window.location.href="/user/toAO";
+                    $(window).attr("location","/user/toAS")
                 }, "json");
             }
         }

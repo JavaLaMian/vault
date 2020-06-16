@@ -8,7 +8,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into userBank values(#{bankId},#{uId},#{uId},#{bankName},#{cardId})
+          insert into userBank values(#{bankId},#{uId},#{bcUserName},#{bcUserPhe},#{bankName},#{cardId})
         ]]>
     </insert>
     <select id="getBC" resultType="UserBank">
