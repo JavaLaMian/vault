@@ -1,11 +1,11 @@
 package com.vault.demo.dao.loan;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Userimf;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+        import com.vault.demo.bean.Credit;
+        import com.vault.demo.bean.Userimf;
+        import org.springframework.stereotype.Repository;
+        import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+        import java.util.List;
 
 @Repository
 @Transactional

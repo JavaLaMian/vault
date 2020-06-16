@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <title>账户安全-小牛在线</title>
-    <script type="text/javascript" src="http://user/static/rsa/utility.js?v=1.0.2"></script>
+    <!--<script type="text/javascript" src="http://user/static/rsa/utility.js?v=1.0.2"></script>-->
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
     <!--<link rel="stylesheet" href="/css/accountsafe.css" />-->
@@ -54,7 +54,7 @@
             <!-- 我的账户菜单 -->
 
             <!--start 我的账户左边菜单列表-->
-            <div class="account-list" th:fragment="user">
+            <div class="account-list" th:fragment="usersafe">
                 <div class="account-info">
                     <div class="member-info">
                         <div>
@@ -81,34 +81,34 @@
                 </div>
                 <ul class="g-cf left-menu">
                     <li data-type="index">
-                        <a class="h2" href="/MyAccount/index"><b>账户总览</b></a>
+                        <a class="h2" href="/user/toAO"><b>账户总览</b></a>
                     </li>
                     <li data-type="">
-                        <a href="/MyAccount/invest/index">我的网贷</a>
+                        <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="/MyAccount/fundRecord">资金记录</a>
+                        <a href="#">资金记录</a>
                     </li>
-                    <li data-type="datum" id="safe">
+                    <li data-type="datum" class="cur" id="safe">
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="/payment/bankcard/index">银行卡管理</a>
+                        <a href="#">银行卡管理</a>
                     </li>
                     <li data-type="news">
-                        <a href="/MyAccount/message">我的消息<span id="msg-count"></span></a>
+                        <a href="#">我的消息<span id="msg-count"></span></a>
                     </li>
                     <li data-type="redEnvelope">
-                        <a href="/bonus/index">我的优惠<span id="bonus-count"></span></a>
+                        <a href="#">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li data-type="point">
-                        <a href="/bonus/point/index">我的积分</a>
+                        <a href="#">我的积分</a>
                     </li>
                     <li data-type="myactivity" class="last">
-                        <a href="/activity/limitTransfer/index">我的活动</a>
+                        <a href="#">我的活动</a>
                     </li>
                     <li class="planner last" data-type="planner">
-                        <a href="/financier/relationship">邀请好友<span>赚收益</span></a>
+                        <a href="#">邀请好友<span>赚收益</span></a>
                     </li>
 
                     <!-- <li class="investment" data-type="investment">
@@ -311,8 +311,8 @@
                                         </ul>
                                         <table class="form_type for_step1">
                                             <tr>
-                                                <td class="align_right">当前号码：</td>
-                                                <td><span class="display_form">178****7767</span></td>
+                                                <td class="align_right">邮箱地址：</td>
+                                                <td><span class="display_form" th:value="${session.user.email}">178****7767</span></td>
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
