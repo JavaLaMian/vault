@@ -1,6 +1,7 @@
 package com.vault.demo.dao.integral;
 
 
+import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.integral;
 import com.vault.demo.common.Pager;
 import org.apache.ibatis.annotations.Param;
@@ -18,5 +19,6 @@ public interface integralDao {
     List<integral> selectByType(@Param("startRow") int startRow, @Param("pageSize") int pageSize,@Param("integralType")String integralType);
     List<integral> selectByTypeSort(@Param("startRow") int startRow, @Param("pageSize") int pageSize,@Param("integralType")String integralType);
 
-
+    integral selectById(Integer id);
+    Credit selectCredit(int id);
 }

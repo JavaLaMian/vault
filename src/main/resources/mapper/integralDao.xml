@@ -19,4 +19,12 @@
     <select id="selectByTypeSort" resultType="com.vault.demo.bean.integral">
        select * from integral where integralType = #{integralType} order by integral asc limit #{startRow},#{pageSize}
     </select>
+
+    <select id="selectById" resultType="com.vault.demo.bean.integral">
+       select * from integral where Id = #{id}
+    </select>
+
+    <select id="selectCredit" resultType="com.vault.demo.bean.Credit">
+       select * from credit where uId =#{id}
+    </select>
 </mapper>
