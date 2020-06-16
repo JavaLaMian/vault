@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserimfDao {
     int addUser(Userimf userimf);
     int updateUserAccount(@Param("uId") int uId, @Param("account") String account);//将新增的用户账号同步为xiaomuniu
+    void upUser(Userimf userimf);
     List<Userimf> allList();//所有用户的集合
     void deleteById(Userimf userimf);//根据ID删除用户
     Userimf selectOneByLogin(Userimf userimf);//根据 账号||邮箱 和密码查用户

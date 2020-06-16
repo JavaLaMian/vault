@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface UserService {
     int addUserImf(Userimf user);
+    void upUser(Userimf userimf);
     String getEmailMa(String shou,String type) throws EmailException;
     Userimf pandEmail(String email);
     Userimf logPadUser(Userimf userimf);
