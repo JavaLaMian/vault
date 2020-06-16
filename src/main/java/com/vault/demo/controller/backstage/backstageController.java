@@ -2,19 +2,18 @@ package com.vault.demo.controller.backstage;
 
 import com.vault.demo.bean.Admin;
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Loan;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -146,6 +145,19 @@ public class backstageController {
             mv.setViewName("redirect:/XMN/BidList");
 
         }
+        return mv;
+    }
+    //去往用户信用审核页面
+    @RequestMapping("/loanlist")
+    public ModelAndView loanlist(ModelAndView mv,Model model){
+        List<Credit> list = is.CreditList();
+        model.addAttribute("list",list);
+        mv.setViewName("backstage/CreditList");
+        return mv;
+    }
+    @RequestMapping("/updateCredit")
+    public ModelAndView updateCredit(ModelAndView mv,Model model){
+        mv.setViewName("backstage/Creditupdate");
         return mv;
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期

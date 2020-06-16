@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>投标表</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+<body data-logobg="color_8" data-sidebarbg="color_8">
+    <div class="layout-web">
+        <div class="layout-container">
+            <!--引入头html代码-->
+            <div th:replace="/backstage/Brepetition::head"></div>
+            <!--End 页面主要内容-->
+            <main class="layout-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header"><h4>基本信息</h4></div>
+                                <div class="card-body">
+                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);height: 40px;">
+                                        <span style="width: 200px"><strong>编号：<a>1</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>申请人用户ID：<a>1</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>单位：<a>煤场</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>工资情况：<a>20000~50000</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>公积金：<a>200000000亿</a></strong></span>
+                                    </div>
+                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">身份证信息</p>
+                                        <span style="width: 200px;"><strong>姓名：<a>刘世阳</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证：<a>33032626656664656</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证正面照片：<a></a></strong></span>
+                                        <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
+
+                                            <a class="masonry-item" href="#">
+                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                            </a>
+                                            <a class="masonry-item" href="#">
+                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">房产证明</p>
+                                        <span style="width: 200px"><strong>房产证明照片：</strong></span>+
+                                        <span style="width: 200px;"><strong>车产证明照片：</strong></span>
+                                        <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
+
+                                            <a class="masonry-item" href="#">
+                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                            </a>
+                                            <a class="masonry-item" href="#">
+                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">请审核并确认征信等级</p>
+                                        <button class="btn btn-w-md btn-round btn-warning">关注</button>
+                                        <button class="btn btn-w-md btn-round btn-secondary">次级</button>
+                                        <button class="btn btn-w-md btn-round btn-success">正常</button>
+                                        <button class="btn btn-w-md btn-round btn-dark">可疑</button>
+                                        <button class="btn btn-w-md btn-round btn-danger">损失</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+            <!--End 页面主要内容-->
+        </div>
+    </div>
+</body>
+</html>

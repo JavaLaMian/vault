@@ -1,6 +1,8 @@
 package com.vault.demo.service.backstage.adxmn.adxmnImpl;
 
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Loan;
 import com.vault.demo.dao.backstage.AdxmnDao;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,6 @@ public class selevicexmnImpl implements selevicexmn {
     @Override
     public int addBid(Bid bid) {
         int ok = dao.addBid(bid);
-
        return ok;
     }
 
@@ -40,4 +41,11 @@ public class selevicexmnImpl implements selevicexmn {
         int ok = dao.dateBid(bid);
         return ok;
     }
+
+    @Override
+    public List<Credit> CreditList() {
+        return dao.CreditList();
+    }
+
+
 }

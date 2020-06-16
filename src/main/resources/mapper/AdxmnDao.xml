@@ -33,4 +33,9 @@
             delete from bid where bId=#{bId}
         ]]>
     </delete>
+    <select id="CreditList" resultType="Credit">
+         <![CDATA[
+          select * from credit
+        ]]>
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.vault.demo.service.backstage.adxmn;
 
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Loan;
 
 import java.util.List;
 
@@ -11,4 +13,5 @@ public interface selevicexmn {
     List<Bid> selectgetBid(Bid bid);//根据id查询出投标信息
     int updateBid(Bid bid);//修改投标信息
     int dateBid(Bid bid);//删除投标信息
+    List<Credit> CreditList();//查询贷款用户提交的信用信息
 }
