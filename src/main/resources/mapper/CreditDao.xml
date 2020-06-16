@@ -8,7 +8,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into credit values(#{creId},#{uId},#{depart},#{wages},#{name},#{identity},#{hId},#{cId},#{funds},#{positiveIDPhoto},#{negativeIDPhoto},#{creditLV},#{creditUpdateTime})
+          insert into credit values(#{creId},#{uId},#{depart},#{name},#{wages},#{identity},#{hId},#{cId},#{funds},#{positiveIDPhoto},#{negativeIDPhoto},#{creditLV},#{creditUpdateTime})
         ]]>
     </insert>
     <select id="selectCreditByUserId" resultType="Credit" parameterType="com.vault.demo.bean.Userimf">
