@@ -9,7 +9,14 @@
     <select id="selprobypage" resultType="com.vault.demo.bean.integral">
        select * from integral limit #{startRow},#{pageSize}
     </select>
+    <select id="selprobypageSort" resultType="com.vault.demo.bean.integral">
+       select * from integral order by integral asc  limit #{startRow},#{pageSize}
+    </select>
     <select id="selectByType" resultType="com.vault.demo.bean.integral">
        select * from integral where integralType = #{integralType} limit #{startRow},#{pageSize}
+    </select>
+
+    <select id="selectByTypeSort" resultType="com.vault.demo.bean.integral">
+       select * from integral where integralType = #{integralType} order by integral asc limit #{startRow},#{pageSize}
     </select>
 </mapper>

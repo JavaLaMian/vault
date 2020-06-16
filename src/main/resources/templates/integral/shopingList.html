@@ -64,23 +64,29 @@
                 <dl class="mall-list-tab">
                     <dt>商品分区：</dt>
                     <dd id="productAreaList">
-                        <a th:href="@{/integral/list(spId=0)}">
+                        <a th:href="@{/integral/list(spId=0,currPage=1,sort = 0)}">
                             <span  class="filter" th:classappend="${spId}==0?'active' :''">全部</span>
                         </a>
-                        <a th:href="@{/integral/list(spId=1)}">
+                        <a th:href="@{/integral/list(spId=1,currPage=1,sort = 0)}">
                             <span class="filter" th:classappend="${spId}==1?'active' :''">乐生活</span>
                         </a>
-                        <a th:href="@{/integral/list(spId=2)}">
+                        <a th:href="@{/integral/list(spId=2,currPage=1,sort = 0)}">
                             <span class="filter" th:classappend="${spId}==2?'active' :''">乐品质</span>
                         </a>
-                        <a th:href="@{/integral/list(spId=3)}">
+                        <a th:href="@{/integral/list(spId=3,currPage=1,sort = 0)}">
                             <span class="filter" th:classappend="${spId}==3?'active' :''">惠盈财</span>
                         </a>
                     </dd>
                 </dl>
+<!--                排序-->
                 <div class="mall-list-sort" id="sortList">
-                    <span class="filter active js_sort_default" data-sort="default" data-sortby="0">默认排序 <i>↓</i></span>
-                    <span class="filter js_sort_points" data-sort="points" data-sortby="0">兑换积分 <i>↓</i></span>
+                    <a th:href="@{/integral/list(spId=${spId},currPage=1,sort = 0)}">
+                        <span class="filter js_sort_default" th:classappend="${sort} != 1 ? 'active' :''">默认排序 <i>↓</i></span>
+                    </a>
+                    <a th:href="@{/integral/list(spId=${spId},currPage=1,sort = 1)}">
+                        <span class="filter js_sort_points" th:classappend="${sort} == 1 ? 'active' :''">兑换积分 <i>↓</i></span>
+                    </a>
+
                 </div>
             </div>
 <!--            商品-->
@@ -103,12 +109,12 @@
                     </li>
                 </ul>
 <!--                分页-->
-                <div class="page" id="pages">第<i class="pg">1</i>页/共<i class="cal">1</i>页
-                    <a data-page="fast" href="javascript:void(0);">首页</a>
-                    <a data-page="up" href="javascript:void(0);">上一页</a>
-                    <a data-page="un" href="javascript:void(0);" class="cur">1</a>
-                    <a data-page="down" href="javascript:void(0)">下一页</a>
-                    <a data-page="last" href="javascript:void(0)">末页</a>
+                <div class="page">第<i class="pg" th:text="${pager.currPage}"></i>页/共<i class="cal" th:text="${pager.totalPage}"></i>页
+                    <a data-page="fast" th:href="@{/integral/list(currPage=1,spId = ${spId},sort=0)}">首页</a>
+                    <a data-page="up" th:href="@{/integral/list(currPage=${pager.currPage - 1},spId = ${spId},sort=0)}">上一页</a>
+                    <a data-page="un" th:text="${pager.currPage}" class="cur"></a>
+                    <a data-page="down" th:href="@{/integral/list(currPage=${pager.currPage + 1},spId = ${spId},sort=0)}">下一页</a>
+                    <a data-page="last" th:href="@{/integral/list(currPage=${pager.totalPage},spId = ${spId},sort=0)}">末页</a>
                 </div>
             </div>
         </div>
