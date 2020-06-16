@@ -5,7 +5,7 @@ import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
-import com.vault.demo.dao.CreditDao;
+import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void upUser(Userimf userimf) {
+
+    }
+
+    @Override
     public String getEmailMa(String shou,String type) throws EmailException {
         if("".equals(shou)){
             return "";
@@ -50,6 +55,8 @@ public class UserServiceImpl implements UserService {
             text = "您的正在修改该邮箱绑定账号的密码，验证码为 "+ma+",若非本人操作请忽略";
         }else if("smrz".equals(type)){
             text = "您的正在进行实名认证，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("jymm_rz".equals(type)){
+            text = "您的正在设置交易密码，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com
@@ -82,11 +89,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void bindCredit(Credit credit) {
-        cdao.bindCredit(credit);
+        cdao.insert(credit);
     }
 
     @Override
     public void bindBank(UserBank userBank) {
         bdao.bindBank(userBank);
+    }
+
+    @Override
+    public UserBank getBC(int uId) {
+        return bdao.getBC(uId);
+    }
+
+    @Override
+    public Credit getCredit(int uId) {
+        Userimf userimf = new Userimf();
+        userimf.setuId(uId);
+        return cdao.selectCreditByUserId(userimf);
     }
 }

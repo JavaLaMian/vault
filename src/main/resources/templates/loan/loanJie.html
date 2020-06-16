@@ -87,7 +87,7 @@
     <div class="header" data-aspm="c37338" data-aspm-expo>
     <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
         <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
-            <a th:href="@{/loan/mian}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+            <a th:href="@{/loan/mian2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
                 <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
             </a>
         </h1>
@@ -214,16 +214,53 @@
                             </div>
                         </div>
                         <div class="boxRight" data-reactid=".0.2.1.1:2.0.1" data-aspm="c10124" data-aspm-expo="true">
-                            <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0">
-                                <h3 style="margin-top:74px;" data-reactid=".0.2.1.1:2.0.1.0.0">我的可贷额度(元)</h3>
-                                <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2">2000</div>
+                            <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan == null}">
+                                <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您目前可以无贷款正在进行</h3>
+                                <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
                                 <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
                                 <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
-                                    <a  class="ajk" th:href="@{/loan/toloanJie}">
+                                    <a  class="ajk" th:href="@{/loan/toChooseLoanType}">
                                         <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >我要借钱</button>
                                     </a>
                                 </div>
                             </div>
+
+                            <div th:if="${session.userLoan != null}">
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 0}">
+                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在申请中</h3>
+                                    <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
+                                    <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
+                                    <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
+                                        <a  class="ajk" th:href="@{/loan/toloanJie}">
+                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1}">
+                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
+                                    <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
+                                    <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
+                                    <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
+                                        <a  class="ajk" th:href="@{/loan/toloanJie}">
+                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 2}">
+                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款等待偿还中</h3>
+                                    <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
+                                    <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
+                                    <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
+                                        <a  class="ajk" th:href="@{/loan/toloanJie}">
+                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <noscript data-reactid=".0.2.1.1:2.0.1.1"></noscript>
                             <div class="rightTop margTop10" data-reactid=".0.2.1.1:2.0.1.2">
                                 <span class="ant-checkbox ant-checkbox-checked ant-checkbox-checked-1" data-reactid=".0.2.1.1:2.0.1.2.0">

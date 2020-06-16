@@ -2,6 +2,7 @@ package com.vault.demo.service.test.impl;
 
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
+import com.vault.demo.bean.Tender;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
 import org.apache.ibatis.annotations.Param;
@@ -72,5 +73,10 @@ public class BidSerImpl implements BidSer{
     public PerBid selectByPid(int perBid) {
         List<PerBid> pids = bidDao.selectPerB(perBid);
         return pids.get(0);
+    }
+
+    @Override
+    public Tender getTenderId(int tid) {
+        return bidDao.selectTouId(tid);
     }
 }

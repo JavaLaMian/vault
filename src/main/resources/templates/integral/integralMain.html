@@ -30,14 +30,14 @@
             <input id="_point_current_menu" type="hidden" value="mall">
             <ul class="nav">
                 <li>
-                    <a href="" id="_menu_mall" >积分兑换</a>
+                    <a th:href="@{/integral/main}"  id="_menu_mall" class="cur">积分兑换</a>
                 </li>
                 <!--  -->
                 <li>
-                    <a href="" id="_menu_rule" class="cur">积分规则</a>
+                    <a th:href="@{/integral/Rule}" id="_menu_rule">积分规则</a>
                 </li>
                 <li>
-                    <a href="" id="_menu_faq">积分问答</a>
+                    <a th:href="@{/integral/issue}" id="_menu_faq">积分问答</a>
                 </li>
             </ul>
         </div>
@@ -45,124 +45,128 @@
 
 <!--   内容-->
     <div style="width: 100%;height: auto">
-<!--        积分规则-->
-        <div  class="content gray">
-            <div class="g-o white">
-                <div style="padding:35px 50px;font-size:16px;">
-                    <h2 style="text-align:left;font-size:28px;">
-                        <span style="font-size:16px;line-height:2;font-family:'Microsoft YaHei';">一、什么是积分</span>
-                    </h2>
-                    <p>
-                        <span style="line-height:2;font-family:'Microsoft YaHei';">小牛在线会员积分是对每天登录小牛在线平台进行签到的有效会员，进行的赠送奖励，小牛会员可通过电脑进行登录获取相应积分。</span>
-                    </p>
-                    <p>
-                        <br>
-                    </p>
-                    <h4>
-                        <span style="line-height:2;font-family:'Microsoft YaHei';">二、获取积分</span>
-                    </h4>
-                    <p>
-                        <span style="line-height:2;font-family:'Microsoft YaHei';"> </span>
-                    </p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';"> 1、小牛会员通过“签到领积分”方式即可获取，获取规则如下：
-                <p>
-                    1）每天登录签到，系统随机赠送<span>1-5</span>积分
-                </p>
-                <p>
-                    2）周六、周日登录签到，积分赠送为系统随机赠送积分的<span>2</span>倍
-                </p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';"> 2、小牛会员通过<span>“投标</span><span>”</span>方式即可获取，获取规则如下：
-                <p class="MsoNormal">
-                    积分数量<span>=</span>单笔指定产品投标金额<span>*</span>月份<span>/1000</span>
-                </p>
-                <p class="MsoNormal">
-                    注：投标三个月及以上的散标、优享牛才可获得对应积分（转让专区、新手标不计算）。<span></span>
-                </p>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';"></span>
-                </p>
-                <p>
-                    <br>
-                </p>
-                <h4>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">三、积分查询</span>
-                </h4>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">会员可通过登</span><span style="font-size:16px;line-height:2;font-family:'Microsoft YaHei';">录</span><span style="line-height:2;font-family:'Microsoft YaHei';">个人账户页面，点击“我的积分”查询积分获取情况</span>
-                </p>
-                <p>
-                    <br>
-                </p>
-                <h4>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">四、积分使用</span>
-                </h4>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">在我的积分页面，用户点击“积分换礼物”，可跳转至积分商城进行体验金、返现红包等奖品兑换，会员积分一旦兑换奖品后，不能修改或退换</span>
-                </p>
-                <p>
-                    <br>
-                </p>
-                <h4>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">五、积分有效期</span>
-                </h4>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">会员积分采用年度滚动清零方式，会员该年得到的积分可使用到次年的12月31日，逾期未使用的积分将于到期后自动清零。（如：2017年度获得的积分，有效期至2018年12月31日，于2019年1月1日00:00自动清零）</span>
-                </p>
-                <p>
-                    <br>
-                </p>
-                <h4>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">六、作弊处理</span>
-                </h4>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">系统会对有作弊行为的用户做如下处理：</span>
-                </p>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">第1次发现作弊行为：积分、等级将回到原始点，用户列入重点监控名单</span>
-                </p>
-                <p>
-                    <span style="line-height:2;font-family:'Microsoft YaHei';">第2次发现作弊行为：将禁止用户继续领取积分，积分、等级永远处于原始点的位置</span>
-                </p>
-                    </span></span>
+        <div class="banner">
+            <div class="slider">
+                <ul class="clearfix" style="width: 2912px; position: absolute; left: 0px;">
+
+                    <li style="background: url(&quot;https://image.xiaoniu88.com/image/image_upload/ddac5a3c-3543-4c8f-8bad-5058ba0f0021.jpg&quot;) 50% 50% no-repeat; width: 1456px; float: left;">
+                        <a th:href="@{/integral/main2}" target="_blank"></a>
+                    </li>
+                    <li style="background: url(&quot;https://image.xiaoniu88.com/image/image_upload/ddac5a3c-3543-4c8f-8bad-5058ba0f0021.jpg&quot;) 50% 50% no-repeat; width: 1456px; float: left;">
+                        <a th:href="@{/integral/main2}" target="_blank"></a>
+                    </li>
+                </ul>
+                <div class="section g-pr">
+                    <div class="slider-nav">
+                    </div>
+                    <div class="userbox-wrapper">
+                        <div class="userbox">
+                            <div class="userbox-pic"></div>
+                            <div class="userbox-name">今日 <span class="orange">113</span> 人签到</div>
+                            <div class="userbox-ft g-cf">
+                                <p class="p1">您今天签到了吗？</p>
+                                <p>签到即可获得小牛积分</p>
+                            </div>
+                        </div>
+                        <div class="btn-area">
+                            <a href="javascript:gotoLogin('/user/tologin', 0, '/main/first')" class="signIn" data-url="https://www.xiaoniu88.com/bonus/point/pointmall/1">立即签到</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-<!--        积分问答-->
-        <div class="content gray">
-            <div class="g-o white">
-                <p>
-                    <strong><span style="font-size:16px;line-height:2;">一、会员积分何时能使用积分？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 签到积分在成功签到之后，即时到账，会员可根据礼品需要的积分数，进行兑换</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">二、积分是否可累计？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 每日签到积分系统会自动进行累计，明细、累计的积分情况可登陆“我的积分”进行查看</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">三、积分可以兑换现金或者提现吗？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 小牛会员积分不可兑换现金、不能提现。</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">四、积分兑换商品是否能开具发票？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 使用积分兑换的商品，属于小牛对您的回馈行为而非交易，不能提供发票。</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">五、 积分在兑换期限内没使用，是否可退？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 关于积分的兑换，采用年度滚动清零方式，逾期没兑换视为用户放弃积分兑换权益，不可退</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">六、 如何通过投标获取积分？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 投标三个月及以上的散标、优享牛才可获得对应积分（转让专区、新手标不计算）</span><br>
-                    <span style="font-size:16px;line-height:2;"> 计算公式为：积分数量=单笔指定产品投标金额*月份/1000</span><br>
-                    <span style="font-size:16px;line-height:2;"> 注： 投标规则内最少可获得1积分，计算结果出现小数，取整数部分。</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">七、积分兑换或积分抽奖的商品什么时候发货？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 积分兑换的实物奖品(颜色随机)一般在订单提交后的7-15个工作日内包邮寄出。</span><br>
-                    <br>
-                    <strong><span style="font-size:16px;line-height:2;">八、积分兑换的商品存在质量问题，该如何处理？</span></strong><br>
-                    <span style="font-size:16px;line-height:2;"> 除商品在运送途中发生损毁或本身存在质量瑕疵以外，恕不允许更换。符合更换条件的用户， &nbsp;请在商品签收后及时与我们的客服同事联系。残次商品寄回时，请务必保留原包装、内附说明书及相关文件。</span>
-                </p>
-                <p>
-                    <br>
-                </p>
+
+        <div class="pointmall-container" id="container">
+            <div class="section g-dn" id="productAreaId_3" style="display: block;">
+                <h2 class="floor-title">
+                    <span>享品质</span>
+                    <a th:href="@{/integral/list(spId=2,currPage=1,sort = 0)}" class="floor-more">查看更多</a>
+                </h2>
+                <div class="floor g-cf">
+                    <div class="floor-ad" id="slideMain_JFSCXPZ01">
+                        <a th:href="@{/integral/list(spId=2,currPage=1,sort = 0)}" target="_blank">
+                            <img src="//image.xiaoniu88.com/image/image_upload/1307ef4d-1769-4b86-9dc9-328651c7564e.jpg">
+                        </a>
+                    </div>
+                    <ul class="floor-list small-list g-cf js_list"></ul>
+                </div>
+            </div>
+            <div class="section g-dn" id="productAreaId_2" style="display: block;">
+                <h2 class="floor-title"> <span>乐生活</span>
+                    <a th:href="@{/integral/list(spId=1,currPage=1,sort = 0)}" class="floor-more">查看更多</a>
+                </h2>
+                <div class="floor g-cf">
+                    <div class="floor-ad" id="slideMain_JFSCLSH01">
+                        <a th:href="@{/integral/list(spId=1,currPage=1,sort = 0)}" target="_blank">
+                            <img src="//image.xiaoniu88.com/image/image_upload/9afadaf5-61ac-489d-aaf6-789b863d3b62.jpg">
+                        </a>
+                    </div>
+                    <ul class="floor-list small-list g-cf js_list"></ul>
+                </div>
             </div>
         </div>
     </div>
+
+<!--start 尾部-->
+    <div class="footer">
+        <div class="g-o" style="width:1170px">
+            <ul>
+                <li>
+                    <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                    <a target="_blank" href="/portal/platform/index">平台数据</a>
+                    <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                    <a target="_blank" href="/portal/guide/security">风险管理</a>
+                    <a target="_blank" href="/cms/about/index">公司概况</a>
+                    <a target="_blank" href="/cms/about/contactus">联系我们</a>
+                </li>
+                <li>
+                    <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                    <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                    <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                    <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                    <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+                </li>
+                <li>
+                    <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                    <a target="_blank" href="/cms/help/question/3">项目</a>
+                    <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+                </li>
+                <li class="last ft-wm">
+                    <p>
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                        <span>官方微信</span>
+                    </p>
+                    <p>
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                        <span>手机客户端</span>
+                    </p>
+                    <p>
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                        <span>兴趣部落</span>
+                    </p>
+                </li>
+                <li class="last">
+                    <p class="til-ic">全国服务热线：</p>
+                    <p class="bd">4006-0755-70</p>
+                    <p>服务时间 9:00-18:00</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="foot-bt">
+    <p>Copyright &copy; 2015 深圳市小牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+    <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦四楼   座机：0755－86160888</p>
+    <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+    <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+        <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+</div>
 
 </body>
 </html>

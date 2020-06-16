@@ -2,14 +2,17 @@ package com.vault.demo.controller.main;
 
 
 import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Pager;
 import com.vault.demo.bean.PerBid;
+import com.vault.demo.bean.Tender;
+import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,35 +24,36 @@ public class MainControl{
     public String toMain(HttpServletRequest request){
         List<Bid> nList =  bidSer.allList();
         List ncList = nList.subList(0,3);
-        List<PerBid> perList = bidSer.selectPerB(0);
+        List<PerBid> perList = bidSer.selectPerB();
+        System.out.println("=================="+perList.size());
         request.setAttribute("ncList",ncList);
         request.setAttribute("perList",perList);
         return "firstPage/first";
     }
 
     @RequestMapping("/prose")
-    public String toProse(){
+    public String toProse(int t, int id, Model model, HttpSession session){
+        //t == 1 普通标 2 散标
+        System.out.println(t+"|"+id);
+        Userimf userimf = null;
+        if( session.getAttribute("user") != null){
+            userimf = (Userimf) session.getAttribute("user");
+            //判断该用户是否投过此标
+            Tender tender = bidSer.getTenderId(userimf.getuId());
+            model.addAttribute("to",tender);
+        }
+        if(t == 1){
+            Bid bid = bidSer.selectByBid(id);
+            model.addAttribute("bx",bid);
+        }else {
+            PerBid perBid = bidSer.selectByPid(id);
+            model.addAttribute("bx",perBid);
+        }
         return "firstPage/prose";
     }
 
-
-    @RequestMapping("/perList")
-    public String perList(HttpServletRequest request, Pager pager,PerBid per){
-        System.out.println(per.toString());
-        pager.page(bidSer.countPerPage(per.getRate(),per.getEnquiry()));
-        List<PerBid> list = bidSer.pagePerB((pager.thisPage-1)*pager.titleSize,pager.titleSize,per.getRate(),per.getEnquiry());
-        request.setAttribute("list",list);
-        request.setAttribute("pager",pager);
-        request.setAttribute("p",per);
-        System.out.println(list.toString());
-        return "firstPage/proseList";
-    }
-
-
-    @RequestMapping("/per")
-    public String perImf(HttpServletRequest request){
-//        List<PerBid> per = bidSer. selectPerB(id);
-//        request.setAttribute("per",per);
-        return "/firstPage/perBidImf";
+    @RequestMapping("/perlist")
+    public String toPerbid(){
+        return "firstPage/perbidList";
     }
 }
