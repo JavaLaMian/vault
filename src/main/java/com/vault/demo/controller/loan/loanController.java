@@ -118,7 +118,7 @@ public class loanController {
 
         Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
 
-        if (credit == null){
+        if (credit == null || credit.getName() == null || "".equals(credit.getName())){
             return "loan/creditNotPush";
         }
 
