@@ -5,6 +5,7 @@ import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
+import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.loan.LoanService;
 import org.apache.ibatis.annotations.Param;
@@ -31,6 +32,9 @@ public class loanController {
 
     @Resource
     BankDao bankDao;
+
+    @Resource
+    WorryCallDao worryCallDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -126,6 +130,7 @@ public class loanController {
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
             UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
             Userimf userimf = (Userimf)session.getAttribute("user");
+            List worryCallList = worryCallDao.selectWorryByUId(userimf);
 
             if (credit == null
                     || credit.getName() == null || "".equals(credit.getName())
@@ -134,8 +139,15 @@ public class loanController {
                     || credit.getIdentity() == null || "".equals(credit.getIdentity())
                     || userBank == null
                     || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
-                    || userimf.getPhe() == null || "".equals(userimf.getPhe())){
+                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCallList.size() <= 0){
                 model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
 
                 return "loan/creditNotPush";
             }
