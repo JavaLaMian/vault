@@ -71,4 +71,13 @@ public class UserController2 {
         service.bindCredit(credit);
         return "";
     }
+    @RequestMapping("/zfmm")
+    @ResponseBody
+    public String zfmm(String dealPwd,HttpSession session){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        userimf.setDealPsw(dealPwd);
+        System.out.println(userimf);
+        service.upUser(userimf);
+        return "";
+    }
 }
