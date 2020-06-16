@@ -33,7 +33,7 @@
 <body>
 <input type="hidden" id="em" th:value="${session.user.email}"/>
 <input type="hidden" id="emcode" />
-<input value="true" type="hidden" id="isLogin"/>
+<input th:value="${session.applyType}" type="hidden" id="checked"/>
 
 <div class="affiche" id="afficheModel">
 
@@ -335,41 +335,47 @@
         }
     }
 
-        function bind() {
-            var uName = $("#uName").val();
-            var identity = $("#identity").val();
-            var cardId = $("#cid").val();
-            var bankName = $("#bankName").val();
+    function bind() {
+        couldsub = true;
+        var uName = $("#uName").val();
+        var identity = $("#identity").val();
+        var cardId = $("#cid").val();
+        var bankName = $("#bankName").val();
+        var arge = $("#arge").val();
 
-            if (uName == null || uName == "") {
-                $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
+        if (identity == null || identity == "") {
+            couldsub = false;
+            $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">该选项不能为空！</span>");
+        } else {
+            var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            if (!idCardReg.test(identity)) {
+                $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">请输入正确的身份证号</span>");
             }
-            if (identity == null || identity == "") {
-                $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">该选项不能为空！</span>");
-            } else {
-                var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-                if (!idCardReg.test(identity)) {
-                    $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">请输入正确的身份证号</span>");
-                }
-            }
-            if (cardId == null || cardId == "") {
-                $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
-            }
-            if (bankName == null || bankName == "") {
-                $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
-            }
-
-            if (couldsub == true) {
-                $.post("/user/smrz", {
-                    uName: uName,
-                    identity: identity,
-                    cardId: cardId,
-                    bankName: bankName
-                }, function (data) {
-                    $(window).attr("location","/user/toAS")
-                }, "json");
-            }
+            couldsub = false;
         }
+        if (uName == null || uName == "") {
+            couldsub = false;
+            $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
+        }else if (cardId == null || cardId == "") {
+            couldsub = false;
+            $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
+        }else if (bankName == null || bankName == "") {
+            couldsub = false;
+            $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
+        }else if ($("#checkbox-id").get(0).checked) {
+            couldsub = true
+        }
+        if (couldsub == true) {
+            $.post("/user/smrz", {
+                uName: uName,
+                identity: identity,
+                cardId: cardId,
+                bankName: bankName
+            }, function (data) {
+                $(window).attr("location","/user/toAS")
+            }, "json");
+        }
+    }
 </script>
 </body>
 </html>
