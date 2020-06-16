@@ -2,6 +2,7 @@ package com.vault.demo.service.test;
 
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,8 +23,11 @@ public interface BidSer{
     void updateById(int bid);
     void insert(Bid bid);
     List<Bid> selectByType(int bType);
-    List<PerBid> selectPerB();
-
+    List<PerBid> selectPerB( int perBid);
+    List<PerBid> pagePerB(int startT,int tSize,float inRate,float enquiry);
+    int countPerList();
+    int  countPerPage(float inRate,float enquiry);
     Bid selectByBid(int bid);
     PerBid selectByPid(int pid);
+
 }

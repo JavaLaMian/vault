@@ -8,7 +8,6 @@ import java.util.Date;
 //
 @Table(name = "perBid")
 public class PerBid {
-
        private int  perBid;
         private int bidStatus;
        private int borrower;
@@ -24,7 +23,7 @@ public class PerBid {
        private String answer;
        private int  transfer;
        private Date startTime;
-
+       private float enquiry;//可以投资余额
 
     @Override
     public String toString() {
@@ -44,8 +43,16 @@ public class PerBid {
                 ", answer='" + answer + '\'' +
                 ", transfer=" + transfer +
                 ", startTime=" + startTime +
-
+                ", enquiry=" + enquiry +
                 '}';
+    }
+
+    public float getEnquiry() {
+        return enquiry;
+    }
+
+    public void setEnquiry(float enquiry) {
+        this.enquiry = enquiry;
     }
 
     public int getPerBid() {

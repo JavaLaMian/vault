@@ -4,13 +4,14 @@ import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class BidSerImpl implements BidSer {
+public class BidSerImpl implements BidSer{
 
     @Resource
     BidDao bidDao;
@@ -40,8 +41,23 @@ public class BidSerImpl implements BidSer {
     }
 
     @Override
-    public List<PerBid> selectPerB() {
-        return bidDao.selectPerB(0);
+    public List<PerBid> selectPerB(int perBid) {
+        return bidDao.selectPerB(perBid);
+    }
+
+    @Override
+    public List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry) {
+        return bidDao.pagePerB(startT,tSize,inRate,enquiry);
+    }
+
+    @Override
+    public int countPerList() {
+        return bidDao.countPerList();
+    }
+
+    @Override
+    public int countPerPage (float inRate, float enquiry) {
+        return bidDao.countPerPage( inRate,  enquiry);
     }
 
     @Override
@@ -50,9 +66,11 @@ public class BidSerImpl implements BidSer {
         return bids.get(0);
     }
 
+
+
     @Override
-    public PerBid selectByPid(int pid) {
-        List<PerBid> pids = bidDao.selectPerB(pid);
+    public PerBid selectByPid(int perBid) {
+        List<PerBid> pids = bidDao.selectPerB(perBid);
         return pids.get(0);
     }
 }

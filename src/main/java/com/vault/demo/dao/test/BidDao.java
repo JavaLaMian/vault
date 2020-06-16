@@ -17,4 +17,7 @@ public interface BidDao{
     void insert(Bid bid);
     List<Bid> selectByType(int bType);
     List<PerBid> selectPerB(@Param("perBid")int perBid);
+    int countPerList();
+    List<PerBid> pagePerB(@Param("startT") int startT, @Param("tSize") int tSize,@Param("inRate") float inRate,@Param("enquiry") float enquiry);
+    int countPerPage(@Param("inRate") float inRate,@Param("enquiry") float enquiry);
 }

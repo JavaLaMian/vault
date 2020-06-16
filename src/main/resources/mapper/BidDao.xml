@@ -20,14 +20,48 @@
         ]]>
     </select>
 
-    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid" parameterType="int">
-        <![CDATA[
-          select *,(rate-addRate) as inRate from perBid
+    <select id="countPerList" resultType="int">
+         <![CDATA[
+          select COUNT(*) from perBid
         ]]>
+    </select>
+
+    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <if test="perBid != null and perBid != 0">
             where perBid = #{perBid}
         </if>
     </select>
+    <select id="countPerPage" resultType="int">
+        select count(*) from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        <where>
+            <if test="inRate==3">(rate-addRate) &lt; 7</if>
+            <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
+            <if test="inRate==5">(rate-addRate) &gt;= 8 and (rate-addRate) &lt;=10</if>
+            <if test="inRate==6">(rate-addRate) &gt; 10</if>
+            <if test="enquiry==3"> and (combination-sumM) &lt; 5000</if>
+            <if test="enquiry==4"> and (combination-sumM) &gt;= 5000 and (combination-sumM) &lt; 10000</if>
+            <if test="enquiry==5"> and (combination-sumM) &gt;= 10000 and (combination-sumM) &lt;= 50000</if>
+            <if test="enquiry==6"> and (combination-sumM) &gt; 50000</if>
+        </where>
+    </select>
+
+    <select id="pagePerB" resultType="com.vault.demo.bean.PerBid">
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        <where>
+            <if test="inRate==3">(rate-addRate) &lt; 7</if>
+            <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
+            <if test="inRate==5">(rate-addRate) &gt;= 8 and (rate-addRate) &lt;=10</if>
+            <if test="inRate==6">(rate-addRate) &gt; 10</if>
+            <if test="enquiry==3"> and (combination-sumM) &lt; 5000</if>
+            <if test="enquiry==4"> and (combination-sumM) &gt;= 5000 and (combination-sumM) &lt; 10000</if>
+            <if test="enquiry==5"> and (combination-sumM) &gt;= 10000 and (combination-sumM) &lt;= 50000</if>
+            <if test="enquiry==6"> and (combination-sumM) &gt; 50000</if>
+        </where>
+            limit #{startT},#{tSize}
+    </select>
+
+
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
         delete from bid where bId = #{id}
