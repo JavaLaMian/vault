@@ -96,8 +96,9 @@
     <!--    导航-->
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
-            <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
-                <a th:href="@{/loan/mian2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+            <div class="top" data-reactid=".0.2.1.0.0">
+                <h1 data-reactid=".0.2.1.0.0.0" style="margin: 0">
+                <a th:href="@{/loan/main2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
                     <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
                 </a>
             </h1>
@@ -278,7 +279,7 @@
                             <th>期望贷款金额</th>
                             <td th:text="${loan.getLoanWantMoney()} + '万'"></td>
                             <th>借贷期限</th>
-                            <td th:text="${loan.getLowLimit()}"></td>
+                            <td th:text="${loan.getLowLimit()} + '个月'"></td>
                         </tr>
                         <tr>
                             <th>基础利率</th>
@@ -298,7 +299,7 @@
                         </tr>
                         <tr>
                             <th>当前状态</th>
-                            <td>
+                            <td style="color: red">
                                 <span th:if="${loan.getLoanStatue() == 0}">
                                     审核中
                                 </span>
