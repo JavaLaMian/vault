@@ -20,4 +20,28 @@
             select  * from bid where bId = #{bId}
          ]]>
     </select>
+    <update id="updateBid">
+        <![CDATA[
+            update bid set bidName=#{bidName},bidType=#{bidType},rewardRate=#{rewardRate},rate=#{rate},addLimit=#{addLimit},
+            singelLimit=#{singelLimit},sumLimit=#{sumLimit},startLimit=#{startLimit},transLine=#{transLine},clockLine=#{clockLine},deposit=#{deposit},
+            dealCount=#{dealCount},question=#{question},answer=#{answer},transfer=#{transfer},aotuInverst=#{aotuInverst},exprie=#{exprie},bidStatus=#{bidStatus},
+            bidTime=#{bidTime},maxTime=#{maxTime},personLimit=#{personLimit} where bId=#{bId}
+         ]]>
+    </update>
+    <delete id="dateBid">
+        <![CDATA[
+            delete from bid where bId=#{bId}
+        ]]>
+    </delete>
+    <select id="CreditList" resultType="Credit">
+         <![CDATA[
+          select * from credit
+        ]]>
+    </select>
+    <select id="selectgetCredit">
+         <![CDATA[
+         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo from credit c
+left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creid}
+        ]]>
+    </select>
 </mapper>
