@@ -51,6 +51,7 @@
         </div>
     <div class="container">
         <br>
+<!--        商品-->
         <div class="row">
             <div class="col-md-1 col-lg-1"></div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -63,7 +64,7 @@
                 <h4>
                     <span style="line-height:2">使用规则</span>
                 </h4>
-                <span style="line-height:2"> 1.小母牛会员可使用<span th:text="${list.integral}"></span>积分去兑换<span th:text="${list.integralName}"></span>
+                <span style="line-height:2"> 1.小母牛会员可使用<span th:text="${list.integral}" style="color: #00b8b9"></span>积分去兑换<span style="color: #00b8b9" th:text="${list.integralName}"></span>
                     <p>
                         2.以下地区不支持发货：新疆、西藏，请符合需求再操作兑换
                     </p>
@@ -86,9 +87,37 @@
                 <p>
             </div>
         </div>
+        <br>
+        <!--        填写地址-->
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-6">
+                <h4>
+                    <span style="line-height:2">确认地址</span>
+                </h4>
+                <form th:action="@{/integral/conversion}" method="post" enctype="multipart/form-data">
+                    <span >
+                        <label>姓名:</label>
+                        <span style="color: #00b8b9" th:text="${credit.name}">林学明</span>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span >
+                        <label >号码</label>&nbsp;
+                        <span style="color: #00b8b9" th:text="${user.phe}">1315194151</span>
+                    </span>
+                    <div class="form-group">
+                        <label>地址:</label>
+                        <input class="form-control" type="text" name="place" th:text="${user.place}">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" >确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <p>
-                <a class="btn btn-primary btn-lg btn-block">立即兑换</a>
+                <a  th:href="@{/integral/conversion}" class="btn btn-primary btn-lg btn-block">立即兑换</a>
             </p>
         </div>
     </div>

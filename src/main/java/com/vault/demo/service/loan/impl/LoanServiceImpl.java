@@ -47,4 +47,9 @@ public class LoanServiceImpl implements LoanService {
     public Credit selectCredit(Userimf userimf) {
         return creditDao.selectCreditByUserId(userimf);
     }
+
+    @Override
+    public void insertLoan(Loan loan) {
+        loanDao.insert(loan);
+    }
 }

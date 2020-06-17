@@ -8,8 +8,6 @@ import java.util.Date;
 
 @Table(name = "loan")
 public class Loan {//6月10日16点42
-    private static final int IN = 1;
-    private static final int CLOSE = 0;
 
     @Column(name = "lId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int lId;
@@ -91,14 +89,6 @@ public class Loan {//6月10日16点42
                 ", loanStatue=" + loanStatue +
                 ", remark='" + remark + '\'' +
                 '}';
-    }
-
-    public static int getIN() {
-        return IN;
-    }
-
-    public static int getCLOSE() {
-        return CLOSE;
     }
 
     public int getlId() {
