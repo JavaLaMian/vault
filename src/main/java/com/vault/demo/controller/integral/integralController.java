@@ -22,15 +22,28 @@ public class integralController {
     private integralService  service;
     //积分商城主页面
     @RequestMapping("/main")
-    public String integralMain(){
+    public String integralMain(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        session.setAttribute("user",user);
         return "integral/integralMain";
     }
 
+    //我的积分
+
+
     //商品列表
     @RequestMapping("/list")
-    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model){
+    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model,HttpSession session){
         pager.pageSize = 10;
         //查询总行数
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        session.setAttribute("user",user);
         pager.page(service.integral());
         String integralType ;
 
@@ -93,16 +106,20 @@ public class integralController {
         if(user == null){
             return "redirect:/user/tologin";
         }
-        Credit credit = service.selectCredit(user.getuId());
+        System.out.println("uid:"+user.getuId());
+      Credit credit = service.selectCredit(user.getuId());
 
-        model.addAttribute("user",user);
-        model.addAttribute("credit",credit);
+        System.out.println("user+credit:"+user);
+        session.setAttribute("user",user);
+      model.addAttribute("credit",credit);
         model.addAttribute("list",list);
+
         return "integral/integralDetail";
     }
 
+    //兑换
     @RequestMapping("/conversion")
-    public String conversion(){
+    public String conversion(String place){
         return "integral/conversion";
     }
     //积分商城主页面

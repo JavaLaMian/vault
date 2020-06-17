@@ -71,6 +71,17 @@ public class backstageController {
         mv.setViewName("backstage/BidList");
         return mv;
     }
+
+    @RequestMapping("/Loan_List")
+    public ModelAndView toLoanList(ModelAndView mv,HttpSession session){
+        Admin admin = (Admin)session.getAttribute("admin");
+        if(admin == null){
+            mv.setViewName("backstage/admin_login");
+        }else{
+            mv.setViewName("backstage/loan_list");
+        }
+        return mv;
+    }
     //去往投标新增页面
     @RequestMapping("/Badd_Bid")
     public ModelAndView Badd_Bid(ModelAndView mv){
