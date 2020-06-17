@@ -27,5 +27,7 @@ public interface BidSer{
 
     Bid selectByBid(int bid);
     PerBid selectByPid(int pid);
-    Tender getTenderId(int tid);
+    List<Tender> getTenderId(int tid,int id,int t);
+    int setTender(Tender tender);
+    int gouMai(float money,int uid);
 }

@@ -58,7 +58,17 @@ public class BidSerImpl implements BidSer {
     }
 
     @Override
-    public Tender getTenderId(int tid) {
-        return bidDao.selectTouId(tid);
+    public List<Tender> getTenderId(int tid,int id,int t) {
+        return bidDao.selectTouId(tid,id,t);
+    }
+
+    @Override
+    public int setTender(Tender tender) {
+        return bidDao.addTender(tender);
+    }
+
+    @Override
+    public int gouMai(float money, int uid) {
+        return bidDao.moneyUserId(money,uid);
     }
 }

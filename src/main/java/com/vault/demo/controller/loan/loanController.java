@@ -1,6 +1,7 @@
 package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Loan;
 import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.BankDao;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/loan")
@@ -121,12 +123,14 @@ public class loanController {
 
     //去借款申请页面
     @RequestMapping("/toloanJie")
-    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanType) {
+    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanTypeStr , Loan loan) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
 
-        if (loanType.equals("xinyong")){ //如果是信用贷款类型
+        if ("".equals(loanTypeStr)) {
+
+        }else if ("xinyong".equals(loanTypeStr)){ //如果是信用贷款类型
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
             UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
             Userimf userimf = (Userimf)session.getAttribute("user");
@@ -153,10 +157,27 @@ public class loanController {
             }
         }
 
-
         System.out.println("step："+step);
+        System.out.println("loan："+loan);
         if(step==null){
             step = 1 ;
+        }else if (step == 2){
+            float loanWantMoney = loan.getLoanWantMoney();
+
+            loanWantMoney = (float) (loanWantMoney * 0.0001);
+
+            System.out.println(loanWantMoney);
+
+            loan.setLoanWantMoney(loanWantMoney);
+            loan.setApplicationTime(new Date());
+
+            loanService.insertLoan(loan);
+
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+
+            model.addAttribute("loan",loan);
+            model.addAttribute("credit",credit);
+
         }
         model.addAttribute("step",step);
         return "loan/loanJieApply";
