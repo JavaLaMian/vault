@@ -11,7 +11,7 @@
         <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
 
-        <link rel="stylesheet" th:href="@{/js/jconfirm/jquery-confirm.min.css}"/>
+    <link rel="stylesheet" th:href="@{/js/jconfirm/jquery-confirm.min.css}"/>
 
       <!--标签插件-->
         <link rel="stylesheet" th:href="@{/js/jquery-tags-input/jquery.tagsinput.min.css}">
@@ -34,10 +34,28 @@
                 <li class="nav-item nav-item-has-subnav">
                   <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 用户管理</a>
                   <ul class="nav nav-subnav">
-                    <li> <a href="ui_buttons.html">今日用户</a> </li>
-                    <li> <a href="ui_buttons.html">用户分析</a> </li>
-                    <li> <a href="ui_buttons.html">用户日志</a> </li>
-                    <li> <a href="ui_buttons.html">用户信用</a> </li>
+                    <!--理财用户-->
+                    <li class="nav-item nav-item-has-subnav">
+                      <a href="#!">理财用户管理</a>
+                      <ul class="nav nav-subnav">
+                        <li> <a href="#!">二级菜单</a> </li>
+                        <li class="nav-item nav-item-has-subnav">
+                          <a href="#!">贷款用户</a>
+                          <ul class="nav nav-subnav">
+                            <li> <a href="#!">三级菜单</a> </li>
+                            <li> <a href="#!">三级菜单</a> </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <!--贷款用户-->
+                    <li class="nav-item nav-item-has-subnav">
+                      <a href="#!">贷款用户管理</a>
+                      <ul class="nav nav-subnav">
+                        <li> <a th:href="@{/XMN/loanlist}">用户信用审核</a> </li>
+                        <li> <a href="#!">用户贷款审核</a> </li>
+                      </ul>
+                    </li>
                   </ul>
                 </li>
                 <li class="nav-item nav-item-has-subnav">
@@ -265,14 +283,13 @@
         <script th:src="@{/js/jquery-tags-input/jquery.tagsinput.min.js}"></script>
         <!--滑块插件-->
         <script th:src="@{/js/ion-rangeslider/ion.rangeSlider.min.js}"></script>
-        <!--日期选择插件-->
-        <script th:src="@{/js/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
-        <script th:src="@{/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js}"></script>
-        <script th:src="@{/js/bootstrap-datetimepicker/moment.min.js}"></script>
-        <script th:src="@{/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js}"></script>
-        <script th:src="@{/js/bootstrap-datetimepicker/locale/zh-cn.js}"></script>
-        <script th:src="@{https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.js}"></script>
-        <script th:src="@{https://cdn.bootcss.com/bootstrap-table/1.15.4/locale/bootstrap-table-zh-CN.min.js}"></script>
+      <!--日期选择插件-->
+      <script th:src="@{/js/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+      <script th:src="@{/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js}"></script>
+      <!--时间选择插件-->
+      <script th:src="@{/js/bootstrap-datetimepicker/moment.min.js}"></script>
+      <script th:src="@{/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+      <script th:src="@{/js/bootstrap-datetimepicker/locale/zh-cn.js}"></script>
     </span>
 </body>
 </html>
