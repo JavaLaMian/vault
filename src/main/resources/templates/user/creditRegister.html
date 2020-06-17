@@ -29,10 +29,10 @@
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/user/safety/css/style-ed9716a8f6.css" />
 
 
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
-    <script th:src="@{/js/bootstrap.js}"></script>
+<!--    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>-->
+<!--    <script th:src="@{/js/bootstrap.js}"></script>-->
 
-    <script th:src="@{/js/jquery-1.12.4.js}"></script>
+<!--    <script th:src="@{/js/jquery-1.12.4.js}"></script>-->
 
 </head>
 
@@ -96,10 +96,10 @@
                     <li data-type="datum" id="safe">
                         <a href="/user/toAS">账户安全</a>
                     </li>
-                    <li data-type="bankCard" class="last" style="margin-bottom: 14px">
+                    <li data-type="bankCard" class="last">
                         <a href="#">银行卡管理</a>
                     </li>
-                    <li data-type="credit" class="last cur" style="margin-bottom: 14px">
+                    <li data-type="credit" class="last cur">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
                     </li>
                     <li data-type="news" style="border-top: 1px solid #ccc">
@@ -111,7 +111,7 @@
                     <li data-type="point">
                         <a href="#">我的积分</a>
                     </li>
-                    <li data-type="myactivity" class="last" style="margin-bottom: 14px">
+                    <li data-type="myactivity" class="last">
                         <a href="#">我的活动</a>
                     </li>
                     <li class="planner last" data-type="planner" style="border-top: 1px solid #ccc">
@@ -202,7 +202,7 @@
                                 低
                             </span>
                             <span class="inline_block">
-									<div class='level_100' style="height: 14px">
+									<div class='level_100'>
 										<div style="width:30%"></div>
 									</div>
 								</span>
@@ -210,9 +210,14 @@
                         </div>
                     </div>
                     <!-- 贷款高级信息设置 -->
-                    <div style="margin: 10px;border: 1px solid #ccc;width: 89%;height: 100%;">
-                        <div>
+                    <div style="margin: 10px;width: 89%;height: 100%;">
+                        <div id="formContainer">
+                            <div style="width: 100%;padding-bottom: 20px;border-bottom: 1px solid #555">
+                                <h2 style="color: #ccc;text-align: center">高级借贷信息管理</h2>
+                            </div>
+                            <div style="margin-top: 20px">
 
+                            </div>
                         </div>
                     </div>
                 </div>
