@@ -34,7 +34,7 @@ public class Credit {//6月10日15点31
 
     private String negativeIDPhoto;
 
-    private String creditLV;
+    private String creditLV;//1正常、2关注、3次级、4可疑、5损失
 
     private Date creditUpdateTime;
 

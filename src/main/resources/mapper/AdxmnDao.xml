@@ -38,10 +38,15 @@
           select * from credit
         ]]>
     </select>
-    <select id="selectgetCredit">
+    <select id="selectgetCredit" resultType="map">
          <![CDATA[
-         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo from credit c
-left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creid}
+         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo as hh,c.funds from credit c
+left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creId}
         ]]>
     </select>
+    <update id="updateCredit">
+        <![CDATA[
+            update credit set creditLV=#{creditLV},type=#{type},creditUpdateTime=#{creditUpdateTime} where creid =#{creId}
+         ]]>
+    </update>
 </mapper>

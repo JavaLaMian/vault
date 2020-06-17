@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/XMN")
@@ -158,8 +159,20 @@ public class backstageController {
     //去用户审核页面
     @RequestMapping("/updateCredit")
     public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
-        List<Credit> list = is.selectgetCredit(credit);
+        List<Map> list = is.selectgetCredit(credit);
         model.addAttribute("list",list);
+        mv.setViewName("backstage/Creditupdate");
+        return mv;
+    }
+    //审核信用信息
+    @RequestMapping("/updateCreditOK")
+    public ModelAndView updateCreditOK(ModelAndView mv,String an,Credit credit){
+       // 0等待审核 1审核中 2审核完毕
+        int ok = 2;
+        credit.setCreditLV(an);//获取信用等级
+        credit.setCreditUpdateTime(new Date());
+        credit.setType(ok);
+        is.updateCredit(credit);
         mv.setViewName("backstage/Creditupdate");
         return mv;
     }
