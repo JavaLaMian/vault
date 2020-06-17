@@ -7,7 +7,7 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 //积分商品表
 @Table(name = "integral")
-public class integral {
+public class Integral {
 
     @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
