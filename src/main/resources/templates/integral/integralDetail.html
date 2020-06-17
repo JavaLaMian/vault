@@ -8,6 +8,7 @@
     <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/list/css/style-048337cfe8.css" />
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/subject/pointMall/css/style-95d6dec6d2.css" />
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
     <script th:src="@{/js/bootstrap.js}"></script>
     <style>
@@ -15,12 +16,31 @@
             color: black;
             text-decoration: none;
         }
-        body a{
+        body a :hover{
             text-decoration: none;
         }
     </style>
 </head>
 <body>
+
+    <div class="ac_top">
+        <div class="g-o">
+            <div class="ac_menu" id="ulLoginStatus">
+                    <span class="user" style="margin: 0; color: #999;">
+                       <a th:if="${session.user.account}==null" href="/user/tologin">登录</a>　
+                     <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
+                    </span>
+                <span>│</span>
+                <a href="/integral/myIntegral">我的积分：<span style="color: #ffb938">25000</span></a>
+                <span>│</span>
+                <a href="/user/toAO">首页</a>
+                <span>│</span>
+                <a href="#">帮助</a>
+                <span>│</span>
+                全国服务热线：4006-0755-70
+            </div>
+        </div>
+    </div>
     <div class="menu-list head-menu">
         <div class="g-o" style="width:1170px;">
             <a class="logo" th:href="@{/main/first}">
@@ -103,11 +123,12 @@
                     &nbsp;&nbsp;&nbsp;
                     <span >
                         <label >号码</label>&nbsp;
-                        <span style="color: #00b8b9" th:text="${user.phe}">1315194151</span>
+                         <input class="form-control" type="text" name="phe" th:if="${session.user.phe}==null">
+                        <span style="color: #00b8b9" th:text="${session.user.phe}">1315194151</span>
                     </span>
                     <div class="form-group">
                         <label>地址:</label>
-                        <input class="form-control" type="text" name="place" th:text="${user.place}">
+                        <input class="form-control" type="text" name="place" th:value="${session.user.place}">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" >确定</button>

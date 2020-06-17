@@ -45,7 +45,7 @@
         ]]>
     </update>
 
-    <select id="selectOneByLogin" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Userimf">
+    <select id="selectOneByLogin" parameterType="Userimf" resultType="Userimf">
         <![CDATA[
           select * from userimf where 1 = 1
         ]]>
