@@ -1,6 +1,7 @@
 package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Loan;
 import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.BankDao;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/loan")
@@ -121,12 +123,14 @@ public class loanController {
 
     //去借款申请页面
     @RequestMapping("/toloanJie")
-    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanType) {
+    public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanTypeStr , Loan loan) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
 
-        if (loanType.equals("xinyong")){ //如果是信用贷款类型
+        if ("".equals(loanTypeStr)) {
+
+        }else if ("xinyong".equals(loanTypeStr)){ //如果是信用贷款类型
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
             UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
             Userimf userimf = (Userimf)session.getAttribute("user");
@@ -153,11 +157,46 @@ public class loanController {
             }
         }
 
-
         System.out.println("step："+step);
+        System.out.println("loan："+loan);
+
         if(step==null){
             step = 1 ;
+
+        }else if (step == 2){
+            float loanWantMoney = loan.getLoanWantMoney();
+
+            loanWantMoney = (float) (loanWantMoney * 0.0001);
+
+            System.out.println(loanWantMoney);
+
+            loan.setLoanWantMoney(loanWantMoney);
+            loan.setApplicationTime(new Date());
+            loan.setLoanStatue(LoanService.CHECK);
+
+            loanService.insertLoan(loan);
+
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+
+            model.addAttribute("loan",loan);
+            model.addAttribute("credit",credit);
+
         }
+
+        Userimf userimf = (Userimf)session.getAttribute("user");
+
+        Loan loanEX = loanService.LoanNow(userimf);
+
+        if (loanEX != null){        //如果目前用户的贷款有正在审核的情况
+            if (loanEX.getLoanStatue() == 0){
+                step = 2;
+                System.out.println("loanEX：" + loanEX);
+                model.addAttribute("loan",loanEX);
+                Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+                model.addAttribute("credit",credit);
+            }
+        }
+
         model.addAttribute("step",step);
         return "loan/loanJieApply";
     }
@@ -182,6 +221,10 @@ public class loanController {
 
     @RequestMapping("/registerCredit")
     public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         String realPath =  request.getSession().getServletContext().getRealPath("");
         String dirPath = "D:\\vault\\file\\identity\\";
         //上传文件
@@ -195,19 +238,36 @@ public class loanController {
     }
 
     @RequestMapping("/loanJie")
-    public String loanJie(){
+    public String loanJie(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "";
     }
+
     @RequestMapping("/toloanHuan")
-    public String toloanHuan() {
+    public String toloanHuan(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanHuan";
     }
     @RequestMapping("/toloanRecord")
-    public String toloanRecord() {
+    public String toloanRecord(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanRecord";
     }
     @RequestMapping("/toloanPersonage")
-    public String toloanPersonage() {
+    public String toloanPersonage(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanPersonage";
     }
 

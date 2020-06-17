@@ -1,5 +1,7 @@
 package com.vault.demo.controller.integral;
 
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.Userimf;
 import com.vault.demo.bean.integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,15 +22,28 @@ public class integralController {
     private integralService  service;
     //积分商城主页面
     @RequestMapping("/main")
-    public String integralMain(){
+    public String integralMain(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        session.setAttribute("user",user);
         return "integral/integralMain";
     }
 
+    //我的积分
+
+
     //商品列表
     @RequestMapping("/list")
-    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model){
+    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model,HttpSession session){
         pager.pageSize = 10;
         //查询总行数
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        session.setAttribute("user",user);
         pager.page(service.integral());
         String integralType ;
 
@@ -80,13 +96,31 @@ public class integralController {
         return "integral/shopingList";
     }
 
-    //物品兑换
+    //物品兑换页
     @RequestMapping("/detail")
-    public String detail(Integer id,Model model){
+    public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
         integral list  = service.selectById(id);
+
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        System.out.println("uid:"+user.getuId());
+      Credit credit = service.selectCredit(user.getuId());
+
+        System.out.println("user+credit:"+user);
+        session.setAttribute("user",user);
+      model.addAttribute("credit",credit);
         model.addAttribute("list",list);
+
         return "integral/integralDetail";
+    }
+
+    //兑换
+    @RequestMapping("/conversion")
+    public String conversion(String place){
+        return "integral/conversion";
     }
     //积分商城主页面
     @RequestMapping("/main2")

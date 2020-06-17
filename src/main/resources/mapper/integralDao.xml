@@ -23,4 +23,8 @@
     <select id="selectById" resultType="com.vault.demo.bean.integral">
        select * from integral where Id = #{id}
     </select>
+
+    <select id="selectCredit" resultType="com.vault.demo.bean.Credit">
+       select * from credit where uId =#{id}
+    </select>
 </mapper>

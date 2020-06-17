@@ -1,5 +1,6 @@
 package com.vault.demo.service.integral;
 
+import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.dao.integral.integralDao;
@@ -44,6 +45,11 @@ public class integralServiceImp implements integralService {
     @Override
     public integral selectById(Integer id) {
         return dao.selectById(id);
+    }
+
+    @Override
+    public Credit selectCredit(int id) {
+        return dao.selectCredit(id);
     }
 
 

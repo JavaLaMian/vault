@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -27,7 +27,7 @@
                     <a href="/user/tologin">注册</a>
                 </li>
                 <li class="line">|</li>
-                <li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>
+                <li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
                 <li class="line">|</li>
                 <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
                 <li class="line">|</li>
