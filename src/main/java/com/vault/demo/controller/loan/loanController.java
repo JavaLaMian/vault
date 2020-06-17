@@ -1,10 +1,8 @@
 package com.vault.demo.controller.loan;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
+import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.file.FileUpload;
@@ -159,8 +157,10 @@ public class loanController {
 
         System.out.println("step："+step);
         System.out.println("loan："+loan);
+
         if(step==null){
             step = 1 ;
+
         }else if (step == 2){
             float loanWantMoney = loan.getLoanWantMoney();
 
@@ -170,6 +170,7 @@ public class loanController {
 
             loan.setLoanWantMoney(loanWantMoney);
             loan.setApplicationTime(new Date());
+            loan.setLoanStatue(LoanService.CHECK);
 
             loanService.insertLoan(loan);
 
@@ -179,6 +180,21 @@ public class loanController {
             model.addAttribute("credit",credit);
 
         }
+
+        Userimf userimf = (Userimf)session.getAttribute("user");
+
+        Loan loanEX = loanService.LoanNow(userimf);
+
+        if (loanEX != null){        //如果目前用户的贷款有正在审核的情况
+            if (loanEX.getLoanStatue() == 0){
+                step = 2;
+                System.out.println("loanEX：" + loanEX);
+                model.addAttribute("loan",loanEX);
+                Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+                model.addAttribute("credit",credit);
+            }
+        }
+
         model.addAttribute("step",step);
         return "loan/loanJieApply";
     }
@@ -198,11 +214,15 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
-        return "creditRegister";
+        return "user/creditRegister";
     }
 
     @RequestMapping("/registerCredit")
     public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         String realPath =  request.getSession().getServletContext().getRealPath("");
         String dirPath = "D:\\vault\\file\\identity\\";
         //上传文件
@@ -216,19 +236,36 @@ public class loanController {
     }
 
     @RequestMapping("/loanJie")
-    public String loanJie(){
+    public String loanJie(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "";
     }
+
     @RequestMapping("/toloanHuan")
-    public String toloanHuan() {
+    public String toloanHuan(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanHuan";
     }
     @RequestMapping("/toloanRecord")
-    public String toloanRecord() {
+    public String toloanRecord(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanRecord";
     }
     @RequestMapping("/toloanPersonage")
-    public String toloanPersonage() {
+    public String toloanPersonage(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanPersonage";
     }
 

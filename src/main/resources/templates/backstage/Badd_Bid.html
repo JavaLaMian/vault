@@ -70,7 +70,7 @@
                         <select name="clockLine" class="form-control" id="clockLine">
                           <option value="1">3个月</option>
                           <option value="2">6个月</option>
-                          <option value="2">12个月</option>
+                          <option value="3">12个月</option>
                         </select>
                       </div>
                     </div>
@@ -167,17 +167,6 @@
                       </div>
                     </div>
                   </div>
-
-<!--                  &lt;!&ndash;时间&ndash;&gt;-->
-<!--                  <div class="form-group col-md-12">-->
-<!--                    <label for="type">标期时间</label>-->
-<!--                    <div class="input-daterange input-group col-lg-8">-->
-<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="begTime" name="begTime" placeholder="开始投标时间">-->
-<!--                      <span class="input-group-addon"><i class="mdi mdi-chevron-right"></i></span>-->
-<!--                      <input class="form-control js-datepicker" data-date-format="yyyy-mm-dd" type="text" id="gebTime" name="gebTime" placeholder="封标期时间">-->
-<!--                    </div>-->
-<!--                  </div>-->
-                  <!--时间-->
                   <div class="form-group col-md-12">
                     <div class="card">
                       <label for="type">标期时间</label>
@@ -236,10 +225,10 @@
       });
       $("#range_04").ionRangeSlider({
         grid: true,
-        from: 0,
+        from: 1,
         to: 5,
-        values: [0.5, 1, 5, 10, 50, 100, 1000],
-        prefix: "万"
+        prefix: "万",
+        values: [0.01,0.02,0.03,0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]
       });
       $("#range_05").ionRangeSlider({
         grid: true,
