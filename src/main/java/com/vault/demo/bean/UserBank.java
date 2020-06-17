@@ -13,6 +13,10 @@ public class UserBank {//6月10日16点11
     @Column(name = "uId",type = MySqlTypeConstant.INT)
     private int uId;
 
+    private String bcUserName;
+
+    private String bcUserPhe;
+
     @Column(name = "bankName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String bankName;
 
@@ -24,6 +28,8 @@ public class UserBank {//6月10日16点11
         return "UserBank{" +
                 "bankId=" + bankId +
                 ", uId=" + uId +
+                ", bcUserName='" + bcUserName + '\'' +
+                ", bcUserPhe='" + bcUserPhe + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", cardId='" + cardId + '\'' +
                 '}';
@@ -43,6 +49,22 @@ public class UserBank {//6月10日16点11
 
     public void setuId(int uId) {
         this.uId = uId;
+    }
+
+    public String getBcUserName() {
+        return bcUserName;
+    }
+
+    public void setBcUserName(String bcUserName) {
+        this.bcUserName = bcUserName;
+    }
+
+    public String getBcUserPhe() {
+        return bcUserPhe;
+    }
+
+    public void setBcUserPhe(String bcUserPhe) {
+        this.bcUserPhe = bcUserPhe;
     }
 
     public String getBankName() {

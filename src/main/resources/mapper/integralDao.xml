@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.integral.integralDao">
+    <select id="integral" resultType="int">
+        select count(*) from integral
+    </select>
+    <select id="selprobypage" resultType="com.vault.demo.bean.integral">
+       select * from integral limit #{startRow},#{pageSize}
+    </select>
+    <select id="selprobypageSort" resultType="com.vault.demo.bean.integral">
+       select * from integral order by integral asc  limit #{startRow},#{pageSize}
+    </select>
+    <select id="selectByType" resultType="com.vault.demo.bean.integral">
+       select * from integral where integralType = #{integralType} limit #{startRow},#{pageSize}
+    </select>
+
+    <select id="selectByTypeSort" resultType="com.vault.demo.bean.integral">
+       select * from integral where integralType = #{integralType} order by integral asc limit #{startRow},#{pageSize}
+    </select>
+
+    <select id="selectById" resultType="com.vault.demo.bean.integral">
+       select * from integral where Id = #{id}
+    </select>
+
+    <select id="selectCredit" resultType="com.vault.demo.bean.Credit">
+       select * from credit where uId =#{id}
+    </select>
+</mapper>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>小母牛在线积分商城</title>
+    <meta name="keywords" content="小母牛在线积分商城">
+    <meta name="description" content="小母牛在线积分商城服务于所有小母牛在线客户,小母牛在线会员可通过各种方式获取积分,通过登录个人账户查询积分获取情况并使用积分兑换礼物.">
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <!--    <link href="css/bootstrap.css" rel="stylesheet"/>-->
+    <!--    <script src="js/bootstrap.js"></script>-->
+
+    <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/index/css/style-9a87784377.css" />
+    <style>
+        .pop-sign .btn-close:hover,.pop-sign-reward .btn-adress:hover,.pop-sign-reward .btn-close:hover,.pop-sign-reward .btn-left:hover,.pop-sign-reward .btn-right:hover,.sign-pop-btn,.sign-pop-btn:hover,.userbox-ft a:hover{text-decoration:none;}.box-dialog{width:300px;border:none;}.box-overlay{background:#000;}.box-dialog-close{width:30px;height:30px;line-height:30px;font-size:22px;position:absolute;text-align:center;top:10px;right:5px;color:#b0b0b0;background:0 0;}.box-dialog-title{padding:14px 10px 20px;line-height:1.6;font-size:16px;color:#333;background:0 0;text-align:center;border-bottom:none;}.box-dialog-content{padding:0 25px;font-size:14px;line-height:25px;color:#747474;text-align:left;overflow:hidden;}.box-dialog-content.box-info,.box-dialog-content.box-ques,.box-dialog-content.box-right,.box-dialog-content.box-warn,.box-dialog-content.box-wrong{line-height:62px;}.box-dialog-content.box-info:before,.box-dialog-content.box-ques:before,.box-dialog-content.box-right:before,.box-dialog-content.box-warn:before,.box-dialog-content.box-wrong:before{content:"";display:none;}.box-dialog-btns{padding:0;text-align:center;border-top:1px solid #b5b5b5;margin-top:25px;}.box-dialog-btns button{height:49px;line-height:49px;color:#f40;background:0 0;text-align:center;font-size:16px;}.box-dialog-btns button.sub,.box-dialog-btns button.sub:hover,.box-dialog-btns button:hover{background:0 0;}.box-dialog-close:hover{color:#b0b0b0;background:0 0;}.blackbg{position:fixed;background:#000;filter:alpha(opacity=60);opacity:.6;top:0;left:0;z-index:900;}.sign-top-ct{position:fixed;width:100%;top:15%;z-index:1000;}.sign-pop{width:328px;background:#fff;position:relative;margin:0 auto;padding-bottom:25px;border-radius:8px;font-size:14px;}.sign-pop .x{width:20px;height:20px;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/close.png#base64") center center no-repeat;position:absolute;top:20px;right:20px;}.sign-pop .inner h2{font-size:16px;color:#fd7500;text-align:left;padding:25px 0 0 25px;}.sign-pop .inner .placeholder{height:60px;}.sign-pop .inner .score-wrapper{width:154px;height:154px;border-radius:77px;border:1px solid #feba7f;margin:0 auto;}.sign-pop .inner .score{width:136px;height:136px;border-radius:68px;background-color:#fd7500;color:#fff;margin:9px auto;}.sign-pop .inner .score p{padding-top:33px;font-size:16px;border-bottom:1px solid #fff;margin:0 auto;width:75%;}.sign-pop .inner .score p b{font-size:30px;}.sign-pop .inner .sign-prizes{margin:20px 0;}.sign-pop-tips{height:21px;padding:10px 0 20px;}.sign-pop-tips span{color:#fd7500;}.sign-pop-btn{display:block;margin:0 auto 20px;width:216px;height:46px;line-height:46px;font-size:16px;color:#fff;background:#fd7500;outline:0;cursor:pointer;text-align:center;border-radius:4px;}.sign-pop-bg{height:37px;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/bg.png#base64") center center no-repeat;}.sign-pop .inner .sign-record{color:#999;padding:5px 0 20px;}.pop-sign .header-reward li,.sign-pop .inner .sign-record span{width:39px;text-align:center;display:inline-block;}.sign-pop .inner .sign-record span.cur{color:#333;}.sign-pop .inner .sign-rule{border-top:1px dashed #d0d0d0;text-align:left;padding:15px 15px 0 40px;}.sign-pop .inner .sign-rule dt{background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/icon.png#base64") 0 center no-repeat;padding:3px 0 3px 25px;color:#fd7500;margin-bottom:5px;font-weight:600;}.sign-pop .inner .sign-rule dd{height:20px;line-height:20px;}.l-name{width:135px;display:inline-block;*display:inline;*zoom:1;line-height:17px;font-size:12px;vertical-align:top;*vertical-align:middle;margin-top:15px;}.pop-sign,.pop-sign-reward{position:absolute;width:100%;height:100%;top:0;left:0;z-index:999;}.pop-sign .blackbg,.pop-sign-reward .blackbg{width:100%;height:100%;position:fixed;top:0;background:#000;opacity:.5;}.pop-sign .inner,.pop-sign-reward .inner{background:#fff;width:448px;position:absolute;top:50%;left:50%;margin:-270px 0 0 -224px;z-index:999;}.pop-sign-reward .inner{width:275px;height:320px;margin:-165px 0 0 -137px;}.pop-sign .header-normal{width:100%;height:215px;border-bottom:1px solid #eee;margin-top:-58px;}.pop-sign .header-normal .score-con{width:117px;height:117px;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/header-normal-af4b1a4afb.png");margin:0 auto 14px;font-size:19px;text-align:center;color:#fff;line-height:32px;cursor:pointer;}.pop-sign .header-normal .score-con h3,.pop-sign .header-reward li h3{font-size:51px;line-height:1;padding-top:18px;font-weight:400;}.pop-sign .tips,.pop-sign-reward h3{font-size:16px;color:#333;text-align:center;line-height:28px;}.pop-sign .icon-tips{display:inline-block;width:20px;height:20px;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/icon-tips-0c0157f89a.png");position:relative;top:5px;cursor:pointer;}.pop-sign .status-gray .icon-ok{display:block;width:16px;height:12px;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/icon-gray-ace85886dc.png");margin:9px auto;}.pop-sign .status-highlight .icon-ok{display:block;width:16px;height:12px;margin:9px auto;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/icon-highlight-1f81943850.png");}.pop-sign .header-reward{width:100%;height:267px;border-bottom:1px solid #eee;text-align:center;background:url("//image.xiaoniu88.com/static/WebXn/dist/module/dosign/img/header-bg.png") 57px 9px no-repeat;}.pop-sign .header-reward li{width:106px;height:136px;border:2px solid #d19c5d;border-radius:16px;color:#d19c5d;font-size:19px;line-height:30px;overflow:hidden;margin:30px 13px 15px;}.pop-sign .header-reward li h3{padding-top:20px;}.pop-sign .header-reward li a{font-size:13px;color:#f40;letter-spacing:0;line-height:18px;}.pop-sign .header-reward li img{display:block;width:106px;height:106px;}.pop-sign .operate-con{background:#f8f8f8;border-top:1px solid #f3f3f3;padding:30px 0;text-align:center;overflow:hidden;}.pop-sign .date-con{width:100%;overflow:hidden;}.pop-sign .scroll-con{width:897px;}.pop-sign .date-con::after{content:'';display:block;clear:both;}.pop-sign .operate-con ul{text-align:left;font-size:15px;line-height:30px;width:395px;padding-left:44px;padding-right:9px;float:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}.pop-sign .operate-con li{display:inline-block;width:30px;height:30px;margin:10px;border-radius:17px;overflow:hidden;text-align:center;}.pop-sign .operate-con .status-gray{border:1px solid #bebebe;color:#bebebe;}.pop-sign .tobe{cursor:pointer;}.pop-sign .operate-con .canTobe,.pop-sign .operate-con .status-highlight{border:1px solid #d19c5d;color:#fff;background:#d19c5d;}.pop-sign .operate-con .status-emptylight{border:1px solid #d19c5d;color:#d19c5d;}.pop-sign .operate-con .tips,.pop-sign-reward .reward-con p{text-align:center;color:#666;font-size:14px;line-height:1;padding-top:36px;}.pop-sign .advertisement{display:block;width:100%;height:66px;background:#fff;font-size:18px;color:#ff4000;text-align:center;line-height:66px;}.pop-sign .btn-close,.pop-sign-reward .btn-close{display:block;width:55px;height:55px;color:#b0b0b0;font-size:40px;text-align:center;line-height:55px;position:absolute;top:0;right:0;}.pagination{width:100%;height:10px;text-align:center;}.pagination .swiper-pagination-switch{display:inline-block;*display:block;width:8px;height:8px;border-radius:5px;border:1px solid #d19c5d;margin:0 5px;cursor:pointer;}.pagination .swiper-active-switch{background:#d19c5d;}.pop-sign-reward h3{line-height:66px;padding-top:26px;font-weight:400;}.pop-sign-reward .reward-con{width:160px;height:200px;overflow:hidden;margin:0 auto;}.pop-sign-reward .reward-con li{width:160px;height:200px;float:left;}.pop-sign-reward .reward-con ul{height:160px;}.pop-sign-reward .reward-con .img-con{width:100px;height:106px;border:1px solid #ddbb8b;border-radius:7px;margin:0 auto;overflow:hidden;}.pop-sign-reward .reward-con .img-con img{display:block;width:100%;}.pop-sign-reward .reward-con p{color:#333;padding-top:15px;padding-bottom:25px;}.pop-sign-reward .btn-adress{display:block;width:145px;height:34px;line-height:34px;text-align:center;color:#fff;font-size:14px;background:#ff7000;background-image:linear-gradient(-153deg,#ffc100 0,#ff7000 95%);border-radius:100px;margin:0 auto;}.pop-sign-reward .btn-left,.pop-sign-reward .btn-right{height:13px;width:13px;display:block;font-size:20px;color:#252e35;font-weight:700;text-align:center;position:absolute;top:133px;}.pop-sign-reward .btn-left{left:40px;}.pop-sign-reward .btn-right{right:40px;}.floor-list.small-list{width:960px;float:left;}.floor-list.lg-list{margin-left:-32px;}.floor-list li{position:relative;width:208px;height:268px;background-color:#fff;font-size:14px;color:#333;text-align:center;padding-top:20px;float:left;margin:0 0 32px 32px;box-shadow:0 0 3px rgba(0,0,0,.07);}.floor-list li a{display:block;width:100%;height:160px;overflow:hidden;}.floor-list li a img{width:160px;height:auto;}.floor-list p{line-height:24px;}.floor-list .label{position:absolute;display:block;top:-24px;right:-14px;width:57px;height:69px;line-height:55px;background:url("//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/common/img/label-5d42c705e1.png") center center no-repeat;text-align:center;color:#fff;font-size:12px;}.floor-list .name{line-height:30px;height:30px;margin:11px 8px 0;font-size:18px;font-weight:700;word-wrap:normal;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}.floor-list .orange{margin-bottom:5px;}.floor-list .gray{color:#999;}.sold-out,.sold-out-bg{position:absolute;width:100%;height:100%;top:0;left:0;}.sold-out-bg{opacity:.5;background:#000;}.sold-out-img{width:112px;height:87px;position:absolute;top:50%;left:50%;margin:-44px 0 0 -56px;background:url("//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/common/img/none-8c60d15474.png") no-repeat;}.cut-time{font-size:14px;color:#ff4000;font-weight:700;}body{background:#f3f3f3;}.orange{color:#ff7136;}.pointmall-container{min-height:310px;padding-bottom:64px;}.section{width:1170px;margin:0 auto;}.menu-list{background:#fff;}.menu-list .nav{width:500px;}.menu-list .nav li{float:left;height:100px;line-height:100px;font-size:16px;margin:0 20px;color:#333;}.menu-list .nav li.cur{color:#fd7500;}.banner{overflow-x:hidden;position:relative;}.banner .slider{width:100%;height:330px;overflow:hidden;}.banner .slider li{height:330px;}.banner .slider li a{display:block;height:330px;}.banner .slider .slider-nav{position:absolute;top:240px;left:450px;height:26px;padding:0 5px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlNQK42JkgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=");border-radius:13px;}.banner .slider .slider-nav a{width:14px;height:14px;border-radius:7px;background-color:#fff;display:inline-block;margin:6px 4px 0;font-size:0;vertical-align:top;}.banner .slider .slider-nav a.s{background-color:#f16e3e;}.banner .userbox-wrapper{width:260px;height:330px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlNQK42JkgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=");float:right;}.banner .userbox{width:210px;padding-top:30px;font-size:14px;background:#fff;margin:18px auto;}.userbox-pic{margin:0 auto 8px;width:94px;height:81px;background:url("//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/index/img/menber-f4d599a311.png") -663px 0 no-repeat;}.ordinary_member{background-position:0 0;}.silver_member{background-position:-102px 0;}.gold_member{background-position:-218px 0;}.platinum_member{background-position:-327px 0;}.niello_member{background-position:-441px 0;}.diamond_member{background-position:-560px 0;}.userbox-name{height:50px;text-align:center;}.userbox-ft{height:67px;padding-left:16px;border-top:1px dashed #b9b9b9;}.userbox-ft a{float:left;display:block;padding:12px 0;cursor:pointer;color:#333;}.userbox-ft strong{display:block;letter-spacing:-1px;font-weight:600;color:#ff7140;}.userbox-ft .a1{width:84px;}.userbox-ft .a2,.userbox-ft .a3{width:55px;}.userbox-ft .new{display:inline-block;*display:inline-block;*zoom:1;width:33px;height:14px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAOCAMAAACWwIW+AAAAXVBMVEUAAAD/cED/cED/cED/cED/cED/cED/cED/cED/cED/cED/cED/cED/cED/cED/wLH/m4D/rpr/4dr/6eP/////t6X/h2P/fFP/kXL/0cb/yLv/8O3/pY3/+Pb/2dAzv8o1AAAADnRSTlMA5kgH2oZgWPXhvXYuIY6MBnIAAACoSURBVBjThdHbDoMgEARQxVuvwy6IINr+/2cWFxKTJuokvB0YFiqJqnGQWmUh4IBkgZPsQgeACKw18wTQtiiL5v3cxGiS0jCOgtOAjYAJIppXdxehWQQBwWIyC/CBiP5xgwhv/SbmJBfPbCeaRfRtiyzAurRgXr/eucgiBqW6IYu0P7dgjanHWo9y06oqgkY5g+DHCFj7P21ajnIVuMy6i5Ncv/r1z/0AAFMX0Grej5oAAAAASUVORK5CYII=") no-repeat;}.userbox-ft p{color:#999;}.userbox-ft .p1{margin-top:11px;}.btn-area a{margin:0 auto;}.banner .login .header{height:64px;padding:10px 0 0 70px;background:url("//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/index/img/common.png") 12px 20px no-repeat;}.banner .login .btn-area{margin-top:20px;padding:0 30px;}.banner .signIn{text-indent:54px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAQCAMAAADDGrRQAAAAclBMVEUAAAD/+/n/+/n/+/n//fz///7///7//fv/+/n/+/n/+/n//v3//Pr//fv///7/+/n///7//v3//////v7/+/n//fz/+/n//fz//////fz//fz//v3//v7//v7//v7///////////7//v7//v3///7//Po0IPFIAAAAJXRSTlMA+tfmZQOXJ/O0qzswDAjrViwPBc69o4R5b9qakIyITkg3IRRsH5mKTgAAAK9JREFUGNNdTwcOwyAQMysQstPsPcr/v9hAqFLVEsJn3fl8sDiWShEW5gJfvOasjVOceU13L6V1WHqaZ9tNgvAZiTJpv5iVgkeWyT4B711bh8gwy0LjhERgKJAG3BZbcwAoVAXywi8Saui/1hgSg0mc13PWLbgxHBg7gLo4EckLYvSdBbuq+LoQfZkNiZvQAlIrQ9/CmvnbdOmvYNbsFqesK+z2kbZPADlTFQDTCocPoB8JQtEKP4AAAAAASUVORK5CYII=") 31px center no-repeat #fe7140;}.banner .signIn,.banner .signOut{width:140px;height:40px;line-height:40px;border-radius:2px;font-size:14px;color:#fff;display:block;text-decoration:none;}.banner .signOut{background:#fe7140;text-indent:0;text-align:center;}.floor{margin-bottom:50px;}.floor-ad{position:relative;width:208px;background:#ddd;height:608px!important;float:left;overflow:hidden;}.floor-ad a{width:100%;height:100%;display:block;text-align:center;}.floor-ad img{width:100%;}.floor-title{font-weight:400;color:#333;margin:55px 0 20px;}.floor-title span{padding-left:8px;border-left:2px solid #fe7140;font-size:20px;}.floor-more{float:right;margin-top:4px;font-size:14px;color:#666;}.floor-list li.nodata{margin:0;background:0 0;width:100%;padding-top:0;height:608px;line-height:608px;box-shadow:none;}
+    </style>
+</head>
+<body>
+        <!--    导航-->
+        <div class="menu-list head-menu">
+            <div class="g-o" style="width:1170px;">
+                <a class="logo" href="/">
+                    <img  th:src="@{/img/loan/小母牛.png}" alt="小牛在线-专业P2P网平台">
+                </a>
+                <input id="_point_current_menu" type="hidden" value="mall">
+                <ul class="nav">
+                    <li>
+                        <a th:href="@{/integral/main}"  id="_menu_mall" >积分兑换</a>
+                    </li>
+                    <!--  -->
+                    <li>
+                        <a th:href="@{/integral/Rule}" id="_menu_rule">积分规则</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/integral/issue}" id="_menu_faq" class="cur">积分问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--   内容-->
+        <div style="width: 100%;height: auto">
+            <!--        积分问答-->
+            <div class="content gray">
+                <div class="g-o white">
+                    <p>
+                        <strong><span style="font-size:16px;line-height:2;">一、会员积分何时能使用积分？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 签到积分在成功签到之后，即时到账，会员可根据礼品需要的积分数，进行兑换</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">二、积分是否可累计？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 每日签到积分系统会自动进行累计，明细、累计的积分情况可登陆“我的积分”进行查看</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">三、积分可以兑换现金或者提现吗？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 小牛会员积分不可兑换现金、不能提现。</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">四、积分兑换商品是否能开具发票？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 使用积分兑换的商品，属于小牛对您的回馈行为而非交易，不能提供发票。</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">五、 积分在兑换期限内没使用，是否可退？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 关于积分的兑换，采用年度滚动清零方式，逾期没兑换视为用户放弃积分兑换权益，不可退</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">六、 如何通过投标获取积分？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 投标三个月及以上的散标、优享牛才可获得对应积分（转让专区、新手标不计算）</span><br>
+                        <span style="font-size:16px;line-height:2;"> 计算公式为：积分数量=单笔指定产品投标金额*月份/1000</span><br>
+                        <span style="font-size:16px;line-height:2;"> 注： 投标规则内最少可获得1积分，计算结果出现小数，取整数部分。</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">七、积分兑换或积分抽奖的商品什么时候发货？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 积分兑换的实物奖品(颜色随机)一般在订单提交后的7-15个工作日内包邮寄出。</span><br>
+                        <br>
+                        <strong><span style="font-size:16px;line-height:2;">八、积分兑换的商品存在质量问题，该如何处理？</span></strong><br>
+                        <span style="font-size:16px;line-height:2;"> 除商品在运送途中发生损毁或本身存在质量瑕疵以外，恕不允许更换。符合更换条件的用户， &nbsp;请在商品签收后及时与我们的客服同事联系。残次商品寄回时，请务必保留原包装、内附说明书及相关文件。</span>
+                    </p>
+                    <p>
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--start 尾部-->
+        <div class="footer">
+            <div class="g-o" style="width:1170px">
+                <ul>
+                    <li>
+                        <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                        <a target="_blank" href="/portal/platform/index">平台数据</a>
+                        <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                        <a target="_blank" href="/portal/guide/security">风险管理</a>
+                        <a target="_blank" href="/cms/about/index">公司概况</a>
+                        <a target="_blank" href="/cms/about/contactus">联系我们</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                        <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                        <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                        <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                        <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                        <a target="_blank" href="/cms/help/question/3">项目</a>
+                        <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+                    </li>
+                    <li class="last ft-wm">
+                        <p>
+                            <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                            <span>官方微信</span>
+                        </p>
+                        <p>
+                            <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                            <span>手机客户端</span>
+                        </p>
+                        <p>
+                            <img src="//image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                            <span>兴趣部落</span>
+                        </p>
+                    </li>
+                    <li class="last">
+                        <p class="til-ic">全国服务热线：</p>
+                        <p class="bd">4006-0755-70</p>
+                        <p>服务时间 9:00-18:00</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bt">
+            <p>Copyright &copy; 2015 深圳市小牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+            <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦四楼   座机：0755－86160888</p>
+            <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+            <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+                <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+        </div>
+
+</body>
+</html>

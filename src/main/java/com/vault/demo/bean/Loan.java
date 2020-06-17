@@ -8,8 +8,6 @@ import java.util.Date;
 
 @Table(name = "loan")
 public class Loan {//6月10日16点42
-    private static final int IN = 1;
-    private static final int CLOSE = 0;
 
     @Column(name = "lId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int lId;
@@ -21,6 +19,8 @@ public class Loan {//6月10日16点42
 
     private int bidId;
 
+    private int uId;
+
     @Column(name = "maxLimit",type = MySqlTypeConstant.DOUBLE)
     private float maxLimit;
 
@@ -31,14 +31,11 @@ public class Loan {//6月10日16点42
 
     private float loanWantMoney;
 
-//    @Column(name = "maxAge",type = MySqlTypeConstant.INT)
-//    private int maxAge;
-//
-//    @Column(name = "minAge",type = MySqlTypeConstant.INT)
-//    private int minAge;
-//
-//    @Column(name = "creditLv",type = MySqlTypeConstant.INT)
-//    private int creditLv;
+    private String loanPurpose;
+
+    private Date applicationTime;
+
+    private Date applicationEnd;
 
     @Column(name = "guarantees",type = MySqlTypeConstant.INT)
     private int guarantees;
@@ -74,10 +71,14 @@ public class Loan {//6月10日16点42
                 ", loanName='" + loanName + '\'' +
                 ", bidType=" + bidType +
                 ", bidId=" + bidId +
+                ", uId=" + uId +
                 ", maxLimit=" + maxLimit +
                 ", minLimit=" + minLimit +
                 ", loanType=" + loanType +
                 ", loanWantMoney=" + loanWantMoney +
+                ", loanPurpose='" + loanPurpose + '\'' +
+                ", applicationTime=" + applicationTime +
+                ", applicationEnd=" + applicationEnd +
                 ", guarantees=" + guarantees +
                 ", guaranter='" + guaranter + '\'' +
                 ", guaCardId='" + guaCardId + '\'' +
@@ -88,46 +89,6 @@ public class Loan {//6月10日16点42
                 ", loanStatue=" + loanStatue +
                 ", remark='" + remark + '\'' +
                 '}';
-    }
-
-    public static int getIN() {
-        return IN;
-    }
-
-    public static int getCLOSE() {
-        return CLOSE;
-    }
-
-    public int getBidType() {
-        return bidType;
-    }
-
-    public void setBidType(int bidType) {
-        this.bidType = bidType;
-    }
-
-    public int getBidId() {
-        return bidId;
-    }
-
-    public void setBidId(int bidId) {
-        this.bidId = bidId;
-    }
-
-    public int getLoanType() {
-        return loanType;
-    }
-
-    public void setLoanType(int loanType) {
-        this.loanType = loanType;
-    }
-
-    public float getLoanWantMoney() {
-        return loanWantMoney;
-    }
-
-    public void setLoanWantMoney(float loanWantMoney) {
-        this.loanWantMoney = loanWantMoney;
     }
 
     public int getlId() {
@@ -146,6 +107,30 @@ public class Loan {//6月10日16点42
         this.loanName = loanName;
     }
 
+    public int getBidType() {
+        return bidType;
+    }
+
+    public void setBidType(int bidType) {
+        this.bidType = bidType;
+    }
+
+    public int getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(int bidId) {
+        this.bidId = bidId;
+    }
+
+    public int getuId() {
+        return uId;
+    }
+
+    public void setuId(int uId) {
+        this.uId = uId;
+    }
+
     public float getMaxLimit() {
         return maxLimit;
     }
@@ -160,6 +145,46 @@ public class Loan {//6月10日16点42
 
     public void setMinLimit(float minLimit) {
         this.minLimit = minLimit;
+    }
+
+    public int getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(int loanType) {
+        this.loanType = loanType;
+    }
+
+    public float getLoanWantMoney() {
+        return loanWantMoney;
+    }
+
+    public void setLoanWantMoney(float loanWantMoney) {
+        this.loanWantMoney = loanWantMoney;
+    }
+
+    public Date getApplicationTime() {
+        return applicationTime;
+    }
+
+    public String getLoanPurpose() {
+        return loanPurpose;
+    }
+
+    public void setLoanPurpose(String loanPurpose) {
+        this.loanPurpose = loanPurpose;
+    }
+
+    public void setApplicationTime(Date applicationTime) {
+        this.applicationTime = applicationTime;
+    }
+
+    public Date getApplicationEnd() {
+        return applicationEnd;
+    }
+
+    public void setApplicationEnd(Date applicationEnd) {
+        this.applicationEnd = applicationEnd;
     }
 
     public int getGuarantees() {
