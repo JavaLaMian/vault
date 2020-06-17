@@ -251,7 +251,7 @@
 		<span class="tag">仅限累积投标少于3次用户</span>
 	</div>
 	<div class="novice-list">
-		<a class="row-item g-cf " th:href="@{/main/prose(t=1,id=${nc.bId})}" target="_blank" th:each="nc:${ncList}">
+		<a class="row-item g-cf " th:href="@{/main/prose(t=${nc.bidType},id=${nc.bId})}" target="_blank" th:each="nc:${ncList}">
 			<div class="label-content">
 			</div>
 			<dl class="col-1">
@@ -342,7 +342,7 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2" >
-				<a th:each="per:${perList}" th:href="@{/main/prose(t=2,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
+				<a th:each="per:${perList}" th:href="@{/main/prose(t=3,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
 				<div class="item " style="width:263px">
 					<div class="panel">
 						<div class="rate" th:text="${per.inRate}+'%'"><span></span></div>
@@ -387,7 +387,7 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=1,id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
+					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=${nc.bidType},id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
 					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">
@@ -443,8 +443,6 @@
 						<div class="more"><a href="http://www.xiaoniu88.com/cms/article/index" target="_blank">更多>></a></div>
 					</div>
 					<ul class="articleList">
-
-
 						<li>
 							<i class="icon icon-li-img"></i>
 							<a target="_blank" href="http://www.xiaoniu88.com/cms/article/detail/1445" title="监委会投票进行中，这七个“常见问题”您应该知道！">监委会投票进行中，这七个“常见问题”您应该知道！</a>
@@ -464,8 +462,6 @@
 							<i class="icon icon-li-img"></i>
 							<a target="_blank" href="http://www.xiaoniu88.com/cms/article/detail/1437" title="【确权必读】五大热点问题的答案都在这里！">【确权必读】五大热点问题的答案都在这里！</a>
 						</li>
-
-
 					</ul>
 				</div>
 				<div class="item">
@@ -477,13 +473,9 @@
 						<div class="more"><a href="http://www.xiaoniu88.com/cms/article/index/5" target="_blank">更多>></a></div>
 					</div>
 					<ul class="articleList">
-
-
 						<li>
 							<i class="icon icon-li-img"></i>
 							<a href="http://www.xiaoniu88.com/cms/article/detail/837" target="_blank" title="小牛风控体系全面升级">小牛风控体系全面升级</a></li>
-
-
 					</ul>
 				</div>
 				<div class="item last">
@@ -516,8 +508,6 @@
 							<i class="icon icon-li-img"></i>
 							<a href="http://www.xiaoniu88.com/cms/article/detail/986" target="_blank" title="关于规范整顿“现金贷”业务的通知">关于规范整顿“现金贷”业务的通知</a>
 						</li>
-
-
 					</ul>
 				</div>
 			</div>
@@ -531,256 +521,89 @@
 		<div class="title">合作伙伴</div>
 		<a href="http://www.xiaoniu88.com/cms/about/index" class="more" target="_blank">更多<i class="icon icon-arrow-right-9-5"></i></a>
 		<ul>
-
-
 			<li class="">
 				<a href="http://www.xnph66.com" target="_blank" rel="nofollow">
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/371f0c83-f814-49e7-bbfb-10ee7937df3f.png" alt="小牛普惠-小牛资本旗下普惠金融信息服务平台" />
-
-
-
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="https://www2.deloitte.com/cn/zh.html" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/5deabede-9717-4095-be10-3e8e366d867d.jpg" alt="德勤中国" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.experian.com.cn/about-us/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/d518e450-7e5d-4ce7-9db7-b845dff9f0d7.png" alt="益博睿征信" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.ruc.edu.cn/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/20859181-2410-4877-8be3-369f71547b42.png" alt="中国人民大学" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.sclf.org/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/4f7f218c-6d15-430c-be10-ec85b067773f.png" alt="宋庆龄基金会" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.internationalchampionscup.com/#UKSX4YsUsxTwsG20.97" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/c4a4c855-959a-4012-b8af-a4fbf14c0348.jpg" alt="ICC国际冠军杯" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.dw-sport.com/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/f2cf0936-0783-4cee-9c6e-9cf842b9f618.png" alt="广东宏远" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="last">
 				<a href="https://www.baidu.com/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/07c5e1c3-7b77-4b94-b7ea-2c4d721e977c.png" alt="百度推广" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://news.163.com/16/1224/05/C91EP2B700018AOQ.html" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/f6162117-cfd6-499a-b1ba-d0f54fa8d137.png" alt="网易新闻" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="https://www.tenpay.com/v2/mch/mch_intro.shtml" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/86fed720-605c-4052-8558-309f6b0bc414.png" alt="财付通" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.shanghai-cis.com.cn/index2.aspx" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/28b0b68e-697b-43dc-ad1b-75c91d4b78f3.png" alt="上海资信有限公司" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.pycredit.cn/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/094152cc-7f91-490b-bc41-1d70353cf44f.png" alt="鹏元征信评估有限公司" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.xiaoniu88.com/cms/article/detail/349" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/0eba698f-3de8-4d1a-91d7-e2b4f01fe7a4.png" alt="中甲俱乐部" />
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.wangdaidongfang.com/" target="_blank" rel="nofollow">
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/2d5bcd97-3775-4f99-90e4-004b561919b9.png" alt="网贷东方-P2P网贷第三方信息综合平台" />
-
-
-
-
 				</a>
 			</li>
-
-
-
 			<li class="">
 				<a href="http://www.p2peye.com" target="_blank" rel="nofollow">
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/aa17a684-c5cf-4415-8e6e-00f467c8b948.png" alt="网贷天眼-P2P网贷行业知名第三方机构" />
-
-
-
 				</a>
 			</li>
-
-
-
 			<li class="last">
 				<a href="http://www.szygmm.org/" target="_blank" rel="nofollow">
-
-
-
-
-
 					<img src="//image.xiaoniu88.com/image/image_upload/87048232-7d57-40d4-a9b6-68b127115317.png" alt="阳光妈妈" />
-
-
 				</a>
 			</li>
-
-
 		</ul>
 	</div>
 </div>
-
-
-
-
-
-
 <div class="footer">
 	<div class="g-o" style="width:1170px">
 		<ul>
@@ -827,10 +650,6 @@
 		</ul>
 	</div>
 </div>
-
-
-
-
 <!--start 尾部-->
 <div class="foot-bt">
 	<p>Copyright &copy; 2015 深圳市小牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
@@ -881,8 +700,5 @@
         seajs.use('portal/index2016/js/init');
     });
 </script>
-
-
-
 </body>
 </html>

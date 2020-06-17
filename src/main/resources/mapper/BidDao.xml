@@ -42,7 +42,16 @@
     </insert>
     
     <select id="selectTouId" resultType="com.vault.demo.bean.Tender" parameterType="int">
-        select * from tender where tid = #{tid}
+        select * from tender where bId = #{bId} and bType = #{bType}
+        <if test="uId != null and uId != 0">
+            and uId = #{uId}
+        </if>
     </select>
 
+    <insert id="addTender" parameterType="com.vault.demo.bean.Tender">
+        insert into tender value(null,#{bId},#{uId},#{tenMoney},#{tenTime},#{tenType},#{tenCicle},#{bType})
+    </insert>
+    <update id="moneyUserId" parameterType="com.vault.demo.bean.Userimf">
+        update userimf set avaBalance = #{money} where uId = #{uId}
+    </update>
 </mapper>
