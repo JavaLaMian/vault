@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void upUser(Userimf userimf) {
-
+        dao.upUser(userimf);
     }
 
     @Override
@@ -57,6 +57,10 @@ public class UserServiceImpl implements UserService {
             text = "您的正在进行实名认证，验证码为 "+ma+",若非本人操作请忽略";
         }else if("jymm_rz".equals(type)){
             text = "您的正在设置交易密码，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("jymm_up".equals(type)){
+            text = "您的正在重设交易密码，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("dlmm_up".equals(type)){
+            text = "您的正在重设登陆密码，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com

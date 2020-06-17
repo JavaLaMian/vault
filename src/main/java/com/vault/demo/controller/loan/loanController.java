@@ -216,11 +216,15 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
-        return "creditRegister";
+        return "user/creditRegister";
     }
 
     @RequestMapping("/registerCredit")
     public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         String realPath =  request.getSession().getServletContext().getRealPath("");
         String dirPath = "D:\\vault\\file\\identity\\";
         //上传文件
@@ -234,19 +238,36 @@ public class loanController {
     }
 
     @RequestMapping("/loanJie")
-    public String loanJie(){
+    public String loanJie(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "";
     }
+
     @RequestMapping("/toloanHuan")
-    public String toloanHuan() {
+    public String toloanHuan(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanHuan";
     }
     @RequestMapping("/toloanRecord")
-    public String toloanRecord() {
+    public String toloanRecord(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanRecord";
     }
     @RequestMapping("/toloanPersonage")
-    public String toloanPersonage() {
+    public String toloanPersonage(HttpSession session) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         return "loan/loanPersonage";
     }
 

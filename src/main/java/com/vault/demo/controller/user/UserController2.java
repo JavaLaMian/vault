@@ -37,6 +37,8 @@ public class UserController2 {
             session.setAttribute("credit",null);
             session.setAttribute("userBank",null);
         }
+        System.out.println(user);
+        System.out.println(session.getAttribute("credit"));
         return "user/AccountSafe";
     }
     @RequestMapping("/toApply")
@@ -54,6 +56,15 @@ public class UserController2 {
         return "user/apply";
     }
 
+    @RequestMapping("/checkold")
+    @ResponseBody
+    public boolean checkold(String dp,HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if (user.getLoginPsw().equals(dp)){
+            return true;
+        }
+        return false;
+    }
     @RequestMapping("/smrz")
     @ResponseBody
     public String smrz(String uName, UserBank userBank, Credit credit, HttpSession session){
@@ -63,9 +74,9 @@ public class UserController2 {
         userBank.setBcUserName(uName);
         credit.setuId(user.getuId());
         credit.setName(uName);
-        System.out.println(user.toString());
-        System.out.println(userBank.toString());
-        System.out.println(credit.toString());
+//        System.out.println(user.toString());
+//        System.out.println(userBank.toString());
+//        System.out.println(credit.toString());
         service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);
@@ -77,7 +88,7 @@ public class UserController2 {
         Userimf userimf = (Userimf) session.getAttribute("user");
         userimf.setDealPsw(dealPwd);
         System.out.println(userimf);
-        service.upUser(userimf);
+//        service.upUser(userimf);
         return "";
     }
 }
