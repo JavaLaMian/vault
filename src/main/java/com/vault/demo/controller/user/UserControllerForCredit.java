@@ -23,6 +23,8 @@ public class UserControllerForCredit {
 
         model.addAttribute("user",(Userimf)session.getAttribute("user"));
         model.addAttribute("credit",loanService.LoanNow((Userimf)session.getAttribute("user")));
+        model.addAttribute("house",loanService.selectHouseByUId((Userimf)session.getAttribute("user")));
+        model.addAttribute("car",loanService.selectCarByUId((Userimf)session.getAttribute("user")));
 
         return "user/creditRegister";
     }
