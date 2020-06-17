@@ -216,7 +216,7 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
-        return "creditRegister";
+        return "user/creditRegister";
     }
 
     @RequestMapping("/registerCredit")
