@@ -73,11 +73,12 @@
     <div class="row">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered">
-                <tr style="color: #00b8b9">
+                <tr style="background-color: #00b8b9">
                     <th>编号</th>
                     <th>积分变动</th>
                     <th>变动类型</th>
                     <th>兑换商品名称</th>
+                    <th>兑换时间</th>
                     <th>积分余额</th>
                 </tr>
                 <tr th:each="p:${integralList}">
@@ -85,6 +86,7 @@
                     <td th:text="${p.change}"></td>
                     <td th:text="${p.changeType}"></td>
                     <td th:text="${p.integralName}"></td>
+                    <td th:text="${p.conversionTime}"></td>
                     <td th:text="${p.total}"></td>
                 </tr>
             </table>

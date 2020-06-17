@@ -1,5 +1,7 @@
 package com.vault.demo.bean;
 
+import java.util.Date;
+
 //我的积分
 public class MyIntegral {
     private int Id ;
@@ -8,17 +10,27 @@ public class MyIntegral {
     private  int change ;//变动积分
     private String changeType ;
     private int  total ;
+    private Date conversionTime ;//兑换时间
 
     @Override
     public String toString() {
-        return "myIntegral{" +
+        return "MyIntegral{" +
                 "Id=" + Id +
                 ", uId=" + uId +
                 ", iId=" + iId +
                 ", change=" + change +
                 ", changeType='" + changeType + '\'' +
                 ", total=" + total +
+                ", conversion=" + conversionTime +
                 '}';
+    }
+
+    public Date getConversionTime() {
+        return conversionTime;
+    }
+
+    public void setConversionTime(Date conversionTime) {
+        this.conversionTime = conversionTime;
     }
 
     public int getId() {
