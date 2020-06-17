@@ -72,10 +72,12 @@
         $('#loan').bootstrapTable({
             method:'post',
             url:'/back_loan/loanData',//请求数据路径
-            striped: true, // 是否显示行间隔色
-            pageNumber: 1, // 初始化加载第一页
+            dataType: "json",
             pagination: true, // 是否分页
-            sidePagination: 'client', // server:服务器端分页|client：前端分页
+            sidePagination: 'server', // server:服务器端分页|client：前端分页
+            pageNumber: 1,//这默认页码
+            clickToSelect: true, // 单击行即可以选中
+            sortOrder: 'desc', // 设置排序为反序 desc
             pageSize: 10, // 单页记录数
             pageList: [10, 20, 30],
             queryParams: function(params) { // 上传服务器的参数
