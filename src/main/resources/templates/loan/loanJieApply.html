@@ -261,10 +261,67 @@
         <div th:if="${step==2}" class="processBox" data-reactid=".0.2.1.1:2">
             <div data-reactid=".0.2.1.1:2.0"></div>
             <div th:if="${loan.loanStatue != 5}" style="width: 50%;margin: 0 auto">
-                <div class="page-header">
+                <div class="page-header" style="text-align: center">
+
+                    <div><img th:src="@{/img/loan/CHECK.jpg}" style="margin-top: 10px;width: 100px"></div>
                     <h1 style="text-align: center;margin: 20px 0 0 12px">
                         请耐心等待您的贷款申请审核，在1至7个工作日内会有信息员回访，请注意接收信息，感谢您的配合！
                     </h1>
+                    <table class="table" cellpadding="0" cellspacing="0" border="1px solid #666" style="margin-top: 10px">
+                        <tr>
+                            <th>编号</th>
+                            <td th:text="${loan.getlId()}"></td>
+                            <th>贷款人</th>
+                            <td th:text="${credit.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>期望贷款金额</th>
+                            <td th:text="${loan.getLoanWantMoney()} + '万'"></td>
+                            <th>借贷期限</th>
+                            <td th:text="${loan.getLowLimit()}"></td>
+                        </tr>
+                        <tr>
+                            <th>基础利率</th>
+                            <td th:text="${loan.getInterest()} + '%'"></td>
+                            <th>贷款类型</th>
+                            <td>
+                                <span th:if="${loan.getLoanType() == 1}">信用贷款</span>
+                                <span th:if="${loan.getLoanType() == 2}">抵押贷款</span>
+                                <span th:if="${loan.getLoanType() == 3}">担保贷款</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>贷款名称</th>
+                            <td th:text="${loan.getLoanName()}"></td>
+                            <th>提交时间</th>
+                            <td th:text="${#dates.format(loan.getApplicationTime(), 'yyyy-MM-dd hh:mm:ss')}"></td>
+                        </tr>
+                        <tr>
+                            <th>当前状态</th>
+                            <td>
+                                <span th:if="${loan.getLoanStatue() == 0}">
+                                    审核中
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 1}">
+                                    放款中
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 2}">
+                                    待偿还
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 3}">
+                                    已偿还
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 4}">
+                                    申请失败
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 5}">
+                                    申请通过等待确认
+                                </span>
+                            </td>
+                            <th>贷款用途</th>
+                            <td th:text="${loan.getLoanPurpose()}"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div th:if="${loan.loanStatue == 5}" class="process clearfix" data-reactid=".0.2.1.1:2.1">

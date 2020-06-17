@@ -20,6 +20,7 @@ public class LoanServiceImpl implements LoanService {
     @Resource
     CreditDao creditDao;
 
+
     @Override
     public void TestInsertLoan() {
         Loan loan = new Loan();
@@ -52,4 +53,5 @@ public class LoanServiceImpl implements LoanService {
     public void insertLoan(Loan loan) {
         loanDao.insert(loan);
     }
+
 }
