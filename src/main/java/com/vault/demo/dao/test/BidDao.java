@@ -18,5 +18,7 @@ public interface BidDao{
     void insert(Bid bid);
     List<Bid> selectByType(int bType);
     List<PerBid> selectPerB(@Param("perBid")int perBid);
-    Tender selectTouId(@Param("tid")int tid);
+    List<Tender> selectTouId(@Param("uId")int uId,@Param("bId")int bId,@Param("bType")int bType);
+    int addTender(Tender tender);
+    int moneyUserId(@Param("money")float money,@Param("uId")int uId);
 }

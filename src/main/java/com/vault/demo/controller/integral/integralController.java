@@ -90,10 +90,11 @@ public class integralController {
         integral list  = service.selectById(id);
 
         Userimf user = (Userimf) session.getAttribute("user");
-        Credit credit = service.selectCredit(user.getuId());
         if(user == null){
-            return "/user/login";
+            return "redirect:/user/tologin";
         }
+        Credit credit = service.selectCredit(user.getuId());
+
         model.addAttribute("user",user);
         model.addAttribute("credit",credit);
         model.addAttribute("list",list);
