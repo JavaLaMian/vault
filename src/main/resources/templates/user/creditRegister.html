@@ -212,11 +212,13 @@
                     <!-- 贷款高级信息设置 -->
                     <div style="margin: 10px;width: 89%;height: 100%;">
                         <div id="formContainer">
-                            <div style="width: 100%;padding-bottom: 20px;border-bottom: 1px solid #555">
-                                <h2 style="color: #ccc;text-align: center">高级借贷信息管理</h2>
+                            <div style="width: 100%;padding-bottom: 20px;border-bottom: 1px solid #999">
+                                <h2 style="color: #333;text-align: center">高级借贷信息管理</h2>
                             </div>
                             <div style="margin-top: 20px">
-
+                                <p style="height: 50px;line-height: 50px;">
+                                    <span th:if="${house == null}"><img th:src="@{/img/loan/tan.png}" style="line-height: 50px">&nbsp;&nbsp;车辆信息登记</span>
+                                </p>
                             </div>
                         </div>
                     </div>

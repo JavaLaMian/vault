@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -21,4 +22,5 @@ public interface BidDao{
     List<Tender> selectTouId(@Param("uId")int uId,@Param("bId")int bId,@Param("bType")int bType);
     int addTender(Tender tender);
     int moneyUserId(@Param("money")float money,@Param("uId")int uId);
+    List<Map> comUserList(@Param("uId")int uId);
 }
