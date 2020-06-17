@@ -11,7 +11,6 @@
 <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
 	<link th:href="@{/css/main/base-ddb0535420.css}" rel="stylesheet">
 	<script type="text/javascript" th:src="@{/js/main/base-6100562494.js}"></script>
-	<span th:replace="/common::bootstrap"></span>
 <script>
     window.global = {
         cdn: "//image.xiaoniu88.com",
@@ -343,9 +342,6 @@
       },
 			depositFlag: '3'*1 //是否开通存管账户 1已开户 2开户中 3未开户
 		};
-		$(function(){
-			seajs.use('account/index/js/init');
-		});
 	
 	</script>
 </body>
