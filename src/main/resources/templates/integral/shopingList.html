@@ -38,7 +38,7 @@
                      <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
                 </span>
             <span>│</span>
-            <a href="/integral/myIntegral">我的积分：<span style="color: #ffb938">25000</span></a>
+            <a th:href="@{/integral/myIntegral(uid = ${session.user.uId})}">我的积分：<span th:text="${session.total}" style="color: #ffb938">25000</span></a>
             <span>│</span>
             <a href="/user/toAO">首页</a>
             <span>│</span>
