@@ -1,13 +1,20 @@
 package com.vault.demo.bean;
 
+import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
+import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 @Table(name = "worryCall")
 public class WorryCall {
+    @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
+    @Column(name = "uId",type = MySqlTypeConstant.INT)
     private int uId;
+    @Column(name = "relationship",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String relationship;
+    @Column(name = "phe",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String phe;
+    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String name;
 
     @Override
