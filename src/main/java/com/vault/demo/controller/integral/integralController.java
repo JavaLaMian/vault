@@ -116,6 +116,7 @@ public class integralController {
     public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
         Integral list  = service.selectById(id);
+        System.out.println("type:"+list.getIntegralType());
 
         Userimf user = (Userimf) session.getAttribute("user");
         if(user == null){

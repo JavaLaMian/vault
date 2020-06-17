@@ -111,7 +111,7 @@
         <!--        填写地址-->
         <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" th:if="${list.integralType} ne '慧财'">
                 <h4>
                     <span style="line-height:2">确认地址</span>
                 </h4>
@@ -139,6 +139,11 @@
                         <button  type="submit" class="btn btn-primary" >确定</button>
                     </div>
                 </form>
+            </div>
+            <div class="col-lg-6" th:if="${list.integralType} eq '慧财'">
+                <p class="text-warning">
+                    注意：您用 <span th:text="${list.integral}"></span>积分兑换的<span th:text="${list.integralName}"></span>将会发放到你的卡卷里面，请注意查收！
+                </p>
             </div>
         </div>
         <div class="row">
