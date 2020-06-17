@@ -21,26 +21,26 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header"><h4>基本信息</h4></div>
-                                <div class="card-body">
+                                <div class="card-body" th:each="p:${list}">
                                     <div style="border-bottom: 1px solid rgba(77,82,89,0.05);height: 40px;">
-                                        <span style="width: 200px"><strong>编号：<a>1</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>申请人用户ID：<a>1</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>单位：<a>煤场</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>工资情况：<a>20000~50000</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>公积金：<a>200000000亿</a></strong></span>
+                                        <span style="width: 200px"><strong>编号：<a th:text="${p.creId}">1</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>申请人用户ID：<a th:text="${p.uId}">1</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>单位：<a th:text="${p.depart}">煤场</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>工资情况：<a th:text="${p.wages}">20000~50000</a>元</strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>公积金：<a th:text="${p.funds}">200000000亿</a></strong></span>
                                     </div>
                                     <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
                                         <p class="lead" style="font-size: 16px;margin-bottom: 20px;">身份证信息</p>
-                                        <span style="width: 200px;"><strong>姓名：<a>刘世阳</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证：<a>33032626656664656</a></strong></span>
+                                        <span style="width: 200px;"><strong>姓名：<a th:text="${p.name}">刘世阳</a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证：<a th:text="${p.identity}">33032626656664656</a></strong></span>
                                         <span style="width: 200px;margin-left: 50px;"><strong>身份证正面照片：<a></a></strong></span>
                                         <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
 
                                             <a class="masonry-item" href="#">
-                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
                                             </a>
                                             <a class="masonry-item" href="#">
-                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
                                             </a>
                                         </div>
                                     </div>
@@ -51,10 +51,10 @@
                                         <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
 
                                             <a class="masonry-item" href="#">
-                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
                                             </a>
                                             <a class="masonry-item" href="#">
-                                                <img src="images/gallery/1.jpg" alt="The selected child description">
+                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
                                             </a>
                                         </div>
                                     </div>

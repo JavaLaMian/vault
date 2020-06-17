@@ -38,4 +38,10 @@
           select * from credit
         ]]>
     </select>
+    <select id="selectgetCredit">
+         <![CDATA[
+         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo from credit c
+left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creid}
+        ]]>
+    </select>
 </mapper>

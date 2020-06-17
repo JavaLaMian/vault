@@ -155,8 +155,11 @@ public class backstageController {
         mv.setViewName("backstage/CreditList");
         return mv;
     }
+    //去用户审核页面
     @RequestMapping("/updateCredit")
-    public ModelAndView updateCredit(ModelAndView mv,Model model){
+    public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
+        List<Credit> list = is.selectgetCredit(credit);
+        model.addAttribute("list",list);
         mv.setViewName("backstage/Creditupdate");
         return mv;
     }

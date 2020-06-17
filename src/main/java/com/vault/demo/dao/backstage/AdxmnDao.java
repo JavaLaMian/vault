@@ -17,4 +17,5 @@ public interface AdxmnDao {
     int updateBid(Bid bid);//修改投标信息
     int dateBid(Bid bid);//删除投标信息
     List<Credit> CreditList();//查询贷款用户提交的信用信息
+    List selectgetCredit(Credit bid);//根据id查询出信用信息
 }

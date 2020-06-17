@@ -47,5 +47,10 @@ public class selevicexmnImpl implements selevicexmn {
         return dao.CreditList();
     }
 
+    @Override
+    public List<Credit> selectgetCredit(Credit bid) {
+        return dao.selectgetCredit(bid);
+    }
+
 
 }

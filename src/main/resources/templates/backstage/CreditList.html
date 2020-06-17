@@ -64,6 +64,7 @@
                                             <th>姓名</th>
                                             <th>操作时间</th>
                                             <th>信用等级</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -75,12 +76,13 @@
                                                 </label>
                                             </td>
                                             <td th:text="${p.creId}">1</td>
-                                            <td th:text="${p.uName}">尊贵的鲸先生</td>
+                                            <td th:text="${p.uId}">尊贵的鲸先生</td>
                                             <td th:text="${p.depart}">公安</td>
                                             <td th:text="${p.wages}">100000</td>
                                             <td th:text="${p.name}">张三</td>
                                             <td th:text="${p.creditUpdateTime}">2018-02-23</td>
                                             <td th:text="${p.creditLV}">无</td>
+                                            <td th:text="${p.type}">等待审核</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/XMN/updateCredit/(creId=${p.creId})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
