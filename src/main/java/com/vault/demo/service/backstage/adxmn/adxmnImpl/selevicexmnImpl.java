@@ -59,5 +59,10 @@ public class selevicexmnImpl implements selevicexmn {
         return ok;
     }
 
+    @Override
+    public List<Map> integralList() {
+        return dao.integralList();
+    }
+
 
 }
