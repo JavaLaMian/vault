@@ -11,7 +11,6 @@
 <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
 	<link th:href="@{/css/main/base-ddb0535420.css}" rel="stylesheet">
 	<script type="text/javascript" th:src="@{/js/main/base-6100562494.js}"></script>
-	<span th:replace="/common::bootstrap"></span>
 <script>
     window.global = {
         cdn: "//image.xiaoniu88.com",
@@ -53,8 +52,12 @@
     <div class="account-list" th:fragment="inflist">
         <div class="account-info">
             <div class="member-info">
-                <div><span class="name" id="username" th:text="${session.user.uName}">**</span><span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span></div>
-                <div class="security-level">账户安全：<span id="security-level">*</span></div>
+                <div><span class="name" id="username" th:text="${session.user.uName}">**</span>
+					<span class="member-level pop-tip member-level-2" id="member-level"
+						  title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级
+					</span>
+				</div>
+                <div class="security-level">账户安全：<span id="security-level">低<a href="/user/toAS">{提升}</a></span></div>
             </div>
 			<div class="badge-info">
 				<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
@@ -63,7 +66,7 @@
 			</div>
             <div class="point-info" id="riskLevel-info">
                 风险评估：***
-                <a href="javascript:;" target="_blank">【重新测评】</a>
+                <a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
             </div>
             <div class="point-info">
                 我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
@@ -72,38 +75,38 @@
             <div id="sign-info" class="sign-info"></div>
 
         </div>
-                <ul class="g-cf left-menu">
-                    <li data-type="index" class="cur" id="ov">
-                        <a class="h2" href="/user/toAO"><b>账户总览</b></a>
-                    </li>
-                    <li data-type="invest">
-                        <a href="#">我的网贷</a>
-                    </li>
-                    <li data-type="record">
-                        <a href="#">资金记录</a>
-                    </li>
-                    <li data-type="datum">
-                        <a href="/user/toAS">账户安全</a>
-                    </li>
-                    <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
-                    </li>
-                    <li data-type="news">
-                        <a href="#">我的消息<span id="msg-count"></span></a>
-                    </li>
-                    <li data-type="redEnvelope">
-                        <a href="#">我的优惠<span id="bonus-count"></span></a>
-                    </li>
-                    <li data-type="point">
-                        <a href="#">我的积分</a>
-                    </li>
-                    <li data-type="myactivity" class="last">
-                        <a href="#">我的活动</a>
-                    </li>
-                    <li class="planner last" data-type="planner">
-                        <a href="#">邀请好友<span>赚收益</span></a>
-                    </li>
-                </ul>
+			<ul class="g-cf left-menu">
+				<li data-type="index" class="cur" id="ov">
+					<a class="h2" href="/user/toAO"><b>账户总览</b></a>
+				</li>
+				<li data-type="invest">
+					<a href="#">我的网贷</a>
+				</li>
+				<li data-type="record">
+					<a href="#">资金记录</a>
+				</li>
+				<li data-type="datum">
+					<a href="/user/toAS">账户安全</a>
+				</li>
+				<li data-type="bankCard" class="last">
+					<a href="#">银行卡管理</a>
+				</li>
+				<li data-type="news">
+					<a href="#">我的消息<span id="msg-count"></span></a>
+				</li>
+				<li data-type="redEnvelope">
+					<a href="#">我的优惠<span id="bonus-count"></span></a>
+				</li>
+				<li data-type="point">
+					<a href="#">我的积分</a>
+				</li>
+				<li data-type="myactivity" class="last">
+					<a href="#">我的活动</a>
+				</li>
+				<li class="planner last" data-type="planner">
+					<a href="#">邀请好友<span>赚收益</span></a>
+				</li>
+			</ul>
         <div class="qqun">
             <p class="q1 g-dn">客户交流群：
                 <br/>521069624
@@ -126,6 +129,121 @@
         </div>
     </div>
 
+	<!--<div class="ZebraDialog dialog-estimate" style="position: fixed; left: 274.5px; top: -203px; visibility: visible; width: 800px; opacity: 1;">-->
+		<!--<h3 class="ZebraDialog_Title">风险承受能力评估<a href="javascript:void(0)" class="ZebraDialog_Close" style="right: 20px; top: 9.5px;">×</a></h3><div class="ZebraDialog_BodyOuter ZebraDialog_NoButtons">-->
+		<!--<div class="ZebraDialog_Body">-->
+			<!--<div><div class="wenjuanCon">-->
+				<!--<div class="_qList" style="display: block;">-->
+					<!--<div class="subject">您的主要收入来源是？</div>-->
+					<!--<div class="_qOptions">-->
+						<!--<div class="opt-list">-->
+						<!--<input name="N_1" value="2" type="radio"><span>无固定收入</span></div><div class="opt-list">-->
+						<!--<input name="N_1" value="4" type="radio"><span>工资、劳务报酬</span></div><div class="opt-list">-->
+						<!--<input name="N_1" value="6" type="radio"><span>生产经营所得</span></div><div class="opt-list">-->
+						<!--<input name="N_1" value="8" type="radio"><span>出租、出售房地产等非金融性资产收入</span></div>-->
+						<!--<div class="opt-list"><input name="N_1" value="10" type="radio"><span>利息、股息、转让等金融性资产收入</span></div></div></div><div class="_qList">-->
+				<!--<div class="subject">您的可投资金额？</div>-->
+				<!--<div class="_qOptions">-->
+					<!--<div class="opt-list">-->
+					<!--<input name="N_2" value="2" type="radio"><span>1万以下</span></div><div class="opt-list">-->
+					<!--<input name="N_2" value="4" type="radio"><span>1万-20万</span></div><div class="opt-list">-->
+					<!--<input name="N_2" value="6" type="radio"><span>20万-50万</span></div><div class="opt-list">-->
+					<!--<input name="N_2" value="8" type="radio"><span>50万-100万</span></div><div class="opt-list">-->
+					<!--<input name="N_2" value="10" type="radio"><span>100万以上</span></div></div></div><div class="_qList">-->
+				<!--<div class="subject">您的投资知识可描述为：</div><div class="_qOptions">-->
+				<!--<div class="opt-list">-->
+				<!--<input name="N_3" value="2" type="radio"><span>有限：基本没有金融产品方面的知识</span></div>-->
+				<!--<div class="opt-list">-->
+					<!--<input name="N_3" value="4" type="radio"><span>一般：对金融产品及其相关风险具有基本的知识和理解</span></div>-->
+				<!--<div class="opt-list">-->
+					<!--<input name="N_3" value="6" type="radio"><span>丰富：对金融产品及其相关风险具有丰富的知识和理解</span></div></div></div>-->
+				<!--<div class="_qList">-->
+					<!--<div class="subject">本金10万，不提供保本承诺的情况下，您会选择哪一种投资机会？</div><div class="_qOptions">-->
+					<!--<div class="opt-list"><input name="N_4" value="2" type="radio"><span>有100%的机会赢取100元现金，并收回本金</span></div>-->
+					<!--<div class="opt-list"><input name="N_4" value="4" type="radio"><span>有50％机会赢取5000元现金，并有较高可能性归还本金</span></div><div class="opt-list">-->
+					<!--<input name="N_4" value="6" type="radio"><span>有25％机会赢取5万元现金，并有一定的可能性损失本金</span></div>-->
+					<!--<div class="opt-list"><input name="N_4" value="8" type="radio"><span>有5％机会赢取10万元现金，并有较高可能性损失本金</span></div></div></div>-->
+				<!--<div class="_qList">-->
+					<!--<div class="subject">以下哪项最能说明您的投资经验？</div>-->
+					<!--<div class="_qOptions"><div class="opt-list">-->
+						<!--<input name="N_5" value="2" type="radio"><span>除存款、国债外，我几乎不投资其他金融产品</span></div>-->
+						<!--<div class="opt-list">-->
+							<!--<input name="N_5" value="4" type="radio"><span>大部分投资于存款、国债等，较少投资于股票、基金等风险产品</span></div>-->
+						<!--<div class="opt-list">-->
+							<!--<input name="N_5" value="6" type="radio"><span>资产均衡地分布于存款、国债、银行理财产品、信托产品、股票、基金等</span></div>-->
+						<!--<div class="opt-list">-->
+							<!--<input name="N_5" value="8" type="radio"><span>大部分投资于股票、基金、外汇等高风险产品，较少投资于存款、国债</span></div></div></div>-->
+				<!--<div class="_qList">-->
+					<!--<div class="subject">您的投资目的是？</div><div class="_qOptions"><div class="opt-list">-->
+					<!--<input name="N_7" value="2" type="radio"><span>资产保值</span></div><div class="opt-list">-->
+					<!--<input name="N_7" value="4" type="radio"><span>资产稳健增长</span></div><div class="opt-list">-->
+					<!--<input name="N_7" value="6" type="radio"><span>资产迅速增长</span></div></div></div>-->
+				<!--<div class="_qList"><div class="subject">您预期的投资期限是</div>-->
+					<!--<div class="_qOptions"><div class="opt-list">-->
+						<!--<input name="N_8" value="2" type="radio"><span>少于1年</span></div><div class="opt-list">-->
+						<!--<input name="N_8" value="4" type="radio"><span>1—3年</span></div><div class="opt-list">-->
+						<!--<input name="N_8" value="6" type="radio"><span>3年以上</span></div></div></div><div class="_qList">-->
+				<!--<div class="subject">下列哪项描述最符合您的投资态度？</div><div class="_qOptions"><div class="opt-list">-->
+				<!--<input name="N_9" value="2" type="radio"><span>厌恶风险，不希望本金损失，希望获得稳定回报</span></div><div class="opt-list">-->
+				<!--<input name="N_9" value="4" type="radio"><span>保守投资，不希望本金损失，愿承担一定幅度的收益波动</span></div><div class="opt-list">-->
+				<!--<input name="N_9" value="6" type="radio"><span>寻求资金的较高收益和成长性，愿承担有限的本金损失</span></div><div class="opt-list">-->
+				<!--<input name="N_9" value="8" type="radio"><span>希望赚取高回报，愿意为此承担较大本金损失</span></div></div></div><div class="_qList">-->
+				<!--<div class="subject">您的年龄是？</div>-->
+				<!--<div class="_qOptions"><div class="opt-list">-->
+					<!--<input name="N_11" value="4" type="radio"><span>18-25</span></div>-->
+					<!--<div class="opt-list"><input name="N_11" value="8" type="radio"><span>26-50</span></div>-->
+					<!--<div class="opt-list"><input name="N_11" value="6" type="radio"><span>51-65</span></div>-->
+					<!--<div class="opt-list"><input name="N_11" value="2" type="radio"><span>65以上</span></div>-->
+				<!--</div></div><div class="_qList"><div class="subject">您的家庭就业状况</div><div class="_qOptions">-->
+				<!--<div class="opt-list"><input name="N_12" value="2" type="radio"><span>未婚，无稳定收入工作</span></div>-->
+				<!--<div class="opt-list"><input name="N_12" value="4" type="radio"><span>未婚，有稳定收入工作</span></div>-->
+				<!--<div class="opt-list"><input name="N_12" value="2" type="radio"><span>您与配偶均没有稳定收入的工作或已退休</span>-->
+				<!--</div>-->
+				<!--<div class="opt-list"><input name="N_12" value="6" type="radio"><span>您与配偶其中一人有稳定收入工作</span>-->
+				<!--</div>-->
+				<!--<div class="opt-list"><input name="N_12" value="8" type="radio"><span>您与配偶均有稳定收入工作</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--</div>-->
+				<!--<div class="_qList"><div class="subject">家庭总资产状况（含房、车等固定资产）</div><div class="_qOptions">-->
+					<!--<div class="opt-list"><input name="N_13" value="2" type="radio"><span>资产10万以下</span>-->
+					<!--</div>-->
+					<!--<div class="opt-list"><input name="N_13" value="4" type="radio"><span>资产10万-100万</span>-->
+					<!--</div>-->
+					<!--<div class="opt-list"><input name="N_13" value="6" type="radio"><span>资产100万-300万</span>-->
+					<!--</div>-->
+					<!--<div class="opt-list"><input name="N_13" value="8" type="radio"><span>资产300万元以上</span>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--</div>-->
+				<!--<div class="_qList"><div class="subject">扣除生活必要开支（包含偿还债务），家庭年收入中可用于理财投资的部分占比为？</div>-->
+					<!--<div class="_qOptions"><div class="opt-list">-->
+						<!--<input name="N_16" value="2" type="radio"><span>10%以下</span>-->
+					<!--</div>-->
+						<!--<div class="opt-list">-->
+							<!--<input name="N_16" value="4" type="radio"><span>10%-30%</span></div><div class="opt-list">-->
+							<!--<input name="N_16" value="6" type="radio"><span>30%-50%</span></div><div class="opt-list">-->
+							<!--<input name="N_16" value="8" type="radio"><span>50%-70%</span></div><div class="opt-list">-->
+							<!--<input name="N_16" value="10" type="radio"><span>70%以上</span>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="_qList">-->
+				<!--<div class="subject">您有多少年投资股票、基金或其他金融衍生品的经验</div><div class="_qOptions"><div class="opt-list">-->
+				<!--<input name="N_17" value="2" type="radio"><span>没有经验</span></div><div class="opt-list">-->
+				<!--<input name="N_17" value="4" type="radio"><span>少于两年</span></div><div class="opt-list">-->
+				<!--<input name="N_17" value="6" type="radio"><span>2至5年</span></div><div class="opt-list">-->
+				<!--<input name="N_17" value="8" type="radio"><span>5年以上</span></div></div></div></div>-->
+				<!--<div class="btns"><span class="_Submit">提交问卷</span>-->
+					<!--<span class="_Prev">上一题</span>-->
+					<!--<font class="indexNow">1</font>/<font class="totalIndex">13</font>-->
+					<!--<span class="_Next">下一题</span></div>-->
+				<!--<div class="bottomTip">本问卷根据国家相关法规要求，旨在了解您对风险的承受意愿及能力，以帮助您控制投标风险</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--</div>-->
+
     <!--<script>-->
         <!--$(function () {-->
             <!--seajs.use('module/userNavList/js/init');-->
@@ -138,7 +256,7 @@
 								<div class="assets">
 										<div class="assets-left">
 												<dl class="total">
-														<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p><p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p><p>待收本金：含体验金本金及投资冻结金额</p><p>待收利息及奖励= 待收利息+待收奖励</p><p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
+														<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p>&#10;<p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p>&#10;<p>待收本金：含体验金本金及投资冻结金额</p>&#10;<p>待收利息及奖励= 待收利息+待收奖励</p>&#10;<p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
 														<dd>
 															<big>0.00</big>
 															<small>元</small>
@@ -176,7 +294,7 @@
 												</dl> -->
 												<div class="detail" style="border-bottom: 1px dashed #eeefef">
 													<dl class="profit-earnings">
-														<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p><p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p><p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p><p>获得让利：购买转让标时的获得让利</p><p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p><p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
+														<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p>&#10;<p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p>&#10;<p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p>&#10;<p>获得让利：购买转让标时的获得让利</p>&#10;<p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p>&#10;<p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
 														<dd>0.00</dd>
 													</dl>
 													<!-- <dl class="fp-earnings last">
@@ -306,6 +424,7 @@
 	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 	  ga('create', 'UA-104712537-1', 'auto');
+
 	  ga('send', 'pageview');
 
 	</script>
@@ -343,9 +462,6 @@
       },
 			depositFlag: '3'*1 //是否开通存管账户 1已开户 2开户中 3未开户
 		};
-		$(function(){
-			seajs.use('account/index/js/init');
-		});
 	
 	</script>
 </body>

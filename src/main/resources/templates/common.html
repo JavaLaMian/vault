@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -27,7 +27,7 @@
                     <a href="/user/tologin">注册</a>
                 </li>
                 <li class="line">|</li>
-                <li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>
+                <li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
                 <li class="line">|</li>
                 <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
                 <li class="line">|</li>
@@ -112,20 +112,20 @@
 
                 </a>
                 <ul>
-                    <li><a href="/payment/recharge/index">充值</a></li>
-                    <li><a href="/payment/withdraw/index">提现</a></li>
-                    <li><a href="/MyAccount/invest/index">我的网贷</a></li>
+                    <li><a href="#">充值</a></li>
+                    <li><a href="#">提现</a></li>
+                    <li><a href="#">我的网贷</a></li>
 
                     <li><a href="/user/uasec">账户安全</a></li>
                     <li>
-                        <a href="/MyAccount/message">我的消息</a>
+                        <a href="#">我的消息</a>
 
                     </li>
                     <li>
-                        <a href="/bonus/index">红包优惠券</a>
+                        <a href="#">红包优惠券</a>
 
                     </li>
-                    <li><a href="/financier/relationship">邀请好友</a></li>
+                    <li><a href="#">邀请好友</a></li>
                 </ul>
             </div>
         </div>

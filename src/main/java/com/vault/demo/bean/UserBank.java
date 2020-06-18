@@ -13,8 +13,10 @@ public class UserBank {//6月10日16点11
     @Column(name = "uId",type = MySqlTypeConstant.INT)
     private int uId;
 
+    @Column(name = "bcUserName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String bcUserName;
 
+    @Column(name = "bcUserPhe",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String bcUserPhe;
 
     @Column(name = "bankName",type = MySqlTypeConstant.VARCHAR,length = 100)

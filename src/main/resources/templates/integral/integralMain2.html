@@ -18,6 +18,11 @@
     <!--    <script src="js/bootstrap.js"></script>-->
 
     <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
+    <style>
+        body a:hover{
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,13 +30,15 @@
         <div class="g-o">
             <div class="ac_menu" id="ulLoginStatus">
                 <span class="user" style="margin: 0; color: #999;">
-                    <a href="javascript:gotoLogin('/user/login')" rel="nofollow">登录</a>　
-                    <a href="/user/register" rel="nofollow">注册</a>
+                    <a th:if="${session.user.account}==null" href="/user/tologin">登录</a>　
+                     <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
                 </span>
                 <span>│</span>
-                <a href="/">首页</a>
+                <a th:href="@{/integral/myIntegral(uid = ${session.user.uId})}">我的积分：<span th:text="${session.total}" style="color: #ffb938">25000</span></a>
                 <span>│</span>
-                <a href="/cms/help/index">帮助</a>
+                <a href="/user/toAO">首页</a>
+                <span>│</span>
+                <a href="#">帮助</a>
                 <span>│</span>
                 全国服务热线：4006-0755-70
             </div>

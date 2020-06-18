@@ -1,33 +1,64 @@
 package com.vault.demo.controller.integral;
 
-import com.vault.demo.bean.integral;
+import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.MyIntegral;
+import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.Integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.expression.Lists;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/integral")
 public class integralController {
-
     @Resource
     private integralService  service;
     //积分商城主页面
     @RequestMapping("/main")
-    public String integralMain(){
+    public String integralMain(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
+        session.setAttribute("total",myIntegral.getTotal());
+        session.setAttribute("user",user);
         return "integral/integralMain";
+    }
+
+    //我的积分
+    @RequestMapping("/myIntegral")
+    public String  myIntegral(Integer uid,Model model){
+        if(uid == null){
+            return "redirect:/user/tologin";
+        }
+
+        List<Map> integralList = service.selectMyIntegral(uid);
+
+        model.addAttribute("integralList",integralList);
+        return "integral/myIntegral";
     }
 
     //商品列表
     @RequestMapping("/list")
-    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model){
+    public String list(@Param("spId")Integer spId,@Param("sort")Integer sort,Pager pager, Model model,HttpSession session){
         pager.pageSize = 10;
         //查询总行数
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        session.setAttribute("user",user);
         pager.page(service.integral());
         String integralType ;
 
@@ -80,13 +111,32 @@ public class integralController {
         return "integral/shopingList";
     }
 
-    //物品兑换
+    //物品兑换页
     @RequestMapping("/detail")
-    public String detail(Integer id,Model model){
+    public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
-        integral list  = service.selectById(id);
+        Integral list  = service.selectById(id);
+        System.out.println("type:"+list.getIntegralType());
+
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
+        MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
+        session.setAttribute("total",myIntegral.getTotal());
+        Credit credit = service.selectCredit(user.getuId());
+
+        session.setAttribute("user",user);
+        model.addAttribute("credit",credit);
         model.addAttribute("list",list);
+
         return "integral/integralDetail";
+    }
+
+    //兑换
+    @RequestMapping("/conversion")
+    public String conversion(String place){
+        return "integral/conversion";
     }
     //积分商城主页面
     @RequestMapping("/main2")

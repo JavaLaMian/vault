@@ -8,8 +8,6 @@ import java.util.Date;
 
 @Table(name = "loan")
 public class Loan {//6月10日16点42
-    private static final int IN = 1;
-    private static final int CLOSE = 0;
 
     @Column(name = "lId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int lId;
@@ -17,10 +15,13 @@ public class Loan {//6月10日16点42
     @Column(name = "loanName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String loanName;
 
+    @Column(name = "bidType",type = MySqlTypeConstant.INT)
     private int bidType;
 
+    @Column(name = "bidId",type = MySqlTypeConstant.INT)
     private int bidId;
 
+    @Column(name = "uId",type = MySqlTypeConstant.INT)
     private int uId;
 
     @Column(name = "maxLimit",type = MySqlTypeConstant.DOUBLE)
@@ -29,14 +30,19 @@ public class Loan {//6月10日16点42
     @Column(name = "minLimit",type = MySqlTypeConstant.DOUBLE)
     private float minLimit;
 
+    @Column(name = "loanType",type = MySqlTypeConstant.INT)
     private int loanType;
 
+    @Column(name = "loanWantMoney",type = MySqlTypeConstant.DOUBLE)
     private float loanWantMoney;
 
+    @Column(name = "loanPurpose",type = MySqlTypeConstant.VARCHAR,length = 1000)
     private String loanPurpose;
 
+    @Column(name = "applicationTime",type = MySqlTypeConstant.DATETIME)
     private Date applicationTime;
 
+    @Column(name = "applicationEnd",type = MySqlTypeConstant.DATETIME)
     private Date applicationEnd;
 
     @Column(name = "guarantees",type = MySqlTypeConstant.INT)
@@ -91,14 +97,6 @@ public class Loan {//6月10日16点42
                 ", loanStatue=" + loanStatue +
                 ", remark='" + remark + '\'' +
                 '}';
-    }
-
-    public static int getIN() {
-        return IN;
-    }
-
-    public static int getCLOSE() {
-        return CLOSE;
     }
 
     public int getlId() {

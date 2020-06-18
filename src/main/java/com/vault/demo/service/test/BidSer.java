@@ -6,7 +6,9 @@ import com.vault.demo.bean.Tender;
 import com.vault.demo.bean.Userimf;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface BidSer{
     public static final int TYPE_NEWCOMER = 1;//新手标
@@ -34,4 +36,10 @@ public interface BidSer{
     List<Tender> getTenderId(int tid, int id, int t);
     List selectUser(int uId);
     int countTenByBid(int bid,int bType);
+
+    int setTender(Tender tender);
+    int gouMai(float money,int uid);
+    List<Map> getComList(int uId);
+
+    Map padTouBiao(HttpSession session,int id,int t);
 }

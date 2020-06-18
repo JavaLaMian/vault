@@ -1,8 +1,8 @@
 package com.vault.demo.service.loan.impl;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
+import com.vault.demo.dao.CarDao;
+import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.dao.loan.LoanDao;
 import com.vault.demo.service.loan.LoanService;
@@ -19,6 +19,12 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     CreditDao creditDao;
+
+    @Resource
+    HouseDao houseDao;
+
+    @Resource
+    CarDao carDao;
 
     @Override
     public void TestInsertLoan() {
@@ -47,4 +53,20 @@ public class LoanServiceImpl implements LoanService {
     public Credit selectCredit(Userimf userimf) {
         return creditDao.selectCreditByUserId(userimf);
     }
+
+    @Override
+    public void insertLoan(Loan loan) {
+        loanDao.insert(loan);
+    }
+
+    @Override
+    public House selectHouseByUId(Userimf userimf) {
+        return houseDao.selectHouseByUId(userimf);
+    }
+
+    @Override
+    public Car selectCarByUId(Userimf userimf) {
+        return carDao.selectCarByUId(userimf);
+    }
+
 }

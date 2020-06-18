@@ -16,14 +16,19 @@ public class House {//6月10日15点59
 
     @Column(name = "hId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int hId;
+
     @Column(name = "uId",type = MySqlTypeConstant.INT)
     private int uId;
+
     @Column(name = "photo",type = MySqlTypeConstant.VARCHAR,length = 300)
     private String photo;
+
     @Column(name = "remark",type = MySqlTypeConstant.VARCHAR,length = 300)
     private String remark;
+
     @Column(name = "money",type = MySqlTypeConstant.DOUBLE)
     private float money;
+
     @Column(name = "status",type = MySqlTypeConstant.INT)
     private int status;
 

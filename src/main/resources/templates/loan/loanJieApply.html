@@ -11,6 +11,7 @@
     <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/common.js"></script>
     <script src="https://gw.alipayobjects.com/as/g/bankprod/bkloanapply-assets/1.61.32/newLendApply.js"></script>
 
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
     <style>
         .ui-form-item {
             padding: 0 5px 15px 170px;
@@ -81,19 +82,23 @@
         }
 
         .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
+
+        #ululul a:hover{
+            text-decoration: none;
+        }
     </style>
 
     <script th:src="@{/js/jquery-1.12.4.js}"></script>
 
-        <script th:src="@{/js/bootstrap.js}"></script>
-        <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
     <!--    导航-->
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
-            <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
-                <a th:href="@{/loan/mian2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+            <div class="top" data-reactid=".0.2.1.0.0">
+                <h1 data-reactid=".0.2.1.0.0.0" style="margin: 0">
+                <a th:href="@{/loan/main2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
                     <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
                 </a>
             </h1>
@@ -101,11 +106,11 @@
                     <li data-reactid=".0.2.1.0.0.1.0">
                         <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
                             <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
-                            <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                            <span data-reactid=".0.2.1.0.0.1.0.0.1" th:text="${session.user.uName}">284***@qq.com</span>
                         </a>
                     </li>
                     <li data-reactid=".0.2.1.0.0.1.1">
-                        <a data-aspm-click="d18793" th:href="@{/loan/main}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
+                        <a data-aspm-click="d18793" th:href="@{/loan/loginOut}" data-reactid=".0.2.1.0.0.1.1.0">退出登录</a>
                     </li>
                     <li data-reactid=".0.2.1.0.0.1.2">
                         <a href="#" target="_blank" data-reactid=".0.2.1.0.0.1.2.0">服务大厅</a>
@@ -120,9 +125,9 @@
         </div>
     </div>
     <div class="nav" data-aspm="c10121" data-aspm-expo="true" data-reactid=".0.2.1.1:0">
-        <div class="navBox" data-reactid=".0.2.1.1:0.0">
-            <h2 data-reactid=".0.2.1.1:0.0.0" >飞机贷</h2>
-            <ul data-reactid=".0.2.1.1:0.0.1">
+        <div class="navBox" data-reactid=".0.2.1.1:0.0" style="position: relative">
+            <h2 data-reactid=".0.2.1.1:0.0.0"  style="margin: 7px; width: 100px; position: absolute;left: 0px;font-size: 25px;color: #666">飞机贷</h2>
+            <ul data-reactid=".0.2.1.1:0.0.1" id="ululul">
                 <li data-aspm-click="d18478" class=" active" data-reactid=".0.2.1.1:0.0.1.$0">
                     <a th:href="@{/loan/main2}" data-reactid=".0.2.1.1:0.0.1.$0.0">借款</a>
                 </li>
@@ -140,6 +145,22 @@
     </div>
     <!-- 内容-->
     <div style="width: 100%;height: auto">
+        <div class="indexNav" data-reactid=".0.2.1.1:1.0">
+            <div class="indexTable" data-reactid=".0.2.1.1:1.0.0">
+                <div class="indexWelcome" data-reactid=".0.2.1.1:1.0.0.0">
+                    <div class="sun" data-reactid=".0.2.1.1:1.0.0.0.0">
+                        <h5 data-reactid=".0.2.1.1:1.0.0.0.0.0"></h5>
+                    </div>
+                    <div class="littleCloud" data-reactid=".0.2.1.1:1.0.0.0.1"></div>
+                    <div class="largeCloud" data-reactid=".0.2.1.1:1.0.0.0.2"></div>
+                    <div class="imatchNotice" data-reactid=".0.2.1.1:1.0.0.0.3">
+                        <div id="qc-launchMarketing-55.00000000000001" style="width:100%;" data-reactid=".0.2.1.1:1.0.0.0.3.0">
+                            <noscript data-reactid=".0.2.1.1:1.0.0.0.3.0.0"></noscript>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="breadCrumb " data-reactid=".0.2.1.1:1">
             <div class="crumbBox" data-reactid=".0.2.1.1:1.0">
                 <p data-reactid=".0.2.1.1:1.0.0">
@@ -178,29 +199,31 @@
             <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
                 <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
                 <div id="loanForm" style="width: 100%;height: 100%">
-                    <form class="" th:action="@{/loan/toLoanJie}" method="post">
+                    <form class="" th:action="@{/loan/toloanJie}" method="post" style="margin: 10px 20px 0 20px" onsubmit="return checkStep1Form()">
                         <input type="hidden" name="uId" th:value="${session.user.uId}">
+
+                        <input type="hidden" name="step" value="2">
 
                         <input type="hidden" name="loanType" value="1">
 
                         <div class="form-group">
-                            <label for="loanName">贷款名</label>
+                            <label for="loanName" id="loanNameLabel">贷款名</label>
                             <input id="loanName" name="loanName" type="text" class="form-control" placeholder="可以为您的贷款取一个名字">
                         </div>
 
                         <div class="form-group">
-                            <label for="loanWantMoney">期望贷款金额</label>
+                            <label for="loanWantMoney" id="loanWantMoneyLabel">期望贷款金额</label>
                             <input id="loanWantMoney" name="loanWantMoney" type="number" class="form-control" placeholder="money">
                         </div>
 
                         <div class="form-group">
-                            <label for="loanPurpose">贷款用途</label>
+                            <label for="loanPurpose" id="loanPurposeLabel">贷款用途</label>
                             <input id="loanPurpose" name="loanPurpose" type="text" class="form-control" placeholder="请描述贷款用途">
                         </div>
 
                         <div class="form-group">
                             <label for="lowLimit">借贷时长</label>
-                            <select name="lowLimit" id="lowLimit" class="form-control">
+                            <select name="lowLimit" id="lowLimit" class="form-control" onchange="onTimeChange(value)">
                                 <option value="6">
                                     6个月
                                 </option>
@@ -223,13 +246,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="interest">利率</label>
-                            <input id="interest" name="interest" type="text" class="form-control" placeholder="0.00%" disabled>
+                            <label for="interest">年化利率（%）</label>
+                            <input id="interest" name="interest" type="number" class="form-control" value="22.22" readonly >
                         </div>
 
                         <br>
 
-                        <button type="submit" class="btn btn-default">提交</button>
+                        <button type="submit" class="btn btn-default" style="margin: 0">提交</button>
                     </form>
                 </div>
             </div>
@@ -238,7 +261,71 @@
 <!--        2.签署合同-->
         <div th:if="${step==2}" class="processBox" data-reactid=".0.2.1.1:2">
             <div data-reactid=".0.2.1.1:2.0"></div>
-            <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
+            <div th:if="${loan.loanStatue != 5}" style="width: 50%;margin: 0 auto">
+                <div class="page-header" style="text-align: center">
+
+                    <div><img th:src="@{/img/loan/CHECK.jpg}" style="margin-top: 10px;width: 100px"></div>
+                    <h1 style="text-align: center;margin: 20px 0 0 12px">
+                        请耐心等待您的贷款申请审核，在1至7个工作日内会有信息员回访，请注意接收信息，感谢您的配合！
+                    </h1>
+                    <table class="table" cellpadding="0" cellspacing="0" border="1px solid #666" style="margin-top: 10px">
+                        <tr>
+                            <th>编号</th>
+                            <td th:text="${loan.getlId()}"></td>
+                            <th>贷款人</th>
+                            <td th:text="${credit.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>期望贷款金额</th>
+                            <td th:text="${loan.getLoanWantMoney()} + '万'"></td>
+                            <th>借贷期限</th>
+                            <td th:text="${loan.getLowLimit()} + '个月'"></td>
+                        </tr>
+                        <tr>
+                            <th>基础利率</th>
+                            <td th:text="${loan.getInterest()} + '%'"></td>
+                            <th>贷款类型</th>
+                            <td>
+                                <span th:if="${loan.getLoanType() == 1}">信用贷款</span>
+                                <span th:if="${loan.getLoanType() == 2}">抵押贷款</span>
+                                <span th:if="${loan.getLoanType() == 3}">担保贷款</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>贷款名称</th>
+                            <td th:text="${loan.getLoanName()}"></td>
+                            <th>提交时间</th>
+                            <td th:text="${#dates.format(loan.getApplicationTime(), 'yyyy-MM-dd hh:mm:ss')}"></td>
+                        </tr>
+                        <tr>
+                            <th>当前状态</th>
+                            <td style="color: red">
+                                <span th:if="${loan.getLoanStatue() == 0}">
+                                    审核中
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 1}">
+                                    放款中
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 2}">
+                                    待偿还
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 3}">
+                                    已偿还
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 4}">
+                                    申请失败
+                                </span>
+                                <span th:if="${loan.getLoanStatue() == 5}">
+                                    申请通过等待确认
+                                </span>
+                            </td>
+                            <th>贷款用途</th>
+                            <td th:text="${loan.getLoanPurpose()}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${loan.loanStatue == 5}" class="process clearfix" data-reactid=".0.2.1.1:2.1">
                 <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
                     <ul data-reactid=".0.2.1.1:2.1.0.0">
                         <li class="" data-reactid=".0.2.1.1:2.1.0.0.$0">
@@ -266,28 +353,21 @@
                         <div class="stepRippleBox" data-reactid=".0.2.1.1:2.1.1.1:0.0">
                             <div class="info" data-reactid=".0.2.1.1:2.1.1.1:0.0.0">
                                 <div data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0">
-                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.0">借款金额(元)</h5>
+                                    <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.0">申请金额(元)</h5>
                                     <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1">
-                                        <strong data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.0">1</strong>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.1">.</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.2">00</span>
+                                        <strong th:text="${loan.loanWantMoney}" id="moneyStrong" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.0">1</strong>
                                     </h3>
                                 </div>
                                 <ul class="clearfix" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1">
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0">
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.0">借款期限</span>
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.1">：</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.2">12个月</span>
-                                    </li>
-                                    <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1">
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.0">首个还款日</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.1">：</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$1.2">7月20日</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.2" th:text="${loan.getLowLimit()} + '个月'">12个月</span>
                                     </li>
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2">
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.0">日利费率</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.0">年化利率</span>
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.1">：</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.2">0.040000%</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.2" th:text="${loan.getInterest()} + '%'">0.040000%</span>
                                     </li>
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3">
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$3.0">还款方式</span>
@@ -297,7 +377,7 @@
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4">
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.0">贷款服务机构</span>
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.1">：</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.2">天津信托</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$4.2">小母牛坐飞机贷</span>
                                     </li>
                                 </ul>
                             </div>
@@ -308,13 +388,13 @@
             <p align="left">合同版本号20191213通用 </p><p align="center">合同编号： </p>
             <p>
 
-                感谢您<strong>向</strong><strong></strong><strong>天津信托有限责任公司（即“贷款人”）
-            </strong><strong></strong><strong>申请贷款（也称“本贷款”）</strong>，您作为借款人正通过登录支付宝账户或贷款人认可的其他方式签署本合同。在您确认签署本合同之前，<strong>请您务必充分阅读本合同条款的全部内容（含合同正文和附件等），尤其是加粗的部分。您应确保已核对您的身份信息无误，且您承诺您具有签订和履行本合同的资格和能力</strong>。如您无法准确理解或不同意本合同任一条款，请您停止签约操作。如有疑问，您可致电客服电话【95188-3】，以便我们为您解释和说明。<strong>一旦您点击确认同意本合同，即意味着您已充分阅读、理解并认可以数据电文形式签署本合同，本合同成立并生效，但贷款资金在贷款人审核通过后方可发放。 </strong>
+                感谢您<strong>向</strong><strong></strong><strong>小母牛坐飞机贷（即“贷款人”）
+            </strong><strong></strong><strong>申请贷款（也称“本贷款”）</strong>，您作为借款人正通过登录小母牛账户或贷款人认可的其他方式签署本合同。在您确认签署本合同之前，<strong>请您务必充分阅读本合同条款的全部内容（含合同正文和附件等），尤其是加粗的部分。您应确保已核对您的身份信息无误，且您承诺您具有签订和履行本合同的资格和能力</strong>。如您无法准确理解或不同意本合同任一条款，请您停止签约操作。如有疑问，您可致电客服电话【95188-3】，以便我们为您解释和说明。<strong>一旦您点击确认同意本合同，即意味着您已充分阅读、理解并认可以数据电文形式签署本合同，本合同成立并生效，但贷款资金在贷款人审核通过后方可发放。 </strong>
             </p>
             <p><strong>第一条</strong><strong>&nbsp;</strong><strong>贷款基本信息</strong> </p>
             <p> <strong>您知晓并同意本合同项下您的身份信息以您用以签约的账户所留存的信息、或您以网商银行认可的方式提交的身份信息</strong><strong>为准。</strong>为了保护您的信息，本合同在贷款平台展示时可能部分隐藏您的身份信息和收款账户信息。 </p>
-            <p><strong><u>借款人名称：</u></strong> *兵</p>
-            <p> <strong><u>证件号码：</u></strong>3****************3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong><u>证件类型：</u></strong> 居民身份证</p>
+            <p><strong><u>借款人名称：</u></strong> <span th:text="${credit.getName()}"></span></p>
+            <p> <strong><u>证件号码：</u></strong><span th:text="${credit.getIdentity()}">3****************3</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong><u>证件类型：</u></strong> 居民身份证</p>
             <p><strong><u>贷款金额：</u></strong> &nbsp;1.00元&nbsp;&nbsp; &nbsp;(大写： 壹元整&nbsp;&nbsp; ) </p>
             <p><strong>贷款期限：</strong>自贷款发放之日起至2021年06月20日</p>
             <p> 注：本合同所涉时间如无特别说明，均为北京时间。 </p>
@@ -648,12 +728,12 @@
                         <div class="alipayAccount" data-reactid=".0.2.1.1:2.1.1.1:0.2">
                             <p data-reactid=".0.2.1.1:2.1.1.1:0.2.0">
                                 <span data-reactid=".0.2.1.1:2.1.1.1:0.2.0.0">小母牛账号：</span>
-                                <strong data-reactid=".0.2.1.1:2.1.1.1:0.2.0.1">131******15</strong>
+                                <strong data-reactid=".0.2.1.1:2.1.1.1:0.2.0.1" th:text="${session.user.getAccount()}">131******15</strong>
                             </p>
                         </div>
                         <form action="/loan/loanJie">
                                 <div class="ui-form-item">
-                                    <div class="ui-form-explain">安全设置检测成功！无需短信校验。</div>
+                                    <div class="ui-form-explain">安全设置检测成功！无需邮箱校验。</div>
                                 </div>
 
 
@@ -670,7 +750,7 @@
 
 
 
-                            
+
 
 
                         </form>
@@ -761,6 +841,68 @@
     </div>
 </body>
 </html>
-<script>
+<script type="text/javascript">
+    function onTimeChange(data) {
+        var lilv = document.getElementById("interest");
+        if (data == 6){
+            lilv.value = 22.22;
+        }else if (data == 12){
 
+            lilv.value = 21.02;
+        }else if (data == 18){
+
+            lilv.value = 20.10;
+        }else if (data == 24){
+
+            lilv.value = 18.71;
+        }else if (data == 30){
+
+            lilv.value = 17.22;
+        }else if (data == 36){
+
+            lilv.value = 16.50;
+        }
+    }
+
+    function checkStep1Form() {
+        var loanName = document.getElementById("loanName").value;
+        var loanWantMoney = document.getElementById("loanWantMoney").value;
+        var loanPurpose = document.getElementById("loanPurpose").value;
+
+        var check = 1;
+
+        if(loanName == '' || loanName == null){
+            document.getElementById("loanNameLabel").innerHTML = '请输入贷款名';
+            document.getElementById("loanNameLabel").style.color = "red";
+
+            check = 0;
+        }else {
+            document.getElementById("loanNameLabel").innerHTML = '贷款名';
+            document.getElementById("loanNameLabel").style.color = "black";
+        }
+        if (loanWantMoney == '' || loanWantMoney == null){
+            document.getElementById("loanWantMoneyLabel").innerHTML = '请输入您期望贷款的金额数';
+            document.getElementById("loanWantMoneyLabel").style.color = "red";
+
+            check = 0;
+        }else {
+            document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额';
+            document.getElementById("loanWantMoneyLabel").style.color = "black";
+        }
+        if (loanPurpose == '' || loanPurpose == null){
+            document.getElementById("loanPurposeLabel").innerHTML = '请输入贷款用途';
+            document.getElementById("loanPurposeLabel").style.color = "red";
+
+            check = 0;
+        }else {
+            document.getElementById("loanPurposeLabel").innerHTML = '贷款用途';
+            document.getElementById("loanPurposeLabel").style.color = "black";
+        }
+
+        if (check == 1){
+            return true;
+        }else {
+            return false;
+        }
+    }
 </script>

@@ -72,7 +72,7 @@
     <insert id="insert" parameterType="com.vault.demo.bean.Bid">
         insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
     </insert>
-
+    
     <select id="selectTouId" resultType="com.vault.demo.bean.Tender" parameterType="int">
         select * from tender where bId = #{bId} and bType = #{bType} left join userImf on
         <if test="uId != null and uId != 0">
@@ -90,5 +90,19 @@
         <if test="uId != null and uId !=0">
             where uId = #{uId}
         </if>
+        select * from tender where bId = #{bId} and bType = #{bType}
+        <if test="uId != null and uId != 0">
+            and uId = #{uId}
+        </if>
+    </select>
+
+    <insert id="addTender" parameterType="com.vault.demo.bean.Tender">
+        insert into tender value(null,#{bId},#{uId},#{tenMoney},#{tenTime},#{tenType},#{tenCicle},#{bType})
+    </insert>
+    <update id="moneyUserId" parameterType="com.vault.demo.bean.Userimf">
+        update userimf set avaBalance = #{money} where uId = #{uId}
+    </update>
+    <select id="comUserList" resultType="Map" parameterType="int">
+        select b.bidName,t.tenTime,b.clockLine,t.tenMoney from tender t,bid b where t.bId = b.bId and t.uId = #{uId}
     </select>
 </mapper>
