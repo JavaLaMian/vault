@@ -20,55 +20,58 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-header"><h4>基本信息</h4></div>
-                                <div class="card-body" th:each="p:${list}">
-                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);height: 40px;">
-                                        <span style="width: 200px"><strong>编号：<a th:text="${p.creId}">1</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>申请人用户ID：<a th:text="${p.uId}">1</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>单位：<a th:text="${p.depart}">煤场</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>工资情况：<a th:text="${p.wages}">20000~50000</a>元</strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>公积金：<a th:text="${p.funds}">200000000亿</a></strong></span>
-                                    </div>
-                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
-                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">身份证信息</p>
-                                        <span style="width: 200px;"><strong>姓名：<a th:text="${p.name}">刘世阳</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证：<a th:text="${p.identity}">33032626656664656</a></strong></span>
-                                        <span style="width: 200px;margin-left: 50px;"><strong>身份证正面照片：<a></a></strong></span>
-                                        <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
-
-                                            <a class="masonry-item" href="#">
-                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
-                                            </a>
-                                            <a class="masonry-item" href="#">
-                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
-                                            </a>
+                                <form method="post" th:action="@{/XMN/updateCreditOK}">
+                                    <div class="card-header"><h4>基本信息</h4></div>
+                                    <div class="card-body" th:each="p:${list}">
+                                        <div style="border-bottom: 1px solid rgba(77,82,89,0.05);height: 40px;">
+                                            <input name="creId" type="hidden" th:value="${p.creid}"/>
+                                            <span style="width: 200px"><strong>编号：<a th:text="${p.creid}">1</a></strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>申请人用户ID：<a th:text="${p.uId}">1</a></strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>单位：<a th:text="${p.depart}">煤场</a></strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>工资情况：<a th:text="${p.wages}">20000~50000</a>元</strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>公积金：<a th:text="${p.funds}">200000000亿</a></strong></span>
                                         </div>
-                                    </div>
-                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
-                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">房产证明</p>
-                                        <span style="width: 200px"><strong>房产证明照片：</strong></span>+
-                                        <span style="width: 200px;"><strong>车产证明照片：</strong></span>
-                                        <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
+                                        <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                            <p class="lead" style="font-size: 16px;margin-bottom: 20px;">身份证信息</p>
+                                            <span style="width: 200px;"><strong>姓名：<a th:text="${p.name}">刘世阳</a></strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>身份证：<a th:text="${p.identity}">33032626656664656</a></strong></span>
+                                            <span style="width: 200px;margin-left: 50px;"><strong>身份证正面照片：<a></a></strong></span>
+                                            <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
 
-                                            <a class="masonry-item" href="#">
-                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
-                                            </a>
-                                            <a class="masonry-item" href="#">
-                                                <img th:src="@{/images/gallery/1.jpg}" alt="没有图片">
-                                            </a>
+                                                <a class="masonry-item" href="#">
+                                                    <img th:src="@{${p.positiveIDPhoto}}" alt="没有图片">
+                                                </a>
+                                                <a class="masonry-item" href="#">
+                                                    <img th:src="@{${p.negativeIDPhoto}}" alt="没有图片">
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
-                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">请审核并确认征信等级</p>
-                                        <button class="btn btn-w-md btn-round btn-warning">关注</button>
-                                        <button class="btn btn-w-md btn-round btn-secondary">次级</button>
-                                        <button class="btn btn-w-md btn-round btn-success">正常</button>
-                                        <button class="btn btn-w-md btn-round btn-dark">可疑</button>
-                                        <button class="btn btn-w-md btn-round btn-danger">损失</button>
-                                    </div>
+                                        <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                            <p class="lead" style="font-size: 16px;margin-bottom: 20px;">房产证明</p>
+                                            <span style="width: 200px"><strong>房产证明照片：</strong></span>+
+                                            <span style="width: 200px;"><strong>车产证明照片：</strong></span>
+                                            <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
+
+                                                <a class="masonry-item" href="#">
+                                                    <img th:src="@{${p.photo}}" alt="没有图片">
+                                                </a>
+                                                <a class="masonry-item" href="#">
+                                                    <img th:src="@{${p.hh}}" alt="没有图片">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
+                                            <p class="lead" style="font-size: 16px;margin-bottom: 20px;">请审核并确认征信等级</p>
+                                            <button class="btn btn-w-md btn-round btn-warning" target-form="add-form" type="submit" value="2" name="an">关注</button>
+                                            <button class="btn btn-w-md btn-round btn-secondary" target-form="add-form" type="submit" value="3" name="an">次级</button>
+                                            <button class="btn btn-w-md btn-round btn-success" target-form="add-form" type="submit" value="1" name="an">正常</button>
+                                            <button class="btn btn-w-md btn-round btn-dark" target-form="add-form" type="submit" value="4" name="an">可疑</button>
+                                            <button class="btn btn-w-md btn-round btn-danger" target-form="add-form" type="submit" value="5" name="an">损失</button>
+                                        </div>
 
 
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

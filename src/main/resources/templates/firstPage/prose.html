@@ -169,7 +169,8 @@
             transition: 0.5s;
         }
         .lie:hover{
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #ccc;
+            box-shadow: 5px 5px 15px #ccc;
         }
         .lie p{
             width: 22%;
@@ -214,7 +215,7 @@
         <div class="hotline">全国服务热线：4006-0755-70</div>
         <ul class="info" id="ulLoginStatus">
             <li class="user" th:if="${session.user!=null}">
-                <a href="/user/toAO" th:text="${session.user.getUName()}">
+                <a href="/user/toAO" th:text="${session.user.uName}">
                 </a>
                 <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
             </li>
@@ -730,7 +731,7 @@
                     var html = "";
                     if(data.size !== 0){
                         var lists = data.list;
-                        html = "<ul style='overflow: hidden;'><li class='titles'><p>标名称</p><p style='width: 34%;'>" +
+                        html = "<ul style='overflow: hidden;padding: 0 15px;'><li class='titles'><p>标名称</p><p style='width: 34%;'>" +
                             "投资时间</p><p>锁定周期</p><p>投资金额</p></li>";
 
                         for(var i = 0;i<lists.length;i++){  //循环LIST

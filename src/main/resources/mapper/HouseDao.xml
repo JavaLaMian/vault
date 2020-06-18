@@ -8,7 +8,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into house values(null,#{uId},#{photo},#{remark},#{money},#{status})
+          insert into house(null,uId,photo,remark,money,status) values(null,#{uId},#{photo},#{remark},#{money},#{status})
         ]]>
     </insert>
     <select id="selectHouseByUId" resultType="com.vault.demo.bean.House" parameterType="com.vault.demo.bean.Userimf">

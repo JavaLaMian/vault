@@ -3,5 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vault.demo.dao.backstage.BackLoanDao">
-
+    <select id="selLoan" resultType="map">
+        <![CDATA[
+          select l.lId,c.name,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on ( l.uId = c.uId and c.creditLV='1') and l.loanStatue not in(3,4)
+        ]]>
+    </select>
 </mapper>

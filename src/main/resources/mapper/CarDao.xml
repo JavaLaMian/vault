@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.vault.demo.dao.HouseDao">
+<mapper namespace="com.vault.demo.dao.CarDao">
     <insert id="insertCar" parameterType="com.vault.demo.bean.Car" useGeneratedKeys="true">
         <selectKey keyColumn="cId" resultType="integer" keyProperty="cId" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into car values(null,#{uId},#{photo},#{remark},#{money},#{status})
+          insert into car(cId,uId,photo,remark,money,status) values(null,#{uId},#{photo},#{remark},#{money},#{status})
         ]]>
     </insert>
     <select id="selectCarByUId" resultType="com.vault.demo.bean.Car" parameterType="com.vault.demo.bean.Userimf">
