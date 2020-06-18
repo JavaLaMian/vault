@@ -65,6 +65,7 @@ public class Userimf { //6月10日15点23
     @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
     private Date lastLoginTime;
 
+    @Column(name = "place",type = MySqlTypeConstant.VARCHAR)
     private String place;
 
     @Override

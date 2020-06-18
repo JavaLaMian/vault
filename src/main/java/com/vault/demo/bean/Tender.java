@@ -33,6 +33,7 @@ public class Tender {//6月10日15点59
     @Column(name = "tenCicle",type = MySqlTypeConstant.DATETIME)
     private Date	tenCicle;
 
+    @Column(name = "bType",type = MySqlTypeConstant.INT)
     private  int bType;
     public Tender(){}
 

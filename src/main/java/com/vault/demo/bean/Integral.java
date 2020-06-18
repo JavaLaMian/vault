@@ -12,12 +12,11 @@ public class Integral {
     @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
 
-      @Column(name = "integralName",type = MySqlTypeConstant.VARCHAR,length = 100)
+    @Column(name = "integralName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralName;
 
     @Column(name = "integralImg",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralImg;
-
 
     @Column(name = "integral",type = MySqlTypeConstant.INT)
     private int integral;

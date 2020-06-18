@@ -11,8 +11,10 @@ public class Credit {//6月10日15点31
 
     @Column(name = "creId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int creId;
+
     @Column(name = "uId",type = MySqlTypeConstant.INT)//申请人用户ID
     private int uId;
+
     @Column(name = "depart",type = MySqlTypeConstant.VARCHAR,length = 100)//单位
     private String depart;
 
