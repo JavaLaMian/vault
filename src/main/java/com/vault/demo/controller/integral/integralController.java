@@ -14,7 +14,9 @@ import org.thymeleaf.expression.Lists;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +60,9 @@ public class integralController {
         if(user == null){
             return "redirect:/user/tologin";
         }
+        MyIntegral myTotal = service.selectMyIntegral2(user.getuId());
+        session.setAttribute("total",myTotal.getTotal());
+
         session.setAttribute("user",user);
         pager.page(service.integral());
         String integralType ;
@@ -116,7 +121,6 @@ public class integralController {
     public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
         Integral list  = service.selectById(id);
-        System.out.println("type:"+list.getIntegralType());
 
         Userimf user = (Userimf) session.getAttribute("user");
         if(user == null){
@@ -135,25 +139,78 @@ public class integralController {
 
     //兑换
     @RequestMapping("/conversion")
-    public String conversion(String place){
-        return "integral/conversion";
+    public String conversion(String type,MyIntegral myIntegral,HttpSession session,Model model){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/user/tologin";
+        }
+        if ("慧财".equals(type)){
+            model.addAttribute("type",2);
+        }
+        else if(type != null){
+            model.addAttribute("type",1);
+            int total = (int) session.getAttribute("total");
+            myIntegral.setuId(user.getuId());
+            myIntegral.setChangeType("兑换商品");
+            myIntegral.setTotal(total);
+
+            //兑换时间
+            Date date = new Date();
+            //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+            //        String conversionTime = df.format(date);
+            myIntegral.setConversionTime(new Date());
+            int total2 = total - myIntegral.getChange();
+            myIntegral.setTotal(total2);
+
+            int i = service.conversionAdd(myIntegral);
+            if(i == 1){
+                Integral integral = service.selectById(myIntegral.getiId());
+                int inventory = integral.getInventory() -1;
+                int x =service.integralInventory(inventory,myIntegral.getiId());
+
+                MyIntegral myTotal = service.selectMyIntegral2(user.getuId());
+                session.setAttribute("total",myTotal.getTotal());
+                return "integral/conversionYes";
+            }
+        }
+        return "redirect:integral/list?spId=0&currPage=1&sort=0)";
     }
+
+    @RequestMapping("/conversion2")
+    public String conversion2(String phe,String place,int hId,HttpSession session){
+        System.out.println("place:"+place);
+        session.setAttribute("place",place);
+        return "redirect:/integral/detail?id="+hId;
+    }
+
     //积分商城主页面
     @RequestMapping("/main2")
-    public String integralMain2(){
+    public String integralMain2(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
         return "integral/integralMain2";
     }
 
 
     //积分规则
     @RequestMapping("/Rule")
-    public String integralRule(){
+    public String integralRule( HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
         return "integral/integralRule";
     }
 
     //积分问答
     @RequestMapping("/issue")
-    public String integralIssue(){
+    public String integralIssue(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
+            return "redirect:/user/tologin";
+        }
         return "integral/integralIssue";
     }
 }
