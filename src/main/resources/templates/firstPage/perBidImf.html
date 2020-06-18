@@ -35,7 +35,7 @@
             })
         </script>
         <link rel="stylesheet" type="text/css" href="//image.xiaoniu88.com/static/WebXn/dist/page/product/detail/sanbiao/css/detail-591415ba00.css" />
-        <!--<input type="hidden" id="currentProductMenu" value="common">-->
+
     </head>
     <body>
 
@@ -48,13 +48,8 @@
 
     <input value="true" type="hidden" id="isLogin"/>
 
-
     <div class="affiche" id="afficheModel">
 
-    <span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。
-        <a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a>
-    </span>
-        <i class="icon-common icon-common-close"></i>
     </div>
 
 
@@ -67,14 +62,11 @@
 
                 <li class="user logon">
                     <a href="/MyAccount/index">
-
                         xnwp6190766
-
 
                     </a>
                     <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
                 </li>
-
 
 
                 <li class="line">|</li>
@@ -171,14 +163,10 @@
         </table>
     </div>
     <input type="hidden" id="currentProductMenu" value="common" />
-    <input type="hidden" value="financial" id="menuCur" />
+
     <!--[if lt IE 9]>
     <script src="//image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
     <![endif]-->
-    <input value="true" type="hidden" id="isLogin" />
-    <div class="affiche" id="afficheModel">
-        <span>小牛在线提醒您：为了更流畅的访问本网站，建议您使用IE9.0及以上版本浏览器或360浏览器。 <a class="link" href="http://se.360.cn" target="_blank" rel="nofollow">点击进入360官网下载&gt;&gt;</a> </span>
-        <i class="icon-common icon-common-close"></i>
     </div>
 
     <!--导航-->
@@ -219,7 +207,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="currentProductMenu" value="common" />
+
     <!--产品列表导航-->
     <div class="product-menu-contanier" id="productMenu">
         <ul class="product-menu clearfix">
@@ -249,7 +237,7 @@
     <div class="container detail-container" id="contanier">
         <div class="shoulder" id="shoulderModel">
             <div class="neck">
-                <h2 class="title">消费贷AH20190428-a19</h2>
+                <h2 class="title" th:text="${p.perBidName}"></h2>
                 <div class="tags"></div>
                 <a class="contract to-contract serviceContract" href="javascript:;" data-url="/cms/contract/pcts/1/template/productId/66890440">《服务合同》</a>
                 <a class="contract to-contract loanContract" href="javascript:;" data-url="/cms/contract/pcts/2/template/productId/66890440">《借款合同》</a>
@@ -260,7 +248,7 @@
                     <div class="sub-left-top">
                         <dl class="earnings">
                             <dt class="curRate">
-                                <b class="f-rate color-orange">11.40<span>%</span></b>
+                                <b class="f-rate color-orange" th:text="${p.inRate}+'%'"></b>
                             </dt>
                             <dd>
                                 参考利率
@@ -269,20 +257,19 @@
                         </dl>
                         <dl class="borrow-amount">
                             <dt>
-                                <span class="f-rate js_term">18</span>
-                                <span>个月</span>
-                                <i class="text-tag" title="持满1个月且剩余期限不能少于1个月">1个月可转</i>
+                                <span class="f-rate js_term" th:text="${p.clockLine}"></span>
+                                <i class="text-tag" th：title="'持满'+${p.transLine}+'个月且剩余期限不能少于此月数'" th:text="${p.transLine}+'个月可转'"></i>
                             </dt>
                             <dd>
-                                项目期限
+                                锁定期
                             </dd>
                         </dl>
                         <dl class="lock-day">
                             <dt>
-                                <span class="f-rest">7,380.00</span> 元
+                                <span class="f-rest" th:text="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}"></span>元
                             </dt>
                             <dd>
-                                项目金额
+                                可购金额
                             </dd>
                         </dl>
                     </div>
@@ -291,8 +278,8 @@
                             <dt>
                                 到期时间：
                             </dt>
-                            <dd>
-                                2020-10-29 00:00:00
+                            <dd  th:text="${#dates.format(p.expire,'yyyy-MM-dd')}">
+
                             </dd>
                         </dl>
                         <dl>
@@ -304,29 +291,29 @@
                                 <i class="icon icon-question-mark js_poshytip" title="每月还本金及利息，其中还款本金每月相同。"></i>
                             </dd>
                         </dl>
-                        <dl>
-                            <dt>
-                                起息日期：
-                            </dt>
-                            <dd>
-                                2019-04-29
-                            </dd>
-                        </dl>
+                        <!--<dl>-->
+                            <!--<dt>-->
+                                <!--起息日期：-->
+                            <!--</dt>-->
+                            <!--<dd>-->
+                                <!--2019-04-29-->
+                            <!--</dd>-->
+                        <!--</dl>-->
                         <dl>
                             <dt>
                                 项目进度：
                             </dt>
                             <dd>
-                                <span class="schedule"><b style="width:100%"></b></span>
-                                <span>100%</span>
+                                <span class="schedule"><b th:style="'width:'+${#numbers.formatDecimal(p.schedul,1,'COMMA',2,'POINT')}+'%'"></b></span>
+                                <span th:text="${#numbers.formatDecimal(p.schedul,1,'COMMA',2,'POINT')}+'%'"></span>
                             </dd>
                         </dl>
                         <dl>
                             <dt>
-                                募集期：
+                                发起时间：
                             </dt>
-                            <dd>
-                                3天
+                            <dd th:text="${#dates.format(p.startTime,'yyyy-MM-dd')}">
+
                             </dd>
                         </dl>
                         <dl>
@@ -342,21 +329,24 @@
                             <dt>
                                 出借条件：
                             </dt>
-                            <dd>
-                                风险承受能力为“稳健型”及以上
+                            <dd th:if="${p.combination gt 10000}">
+                                信用要求：良好
+                            </dd>
+                            <dd th:if="${p.combination le 10000}">
+                                信用要求：优秀
                             </dd>
                         </dl>
                     </div>
                 </div>
                 <div class="sub-right">
-                    <div class="sellout abs">
-                        <div class="info">
-                            成功交易时间：
-                        </div>
-                        <div class="describe">
-                            2019-04-29 00:05:26
-                        </div>
-                    </div>
+                    <!--<div class="sellout abs">-->
+                        <!--<div class="info">-->
+                            <!--成功交易时间：-->
+                        <!--</div>-->
+                        <!--<div class="describe">-->
+                            <!--2019-04-29 00:05:26-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -367,10 +357,10 @@
                 <li data-type="investList" class="extend-trigger"><i class="icon icon-invest"></i><span>投标记录</span></li>
             </ul>
             <div class="items">
-                <div class="item introduce tableList" id="introduceModel">
+                <div class="item introduce tableList" id="introduceModel" style="display: block;">
                     <h3 class="title">项目简介与风险评估</h3>
                     <div class="extend-describe">
-                        本项借款属于个人借款，借款总金额7380.00元。借款人伍女士个人资质已通过审核， 申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
+                        本项借款属于个人借款，借款总金<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元。借款人<span th:text="${#strings.substring(u.uName,0,1)}"></span>某个人资质已通过审核,申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
                     </div>
                     <h3 class="title">借款用途</h3>
                     <div class="extend-describe">
@@ -408,14 +398,100 @@
                         </dd>
                     </dl>
                 </div>
+
                 <div class="item borrowing tableList" id="borrowingModel" style="display: none;">
-                    <div class="extend-loader"></div>
-                </div>
-                <div class="item recordList investList g-dn" id="investListModel" style="display: none;">
-                    <div class="content">
-                        <div class="extend-loader"></div>
+                    <div class="queue">
+                        <div class="node first">
+                            <div class="model">
+                                <i></i>
+                                <span>借款基础信息</span>
+                            </div>
+                            <div class="infos">
+                                <span>借款金额：<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元</span>
+                                <span>借款期限：<span th:text="${p.borrowTime}"></span>个月</span>
+                                <span>还款方式：每月还本付息</span>
+                                <span>借款用途：个人消费</span>
+                                <span>签约时间：<span th:text="${p.startTime}"></span></span>
+                                <span>约定利率：<span th:text="${p.rate}"></span>%</span>
+                                <span>还款来源：工资收入</span>
+                                <span>还款保障措施：该笔借款由深圳市易美网络科技有限公司提供担保。</span>
+                            </div>
+                        </div>
+                        <div class="node">
+                            <div class="model">
+                                <i></i>
+                                <span>借款人基础信息</span>
+                            </div>
+                            <div class="infos">
+                                <span>借款人：<span th:text="${#strings.substring(u.uName,0,1)}"></span>某</span>
+                                <span>身份证：<span th:text="${#strings.substring(u.identity,0,2)}+'****'+${#strings.substring(u.identity,13,4)}"></span></span>
+                            </div>
+                        </div>
+                        <div class="node">
+                            <div class="model">
+                                <i></i>
+                                <span>资产信息</span>
+                            </div>
+                            <div class="infos">
+                                <span>名下房产：栋</span>
+                                <span>名下车辆：辆</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="page"></div>
+                </div>
+
+                <div class="item recordList investList g-dn" id="investListModel" style="display: none; text-align: center;">
+                    <div class="content">
+                        <div class="sequence g-tl">
+                            购买人次
+                            <span th:text="${countU}"></span>人
+                        </div>
+                        <table>
+                            <thead>
+                            <tr class="head">
+                                <th>购买人</th>
+                                <th>金额（元）</th>
+                                <th>成交时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="even" th:each="ti:${t}">
+                                <td><i class="vipIcon icon-vipplatinum_member"></i></td>
+                                <td>7,193.00</td>
+                                <td>2019-04-29 00:05:18</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page paginator" style="visibility: hidden;">
+                        <div class="paginator-main" id="paginator-main" style="display: block;">
+                            <div class="paginator-info">
+                                第1页/共1页
+                            </div>
+                            <div class="paginator-left">
+                                <ol>
+                                    <li><a href="javascript:;" data-role="first" class="disabled">首页</a></li>
+                                    <li><a href="javascript:;" data-role="prev" class="disabled">上一页</a></li>
+                                </ol>
+                            </div>
+                            <div class="paginator-list" style="width: 35px;">
+                                <ol class="paginator-list-main" style="width: 35px;">
+                                    <li><a href="javascript:;" data-role="1" class="current">1</a></li>
+                                </ol>
+                            </div>
+                            <div class="paginator-right">
+                                <ol>
+                                    <li><a href="javascript:;" data-role="next" class="disabled">下一页</a></li>
+                                    <li><a href="javascript:;" data-role="last" class="disabled">末页</a></li>
+                                </ol>
+                            </div>
+                            <div class="paginator-jump">
+                                <input type="tel" value="" maxlength="10" />
+                                <a href="javascript:;" data-role="jump">跳转</a>
+                            </div>
+                        </div>
+                        <p class="paginator-none" style="display:none;"><i class="icon icon-no-data"></i> <span>您暂时没有数据可显示</span></p>
+                    </div>
                 </div>
             </div>
         </div>

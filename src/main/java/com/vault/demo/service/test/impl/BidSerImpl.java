@@ -3,6 +3,7 @@ package com.vault.demo.service.test.impl;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Tender;
+import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class BidSerImpl implements BidSer{
+public class BidSerImpl implements BidSer
+{
 
     @Resource
     BidDao bidDao;
@@ -70,13 +72,25 @@ public class BidSerImpl implements BidSer{
 
 
     @Override
-    public PerBid selectByPid(int perBid) {
+    public PerBid selectByPid(int perBid){
         List<PerBid> pids = bidDao.selectPerB(perBid);
         return pids.get(0);
     }
 
     @Override
-    public Tender getTenderId(int tid) {
-        return bidDao.selectTouId(tid);
+    public List<Tender> getTenderId(int tid, int id, int t) {
+        return bidDao.selectTouId(tid,id,t);
     }
+
+    @Override
+    public List selectUser(int uId){
+        return bidDao.selectUser(uId);
+    }
+
+    @Override
+    public int countTenByBid(int bid, int bType) {
+        return 0;
+    }
+
+
 }

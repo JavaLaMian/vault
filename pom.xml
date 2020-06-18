@@ -132,6 +132,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
     </dependencies>
 

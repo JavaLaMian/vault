@@ -27,13 +27,13 @@
     </select>
 
     <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
-        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <if test="perBid != null and perBid != 0">
             where perBid = #{perBid}
         </if>
     </select>
     <select id="countPerPage" resultType="int">
-        select count(*) from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <where>
             <if test="inRate==3">(rate-addRate) &lt; 7</if>
             <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
@@ -47,7 +47,7 @@
     </select>
 
     <select id="pagePerB" resultType="com.vault.demo.bean.PerBid">
-        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <where>
             <if test="inRate==3">(rate-addRate) &lt; 7</if>
             <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
@@ -61,8 +61,6 @@
             limit #{startT},#{tSize}
     </select>
 
-
-
     <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
         delete from bid where bId = #{id}
     </delete>
@@ -74,9 +72,23 @@
     <insert id="insert" parameterType="com.vault.demo.bean.Bid">
         insert into bid values(null,#{bidName},#{bidType},#{rewardRate},#{rate},#{addLimit},#{singelLimit},#{sumLimit},#{startLimit},#{transLine},#{clockLine},#{deposit},#{dealCount},#{question},#{answer},#{transfer},#{aotuInverst},#{exprie},#{bidStatus},#{bidTime},#{maxTime})
     </insert>
-    
+
     <select id="selectTouId" resultType="com.vault.demo.bean.Tender" parameterType="int">
-        select * from tender where tid = #{tid}
+        select * from tender where bId = #{bId} and bType = #{bType} left join userImf on
+        <if test="uId != null and uId != 0">
+            and uId = #{uId}
+        </if>
     </select>
 
+
+    <select id="countTenByBid"  resultType="int" parameterType="int">
+        select count(*) from tender where bId = #{bId} and bType = #{bType}
+    </select>
+
+    <select id="selectUser" resultType="list" parameterType="int">
+        select * from userimf left join credit left join credit using(uId)
+        <if test="uId != null and uId !=0">
+            where uId = #{uId}
+        </if>
+    </select>
 </mapper>

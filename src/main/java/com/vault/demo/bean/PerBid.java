@@ -19,11 +19,13 @@ public class PerBid {
        private String  transLine;
        private String clockLine;
        private int  deposit;
-       private String question;
-       private String answer;
        private int  transfer;
        private Date startTime;
        private float enquiry;//可以投资余额
+       private float schedul;
+       private Date expire;
+       private int borrowTime;
+
 
     @Override
     public String toString() {
@@ -39,20 +41,13 @@ public class PerBid {
                 ", transLine='" + transLine + '\'' +
                 ", clockLine='" + clockLine + '\'' +
                 ", deposit=" + deposit +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
                 ", transfer=" + transfer +
                 ", startTime=" + startTime +
                 ", enquiry=" + enquiry +
+                ", schedul=" + schedul +
+                ", expire=" + expire +
+                ", borrowTime=" + borrowTime +
                 '}';
-    }
-
-    public float getEnquiry() {
-        return enquiry;
-    }
-
-    public void setEnquiry(float enquiry) {
-        this.enquiry = enquiry;
     }
 
     public int getPerBid() {
@@ -143,22 +138,6 @@ public class PerBid {
         this.deposit = deposit;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
     public int getTransfer() {
         return transfer;
     }
@@ -175,5 +154,35 @@ public class PerBid {
         this.startTime = startTime;
     }
 
+    public float getEnquiry() {
+        return enquiry;
+    }
 
+    public void setEnquiry(float enquiry) {
+        this.enquiry = enquiry;
+    }
+
+    public float getSchedul() {
+        return schedul;
+    }
+
+    public void setSchedul(float schedul) {
+        this.schedul = schedul;
+    }
+
+    public Date getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Date expire) {
+        this.expire = expire;
+    }
+
+    public int getBorrowTime() {
+        return borrowTime;
+    }
+
+    public void setBorrowTime(int borrowTime) {
+        this.borrowTime = borrowTime;
+    }
 }
