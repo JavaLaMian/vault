@@ -8,7 +8,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into worryCall values(null,#{uId},#{relationship},#{phe},#{name})
+          insert into worryCall(Id,uId,relationship,phe,name) values(null,#{uId},#{relationship},#{phe},#{name})
         ]]>
     </insert>
     <select id="selectWorryByUId" resultType="com.vault.demo.bean.WorryCall" parameterType="com.vault.demo.bean.Userimf">

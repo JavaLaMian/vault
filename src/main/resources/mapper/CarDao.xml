@@ -8,7 +8,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-          insert into car values(null,#{uId},#{photo},#{remark},#{money},#{status})
+          insert into car(cId,uId,photo,remark,money,status) values(null,#{uId},#{photo},#{remark},#{money},#{status})
         ]]>
     </insert>
     <select id="selectCarByUId" resultType="com.vault.demo.bean.Car" parameterType="com.vault.demo.bean.Userimf">
