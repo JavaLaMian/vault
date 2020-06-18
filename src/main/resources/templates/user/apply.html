@@ -51,8 +51,9 @@
 
 <div class="container">
     <div class="g-account-main">
-        <div class="path">您现在的位置：我的账户 &gt;
-            <span id="pathTitle">绑定网贷银行卡</span>
+        <!-- 面包屑冬导航 -->
+        <div class="path">
+            您现在的位置：<span><a href="/user/toAO">我的账户</a> > 绑定网贷银行卡</span>
         </div>
         <div class="center user-box">
 
@@ -122,7 +123,9 @@
                     </div>
                     <div class="bk_arge_line">
                         <input type="checkbox" name="arge" class="arge" id="arge" checked="checked">
-                    <span class="bk_arge">我已阅读并同意 <a class="bindcard-info" href="http://image.xiaoniu88.com/static/WebXn/dist/payment/agreement/fundManagement.html">《资金管理服务协议》</a> </span> </div>
+                        <span class="bk_arge">我已阅读并同意 <a class="bindcard-info" href="http://image.xiaoniu88.com/static/WebXn/dist/payment/agreement/fundManagement.html">《资金管理服务协议》</a> </span>
+                        <span class="bindcard-tip" id="xyMsg"></span>
+                    </div>
                     <div class="bindcard-msg" id="submitMsg"></div>
                     <button class="bind-btn" type="button" value="立即绑定" onclick="bind()">立即绑定</button>
                 </div>
@@ -240,21 +243,6 @@
 
 <!--end 尾部-->
 
-<!--引入统计代码-->
-
-<div style="display:none">
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-104712537-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-</div>
-
 <script type="text/javascript">
     var couldsub = false;
     var jishi = 59;
@@ -302,7 +290,10 @@
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
                 couldsub=true;
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
             }
+        }else if($(id).val()==null||$(id).val()==""){
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
         }
     }
     function checkUN() {
@@ -362,8 +353,11 @@
         }else if (bankName == null || bankName == "") {
             couldsub = false;
             $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
-        }else if ($("#checkbox-id").get(0).checked) {
-            couldsub = true
+        }else if (!$("#arge").get(0).checked) {
+            couldsub = false;
+            $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
+        }else if ($("#arge").get(0).checked) {
+            couldsub = true;
         }
         if (couldsub == true) {
             $.post("/user/smrz", {
@@ -372,7 +366,7 @@
                 cardId: cardId,
                 bankName: bankName
             }, function (data) {
-                $(window).attr("location","/user/toAS")
+                window.location.href = '/user/toAS';
             }, "json");
         }
     }

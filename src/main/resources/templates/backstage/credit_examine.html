@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>信用贷审核</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+<body>
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+        <!--页面主要内容-->
+        <main class="layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h4>用户信息</h4></div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <label class="col-md-1 control-label">姓名:</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.name}"></span>
+                                        <span class="col-md-1 control-span"></span>
+                                        <label class="col-md-1 control-label">工作单位:</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.depart}"></span>
+                                        <span class="col-md-1 control-span"></span>
+                                        <label class="col-md-1 control-label">工资情况:</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.wages}"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label class="col-md-1 control-label">身份证:</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.identity}"></span>
+                                        <span class="col-md-1 control-span"></span>
+                                        <label class="col-md-1 control-label">公积金</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.funds}"></span>
+                                        <span class="col-md-1 control-span"></span>
+                                        <label class="col-md-1 control-label">征信等级:</label>
+                                        <span class="col-md-2 control-span" th:text="${credit.creditLV}"></span>
+                                    </li>
+                                    <li class="list-group-item">
+
+                                    </li>
+                                    <li class="list-group-item">湖畔寄情 拐仙施妙手 冰河怪影 天女慑群豪</li>
+                                    <li class="list-group-item">流水落花 深仇伤寂寞 珠宫贝阙 往事诉辛酸</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

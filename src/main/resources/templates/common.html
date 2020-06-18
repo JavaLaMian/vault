@@ -17,7 +17,7 @@
             <div class="hotline">全国服务热线：4006-0755-70</div>
             <ul class="info" id="ulLoginStatus">
                 <li class="user logon" th:if="${session.user} ne null">
-                    <a href="/loan/tologin" th:text="${session.user.uName}">
+                    <a href="/loan/tologin" th:text="${session.user.account}">
                         用户名
                     </a>
                     <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
