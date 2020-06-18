@@ -1,8 +1,6 @@
 package com.vault.demo.service.loan;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,4 +18,6 @@ public interface LoanService {
     Loan LoanNow( Userimf userimf);
     Credit selectCredit(Userimf userimf);
     void insertLoan(Loan loan);//提交贷款申请
+    House selectHouseByUId(Userimf userimf);
+    Car selectCarByUId(Userimf userimf);
 }

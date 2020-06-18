@@ -1,23 +1,26 @@
 package com.vault.demo.controller.integral;
 
 import com.vault.demo.bean.Credit;
+import com.vault.demo.bean.MyIntegral;
 import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.integral;
+import com.vault.demo.bean.Integral;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.expression.Lists;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/integral")
 public class integralController {
-
     @Resource
     private integralService  service;
     //积分商城主页面
@@ -27,12 +30,24 @@ public class integralController {
         if(user == null){
             return "redirect:/user/tologin";
         }
+        MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
+        session.setAttribute("total",myIntegral.getTotal());
         session.setAttribute("user",user);
         return "integral/integralMain";
     }
 
     //我的积分
+    @RequestMapping("/myIntegral")
+    public String  myIntegral(Integer uid,Model model){
+        if(uid == null){
+            return "redirect:/user/tologin";
+        }
 
+        List<Map> integralList = service.selectMyIntegral(uid);
+
+        model.addAttribute("integralList",integralList);
+        return "integral/myIntegral";
+    }
 
     //商品列表
     @RequestMapping("/list")
@@ -100,18 +115,19 @@ public class integralController {
     @RequestMapping("/detail")
     public String detail(Integer id, Model model, HttpSession session){
         System.out.println("id:"+id);
-        integral list  = service.selectById(id);
+        Integral list  = service.selectById(id);
+        System.out.println("type:"+list.getIntegralType());
 
         Userimf user = (Userimf) session.getAttribute("user");
         if(user == null){
             return "redirect:/user/tologin";
         }
-        System.out.println("uid:"+user.getuId());
-      Credit credit = service.selectCredit(user.getuId());
+        MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
+        session.setAttribute("total",myIntegral.getTotal());
+        Credit credit = service.selectCredit(user.getuId());
 
-        System.out.println("user+credit:"+user);
         session.setAttribute("user",user);
-      model.addAttribute("credit",credit);
+        model.addAttribute("credit",credit);
         model.addAttribute("list",list);
 
         return "integral/integralDetail";

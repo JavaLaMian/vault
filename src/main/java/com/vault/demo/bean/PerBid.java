@@ -8,23 +8,23 @@ import java.util.Date;
 //
 @Table(name = "perBid")
 public class PerBid {
-
-       private int  perBid;
-        private int bidStatus;
-       private int borrower;
-       private String  perBidName;
-       private  String  inRate ;
-       private float rate;
-       private float addRate;
-       private float  combination;
-       private String  transLine;
-       private String clockLine;
-       private int  deposit;
-       private String question;
-       private String answer;
-       private int  transfer;
-       private Date startTime;
-       private  int investor;
+    @Column(name = "perBid",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
+   private int  perBid;
+   private int bidStatus;
+   private int borrower;
+   private String  perBidName;
+   private  String  inRate ;
+   private float rate;
+   private float addRate;
+   private float  combination;
+   private String  transLine;
+   private String clockLine;
+   private int  deposit;
+   private String question;
+   private String answer;
+   private int  transfer;
+   private Date startTime;
+   private  int investor;
 
     @Override
     public String toString() {

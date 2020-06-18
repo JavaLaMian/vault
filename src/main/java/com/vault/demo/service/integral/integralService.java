@@ -1,22 +1,27 @@
 package com.vault.demo.service.integral;
 
 import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.integral;
+import com.vault.demo.bean.Integral;
+import com.vault.demo.bean.MyIntegral;
 import com.vault.demo.common.Pager;
 
 import java.util.List;
+import java.util.Map;
 
 public interface integralService {
 
     int integral();
-    List<integral> plistpage(Pager pager);
-    List<integral> plistpageSort(Pager pager);
+    List<Integral> plistpage(Pager pager);
+    List<Integral> plistpageSort(Pager pager);
 
-    List<integral> selectByType(Pager pager,String integralType);
+    List<Integral> selectByType(Pager pager, String integralType);
 
-    List<integral> selectByTypeSort(Pager pager,String integralType);
+    List<Integral> selectByTypeSort(Pager pager, String integralType);
 
-    integral selectById(Integer id);
+    Integral selectById(Integer id);
 
     Credit selectCredit(int id);
+
+    List<Map>  selectMyIntegral(int id);
+    MyIntegral selectMyIntegral2(int id);
 }

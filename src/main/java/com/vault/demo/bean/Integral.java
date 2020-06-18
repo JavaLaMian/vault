@@ -7,7 +7,7 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 //积分商品表
 @Table(name = "integral")
-public class integral {
+public class Integral {
 
     @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
@@ -25,8 +25,8 @@ public class integral {
     @Column(name = "integralType",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralType;
 
-    @Column(name = "inventory ",type = MySqlTypeConstant.INT)
-    private int inventory ; //库存
+    @Column(name = "inventory",type = MySqlTypeConstant.INT)
+    private int inventory ;//库存
 
     @Column(name = "tag",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String tag; //标签  热门，人气 ，优质
@@ -99,4 +99,5 @@ public class integral {
     public void setTag(String tag) {
         this.tag = tag;
     }
+
 }
