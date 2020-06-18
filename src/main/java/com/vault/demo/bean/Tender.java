@@ -15,6 +15,9 @@ public class Tender {//6月10日15点59
     @Column(name = "tId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int	tId;
 
+    @Column(name = "bType",type = MySqlTypeConstant.INT)
+    private  int bType;
+
     @Column(name = "bId",type = MySqlTypeConstant.INT)
     private int	bId;
 
@@ -33,7 +36,7 @@ public class Tender {//6月10日15点59
     @Column(name = "tenCicle",type = MySqlTypeConstant.DATETIME)
     private Date	tenCicle;
 
-    private  int bType;
+
     public Tender(){}
 
 

@@ -69,7 +69,7 @@ public class UserController2 {
     @ResponseBody
     public String smrz(String uName, UserBank userBank, Credit credit, HttpSession session){
         Userimf user = (Userimf) session.getAttribute("user");
-        user.setUName(uName);
+        user.setuName(uName);
         userBank.setuId(user.getuId());
         userBank.setBcUserName(uName);
         credit.setuId(user.getuId());
