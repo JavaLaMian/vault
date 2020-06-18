@@ -56,16 +56,24 @@ public class Userimf { //6月10日15点23
     @Column(name = "refereer",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String	refereer;
 
+    @Column(name = "refereerId",type = MySqlTypeConstant.INT)
+    private int	refereerId;
+
     @Column(name = "creditLv",type = MySqlTypeConstant.INT)
     private int	creditLv;
 
     @Column(name = "age",type = MySqlTypeConstant.INT)
     private int	age;
 
+    @Column(name = "registerTime",type = MySqlTypeConstant.DATETIME)
+    private Date registerTime;
+
     @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
     private Date lastLoginTime;
 
+    @Column(name = "place",type = MySqlTypeConstant.VARCHAR,length = 1000)
     private String place;
+
 
     @Override
     public String toString() {
@@ -84,19 +92,29 @@ public class Userimf { //6月10日15点23
                 ", bounty=" + bounty +
                 ", sex='" + sex + '\'' +
                 ", refereer='" + refereer + '\'' +
+                ", refereerId=" + refereerId +
                 ", creditLv=" + creditLv +
                 ", age=" + age +
+                ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
                 ", place='" + place + '\'' +
                 '}';
     }
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
+    public static int getNO() {
+        return NO;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public static int getBAD() {
+        return BAD;
+    }
+
+    public static int getGOOD() {
+        return GOOD;
+    }
+
+    public static int getGREAT() {
+        return GREAT;
     }
 
     public int getuId() {
@@ -107,12 +125,12 @@ public class Userimf { //6月10日15点23
         this.uId = uId;
     }
 
-    public String getUName() {
+    public String getuName() {
         return uName;
     }
 
-    public void setUName(String userName) {
-        this.uName = userName;
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public String getAccount() {
@@ -211,6 +229,14 @@ public class Userimf { //6月10日15点23
         this.refereer = refereer;
     }
 
+    public int getRefereerId() {
+        return refereerId;
+    }
+
+    public void setRefereerId(int refereerId) {
+        this.refereerId = refereerId;
+    }
+
     public int getCreditLv() {
         return creditLv;
     }
@@ -225,6 +251,22 @@ public class Userimf { //6月10日15点23
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     public String getPlace() {

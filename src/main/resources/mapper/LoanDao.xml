@@ -12,7 +12,7 @@
         <selectKey keyColumn="lId" resultType="integer" keyProperty="lId" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into loan values(null,#{loanName},#{bidType},#{bidId},#{uId},#{maxLimit},#{minLimit},#{loanType},#{loanWantMoney},#{loanPurpose},#{applicationTime},#{applicationEnd},#{guarantees},#{guaranter},#{guaCardId},#{review},#{interest},#{lowLimit},#{topLimit},#{loanStatue},#{remark})
+        insert into loan(lId,loanName,bidType,bidId,uId,maxLimit,minLimit,loanType,loanWantMoney,loanPurpose,applicationTime,applicationEnd,guarantees,guaranter,guaCardId,review,interest,lowLimit,topLimit,loanStatue,remark) values(null,#{loanName},#{bidType},#{bidId},#{uId},#{maxLimit},#{minLimit},#{loanType},#{loanWantMoney},#{loanPurpose},#{applicationTime},#{applicationEnd},#{guarantees},#{guaranter},#{guaCardId},#{review},#{interest},#{lowLimit},#{topLimit},#{loanStatue},#{remark})
     </insert>
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Loan">

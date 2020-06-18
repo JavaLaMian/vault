@@ -11,33 +11,43 @@ public class Credit {//6月10日15点31
 
     @Column(name = "creId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int creId;
+
     @Column(name = "uId",type = MySqlTypeConstant.INT)//申请人用户ID
     private int uId;
     @Column(name = "depart",type = MySqlTypeConstant.VARCHAR,length = 100)//单位
     private String depart;
 
-    private String wages;//工资情况
-
+    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 100)//单位
     private String name;//姓名
+
+    @Column(name = "wages",type = MySqlTypeConstant.VARCHAR,length = 300)//单位
+    private String wages;//工资情况
 
     @Column(name = "identity",type = MySqlTypeConstant.VARCHAR,length = 100)//身份证
     private String identity;
+
     @Column(name = "hId",type = MySqlTypeConstant.INT)//房产证明
     private int hId;
 
+    @Column(name = "cId",type = MySqlTypeConstant.INT)//房产证明
     private int cId;
 
     @Column(name = "funds",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String funds; //公积金
 
+    @Column(name = "positiveIDPhoto",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String positiveIDPhoto;
 
+    @Column(name = "negativeIDPhoto",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String negativeIDPhoto;
 
-    private String creditLV;//1正常、2关注、3次级、4可疑、5损失
+    @Column(name = "creditLV",type = MySqlTypeConstant.VARCHAR,length = 100)
+    private String creditLV;
 
+    @Column(name = "creditUpdateTime",type = MySqlTypeConstant.DATETIME)
     private Date creditUpdateTime;
 
+    @Column(name = "type",type = MySqlTypeConstant.INT)
     private int type;//0等待审核 1审核中 2审核完毕
 
     @Override

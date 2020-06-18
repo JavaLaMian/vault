@@ -1,10 +1,8 @@
 package com.vault.demo.controller.loan;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
+import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.file.FileUpload;
@@ -216,7 +214,7 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
-        return "creditRegister";
+        return "user/creditRegister";
     }
 
     @RequestMapping("/registerCredit")
