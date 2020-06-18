@@ -81,8 +81,8 @@
                     <th>兑换时间</th>
                     <th>积分余额</th>
                 </tr>
-                <tr th:each="p:${integralList}">
-                    <td th:text="${p.size()}"></td>
+                <tr th:each="p,pStart:${integralList}">
+                    <td th:text="${pStart.count}"></td>
                     <td th:text="${p.change}"></td>
                     <td th:text="${p.changeType}"></td>
                     <td th:text="${p.integralName}"></td>

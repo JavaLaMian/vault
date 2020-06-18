@@ -25,7 +25,7 @@ public class BacKTenderController {
         JSONObject object = new JSONObject();
         Map data = new HashMap();
         List<Map> tenderMap = bts.selTender();
-        System.out.println(JSON.toJSON(tenderMap).toString());
+        /*System.out.println(JSON.toJSON(tenderMap).toString());*/
         //JsonArray array = (JsonArray)JSON.toJSON(tenderMap);
         //System.out.println("+++"+array.toString());
         object.put("total",tenderMap.size());

@@ -12,12 +12,11 @@ public class Integral {
     @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
 
-      @Column(name = "integralName",type = MySqlTypeConstant.VARCHAR,length = 100)
+    @Column(name = "integralName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralName;
 
     @Column(name = "integralImg",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralImg;
-
 
     @Column(name = "integral",type = MySqlTypeConstant.INT)
     private int integral;
@@ -25,8 +24,8 @@ public class Integral {
     @Column(name = "integralType",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralType;
 
-    @Column(name = "inventory ",type = MySqlTypeConstant.INT)
-    private int inventory ; //库存
+    @Column(name = "inventory",type = MySqlTypeConstant.INT)
+    private int inventory ;//库存
 
     @Column(name = "tag",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String tag; //标签  热门，人气 ，优质
@@ -99,4 +98,5 @@ public class Integral {
     public void setTag(String tag) {
         this.tag = tag;
     }
+
 }
