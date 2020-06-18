@@ -97,10 +97,15 @@
                 title:'借款人',
                 field:'name'
             },{
-                title:'期待借款金额',
-                field:'loanWantMoney'
+                title:'贷款类型',
+                field:'loanType',
+                formatter: szloanType
             },{
-                title:'贷款用途',
+                title:'期待借款金额',
+                field:'loanWantMoney',
+                formatter: addw
+            },{
+                title:'借款用途',
                 field:'loanPurpose'
             },{
                 title:'申请时间',
@@ -116,12 +121,17 @@
                 formatter: option
             }]
         });
-        
+
+        function addw(value, row, index) {
+            return value+"万";
+        }
         function option(value, row, index) {
             var htm = "";
-            htm += '<a class="btn btn-success m-r-5" th:href="@{/back_loan/lookDetails}" target="_blank"><i class="mdi mdi-arrange-bring-forward"></i> 详情</a>'+
-                    '<a class="btn btn-success m-r-5" th:href="@{/back_loan/tooExamine}"><i class="mdi mdi-arrange-bring-forward"></i> 审核</a>'
+            htm +='<a class="btn btn-success m-r-5" onclick="tooExamine(value)"><i class="mdi mdi-comment-text"></i> 审核</a>'
             return htm;
+        }
+        function tooExamine(uid) {
+            window.location.href='/back_loan/tooExamine?uId='+uid;
         }
         
         function szloanType(value, row, index) {
@@ -147,9 +157,12 @@
             }
         };
         function formatTime(value, row, index) {
-            var date = new Date();
-            date.setTime(value);
-            var month = date.getMonth() + 1;
+            console.log("haomiao"+value);
+
+            var date = formatDateTime(value)+"";
+            console.log("date"+date);
+
+            /*var month = date.getMonth() + 1;
             var hours = date.getHours();
             if(hours < 10)
                 hours = "0" + hours;
@@ -157,8 +170,27 @@
             if(minutes < 10)
                 minutes = "0" + minutes;
             var time = date.getFullYear() + "-" + month + "-" + date.getDate() +
-                " " + hours + ":" + minutes;
-            return time;
+                " " + hours + ":" + minutes;*/
+            return date;
+        }
+
+
+        function formatDateTime(date) {
+            var time = new Date(date);
+            time.setTime(time.setHours(time.getHours() + 11));
+            var Y = time.getFullYear() + '-';
+            var  M = addZero(time.getMonth() + 1) + '-';
+            var D =addZero(time.getDate() - 1) + ' ';
+            var h = addZero(time.getHours()) + ':';
+            var m = addZero(time.getMinutes()) + ':';
+            var  s = addZero(time.getSeconds());
+            return Y + M + D + h+ m+ s;
+            // }
+        }
+
+        // 数字补0操作
+        function  addZero(num) {
+            return num < 10 ? '0' + num : num;
         }
         function seeDetails() {
 
