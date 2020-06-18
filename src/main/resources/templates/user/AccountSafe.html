@@ -1070,7 +1070,7 @@
             $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">确认密码不能为空</div>");
         }
         if (dlmm_key_xg==true){
-            $.post("/user/getMa",{loginPsw:p2},function (data) {
+            $.post("/user/dlmm",{loginPsw:p2},function (data) {
                 window.location.reload();
             },"json");
         }
