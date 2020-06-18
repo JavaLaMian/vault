@@ -6,7 +6,7 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
 
-@Table(name = "Tender")
+@Table(name = "tender")
 public class Tender {//6月10日15点59
 
 //    private static final int ZHANGRANGQI = 1;
