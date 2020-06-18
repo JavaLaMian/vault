@@ -80,11 +80,14 @@
            <div style="height: 120px"></div>
             <div>
                 <p th:if="${type} == 2" class="text-warning">注意：您兑换的理财红包将会发放到你的卡卷里面，请注意查收！</p>
-                <p th:if="${type} == 1">
-                    <a  th:href="@{/integral/logistics}" class="btn btn-success" >查看物流</a>
-                    <a  th:href="@{/integral/list(spId=0,currPage=1,sort = 0)}" class="btn btn-primary" >确定</a>
+                <p th:if="${type} == 1" class="text-warning">
+                    你的物流单号为：<span style="color: #00b8b9">YT4539469943020</span>
                 </p>
-                <span  th:if="${type} ==2">
+                <p th:if="${type} == 1" class="text-warning">
+                    温馨提示：本平台不支持物流查询,您可在<span style="color: #00b8b9">微信小程序"110"</span>、<span style="color: #00b8b9">菜鸟裹裹</span>等中查询
+                </p>
+                <br>
+                <span>
                      <a th:href="@{/integral/list(spId=0,currPage=1,sort = 0)}" class="btn btn-primary btn-block" >确定</a>
                 </span>
             </div>

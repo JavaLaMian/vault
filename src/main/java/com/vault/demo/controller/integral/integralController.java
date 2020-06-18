@@ -139,18 +139,16 @@ public class integralController {
 
     //兑换
     @RequestMapping("/conversion")
-    public String conversion(String type,MyIntegral myIntegral,HttpSession session,String phe,String place,Model model){
+    public String conversion(String type,MyIntegral myIntegral,HttpSession session,Model model){
         Userimf user = (Userimf) session.getAttribute("user");
         if (user == null) {
             return "redirect:/user/tologin";
         }
-        else if ("慧财".equals(type)){
+        if ("慧财".equals(type)){
             model.addAttribute("type",2);
-        }else {
-            model.addAttribute("type",1);
-            model.addAttribute("phe",phe);
-            model.addAttribute("place",place);
         }
+        else if(type != null){
+            model.addAttribute("type",1);
             int total = (int) session.getAttribute("total");
             myIntegral.setuId(user.getuId());
             myIntegral.setChangeType("兑换商品");
@@ -174,8 +172,17 @@ public class integralController {
                 session.setAttribute("total",myTotal.getTotal());
                 return "integral/conversionYes";
             }
-            return "redirect:integral/detail";
+        }
+        return "redirect:integral/list?spId=0&currPage=1&sort=0)";
     }
+
+    @RequestMapping("/conversion2")
+    public String conversion2(String phe,String place,int hId,HttpSession session){
+        System.out.println("place:"+place);
+        session.setAttribute("place",place);
+        return "redirect:/integral/detail?id="+hId;
+    }
+
     //积分商城主页面
     @RequestMapping("/main2")
     public String integralMain2(HttpSession session){

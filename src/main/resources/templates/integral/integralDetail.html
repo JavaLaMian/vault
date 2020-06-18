@@ -117,7 +117,7 @@
                 </h4>
                 <span class="text-danger" th:if="${credit}==null">还未实名，不可兑换!</span>
                 <span class="text-danger" th:if="${session.total} <${list.integral}">积分不足！无法兑换</span>
-                <form th:if="${credit ne null && session.total ge list.integral}" th:action="@{/integral/conversion(type =${list.integralType})}" method="post" enctype="multipart/form-data">
+                <form th:if="${credit ne null && session.total ge list.integral}" th:action="@{/integral/conversion2(diz=1,hId=${list.id})}" method="post" enctype="multipart/form-data">
                     <span >
                         <label>姓名:</label>
                         <span style="color: #00b8b9" th:if="${credit}!=null" th:text="${credit.name}">林学明</span>
@@ -130,7 +130,8 @@
                     </span>
                     <div class="form-group">
                         <label>地址:</label>
-                        <input class="form-control" type="text" name="place" th:value="${session.user.place}">
+                        <input th:if="${session.place} ==null" class="form-control" type="text" name="place" th:value="${session.user.place}">
+                        <input th:if="${session.place} !=null" class="form-control" type="text" name="place" th:value="${session.place}">
                     </div>
                     <div class="form-group">
                         <p class="text-warning">
