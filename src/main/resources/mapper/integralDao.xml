@@ -34,4 +34,11 @@
     <select id="selectMyIntegral2" resultType="com.vault.demo.bean.MyIntegral">
           select *  from myIntegral where uId = #{id}   ORDER BY Id desc limit 1
     </select>
+
+    <insert id="conversionAdd" >
+        insert into myIntegral values (null,#{uId},#{iId},#{change},#{changeType},#{total},#{conversionTime})
+    </insert>
+    <update id="integralInventory" >
+        update integral set inventory = #{inventory} where Id = #{id}
+    </update>
 </mapper>
