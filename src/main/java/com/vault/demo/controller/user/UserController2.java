@@ -46,7 +46,6 @@ public class UserController2 {
             try {
                 Credit credit = service.getCredit(user.getuId());
                 UserBank userBank = service.getBC(user.getuId());
-                System.out.println("---------"+credit.toString());
                 model.addAttribute("credit",credit);
                 model.addAttribute("userBank",userBank);
             }catch (Exception e){
