@@ -1,9 +1,6 @@
 package com.vault.demo.controller.integral;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.MyIntegral;
-import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.Integral;
+import com.vault.demo.bean.*;
 import com.vault.demo.common.Pager;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
@@ -139,16 +136,25 @@ public class integralController {
 
     //兑换
     @RequestMapping("/conversion")
-    public String conversion(String type,MyIntegral myIntegral,HttpSession session,Model model){
+    public String conversion(String IntName,String type, MyIntegral myIntegral, HttpSession session, Model model, Bounty bounty){
         Userimf user = (Userimf) session.getAttribute("user");
         if (user == null) {
             return "redirect:/user/tologin";
         }
         if ("慧财".equals(type)){
             model.addAttribute("type",2);
+            bounty.setuId(user.getuId());
+            bounty.setBoType(4);
+
+            String IntName2 = IntName.substring(0,2);
+            System.out.println(IntName2);
+            bounty.setBoMoney(Integer.valueOf(IntName.substring(0,2)));
+            bounty.setBoTime(new Date());
+
+            //兑换理财红包加入卡卷
+            service.bountyAdd(bounty);
         }
-        else if(type != null){
-            model.addAttribute("type",1);
+        if(type != null){
             int total = (int) session.getAttribute("total");
             myIntegral.setuId(user.getuId());
             myIntegral.setChangeType("兑换商品");
@@ -164,16 +170,21 @@ public class integralController {
 
             int i = service.conversionAdd(myIntegral);
             if(i == 1){
+                //库存
                 Integral integral = service.selectById(myIntegral.getiId());
                 int inventory = integral.getInventory() -1;
                 int x =service.integralInventory(inventory,myIntegral.getiId());
 
+                //实时获取剩余积分
                 MyIntegral myTotal = service.selectMyIntegral2(user.getuId());
                 session.setAttribute("total",myTotal.getTotal());
+                if(!"慧财".equals(type)){
+                    model.addAttribute("type",1);
+                }
                 return "integral/conversionYes";
             }
         }
-        return "redirect:integral/list?spId=0&currPage=1&sort=0)";
+        return "redirect:integral/list?spId=0&currPage=1&sort=0";
     }
 
     @RequestMapping("/conversion2")

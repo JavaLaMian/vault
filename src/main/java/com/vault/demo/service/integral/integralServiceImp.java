@@ -1,5 +1,6 @@
 package com.vault.demo.service.integral;
 
+import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Integral;
 import com.vault.demo.bean.MyIntegral;
@@ -72,6 +73,11 @@ public class integralServiceImp implements integralService {
     @Override
     public int integralInventory(int inventory,int id) {
         return dao.integralInventory(inventory,id);
+    }
+
+    @Override
+    public void bountyAdd(Bounty bounty) {
+        dao.bountyAdd(bounty);
     }
 
 
