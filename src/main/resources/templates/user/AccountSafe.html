@@ -486,7 +486,7 @@
                                 <!-- 判断是否是修改鉴权手机号 -->
                             </div>
                             <form id="sjyz_form" class="column_form">
-                                <div class="step_1 step_1_1">
+                                <div class="step_1 step_1_1" id="yx_step1">
                                     <ul class="steps step1">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
@@ -504,7 +504,7 @@
                                                 <td>
                                                     <input id="yxyz_xg_step1_code" class="code_form" type="text" />
                                                     <a id="yxyz_step1_getcode" class="get_code inline_block" onclick="emgetcode('eamil_up',this)">
-                                                        <span class="yxyz_get_code_text">获取验证码</span>
+                                                        <span id="yxyz_get_code_text">获取验证码</span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -516,7 +516,7 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class=""><a id="sjyz_xg_step1_type1_submit" class="sbm_btn inline_block">下一步</a></td>
+                                                <td class=""><a class="sbm_btn inline_block" onclick="emoneTotow()">下一步</a></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -651,7 +651,7 @@
                                     </div>
                                 </div>
                                 <!-- 其他流程第二步 -->
-                                <div class="step_2">
+                                <div class="step_2" id="yx_step2">
                                     <ul class="steps step2">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
@@ -660,9 +660,11 @@
                                             <tr>
                                                 <td class="align_right">新邮箱：</td>
                                                 <td>
-                                                    <input id="sjyz_xg_step2_mobile" maxlength="11" type="text"/>
+                                                    <input id="yxyz_xg_step2_email" maxlength="11" type="text" onblur="em_new()"/>
                                                 </td>
-                                                <td class="width250"><div id="sjyz_xg_step2_mobileTip" class="tips_content"></div></td>
+                                                <td class="width250">
+                                                    <div id="sjyz_xg_step2_emailTip" class="tips_content"></div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
@@ -670,22 +672,25 @@
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
-                                                <td><input id="sjyz_xg_step2_pcode" class="code_form" type="text" /><a id="sjyz_xg_step2_getpcode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                                <td>
+                                                    <input id="yxyz_xg_step2_code" class="code_form" type="text" onblur="em_check_ma_2()"/>
+                                                    <a id="yxyz_xg_step2_getpcode" class="get_code inline_block">
+                                                        <span id="yxyz_xg_step2_getpcode_text" class="get_code_text">获取验证码</span></a></td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
                                                 <td class="tips">
-                                                    <div id="sjyz_xg_step2_pcodeTip" class="msg_tips_con"></div>
+                                                    <div id="sjyz_xg_step2_codeTip" class="msg_tips_con"></div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class=""><a id="sjyz_xg_step2_submit" class="sbm_btn inline_block">下一步</a></td>
+                                                <td class=""><a id="yxyz_xg_step2_submit" class="sbm_btn inline_block" onclick="emtwoTothree()">下一步</a></td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="step_3">
+                                <div class="step_3" id="yx_step3">
                                     <ul class="steps step3">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
@@ -1093,9 +1098,9 @@
     }
 
     var emMa;
+    var emMa2;
     function emgetcode(type,id){
         yhMa = null;
-        alert($("#yxyz_get_code_text").text());
         var email = $("#em").val();
         if($("#yxyz_get_code_text").text() == "获取验证码"){
             $("#yxyz_step1_getcode").css("background-color","ccc");
@@ -1125,6 +1130,90 @@
             $("#yxyz_step1_getcode").css("border","1px solid #ccc");
             $("#yxyz_step1_getcode").css("background-color","#ccc");
             $("#yxyz_get_code_text").html("获取("+jishi+")");
+        }
+    }
+    function em_check_ma() {
+        var ma = $("#yxyz_xg_step1_code").val();
+        if (ma!=emMa){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码错误</div>");
+        }
+    }
+    function emoneTotow() {
+        em_check_ma();
+        var ma = $("#yxyz_xg_step1_code").val();
+        if(ma==null||ma==""){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码不能为空</div>");
+        }else if (ma!=emMa){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码错误</div>");
+        }else {
+            $("#yx_step1").css("display","none");
+            $("#yx_step2").css("display","block");
+            $("#yx_step3").css("display","none");
+        }
+    }
+
+    function em_new() {
+        var email = $("#yxyz_xg_step2_email").val();
+        var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
+        if (!emailReg.test(email)){
+            $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱格式不正确</div>");
+        }
+    }
+    function em_check_ma_2() {
+        var ma = $("#yxyz_xg_step2_code").val();
+        if (ma!=emMa2){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
+        }
+    }
+    function emgetcode2(type,id){
+        var email = $("#em").val();
+        if($("#yxyz_xg_step2_getpcode_text").text() == "获取验证码"){
+            $("#yxyz_xg_step2_getpcode").css("background-color","ccc");
+            $("#yxyz_xg_step2_getpcode_text").html('获取(59)');
+
+            jishuTishi  = setInterval("emdaoishi()", "1000");
+
+            $.post("/user/getMa",{email:email,type:type},function (data) {
+                if(data === "" || data == null){
+                    alert("请检查邮箱格式是否正确");
+                }else {
+                    emMa2 = data;
+                    alert(emMa2);
+                }
+            },"json");
+        }
+    }
+    function emdaoishi2(){
+        jishi -= 1;
+        if(jishi === 0){
+            jishi = 59;
+            clearInterval(jishuTishi);
+            $("#yxyz_xg_step2_getpcode_text").html('获取验证码');
+            $("#yxyz_xg_step2_getpcode").css("border","1px solid #fd7500");
+            $("#yxyz_xg_step2_getpcode").css("background-color","#fd7500");
+        }else{
+            $("#yxyz_xg_step2_getpcode").css("border","1px solid #ccc");
+            $("#yxyz_xg_step2_getpcodet").css("background-color","#ccc");
+            $("#yxyz_xg_step2_getpcode_text").html("获取("+jishi+")");
+        }
+    }
+    function emtwoTothree() {
+        em_new();
+        em_check_ma_2();
+        em_check_ma();
+        var ma = $("#yxyz_xg_step2_code").val();
+        var email = $("#yxyz_xg_step2_email").val();
+        if(email==""||email==""){
+            $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱不能为空</div>");
+        }
+        if(ma==null||ma==""){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码不能为空</div>");
+        }else if (ma!=emMa){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
+        }else {
+            $("#yx_step1").css("display","none");
+            $("#yx_step2").css("display","none");
+            $("#yx_step3").css("display","block");
         }
     }
 </script>
