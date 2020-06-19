@@ -71,11 +71,11 @@
             <optional>true</optional><!-- 这个需要为 true 热部署才有效 -->
         </dependency>
 
-        <!--    quartz依赖    -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-quartz</artifactId>-->
-<!--        </dependency>-->
+<!--            quartz依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
 
         <!--        &lt;!&ndash;读取excel文件&ndash;&gt;-->
         <!--        <dependency>-->
