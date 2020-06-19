@@ -22,6 +22,5 @@ public interface AdxmnDao {
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
     List<Map> integralList();//查询出积分兑换信息
-    void updategetbiBid(Bid bid);//根据id修改投标状态
-    void updategetbiBid1(Bid bid);//根据id修改投标状态
+    void updategetbiBid(@Param("bidStatus") int bidStatus,@Param("id") int id);//根据id修改投标状态
 }

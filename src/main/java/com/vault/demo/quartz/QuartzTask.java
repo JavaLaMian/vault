@@ -25,24 +25,22 @@ public class QuartzTask implements Job {
             bid = list.get(i);//将参数遍历到bean// 新手标 优享标的时间
             //封标期到了就关闭这个标，将标的状态设置为售罄 3
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-            String exprie = simpleDateFormat.format(bid.getExprie());
-            String bidTime = simpleDateFormat.format(bid.getBidTime());
+            String exprie = simpleDateFormat.format(bid.getExprie());//封标期时间
+            String bidTime = simpleDateFormat.format(bid.getBidTime());//开始时间
             try {
-                Date date = simpleDateFormat.parse(exprie);//封标期时间
                 Date date1 =simpleDateFormat.parse(bidTime);//上线时间
-                //将当前时间与封标期时间比较
-                int time = date.compareTo(new Date());
-                //将当前时间与开始时间比较
-                int time1 = date.compareTo(new Date());
-                if(time == -1){//当前时间大于锋标期时间 就是 -1
-                    //将标给关闭，设置为售罄
-                    is.updategetbiBid(bid);
+                Date date = simpleDateFormat.parse(exprie);//封标期时间
+                int time = date1.compareTo(new Date());//上线时间小于当前时间 -1
+                int time1 = date.compareTo(new Date());//封标时间小于当前时间 -1
+                if(time == -1 && time1 == -1){//预售（READY=1）
+                    System.out.println("进来了"+bid.getbId());
+                    is.updategetbiBid(1,bid.getbId());
                 }
-                if(bid.getBidStatus() == Bid.getREADY()){//判断是否是为上线的
-                    if(time1 == -1){//当前时间大于上线时间 就是 -1
-                        //将标给开启，设置为在售
-                        is.updategetbiBid1(bid);
-                    }
+                else if(time != -1 && time1 == -1){//在售（ON=0）
+                    is.updategetbiBid(Bid.getNO(),bid.getbId());
+                }
+                else if(time != -1 && time1 != -1){ //售罄
+                    is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
