@@ -1,17 +1,21 @@
 package com.vault.demo.service.user.impl;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.loan.CreditDao;
+import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private BankDao bdao;
     @Resource
     private CreditDao cdao;
+    @Resource
+    private BidDao bidDao;
 
     @Override
     public int addUserImf(Userimf user) {
@@ -113,5 +119,81 @@ public class UserServiceImpl implements UserService {
         Userimf userimf = new Userimf();
         userimf.setuId(uId);
         return cdao.selectCreditByUserId(userimf);
+    }
+
+    @Override
+    public Map daiShou(int uid) {
+        Map map = new HashMap();
+        List<Map> mlist = bidDao.comUserList(uid);
+
+        BigDecimal zon = new BigDecimal("0"); //当前用户投标总额
+        if(mlist.size() != 0){
+            for(int i = 0;i < mlist.size();i++){
+                Map map1 = mlist.get(i);
+                BigDecimal tou = new BigDecimal(map1.get("tenMoney")+"");
+                zon = zon.add(tou);
+            }
+            BigDecimal wan = new BigDecimal("10000");
+            BigDecimal zcMoney = zon.multiply(wan);
+            map.put("money",""+zcMoney);
+            map.put("list",mlist);
+        }else {
+            map.put("money",""+zon);
+            map.put("list",null);
+        }
+
+        List<Map> rlist = cdao.getRechargeMax(uid);
+        List<Map> wlist = cdao.getWithdrawMax(uid);
+        Map map1 = rlist.get(0);
+        if(map1 == null){
+            map.put("rmax","0.0");
+        }else {
+            map.put("rmax",map1.get("rmon")+"");
+        }
+
+        Map map2 = wlist.get(0);
+        if(map2 == null){
+            map.put("wmax","0.0");
+        }else {
+            map.put("wmax",wlist.get(0).get("wmon")+"");
+        }
+        return map;
+    }
+
+    @Override
+    public int userChongTi(String type, String money, Userimf userimf) {
+        BigDecimal user = new BigDecimal(""+userimf.getAvaBalance());
+        BigDecimal bian = new BigDecimal(""+money);
+        UserBank bank = getBC(userimf.getuId());
+        if("cz".equals(type)){
+            user = user.add(bian);
+            float bh = user.floatValue();
+            bidDao.moneyUserId(bh,userimf.getuId());
+
+            Recharge recharge = new Recharge();
+            recharge.setuId(userimf.getuId());
+            recharge.setReTime(new Date());
+            recharge.setBankId(bank.getBankId());
+            recharge.setBankName(bank.getBankName());
+            recharge.setReMoney(bian.floatValue());
+            return cdao.addRecharge(recharge);
+        }else {
+            if(user.compareTo(bian)== 1){//用户余额大于提现额
+                user = user.subtract(bian);
+                float bh = user.floatValue();
+                bidDao.moneyUserId(bh,userimf.getuId());
+
+                Withdraw withdraw = new Withdraw();
+                withdraw.setuId(userimf.getuId());
+                withdraw.setWithTime(new Date());
+                withdraw.setBankId(bank.getBankId());
+                withdraw.setBankName(bank.getBankName());
+                withdraw.setWithMoney(bian.floatValue());
+
+                return cdao.addWithdraw(withdraw);
+            }else {
+                return 2;
+            }
+        }
     }
 }

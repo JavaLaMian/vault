@@ -603,28 +603,35 @@
 
     function padMoney(id) {
         var time = $(id).val();
-        var arr = time.split(".");
-        if(arr.length === 1){
-            for (var i = 0; i < time.length; i++) {
-                var t = time.charCodeAt(i);
-                if (!(t >= 48 && t <= 57)){
-                    if(t !== 46){
-                        $(id).val(time.substr(0,time.length-1));
-                    }else{
-                        $(id).val(arr[0]);
+        if(time.charCodeAt(0) == 46){
+            $(id).val("");
+        }else{
+            var arr = time.split(".");
+            if(arr.length === 1){
+                for (var i = 0; i < time.length; i++) {
+                    var t = time.charCodeAt(i);
+                    if (!(t >= 48 && t <= 57)){
+                        if(t !== 46){
+                            console.log("t1"+t);
+                            $(id).val(time.substr(0,time.length-1));
+                        }else{
+                            $(id).val(arr[0]);
+                        }
                     }
                 }
-            }
-        }else{
-            var xiaosu = arr[1];
-            var text = "";
-            if(xiaosu.length != 0){
+            }else{
+                var xiaosu = arr[1];
                 for (var i = 0; i < xiaosu.length; i++) {
-                    if(i < 2) text += xiaosu.charAt(i);
-
+                    var t = xiaosu.charCodeAt(i);
+                    if (t >= 48 && t <= 57){
+                        if(i < 2)$(id).val(arr[0]+"."+xiaosu);
+                        else $(id).val(time.substr(0,time.length-1));
+                    }else{
+                        $(id).val(time.substr(0,time.length-1));
+                    }
                 }
+
             }
-            $(id).val(arr[0]+"."+text)
         }
     };
 
