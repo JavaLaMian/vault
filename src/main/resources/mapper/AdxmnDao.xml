@@ -54,4 +54,14 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
           select m.id,m.change,m.change,m.total,m.conversionTime,m.changeType,u.uName,i.integralName from myIntegral m LEFT JOIN userimf u on m.uId = u.uId LEFT JOIN integral i on m.iId = i.Id
         ]]>
     </select>
+    <update id="updategetbiBid">
+        <![CDATA[
+            update bid set bidStatus = 3 where bId=#{bId}
+         ]]>
+    </update>
+    <update id="updategetbiBid1">
+        <![CDATA[
+            update bid set bidStatus = 0 where bId=#{bId}
+         ]]>
+    </update>
 </mapper>

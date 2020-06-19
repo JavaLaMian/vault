@@ -191,7 +191,6 @@ public class backstageController {
     @RequestMapping("userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
         List<Map> list = is.integralList();
-        System.out.println(list);
         model.addAttribute("list",list);
         mv.setViewName("backstage/integralList");
         return mv;
