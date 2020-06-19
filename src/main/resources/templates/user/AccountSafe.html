@@ -46,7 +46,6 @@
         <!-- 面包屑冬导航 -->
         <div class="path">
             您现在的位置：<span><a href="/user/toAO">我的账户</a> > 账户安全</span>
-
         </div>
         <div class="center user-box">
             <!-- 我的账户菜单 -->
@@ -56,7 +55,8 @@
                 <div class="account-info">
                     <div class="member-info">
                         <div>
-                            <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
+                            <span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>
+                            <span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>
                             <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
                         </div>
                         <div class="security-level">账户安全：<span id="security-level">*</span></div>
@@ -91,7 +91,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="/user/viewApply">银行卡管理</a>
+                        <a href="#">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -206,12 +206,12 @@
                     <!-- 账户安全设置列表 -->
                     <div class="account_list">
                         <!-- 实名认证 -->
-                        <div myid='realName' class="column" th:if="null eq ${credit}">
+                        <div myid='realName' class="column">
 
-                            <div class="column_name not_seted">
+                            <div class="column_name not_seted" th:if="null eq ${session.credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg">
+                            <div class="column_msg" th:if="null eq ${session.credit}">
                                 <span class="setting">
                                     <a myTarget="smdj_rz" href="/user/toApply">请设置</a>
                                 </span>
@@ -219,14 +219,11 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                        </div>
-                        <div myid='realName' class="column" th:if="null ne ${credit}">
-
-                            <div class="column_name seted">
+                            <div class="column_name seted" th:if="null ne ${session.credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg">
-                                <span class="setting" th:if="${credit.identity} ne null">
+                            <div class="column_msg" th:if="null ne ${session.credit}">
+                                <span class="setting" th:if="${session.credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
@@ -345,8 +342,6 @@
                         <!-- 银行卡认证 -->
                         <div class="column">
                             <div class="column_name not_seted" th:if="null eq ${session.userBank}">
-                        <div class="column" th:if="null eq ${userBank}">
-                            <div class="column_name not_seted">
                                 银行卡认证
                             </div>
                             <div class="column_name seted" th:if="null ne ${session.userBank}">
@@ -506,8 +501,9 @@
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
-                                                <td><input id="yxyz_xg_step1_code" class="code_form" type="text" />
-                                                    <a id="yxyz_xg_step1_getcode" class="get_code inline_block" onclick="emgetcode('eamil_up',this)">
+                                                <td>
+                                                    <input id="yxyz_xg_step1_code" class="code_form" type="text" />
+                                                    <a id="yxyz_step1_getcode" class="get_code inline_block" onclick="emgetcode('eamil_up',this)">
                                                         <span class="yxyz_get_code_text">获取验证码</span>
                                                     </a>
                                                 </td>
@@ -662,7 +658,7 @@
                                     <div class="for_step2">
                                         <table class="form_type">
                                             <tr>
-                                                <td class="align_right">手机号码：</td>
+                                                <td class="align_right">新邮箱：</td>
                                                 <td>
                                                     <input id="sjyz_xg_step2_mobile" maxlength="11" type="text"/>
                                                 </td>
@@ -1008,9 +1004,7 @@
         var ma = $("#dl_cdtx").val();
         if (ma!=dlMa){
             dlmm_key_xg=false;
-            $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
-        }else {
-            $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"tips_content\"></div>");
+            $("#dl_xg_er").replaceWith("<div id=\"dl_xg_er\" class=\"onError\">验证码错误</div>");
         }
     }
     function getDlcode(type,id){
@@ -1073,9 +1067,11 @@
         dlmm_old();
         dlmm_new();
         dlmm_new_qr();
+        dlmm_ma();
         var p1 = $("#dlmm_old_pwd").val();
         var p2 = $("#dlmm_new_pwd").val();
         var p3 = $("#dlmm_new_pwd_qr").val();
+        var ma = $("#dl_cdtx").val();
         if (p1 == "" || p1 == null) {
             dlmm_key_xg=false;
             $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码不能为空</div>");
@@ -1085,6 +1081,9 @@
         }else if (p3=="" || p3==null){
             dlmm_key_xg=false;
             $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">确认密码不能为空</div>");
+        }else if (ma=="" ||ma==null){
+            dlmm_key_xg=false;
+            $("#dl_xg_er").replaceWith("<div id=\"dl_xg_er\" class=\"onError\">验证码不能为空</div>");
         }
         if (dlmm_key_xg==true){
             $.post("/user/dlmm",{loginPsw:p2},function (data) {
@@ -1096,12 +1095,13 @@
     var emMa;
     function emgetcode(type,id){
         yhMa = null;
+        alert($("#yxyz_get_code_text").text());
         var email = $("#em").val();
-        if($("#yxyz_get_code_text").text() === "获取验证码"){
-            $("#yxyz_xg_step1_getcode").css("background-color","ccc");
+        if($("#yxyz_get_code_text").text() == "获取验证码"){
+            $("#yxyz_step1_getcode").css("background-color","ccc");
             $("#yxyz_get_code_text").html('获取(59)');
 
-            jishuTishi  = setInterval("dlcdaoishi()", "1000");
+            jishuTishi  = setInterval("emdaoishi()", "1000");
 
             $.post("/user/getMa",{email:email,type:type},function (data) {
                 if(data === "" || data == null){
@@ -1119,11 +1119,11 @@
             jishi = 59;
             clearInterval(jishuTishi);
             $("#yxyz_get_code_text").html('获取验证码');
-            $("#yxyz_xg_step1_getcode").css("border","1px solid #fd7500");
-            $("#yxyz_xg_step1_getcode").css("background-color","#fd7500");
+            $("#yxyz_step1_getcode").css("border","1px solid #fd7500");
+            $("#yxyz_step1_getcode").css("background-color","#fd7500");
         }else{
-            $("#yxyz_xg_step1_getcode").css("border","1px solid #ccc");
-            $("#yxyz_xg_step1_getcode").css("background-color","#ccc");
+            $("#yxyz_step1_getcode").css("border","1px solid #ccc");
+            $("#yxyz_step1_getcode").css("background-color","#ccc");
             $("#yxyz_get_code_text").html("获取("+jishi+")");
         }
     }
