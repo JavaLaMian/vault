@@ -20,4 +20,6 @@ public interface LoanService {
     void insertLoan(Loan loan);//提交贷款申请
     House selectHouseByUId(Userimf userimf);
     Car selectCarByUId(Userimf userimf);
+    void insertCar(Car car);
+    void insertHouse(House house);
 }

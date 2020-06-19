@@ -3,6 +3,7 @@ package com.vault.demo.dao.backstage;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Loan;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,4 +22,6 @@ public interface AdxmnDao {
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
     List<Map> integralList();//查询出积分兑换信息
+    void updategetbiBid(Bid bid);//根据id修改投标状态
+    void updategetbiBid1(Bid bid);//根据id修改投标状态
 }

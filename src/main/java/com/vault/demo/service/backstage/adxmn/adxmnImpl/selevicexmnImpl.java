@@ -64,5 +64,15 @@ public class selevicexmnImpl implements selevicexmn {
         return dao.integralList();
     }
 
+    @Override
+    public void updategetbiBid(Bid bid) {
+        dao.updategetbiBid(bid);
+    }
+
+    @Override
+    public void updategetbiBid1(Bid bid) {
+        dao.updategetbiBid1(bid);
+    }
+
 
 }
