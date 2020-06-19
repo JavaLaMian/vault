@@ -67,7 +67,7 @@ public class MainControl{
             BigDecimal zcMoney = zhichu.multiply(wan);
             BigDecimal useMoney = new BigDecimal(userMon);
 
-            if(zcMoney.compareTo(useMoney) == -1) {
+            if(useMoney.compareTo(zcMoney) == 1) {
                //余额充足
                 BigDecimal cha = useMoney.subtract(zcMoney);
                 float jieguo = cha.floatValue();

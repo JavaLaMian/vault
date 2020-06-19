@@ -14,7 +14,37 @@
     <select id="selectCreditByUserId" resultType="Credit" parameterType="com.vault.demo.bean.Userimf">
         <![CDATA[
           select * from credit where uId=#{uId}
+        ]]>
+    </select>
 
+    <insert id="addRecharge" parameterType="com.vault.demo.bean.Recharge">
+        <![CDATA[
+          insert into recharge(rId,uId,reMoney,reTime,bankId,bankName) values(null,#{uId},#{reMoney},#{reTime},#{bankId},#{bankName})
+        ]]>
+    </insert>
+    <insert id="addWithdraw" parameterType="com.vault.demo.bean.Withdraw">
+        <![CDATA[
+          insert into withdraw(wId,uId,withMoney,withTime,bankId,bankName) values(null,#{uId},#{withMoney},#{withTime},#{bankId},#{bankName})
+        ]]>
+    </insert>
+    <select id="getRechargeMax" resultType="Map" parameterType="int">
+        <![CDATA[
+          select sum(reMoney) as rmon from recharge where uId = #{uId}
+        ]]>
+    </select>
+    <select id="getWithdrawMax" resultType="Map" parameterType="int">
+        <![CDATA[
+          select sum(withMoney) as wmon from withdraw where uId = #{uId}
+        ]]>
+    </select>
+    <select id="getRechargeById" resultType="com.vault.demo.bean.Recharge" parameterType="int">
+        <![CDATA[
+          select * from recharge where uId = #{uId}
+        ]]>
+    </select>
+    <select id="getWithdrawById" resultType="com.vault.demo.bean.Withdraw" parameterType="int">
+        <![CDATA[
+          select * from withdraw where uId = #{uId}
         ]]>
     </select>
 </mapper>

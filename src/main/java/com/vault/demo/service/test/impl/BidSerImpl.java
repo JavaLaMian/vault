@@ -120,14 +120,14 @@ public class BidSerImpl implements BidSer {
                 allMax = allMax.add(tou);
             }
         }
-        if(zon.compareTo(userMax)== -1 && allMax.compareTo(tMax) == -1){
+        if(userMax.compareTo(zon)== 1 && tMax.compareTo(allMax) == 1){
             BigDecimal aa = new BigDecimal("0");
             if(zon.compareTo(allMax)==0 && aa.compareTo(allMax)==0){
                 map.put("ketou",userMax); //没人投此标
             }else{
                 zon = userMax.subtract(zon); //计算可投金额
                 allMax = tMax.subtract(allMax);
-                BigDecimal xiao = (zon.compareTo(allMax)== -1) ? zon : allMax;//取小的
+                BigDecimal xiao = (allMax.compareTo(zon)== 1) ? zon : allMax;//取小的
                 map.put("ketou",xiao);
             }
         }else {

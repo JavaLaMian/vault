@@ -1,8 +1,6 @@
 package com.vault.demo.service.integral;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Integral;
-import com.vault.demo.bean.MyIntegral;
+import com.vault.demo.bean.*;
 import com.vault.demo.common.Pager;
 import com.vault.demo.dao.integral.integralDao;
 import org.springframework.stereotype.Service;
@@ -72,6 +70,21 @@ public class integralServiceImp implements integralService {
     @Override
     public int integralInventory(int inventory,int id) {
         return dao.integralInventory(inventory,id);
+    }
+
+    @Override
+    public void bountyAdd(Bounty bounty) {
+        dao.bountyAdd(bounty);
+    }
+
+    @Override
+    public int signAdd(Sign sign) {
+        return dao.signAdd(sign);
+    }
+
+    @Override
+    public Sign selectSignTime(int id) {
+        return dao.selectSignTime(id);
     }
 
 
