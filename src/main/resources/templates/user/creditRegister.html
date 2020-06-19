@@ -244,16 +244,16 @@
                                     </span>
 
                                     <div id="insertCar" style="width: 70%;margin: 0 auto;display: none">
-                                        <form>
+                                        <form th:if="${car == null}" th:action="@{/user/toUploadCar}" onsubmit="return carSubmit()" method="post" enctype="multipart/form-data">
                                             <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                     <td style="text-align: right;padding-right: 12px">请上传车辆登记证书</td>
-                                                    <td><input type="file" name="photoFile"></td>
+                                                    <td><input id="carPhoto" type="file" name="photoFile"></td>
                                                 </tr>
 
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                     <td style="text-align: right;padding-right: 12px">预估价值</td>
-                                                    <td><input type="number" name="money"></td>
+                                                    <td><input id="carMoney" type="number" name="money"></td>
                                                 </tr>
 
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
@@ -272,6 +272,32 @@
                                                 </tr>
                                             </table>
                                         </form>
+
+                                        <table th:if="${car != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                            <tbody>
+                                                <tr style="height: 80px;line-height: 80px">
+                                                    <th style="width: 130px">编号</th>
+                                                    <td th:text="${car.cId}" style="width: 180px">编号</td>
+                                                    <th style="width: 130px">照片</th>
+                                                    <td style="width: 180px"><img th:src="@{${car.photo}}" style="width: 100px;height: 80px"></td>
+                                                </tr>
+                                                <tr style="height: 80px;line-height: 80px">
+                                                    <th style="width: 130px">价值</th>
+                                                    <td th:text="${car.money} + '万'" style="width: 180px">价值</td>
+                                                    <th style="width: 130px">说明</th>
+                                                    <td th:text="${car.remark}" style="width: 180px">说明</td>
+                                                </tr>
+                                                <tr style="height: 80px;line-height: 80px">
+                                                    <th style="width: 130px">状态</th>
+                                                    <td style="width: 180px">
+                                                        <span style="color: red" th:if="${car.status == 4}">审核</span>
+                                                        <span style="color: red" th:if="${car.status == 0}">不可用</span>
+                                                        <span style="color: red" th:if="${car.status == 1}">可用</span>
+                                                        <span style="color: red" th:if="${car.status == 2}">已抵</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                 <script type="text/javascript">
@@ -293,6 +319,10 @@
                                             show = true;
                                         }
 
+                                    }
+
+                                    function carSubmit() {
+                                        return true;
                                     }
                                 </script>
                                 </p>
@@ -325,7 +355,7 @@
                                     </span>
 
                                 <div id="insertHouse" style="width: 70%;margin: 0 auto;display: none">
-                                    <form>
+                                    <form th:if="${house == null}" th:action="@{/user/toUploadHouse}" onsubmit="return houseSubmit()" method="post" enctype="multipart/form-data">
                                         <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                 <td style="text-align: right;padding-right: 12px">请上传房产登记证书</td>
@@ -353,6 +383,32 @@
                                             </tr>
                                         </table>
                                     </form>
+
+                                    <table th:if="${house != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                        <tbody>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">编号</th>
+                                            <td th:text="${house.hId}" style="width: 180px">编号</td>
+                                            <th style="width: 130px">照片</th>
+                                            <td style="width: 180px"><img th:src="@{${house.photo}}" style="width: 100px;height: 80px"></td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">价值</th>
+                                            <td th:text="${house.money} + '万'" style="width: 180px">价值</td>
+                                            <th style="width: 130px">说明</th>
+                                            <td th:text="${house.remark}" style="width: 180px">说明</td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">状态</th>
+                                            <td style="width: 180px">
+                                                <span style="color: red" th:if="${house.status == 4}">审核</span>
+                                                <span style="color: red" th:if="${house.status == 0}">不可用</span>
+                                                <span style="color: red" th:if="${house.status == 1}">可用</span>
+                                                <span style="color: red" th:if="${house.status == 2}">已抵</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <script type="text/javascript">
@@ -373,7 +429,10 @@
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;
                                         }
+                                    }
 
+                                    function houseSubmit() {
+                                        return true;
                                     }
                                 </script>
                                 </p>
