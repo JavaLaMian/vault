@@ -13,6 +13,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -85,6 +88,25 @@ public class UserController {
     public String loginout(HttpSession session){
         session.removeAttribute("user");
         return "redirect:tologin";
+    }
+    @RequestMapping("/tozj")
+    public String toZhiJinPage(HttpSession session) {
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user != null){
+            return "user/zhiJin";
+        }else {
+            return "redirect:tologin";
+        }
+    }
+    @RequestMapping("/zhijin")
+    @ResponseBody
+    public Map getUseZhiJIn(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        Map map = new HashMap();
+        List<Map> mlist = service.useZhiJinList(user.getuId());
+        map.put("list",mlist);
+        map.put("size",mlist.size());
+        return map;
     }
 
     @RequestMapping("/getMa")

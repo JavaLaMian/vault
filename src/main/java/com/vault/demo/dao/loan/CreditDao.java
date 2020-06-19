@@ -23,4 +23,6 @@ public interface CreditDao {
 
     List<Map> getRechargeMax(@Param("uId") int uId);
     List<Map> getWithdrawMax(@Param("uId") int uId);
+    List<Recharge> getRechargeById(@Param("uId") int uId);
+    List<Withdraw> getWithdrawById(@Param("uId") int uId);
 }
