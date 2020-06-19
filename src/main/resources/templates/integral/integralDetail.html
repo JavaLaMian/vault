@@ -149,7 +149,7 @@
         </div>
         <div class="row">
             <p>
-                <a  th:href="@{/integral/conversion(iId =${list.id},change = ${list.integral},type =${list.integralType})}" th:if="${credit ne null && session.total ge list.integral}" class="btn btn-primary btn-lg btn-block">立即兑换</a>
+                <a  th:href="@{/integral/conversion(iId =${list.id},change = ${list.integral},type =${list.integralType},IntName=${list.integralName})}" th:if="${credit ne null && session.total ge list.integral}" class="btn btn-primary btn-lg btn-block">立即兑换</a>
             </p>
         </div>
     </div>

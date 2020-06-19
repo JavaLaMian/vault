@@ -69,4 +69,14 @@ public class LoanServiceImpl implements LoanService {
         return carDao.selectCarByUId(userimf);
     }
 
+    @Override
+    public void insertCar(Car car) {
+        carDao.insertCar(car);
+    }
+
+    @Override
+    public void insertHouse(House house) {
+        houseDao.insertHouse(house);
+    }
+
 }

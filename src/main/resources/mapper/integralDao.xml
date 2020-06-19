@@ -41,4 +41,8 @@
     <update id="integralInventory" >
         update integral set inventory = #{inventory} where Id = #{id}
     </update>
+
+    <insert id="bountyAdd" >
+        insert into bounty values (null,#{uId},#{boType},#{boMoney},#{boTime})
+    </insert>
 </mapper>

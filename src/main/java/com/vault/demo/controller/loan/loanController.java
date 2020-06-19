@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,9 @@ public class loanController {
 
     @Resource
     WorryCallDao worryCallDao;
+
+    @Resource
+    FileUpload fileUpload;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -218,7 +222,7 @@ public class loanController {
     }
 
     @RequestMapping("/registerCredit")
-    public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request){
+    public String registerCredit(Credit credit, HttpSession session, MultipartFile positiveIDPhotoEX, MultipartFile negativeIDPhotoEX, HttpServletRequest request) throws IOException {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
@@ -226,8 +230,8 @@ public class loanController {
         String realPath =  request.getSession().getServletContext().getRealPath("");
         String dirPath = "D:\\vault\\file\\identity\\";
         //上传文件
-        String positiveIDPhotoEXFileName = FileUpload.upload(positiveIDPhotoEX,dirPath,request);
-        String negativeIDPhotoEXFileName = FileUpload.upload(negativeIDPhotoEX,dirPath,request);
+        String positiveIDPhotoEXFileName = fileUpload.upload(positiveIDPhotoEX,dirPath,null,request,null);
+        String negativeIDPhotoEXFileName = fileUpload.upload(negativeIDPhotoEX,dirPath,null,request,null);
         credit.setPositiveIDPhoto(positiveIDPhotoEX.getOriginalFilename());
         credit.setNegativeIDPhoto(negativeIDPhotoEX.getOriginalFilename());
 

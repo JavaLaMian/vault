@@ -244,16 +244,16 @@
                                     </span>
 
                                     <div id="insertCar" style="width: 70%;margin: 0 auto;display: none">
-                                        <form>
+                                        <form th:action="@{/user/toUploadCar}" onsubmit="return carSubmit()" method="post" enctype="multipart/form-data">
                                             <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                     <td style="text-align: right;padding-right: 12px">请上传车辆登记证书</td>
-                                                    <td><input type="file" name="photoFile"></td>
+                                                    <td><input id="carPhoto" type="file" name="photoFile"></td>
                                                 </tr>
 
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                     <td style="text-align: right;padding-right: 12px">预估价值</td>
-                                                    <td><input type="number" name="money"></td>
+                                                    <td><input id="carMoney" type="number" name="money"></td>
                                                 </tr>
 
                                                 <tr style="height: 55px;    border-top: 1px solid #ccc;">
@@ -294,6 +294,10 @@
                                         }
 
                                     }
+
+                                    function carSubmit() {
+                                        return true;
+                                    }
                                 </script>
                                 </p>
 
@@ -325,7 +329,7 @@
                                     </span>
 
                                 <div id="insertHouse" style="width: 70%;margin: 0 auto;display: none">
-                                    <form>
+                                    <form th:action="@{/user/toUploadHouse}" onsubmit="return houseSubmit()" method="post" enctype="multipart/form-data">
                                         <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                 <td style="text-align: right;padding-right: 12px">请上传房产登记证书</td>
@@ -373,7 +377,10 @@
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;
                                         }
+                                    }
 
+                                    function houseSubmit() {
+                                        return true;
                                     }
                                 </script>
                                 </p>
