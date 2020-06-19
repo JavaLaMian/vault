@@ -24,4 +24,7 @@ public interface integralService {
 
     List<Map>  selectMyIntegral(int id);
     MyIntegral selectMyIntegral2(int id);
+
+    int conversionAdd(MyIntegral myIntegral);
+    int integralInventory(int inventory,int id); //修改库存
 }

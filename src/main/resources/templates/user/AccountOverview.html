@@ -11,18 +11,23 @@
 <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
 	<link th:href="@{/css/main/base-ddb0535420.css}" rel="stylesheet">
 	<script type="text/javascript" th:src="@{/js/main/base-6100562494.js}"></script>
-<!--<script>-->
-    <!--window.global = {-->
-        <!--cdn: "//image.xiaoniu88.com",-->
-        <!--siteroot: "https://www.xiaoniu88.com",-->
-        <!--staticPath: "//image.xiaoniu88.com/static/WebXn/dist",-->
-        <!--contextPath: "/MyAccount",-->
-        <!--serverTime: "1591843669775"*1,-->
-        <!--userId: "6086292",-->
-        <!--isLogin: true-->
-    <!--}-->
-<!--</script>-->
+<script>
+    window.global = {
+        cdn: "//image.xiaoniu88.com",
+        siteroot: "https://www.xiaoniu88.com",
+        staticPath: "//image.xiaoniu88.com/static/WebXn/dist",
+        contextPath: "/MyAccount",
+        serverTime: "1591843669775"*1,
+        userId: "6086292",
+        isLogin: true
+    }
+</script>
 	<script type="text/javascript" th:src="@{/js/main/common-83987ed24e.js}"></script>
+<script>
+    $(function(){
+        seajs.use('module/common/common')
+    })
+</script>
 	<link th:href="@{/css/style-1ed5f9e4a1.css}" rel="stylesheet">
 	<style>
 		.zfp{
@@ -351,7 +356,7 @@
 		</div>
 	</div>
 	
-	<!-- 月月牛升级升财牛弹窗
+	<!-- 月月牛升级升财牛弹窗 -->
 	<div id="monthupDialog" style="display:none;">
 		<div class="monthup">
 			<div class="txtdiv"> 
@@ -367,7 +372,7 @@
 				<!-- <a>授权升级</a> -->
 			</div>
 		</div>
-	</div>-->
+	</div>
 	<!-- 月月牛授权升级 弹窗-
 	<div id="monthAccreditDialog" style="display:none;">
 		<div class="monthAccredit">
@@ -376,7 +381,7 @@
 			<p>升级结果将以短信通知您，请留意短信通知。</p>
 			<p class="attention">注：小母牛将于次日统一执行当日授权升级的申请</p>
 		</div>
-	</div>->
+	</div>
 
 	<!--footer-->
 <div th:replace="/common::commonFooter"></div>

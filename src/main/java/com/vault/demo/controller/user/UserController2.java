@@ -121,7 +121,18 @@ public class UserController2 {
         Userimf userimf = (Userimf) session.getAttribute("user");
         userimf.setDealPsw(dealPwd);
         System.out.println(userimf);
-//        service.upUser(userimf);
+        session.setAttribute("user",userimf);
+        service.upUser(userimf);
+        return "";
+    }
+    @RequestMapping("/dlmm")
+    @ResponseBody
+    public String dlmm(String loginPsw,HttpSession session){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        userimf.setLoginPsw(loginPsw);
+        System.out.println(userimf);
+        service.upUser(userimf);
+        session.setAttribute("user",userimf);
         return "";
     }
     @RequestMapping("/czTx")

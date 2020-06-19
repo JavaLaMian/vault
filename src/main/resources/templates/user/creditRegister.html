@@ -32,7 +32,7 @@
 <!--    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>-->
 <!--    <script th:src="@{/js/bootstrap.js}"></script>-->
 
-<!--    <script th:src="@{/js/jquery-1.12.4.js}"></script>-->
+    <script th:src="@{/js/jquery-1.12.4.js}"></script>
 
 </head>
 
@@ -216,8 +216,166 @@
                                 <h2 style="color: #333;text-align: center">高级借贷信息管理</h2>
                             </div>
                             <div style="margin-top: 20px">
-                                <p style="height: 50px;line-height: 50px;">
-                                    <span th:if="${house == null}"><img th:src="@{/img/loan/tan.png}" style="line-height: 50px">&nbsp;&nbsp;车辆信息登记</span>
+                                <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
+
+
+                                    <!--                 如果车辆信息为空                   -->
+                                    <span th:if="${car == null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
+                                            名下车辆
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">抵押贷款时可以用做抵押</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertCarA" href="javascript:insertCarShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <!--                 如果车辆信息不为空                   -->
+                                    <span th:if="${car != null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
+                                            名下车辆
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">抵押贷款时可以用做抵押</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertCarA" href="javascript:insertCarShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <div id="insertCar" style="width: 70%;margin: 0 auto;display: none">
+                                        <form>
+                                            <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">请上传车辆登记证书</td>
+                                                    <td><input type="file" name="photoFile"></td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">预估价值</td>
+                                                    <td><input type="number" name="money"></td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">说明</td>
+                                                    <td>
+                                                        <textarea type="text" name="remark" style="width: 223px;height: 57px;margin: 17.9972px 0px 11.9886px;"></textarea>
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td colspan="2" style="text-align: center">
+                                                        <button type="submit" style="width: 100px;height: 30px;border-radius: 3px;border: 1px solid #ccc;background: #5189c3;color: #fff;font-size: 13px;font-weight: bold;">
+                                                        提交
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                    </div>
+
+                                <script type="text/javascript">
+                                    var show = true;
+
+                                    function insertCarShow() {
+
+                                        if (show){
+                                            $(".insertCarA").text("收起");
+                                            $("#insertCar").css("display","block");
+                                            // document.getElementsByClassName("insertCarA").innerText = "收起";
+                                            // document.getElementsByClassName("insertCar").style.display = 'block';
+                                            show = false;
+                                        }else {
+                                            $(".insertCarA").text("查看");
+                                            $("#insertCar").css("display","none");
+                                            // document.getElementById("insertCarA").innerText = "查看";
+                                            // document.getElementsByClassName("insertCar").css.display("none");
+                                            show = true;
+                                        }
+
+                                    }
+                                </script>
+                                </p>
+
+                                <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
+
+
+                                    <!--                 如果房产信息为空                   -->
+                                    <span th:if="${house == null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
+                                            名下房产
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">抵押贷款时可以用做抵押</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertHouseShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <!--                 如果房产信息不为空                   -->
+                                    <span th:if="${house != null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
+                                            名下房产
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">抵押贷款时可以用做抵押</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertHouseShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                <div id="insertHouse" style="width: 70%;margin: 0 auto;display: none">
+                                    <form>
+                                        <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传房产登记证书</td>
+                                                <td><input type="file" name="photoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">预估价值</td>
+                                                <td><input type="number" name="money"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">说明</td>
+                                                <td>
+                                                    <textarea type="text" name="remark" style="width: 223px;height: 57px;margin: 17.9972px 0px 11.9886px;"></textarea>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td colspan="2" style="text-align: center">
+                                                    <button type="submit" style="width: 100px;height: 30px;border-radius: 3px;border: 1px solid #ccc;background: #5189c3;color: #fff;font-size: 13px;font-weight: bold;">
+                                                        提交
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <script type="text/javascript">
+                                    var show = true;
+
+                                    function insertHouseShow() {
+
+                                        if (show){
+                                            $(".insertHouseA").text("收起");
+                                            $("#insertHouse").css("display","block");
+                                            // document.getElementsByClassName("insertCarA").innerText = "收起";
+                                            // document.getElementsByClassName("insertCar").style.display = 'block';
+                                            show = false;
+                                        }else {
+                                            $(".insertHouseA").text("查看");
+                                            $("#insertHouse").css("display","none");
+                                            // document.getElementById("insertCarA").innerText = "查看";
+                                            // document.getElementsByClassName("insertCar").css.display("none");
+                                            show = true;
+                                        }
+
+                                    }
+                                </script>
                                 </p>
                             </div>
                         </div>

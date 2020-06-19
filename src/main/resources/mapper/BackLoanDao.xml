@@ -5,7 +5,27 @@
 <mapper namespace="com.vault.demo.dao.backstage.BackLoanDao">
     <select id="selLoan" resultType="map">
         <![CDATA[
-          select l.lId,c.name,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on ( l.uId = c.uId and c.creditLV='1') and l.loanStatue not in(3,4)
+          select l.lId,c.name,l.loanType,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on ( l.uId = c.uId and c.creditLV='1') and l.loanStatue not in(3,4)
+        ]]>
+    </select>
+    <select id="selLoanByUid" resultType="Loan">
+        <![CDATA[
+          select * from loan where uId=#{uId} and loanStatue=0
+        ]]>
+    </select>
+    <select id="selHouseByHid" resultType="House">
+        <![CDATA[
+          select * from house where uId=#{uId}
+        ]]>
+    </select>
+    <select id="selCarByCid" resultType="Car">
+        <![CDATA[
+          select * from car where uId=#{uId}
+        ]]>
+    </select>
+    <select id="selUserByUid" resultType="Userimf">
+        <![CDATA[
+          select * from Userimf where uId=#{uId}
         ]]>
     </select>
 </mapper>

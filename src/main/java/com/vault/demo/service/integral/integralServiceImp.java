@@ -64,5 +64,15 @@ public class integralServiceImp implements integralService {
         return dao.selectMyIntegral2(id);
     }
 
+    @Override
+    public int conversionAdd(MyIntegral myIntegral) {
+        return dao.conversionAdd(myIntegral);
+    }
+
+    @Override
+    public int integralInventory(int inventory,int id) {
+        return dao.integralInventory(inventory,id);
+    }
+
 
 }
