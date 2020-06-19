@@ -1,6 +1,7 @@
 package com.vault.demo.dao.integral;
 
 
+import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Integral;
 import com.vault.demo.bean.MyIntegral;
@@ -27,4 +28,6 @@ public interface integralDao {
 
     int conversionAdd(MyIntegral myIntegral);
     int integralInventory(int inventory,int id); //修改库存
+
+    void bountyAdd(Bounty bounty);
 }

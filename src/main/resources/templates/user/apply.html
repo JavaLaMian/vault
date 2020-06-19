@@ -70,7 +70,7 @@
             <!--end 我的账户左边菜单列表-->
             <input type="hidden" value="bankCard" id="userNavList">
             <!-- 左侧当前选中菜单 -->
-            <div class="account-cont" id="contanier" th:if="${session.applyType} eq apply" >
+            <div class="account-cont" id="contanier" th:if="${applyType} eq apply" >
                 <div class="at-til">
                     <span class="name">绑定网贷银行卡</span>
                 </div>
@@ -137,7 +137,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="account-cont" id="contanier" th:if="${session.applyType} eq view">
+            <div class="account-cont" id="contanier" th:if="${applyType} eq view">
                 <div class="at-til">
                     <span class="name">绑定网贷银行卡</span>
                 </div>
@@ -149,15 +149,15 @@
                     </div>
                     <div>
                         <label>身份证号码：</label>
-                        <input type="text" class="bindcard-input" th:value="${session.credit.identity}" disabled>
+                        <input type="text" class="bindcard-input" th:value="${credit.identity}" disabled>
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" th:value="${session.userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
+                        <input type="text" class="bindcard-input" th:value="${userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
                     </div>
                     <div>
                         <label>开户银行：</label>
-                        <input  class="bindcard-input" th:value="${session.userBank.bankName}" disabled/>
+                        <input  class="bindcard-input" th:value="${userBank.bankName}" disabled/>
                     </div>
                 </div>
                 <dl class="bindcard-tips"> <dt>温馨提示</dt>
@@ -242,7 +242,6 @@
 </div>
 
 <!--end 尾部-->
-
 <script type="text/javascript">
     var couldsub = false;
     var jishi = 59;
@@ -253,6 +252,8 @@
         if($(id).val() === "获取"){
             $(id).val('获取(59)');
             $(id).css("background-color","white");
+            $(id).css("color","#ccc");
+            $(id).css("border","1px solid #ccc");
             jishuTishi  = setInterval("daojishi()", "1000");
 
             $.post("/user/getMa",{email:email,type:type},function (data) {
@@ -278,10 +279,8 @@
             $("#getcodeBtn").val('获取');
             $("#getcodeBtn").css("border","1px solid #fd7500");
             $("#getcodeBtn").css("color","#fd7500");
-        }else{
-            $("#getcodeBtn").css("border","1px solid #ccc");
-            $("#getcodeBtn").css("color","#ccc");
-            $("#getcodeBtn").val("获取("+jishi+")");
+        }else {
+            $("#getcodeBtn").val('获取('+jishi+')');
         }
     }
     function checkMa(id) {
@@ -332,7 +331,7 @@
         var identity = $("#identity").val();
         var cardId = $("#cid").val();
         var bankName = $("#bankName").val();
-        var arge = $("#arge").val();
+        //var arge = $("#arge").val();
 
         if (identity == null || identity == "") {
             couldsub = false;
@@ -366,9 +365,15 @@
                 cardId: cardId,
                 bankName: bankName
             }, function (data) {
-                window.location.href = '/user/toAS';
+                if(data.msg === 'cg'){
+                    location.reload();
+                }else {
+                    alert("发生未知错误 请刷新重试");
+                }
+
             }, "json");
         }
+        console.log("结束");
     }
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.vault.demo.service.integral;
 
+import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Integral;
 import com.vault.demo.bean.MyIntegral;
@@ -27,4 +28,7 @@ public interface integralService {
 
     int conversionAdd(MyIntegral myIntegral);
     int integralInventory(int inventory,int id); //修改库存
+
+    //理财红包兑换加入卡卷
+    void bountyAdd(Bounty bounty);
 }

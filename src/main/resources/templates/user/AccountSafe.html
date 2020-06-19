@@ -46,6 +46,7 @@
         <!-- 面包屑冬导航 -->
         <div class="path">
             您现在的位置：<span><a href="/user/toAO">我的账户</a> > 账户安全</span>
+
         </div>
         <div class="center user-box">
             <!-- 我的账户菜单 -->
@@ -55,8 +56,7 @@
                 <div class="account-info">
                     <div class="member-info">
                         <div>
-                            <span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>
-                            <span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>
+                            <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
                             <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
                         </div>
                         <div class="security-level">账户安全：<span id="security-level">*</span></div>
@@ -91,7 +91,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
+                        <a href="/user/viewApply">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -206,12 +206,12 @@
                     <!-- 账户安全设置列表 -->
                     <div class="account_list">
                         <!-- 实名认证 -->
-                        <div myid='realName' class="column">
+                        <div myid='realName' class="column" th:if="null eq ${credit}">
 
-                            <div class="column_name not_seted" th:if="null eq ${session.credit}">
+                            <div class="column_name not_seted">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${session.credit}">
+                            <div class="column_msg">
                                 <span class="setting">
                                     <a myTarget="smdj_rz" href="/user/toApply">请设置</a>
                                 </span>
@@ -219,11 +219,14 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.credit}">
+                        </div>
+                        <div myid='realName' class="column" th:if="null ne ${credit}">
+
+                            <div class="column_name seted">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null ne ${session.credit}">
-                                <span class="setting" th:if="${session.credit.identity} ne null">
+                            <div class="column_msg">
+                                <span class="setting" th:if="${credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
@@ -342,6 +345,8 @@
                         <!-- 银行卡认证 -->
                         <div class="column">
                             <div class="column_name not_seted" th:if="null eq ${session.userBank}">
+                        <div class="column" th:if="null eq ${userBank}">
+                            <div class="column_name not_seted">
                                 银行卡认证
                             </div>
                             <div class="column_name seted" th:if="null ne ${session.userBank}">
