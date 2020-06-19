@@ -79,6 +79,7 @@ public class UserControllerForCredit {
 
         car.setPhoto("/photoCar/"+fileName);
         car.setuId(((Userimf)session.getAttribute("user")).getuId());
+        car.setMoney((float) (car.getMoney() * 0.0001));
         car.setStatus(4);//审核中
 
         loanService.insertCar(car);
@@ -122,6 +123,7 @@ public class UserControllerForCredit {
 
         house.setPhoto("/photoHouse/"+fileName);
         house.setuId(((Userimf)session.getAttribute("user")).getuId());
+        house.setMoney((float) (house.getMoney() * 0.0001));
         house.setStatus(4);//审核中
 
         loanService.insertHouse(house);
