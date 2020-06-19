@@ -91,7 +91,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
+                        <a href="/user/viewApply">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -206,7 +206,7 @@
                     <!-- 账户安全设置列表 -->
                     <div class="account_list">
                         <!-- 实名认证 -->
-                        <div myid='realName' class="column" th:if="null eq ${session.credit}">
+                        <div myid='realName' class="column" th:if="null eq ${credit}">
 
                             <div class="column_name not_seted">
                                 实名认证
@@ -220,13 +220,13 @@
                                 <span class="info_con"></span>
                             </div>
                         </div>
-                        <div myid='realName' class="column" th:if="null ne ${session.credit}">
+                        <div myid='realName' class="column" th:if="null ne ${credit}">
 
                             <div class="column_name seted">
                                 实名认证
                             </div>
                             <div class="column_msg">
-                                <span class="setting" th:if="${session.credit.identity} ne null">
+                                <span class="setting" th:if="${credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
@@ -430,7 +430,7 @@
                             </form>
                         </div>
                         <!-- 银行卡认证 -->
-                        <div class="column" th:if="null eq ${session.userBank}">
+                        <div class="column" th:if="null eq ${userBank}">
                             <div class="column_name not_seted">
                                 银行卡认证
                             </div>
@@ -448,7 +448,7 @@
                                 </table>
                             </form>
                         </div>
-                        <div class="column" th:if="null ne ${session.userBank}">
+                        <div class="column" th:if="null ne ${userBank}">
                             <div class="column_name seted">
                                 银行卡认证
                             </div>

@@ -4,14 +4,15 @@ import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.user.UserService;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -20,26 +21,44 @@ public class UserController2 {
     private UserService service;
 
     @RequestMapping("/toAO")
-    public String toAO(){
-        return "user/AccountOverview";
+    public String toAO(HttpSession session,Model model){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        if(userimf != null){
+            Map map = service.daiShou(userimf.getuId());
+            userimf.setEmail(null);
+            Userimf user = service.logPadUser(userimf);
+            UserBank userBank = service.getBC(user.getuId());
+
+            session.setAttribute("user",user);
+            model.addAttribute("map",map);
+            model.addAttribute("bank",userBank);
+
+            return "user/AccountOverview";
+        }else {
+            return "loan/login";
+        }
     }
 
     @RequestMapping("/toAS")
-    public String toAS(HttpSession session){
+    public String toAS(HttpSession session,Model model){
         Userimf user = (Userimf) session.getAttribute("user");
-        try {
-            Credit credit = service.getCredit(user.getuId());
-            UserBank userBank = service.getBC(user.getuId());
-
-            session.setAttribute("credit",credit);
-            session.setAttribute("userBank",userBank);
-        }catch (Exception e){
-            session.setAttribute("credit",null);
-            session.setAttribute("userBank",null);
+        if(user != null){
+            try {
+                Credit credit = service.getCredit(user.getuId());
+                UserBank userBank = service.getBC(user.getuId());
+                System.out.println("---------"+credit.toString());
+                model.addAttribute("credit",credit);
+                model.addAttribute("userBank",userBank);
+            }catch (Exception e){
+                model.addAttribute("credit",null);
+                model.addAttribute("userBank",null);
+            }
+//            System.out.println(user);
+//            System.out.println(session.getAttribute("credit"));
+            return "user/AccountSafe";
+        }else {
+            return "loan/login";
         }
-        System.out.println(user);
-        System.out.println(session.getAttribute("credit"));
-        return "user/AccountSafe";
     }
     @RequestMapping("/toApply")
     public String toApply(HttpSession session){
@@ -48,12 +67,22 @@ public class UserController2 {
     }
 
     @RequestMapping("/viewApply")
-    public String viewApply(HttpSession session){
-        session.setAttribute("applyType","view");
+    public String viewApply(HttpSession session, Model model){
         Userimf user = (Userimf) session.getAttribute("user");
-        Credit credit = (Credit) session.getAttribute("credit");
-        UserBank userBank = (UserBank) session.getAttribute("userBank");
-        return "user/apply";
+        if(user != null){
+            Credit credit = service.getCredit(user.getuId());
+            UserBank userBank = service.getBC(user.getuId());
+            if(credit == null && userBank == null){
+                model.addAttribute("applyType","apply");
+            }else {
+                model.addAttribute("applyType","view");
+            }
+            model.addAttribute("credit",credit);
+            model.addAttribute("userBank",userBank);
+            return "user/apply";
+        }else {
+            return "loan/login";
+        }
     }
 
     @RequestMapping("/checkold")
@@ -67,7 +96,7 @@ public class UserController2 {
     }
     @RequestMapping("/smrz")
     @ResponseBody
-    public String smrz(String uName, UserBank userBank, Credit credit, HttpSession session){
+    public Map smrz(String uName, UserBank userBank, Credit credit, HttpSession session){
         Userimf user = (Userimf) session.getAttribute("user");
         user.setuName(uName);
         userBank.setuId(user.getuId());
@@ -80,7 +109,11 @@ public class UserController2 {
         service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);
-        return "";
+
+        Map map = new HashMap();
+        map.put("msg","cg");
+
+        return map;
     }
     @RequestMapping("/zfmm")
     @ResponseBody
@@ -90,5 +123,25 @@ public class UserController2 {
         System.out.println(userimf);
 //        service.upUser(userimf);
         return "";
+    }
+    @RequestMapping("/czTx")
+    @ResponseBody
+    public Map ChongZhi(String type,String money,String pwd,HttpSession session){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        String uPwd = userimf.getDealPsw();
+        Map map = new HashMap();
+        if(uPwd.equals(pwd)){
+            int pd = service.userChongTi(type,money,userimf);
+            if(pd == 1){
+                map.put("msg","cg");
+            }else if(pd == 2){
+                map.put("msg","余额不足");
+            }else {
+                map.put("msg","操作失败 请重试");
+            }
+        }else {
+            map.put("msg","mmcw");
+        }
+        return map;
     }
 }

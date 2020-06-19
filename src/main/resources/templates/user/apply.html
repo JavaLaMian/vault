@@ -33,7 +33,7 @@
 <body>
 <input type="hidden" id="em" th:value="${session.user.email}"/>
 <input type="hidden" id="emcode" />
-<input th:value="${session.applyType}" type="hidden" id="checked"/>
+<input th:value="${applyType}" type="hidden" id="checked"/>
 
 <div class="affiche" id="afficheModel">
 
@@ -69,7 +69,7 @@
             <!--end 我的账户左边菜单列表-->
             <input type="hidden" value="bankCard" id="userNavList">
             <!-- 左侧当前选中菜单 -->
-            <div class="account-cont" id="contanier" th:if="${session.applyType} eq apply" >
+            <div class="account-cont" id="contanier" th:if="${applyType} eq apply" >
                 <div class="at-til">
                     <span class="name">绑定网贷银行卡</span>
                 </div>
@@ -134,7 +134,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="account-cont" id="contanier" th:if="${session.applyType} eq view">
+            <div class="account-cont" id="contanier" th:if="${applyType} eq view">
                 <div class="at-til">
                     <span class="name">绑定网贷银行卡</span>
                 </div>
@@ -146,15 +146,15 @@
                     </div>
                     <div>
                         <label>身份证号码：</label>
-                        <input type="text" class="bindcard-input" th:value="${session.credit.identity}" disabled>
+                        <input type="text" class="bindcard-input" th:value="${credit.identity}" disabled>
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" th:value="${session.userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
+                        <input type="text" class="bindcard-input" th:value="${userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
                     </div>
                     <div>
                         <label>开户银行：</label>
-                        <input  class="bindcard-input" th:value="${session.userBank.bankName}" disabled/>
+                        <input  class="bindcard-input" th:value="${userBank.bankName}" disabled/>
                     </div>
                 </div>
                 <dl class="bindcard-tips"> <dt>温馨提示</dt>
@@ -239,22 +239,6 @@
 </div>
 
 <!--end 尾部-->
-
-<!--引入统计代码-->
-
-<div style="display:none">
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-104712537-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-</div>
-
 <script type="text/javascript">
     var couldsub = false;
     var jishi = 59;
@@ -265,6 +249,8 @@
         if($(id).val() === "获取"){
             $(id).val('获取(59)');
             $(id).css("background-color","white");
+            $(id).css("color","#ccc");
+            $(id).css("border","1px solid #ccc");
             jishuTishi  = setInterval("daojishi()", "1000");
 
             $.post("/user/getMa",{email:email,type:type},function (data) {
@@ -273,7 +259,6 @@
                     $("#emcode").replaceWith("<span class=\"bindcard-tip errTip\">发送验证码失败</span>");
                 }else {
                     yhMa = data;
-                    alert(yhMa)
                     $("#emcode").attr("value",yhMa);
                 }
             },"json");
@@ -290,10 +275,8 @@
             $("#getcodeBtn").val('获取');
             $("#getcodeBtn").css("border","1px solid #fd7500");
             $("#getcodeBtn").css("color","#fd7500");
-        }else{
-            $("#getcodeBtn").css("border","1px solid #ccc");
-            $("#getcodeBtn").css("color","#ccc");
-            $("#getcodeBtn").val("获取("+jishi+")");
+        }else {
+            $("#getcodeBtn").val('获取('+jishi+')');
         }
     }
     function checkMa(id) {
@@ -341,7 +324,7 @@
         var identity = $("#identity").val();
         var cardId = $("#cid").val();
         var bankName = $("#bankName").val();
-        var arge = $("#arge").val();
+        //var arge = $("#arge").val();
 
         if (identity == null || identity == "") {
             couldsub = false;
@@ -362,8 +345,8 @@
         }else if (bankName == null || bankName == "") {
             couldsub = false;
             $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
-        }else if ($("#checkbox-id").get(0).checked) {
-            couldsub = true
+        }else if ($("#arge").get(0).checked) {
+            couldsub = true;
         }
         if (couldsub == true) {
             $.post("/user/smrz", {
@@ -372,9 +355,15 @@
                 cardId: cardId,
                 bankName: bankName
             }, function (data) {
-                $(window).attr("location","/user/toAS")
+                if(data.msg === 'cg'){
+                    location.reload();
+                }else {
+                    alert("发生未知错误 请刷新重试");
+                }
+
             }, "json");
         }
+        console.log("结束");
     }
 </script>
 </body>
