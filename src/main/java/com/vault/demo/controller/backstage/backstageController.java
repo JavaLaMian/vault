@@ -167,7 +167,7 @@ public class backstageController {
         mv.setViewName("backstage/CreditList");
         return mv;
     }
-    //去用户审核页面
+    //根据id去用户审核页面
     @RequestMapping("/updateCredit")
     public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
         List<Map> list = is.selectgetCredit(credit);
@@ -185,6 +185,15 @@ public class backstageController {
         credit.setType(ok);
         is.updateCredit(credit);
         mv.setViewName("backstage/Creditupdate");
+        return mv;
+    }
+    //去往积分订单查询页面
+    @RequestMapping("userintegral")
+    public ModelAndView userintegral(ModelAndView mv,Model model){
+        List<Map> list = is.integralList();
+        System.out.println(list);
+        model.addAttribute("list",list);
+        mv.setViewName("backstage/integralList");
         return mv;
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期

@@ -17,4 +17,5 @@ public interface selevicexmn {
     List<Credit> CreditList();//查询贷款用户提交的信用信息
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
+    List<Map> integralList();//查询出积分兑换信息
 }

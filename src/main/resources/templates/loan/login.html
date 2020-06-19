@@ -364,7 +364,7 @@
     var dlMa = 0;
     function getMa(type,id){
         if((getMapad !== 0 && type === "zc")||(getMaDl !== 0 && type === "dl")){
-            if($(id).val() === "获取"){
+            if($(id).val() === "获取" ||$(id).val() === "取得"){
                 $(id).val('获取(59)');
                 $(id).css("background-color","white");
                 jishuTishi  = setInterval("daojishi()", "1000");

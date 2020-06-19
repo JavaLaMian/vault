@@ -6,6 +6,7 @@ import com.vault.demo.bean.Userimf;
 import org.apache.commons.mail.EmailException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     int addUserImf(Userimf user);
@@ -19,4 +20,8 @@ public interface UserService {
     void bindBank(UserBank userBank);
     UserBank getBC(int uId);
     Credit getCredit(int uId);
+    Map daiShou(int uid);//查询用户代收本金
+
+
+    int userChongTi(String type,String money,Userimf userimf);
 }
