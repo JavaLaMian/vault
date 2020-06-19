@@ -52,8 +52,6 @@ public class UserController2 {
                 model.addAttribute("credit",null);
                 model.addAttribute("userBank",null);
             }
-//            System.out.println(user);
-//            System.out.println(session.getAttribute("credit"));
             return "user/AccountSafe";
         }else {
             return "loan/login";
