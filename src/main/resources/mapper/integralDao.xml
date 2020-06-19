@@ -29,7 +29,7 @@
     </select>
 
     <select id="selectMyIntegral" resultType="java.util.Map">
-         select * from myIntegral m ,integral i  where m.iId = i.Id and m.uId = #{id}
+        select  * from myIntegral m LEFT JOIN integral i ON  m.iId = i.Id where m.uId = #{id}
     </select>
     <select id="selectMyIntegral2" resultType="com.vault.demo.bean.MyIntegral">
           select *  from myIntegral where uId = #{id}   ORDER BY Id desc limit 1
@@ -45,4 +45,12 @@
     <insert id="bountyAdd" >
         insert into bounty values (null,#{uId},#{boType},#{boMoney},#{boTime})
     </insert>
+
+    <insert id="signAdd" >
+        insert into sign values (null,#{uId},#{running},#{signIntegral},#{signTime})
+    </insert>
+
+    <select id="selectSignTime" resultType="com.vault.demo.bean.Sign">
+          select *  from sign where uId = #{id}   ORDER BY Id desc limit 1
+    </select>
 </mapper>
