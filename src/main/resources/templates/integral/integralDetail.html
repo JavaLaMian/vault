@@ -28,7 +28,8 @@
             <div class="ac_menu" id="ulLoginStatus">
                     <span class="user" style="margin: 0; color: #999;">
                        <a th:if="${session.user.account}==null" href="/user/tologin">登录</a>　
-                     <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
+                        <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
+                         <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
                     </span>
                 <span>│</span>
                 <a th:href="@{/integral/myIntegral(uid = ${session.user.uId})}">我的积分：<span th:text="${session.total}" style="color: #ffb938">25000</span></a>

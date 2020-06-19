@@ -37,4 +37,14 @@
           select sum(withMoney) as wmon from withdraw where uId = #{uId}
         ]]>
     </select>
+    <select id="getRechargeById" resultType="com.vault.demo.bean.Recharge" parameterType="int">
+        <![CDATA[
+          select * from recharge where uId = #{uId}
+        ]]>
+    </select>
+    <select id="getWithdrawById" resultType="com.vault.demo.bean.Withdraw" parameterType="int">
+        <![CDATA[
+          select * from withdraw where uId = #{uId}
+        ]]>
+    </select>
 </mapper>

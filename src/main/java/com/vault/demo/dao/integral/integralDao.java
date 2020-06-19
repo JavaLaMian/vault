@@ -1,10 +1,7 @@
 package com.vault.demo.dao.integral;
 
 
-import com.vault.demo.bean.Bounty;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Integral;
-import com.vault.demo.bean.MyIntegral;
+import com.vault.demo.bean.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,4 +27,8 @@ public interface integralDao {
     int integralInventory(int inventory,int id); //修改库存
 
     void bountyAdd(Bounty bounty);
+    int signAdd(Sign sign);
+
+    //查出上次签到时间
+    Sign selectSignTime(int id);
 }

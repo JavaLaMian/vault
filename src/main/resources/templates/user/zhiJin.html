@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>绑定网贷银行卡—小牛在线</title>
+
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="shortcut icon" href="http://image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="http://image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
+    <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
+
+
+    <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
+    <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/css/apply-73c8a78781.css"/>
+    <style>
+        .lie{
+            float: left;
+            width: 100%;
+            list-style-type:none;
+            margin: 5px 0;
+            border-bottom: 1px dashed #ccc;
+            transition: 0.5s;
+        }
+        .lie:hover{
+            border-bottom: 1px solid #ccc;
+            box-shadow: 5px 5px 15px #ccc;
+        }
+        .lie p{
+            width: 22%;
+            margin: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            float: left;
+            text-align: center;
+        }
+        .titles{
+            float: left;
+            width: 100%;
+            list-style-type:none;
+            margin: 5px 0;
+            border-bottom: 1px solid #000;
+        }
+        .titles p{
+            width: 22%;
+            margin: 0;
+            padding: 10px 0;
+            font-size: 18px;
+            float: left;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="/common::commonHeader"></header>
+<!--导航-->
+<div th:replace="/common::commonNav"></div>
+
+<div class="container">
+    <div class="g-account-main">
+        <!-- 面包屑冬导航 -->
+        <div class="path">
+            您现在的位置：<span><a href="/user/toAO">我的账户</a> > 资金记录</span>
+        </div>
+        <div class="center user-box">
+            <script src="//image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
+            <!--start 我的账户左边菜单列表-->
+            <div class="account-list">
+                <div class="account-info">
+                    <div class="member-info">
+                        <div>
+                            <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
+                            <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
+                        </div>
+                        <div class="security-level">账户安全：<span id="security-level">*</span></div>
+                    </div>
+                    <div class="badge-info">
+                        <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                    </div>
+                    <div class="point-info" id="riskLevel-info">
+                        风险评估：***
+                        <a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
+                    </div>
+                    <div class="point-info">
+                        我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
+                        <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+                    </div>
+                    <div id="sign-info" class="sign-info"></div>
+
+                </div>
+                <ul class="g-cf left-menu">
+                    <li data-type="index">
+                        <a class="h2" href="/user/toAO"><b>账户总览</b></a>
+                    </li>
+                    <li data-type="">
+                        <a href="#">我的网贷</a>
+                    </li>
+                    <li data-type="record" class="cur">
+                        <a href="/user/tozj">资金记录</a>
+                    </li>
+                    <li data-type="datum">
+                        <a href="/user/toAS">账户安全</a>
+                    </li>
+                    <li data-type="bankCard" class="last">
+                        <a href="/user/viewApply">银行卡管理</a>
+                    </li>
+                    <li data-type="credit" class="last">
+                        <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
+                    </li>
+                    <li data-type="news">
+                        <a href="#">我的消息<span id="msg-count"></span></a>
+                    </li>
+                    <li data-type="redEnvelope">
+                        <a href="#">我的优惠<span id="bonus-count"></span></a>
+                    </li>
+                    <li data-type="point">
+                        <a href="#">我的积分</a>
+                    </li>
+                    <li data-type="myactivity" class="last">
+                        <a href="#">我的活动</a>
+                    </li>
+                    <li class="planner last" data-type="planner">
+                        <a href="#">邀请好友<span>赚收益</span></a>
+                    </li>
+                </ul>
+                <div class="qqun">
+                    <p class="q1 g-dn">客户交流群：
+                        <br/>521069624
+                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">
+                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群④" title="小牛在线客户交流群④" />
+                        </a>
+                    </p>
+                    <p class="q2">投标计划群：
+                        <br/>479230479
+                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">
+                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群②" title="小牛在线客户交流群②"/>
+                        </a>
+                    </p>
+                    <div class="g-cf">
+                        <span class="g-fl">微信客服号：<br/>niubaobao88888</span>
+                        <div class="weixin-icon" data-key="kfh01">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 左侧当前选中菜单 -->
+            <div id="bodys" class="account-cont">
+                <div class="g-tc" style="padding-top: 100px;">
+                    <img src="//image.xiaoniu88.com/static/WebXn/dist/images/loading-44bbc291bc.gif" alt="加载中..." />
+                </div>
+            </div>
+        </div>
+        <div class="g-h30"></div>
+    </div>
+</div>
+<!--end 内容-->
+<script src="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/js/apply-ea73681945.js"></script>
+<!--footer-->
+<div class="footer" th:fragment="commonFooter">
+    <div class="g-o" style="width:1170px">
+        <ul>
+            <li>
+                <a target="_blank" href="javascript:;" class="til">信息披露</a>
+                <a target="_blank" href="/portal/platform/index">平台数据</a>
+                <a target="_blank" href="/cms/compliance/complianceAudit">合规报告</a>
+                <a target="_blank" href="/portal/guide/security">风险管理</a>
+                <a target="_blank" href="/cms/about/index">公司概况</a>
+                <a target="_blank" href="/cms/about/contactus">联系我们</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">帮助中心</a>
+                <a target="_blank" href="/cms/help/question/1">常见问题</a>
+                <a target="_blank" href="/cms/help/question/15">项目介绍</a>
+                <a target="_blank" href="/cms/help/question/24">操作演示</a>
+                <a target="_blank" href="/cms/help/question/23/id/99">资费说明</a>
+            </li>
+            <li>
+                <a target="_blank" href="/cms/help/index" class="til">新手指南</a>
+                <a target="_blank" href="/cms/help/question/3">项目</a>
+                <a target="_blank" href="/portal/sitemap/index">网站地图</a>
+
+            </li>
+            <li class="last ft-wm">
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/wx-e41abfcd0c.png" alt="小牛在线互联网金融平台官方微信" />
+                    <span>官方微信</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/app-fc2993f46e.png" alt="专业P2P网贷平台-小牛在线APP" />
+                    <span>手机客户端</span>
+                </p>
+                <p>
+                    <img src="http://image.xiaoniu88.com/static/WebXn/dist/module/footer/img/community-43d3924ad4.jpg" alt="小牛在线兴趣部落" />
+                    <span>兴趣部落</span>
+                </p>
+            </li>
+            <li class="last">
+                <p class="til-ic">全国服务热线：</p>
+                <p class="bd">4006-0755-70</p>
+                <p>服务时间 9:00-18:00</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--start 尾部-->
+<div class="foot-bt" th:fragment="commonEnd">
+    <p>Copyright &copy; 2015 深圳市小母牛在线互联网信息咨询有限公司  版权所有    备案号：<a  target="_blank" rel="nofollow" href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP备14079927号</a>&nbsp;&nbsp;<a  target="_blank" rel="nofollow" href="//image.xiaoniu88.com/static/WebXn/dist/images/footer/icp-ee0231e7d0.jpg">ICP证粤B2-20160194</a></p>
+    <p>地址：广东省深圳市南山区高新园高新南一道富诚科技大厦顶楼   座机：2333－250941</p>
+    <p>市场有风险 出借需谨慎 最终收益以实际为准</p>
+    <span>
+        <a class="lk01" href="http://www.rating.org.cn/Home/Index/itrust_certifi/wm/1061427753.html" rel="nofollow" target="_blank" title="企业信用评级"></a>
+        <a class="lk08" href="http://www.rating.org.cn/Home/Index/satification_certificate/wm/MY2017120701.html" rel="nofollow" target="_blank"
+           title="客户满意度评级"></a>
+        <a class="lk02" href="http://www.rating.org.cn/Home/Index/rz_certifi/wm/RZ2019061401.html" rel="nofollow" title="官方网站认证" target="_blank"></a>
+        <a class="lk04" href="http://szcert.ebs.org.cn/17b502b9-988c-43b1-b21e-d1008a6af37a" target="_blank" rel="nofollow" title="深圳工商主体认证信息"></a>
+        <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
+    </span>
+</div>
+
+<!--end 尾部-->
+<script type="text/javascript">
+    function getJilu() {
+        $.post("/user/zhijin", {}, function (data) {
+            var html = "";
+            if(data.size != 0){
+                html = "<ul style='overflow: hidden;padding:15px;'><li class='titles'><p>类型</p><p style='width: 34%;'>" +
+                    "时间</p><p>相关名称</p><p>所花金额</p></li>";
+                var lists = data.list;
+
+                for(var i = 0;i<lists.length;i++){  //循环LIST
+                    var veh = lists[i];
+                    var money = veh.reMoney;
+                    var name = veh.bankName;
+                    var type = typeName(veh.t);
+                    var dates = formatDateTime(veh.reTime);
+
+                    html += "<li class='lie'><p>"+type+"</p><p style='width: 34%;'>"
+                        +dates+"</p><p>"+name+"</p><p>"+money+"元</p></li>";
+                }
+                html += "</ul>";
+            }else {
+                html += "<h1 style='text-align: center;font-size: 24px'>您尚未产生资金记录，赶快去投个标吧</h1>"
+            }
+            $("#bodys .g-tc").remove();
+            $("#bodys").append(html);
+        }, "json");
+    }
+    getJilu();
+
+    function typeName(type) {
+        var name = '';
+        switch (type){
+            case -1:name='提现';break;
+            case -2:name='散标';break;
+            case -3:name='普通标';break;
+            case -4:name='新手标';break;
+            case 1:name='充值';break;
+            case 2:name='贷款';break;
+            default:name='---';
+        }
+        return name;
+    }
+
+    function formatDateTime(date) {
+        var time = new Date(date);
+        time.setTime(time.setHours(time.getHours()));
+        var Y = time.getFullYear() + '-';
+        var  M = addZero(time.getMonth() + 1) + '-';
+        var D =addZero(time.getDate() - 1) + ' ';
+        var h = addZero(time.getHours()) + ':';
+        var m = addZero(time.getMinutes()) + ':';
+        var  s = addZero(time.getSeconds());
+        return Y + M + D + h+ m+ s;
+    }
+
+    // 数字补0操作
+    function  addZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+</script>
+</body>
+</html>

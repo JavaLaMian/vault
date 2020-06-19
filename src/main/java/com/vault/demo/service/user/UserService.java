@@ -24,4 +24,5 @@ public interface UserService {
 
 
     int userChongTi(String type,String money,Userimf userimf);
+    List<Map> useZhiJinList(int uId);//用户资金记录
 }
