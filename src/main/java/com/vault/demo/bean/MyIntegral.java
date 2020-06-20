@@ -2,7 +2,7 @@ package com.vault.demo.bean;
 
 import java.util.Date;
 
-//我的积分
+//我的积分表
 public class MyIntegral {
     private int Id ;
     private int uId ;//关联用户表
