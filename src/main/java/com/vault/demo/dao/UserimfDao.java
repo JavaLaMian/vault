@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -18,4 +19,5 @@ public interface UserimfDao {
     Userimf selectOneByLogin(Userimf userimf);//根据 账号||邮箱 和密码查用户
     Userimf selectByUserimf(Userimf userimf); //查询是否存在这个用户
     int updateUserPwd(@Param("loginPsw") String loginPsw, @Param("email") String email);
+    List<Map> selectUserZhijin(@Param("uId") int uId);
 }

@@ -127,13 +127,9 @@
         }
         function option(value, row, index) {
             var htm = "";
-            htm +='<a class="btn btn-success m-r-5" onclick="tooExamine(value)"><i class="mdi mdi-comment-text"></i> 审核</a>'
+            htm +='<button class="btn btn-success m-r-5" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
             return htm;
         }
-        function tooExamine(uid) {
-            window.location.href='/back_loan/tooExamine?uId='+uid;
-        }
-        
         function szloanType(value, row, index) {
             if(value==1){
                 return '信用贷';
@@ -192,10 +188,11 @@
         function  addZero(num) {
             return num < 10 ? '0' + num : num;
         }
-        function seeDetails() {
 
-        }
     });
+    function tooexamine(uid) {
+        window.location.href="/back_loan/tooExamine?uId="+uid;
+    }
 </script>
 </body>
 </html>

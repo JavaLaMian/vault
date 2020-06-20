@@ -16,7 +16,6 @@ public interface UserService {
     Userimf pandEmail(String email);
     Userimf logPadUser(Userimf userimf);
     int updetaPwd(String email,String pwd);
-
     void bindCredit(Credit credit);
     void bindBank(UserBank userBank);
     UserBank getBC(int uId);
@@ -28,4 +27,5 @@ public interface UserService {
 
 
     int userChongTi(String type,String money,Userimf userimf);
+    List<Map> useZhiJinList(int uId);//用户资金记录
 }

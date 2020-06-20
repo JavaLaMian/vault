@@ -7,15 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.thymeleaf.expression.Lists;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/integral")
@@ -24,26 +21,91 @@ public class integralController {
     private integralService  service;
     //积分商城主页面
     @RequestMapping("/main")
-    public String integralMain(HttpSession session){
+    public String integralMain(HttpSession session,int q,Sign sign,Model model,MyIntegral myintegral) throws ParseException {
         Userimf user = (Userimf) session.getAttribute("user");
         if(user == null){
             return "redirect:/user/tologin";
         }
+
+        Sign sign1  = service.selectSignTime(user.getuId());
         MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
-        session.setAttribute("total",myIntegral.getTotal());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        if(sign1 != null){
+            String time = sdf.format(sign1.getSignTime()); //上次签到时间
+            String now = sdf.format(new Date());
+            System.out.println("time:"+time+"现在时间："+now);
+            int i = sdf.parse(time).compareTo(sdf.parse(now));
+            System.out.println("i:"+i);
+            if( i == -1){ //当天没签到
+                model.addAttribute("sign",1);
+            }
+        }else{
+            model.addAttribute("sign",1);
+        }
+        int totalq = 0;
+        //一天之内只能签到一次
+        if(q == 1){
+            if(sign1 ==null){
+                System.out.println("sign为null");
+                sign.setRunning(1);
+                sign.setSignIntegral(1);
+            }
+            else{
+                System.out.println("sign不为null");
+                //获取断签的时间
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(sdf.parse(sdf.format(sign1.getSignTime())));
+                calendar.add(calendar.HOUR_OF_DAY,2);
+                Date time2 = calendar.getTime();
+                System.out.println("上次签到时间："+time2);
+                System.out.println("断签时间："+calendar.getTime());
+
+                int data = time2.compareTo(sign1.getSignTime());
+                System.out.println("date:"+data);
+                if(data == -1){//当前时间大于短签时间 就是 -1
+                    sign.setRunning(1);
+                    sign.setSignIntegral(1);
+                }else{
+                    sign.setRunning(sign1.getRunning()+1);
+                    sign1.setSignIntegral(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
+                }
+            }
+            sign.setuId(user.getuId());
+            sign.setSignTime(new Date());
+            int i2 = service.signAdd(sign);
+            //我的积分还没加
+            if(i2 ==1 ){
+                if(sign1 == null){
+                    myintegral.setChange(1);
+                    totalq = 1;
+                    myintegral.setTotal(myIntegral.getTotal()+1);
+                }else{
+                    myintegral.setChange(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
+                    totalq = myIntegral.getTotal()+(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
+                    myintegral.setTotal(myIntegral.getTotal()+totalq);
+                }
+                myintegral.setuId(user.getuId());
+                myintegral.setChangeType("签到");
+                myintegral.setConversionTime(new Date());
+                service.conversionAdd(myintegral);
+                model.addAttribute("sign",2);
+            }
+        }
+        session.setAttribute("total",myIntegral.getTotal()+totalq);
         session.setAttribute("user",user);
         return "integral/integralMain";
     }
 
     //我的积分
     @RequestMapping("/myIntegral")
-    public String  myIntegral(Integer uid,Model model){
-        if(uid == null){
+    public String  myIntegral(Integer uid,Model model,HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user == null){
             return "redirect:/user/tologin";
         }
 
         List<Map> integralList = service.selectMyIntegral(uid);
-
         model.addAttribute("integralList",integralList);
         return "integral/myIntegral";
     }
@@ -116,7 +178,6 @@ public class integralController {
     //物品兑换页
     @RequestMapping("/detail")
     public String detail(Integer id, Model model, HttpSession session){
-        System.out.println("id:"+id);
         Integral list  = service.selectById(id);
 
         Userimf user = (Userimf) session.getAttribute("user");
@@ -187,6 +248,7 @@ public class integralController {
         return "redirect:integral/list?spId=0&currPage=1&sort=0";
     }
 
+    //修改地址
     @RequestMapping("/conversion2")
     public String conversion2(String phe,String place,int hId,HttpSession session){
         System.out.println("place:"+place);

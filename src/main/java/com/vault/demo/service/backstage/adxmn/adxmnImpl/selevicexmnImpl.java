@@ -65,14 +65,8 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public void updategetbiBid(Bid bid) {
-        dao.updategetbiBid(bid);
+    public void updategetbiBid(int bidStatus, int id) {
+        dao.updategetbiBid(bidStatus,id);
     }
-
-    @Override
-    public void updategetbiBid1(Bid bid) {
-        dao.updategetbiBid1(bid);
-    }
-
 
 }

@@ -35,10 +35,10 @@ public class BackLoanController {
         Loan loan = bls.selLoanByUid(uId);
         Credit credit = bls.selCreditByUid(uId);
         m.addAttribute("credit",credit);
+        m.addAttribute("loan",loan);
         if(loan.getLoanType()==1){//信用贷
             Userimf user = bls.selUserByUid(uId);
             m.addAttribute("user",user);
-            m.addAttribute("loan",loan);
             return "backstage/credit_examine";
         }else{//抵押贷
             House house = bls.selHouseByHid(uId);

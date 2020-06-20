@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>信用贷审核</title>
+    <title>投标表</title>
     <link rel="icon" href="favicon.ico" type="image/ico">
+
+
     <meta name="author" content="yinqi">
     <!--引入相应的bootstrap.JS支持文件-->
     <div th:replace="/backstage/Brepetition::backstageJS"></div>
 </head>
-<body>
+
+<body data-logobg="color_8" data-sidebarbg="color_8">
 <div class="layout-web">
     <div class="layout-container">
         <!--引入头html代码-->
@@ -23,32 +26,97 @@
                             <div class="card-header"><h4>用户信息</h4></div>
                             <div class="card-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <label class="col-md-1 control-label">姓名:</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.name}"></span>
-                                        <span class="col-md-1 control-span"></span>
-                                        <label class="col-md-1 control-label">工作单位:</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.depart}"></span>
-                                        <span class="col-md-1 control-span"></span>
-                                        <label class="col-md-1 control-label">工资情况:</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.wages}"></span>
+                                    <li class="list-group-item" style="height:60px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">姓名:</label>
+                                            <span class="control-span" th:text="${credit.name}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">工作单位:</label>
+                                            <span class="control-span" th:text="${credit.depart}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">工资情况:</label>
+                                            <span class="control-span" th:text="${credit.wages}"></span>
+                                        </div>
                                     </li>
-                                    <li class="list-group-item">
-                                        <label class="col-md-1 control-label">身份证:</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.identity}"></span>
-                                        <span class="col-md-1 control-span"></span>
-                                        <label class="col-md-1 control-label">公积金</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.funds}"></span>
-                                        <span class="col-md-1 control-span"></span>
-                                        <label class="col-md-1 control-label">征信等级:</label>
-                                        <span class="col-md-2 control-span" th:text="${credit.creditLV}"></span>
+                                    <li class="list-group-item" style="height:60px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">身份证:</label>
+                                            <span class="control-span" th:text="${credit.identity}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">公积金(元):</label>
+                                            <span class="control-span" th:text="${credit.funds}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">信用评估等级:</label>
+                                            <span class="control-span" th:if="${user.creditLv eq 1}">无</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 2}">差</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 3}">良</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 4}">优</span>
+                                        </div>
                                     </li>
-                                    <li class="list-group-item">
-
+                                    <li class="list-group-item" style="height:60px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">家庭住址:</label>
+                                            <span class="control-span" th:text="${user.place}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">年龄:</label>
+                                            <span class="control-span" th:text="${user.age}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">性别:</label>
+                                            <span class="control-span" th:text="${user.sex}"></span>
+                                        </div>
                                     </li>
-                                    <li class="list-group-item">湖畔寄情 拐仙施妙手 冰河怪影 天女慑群豪</li>
-                                    <li class="list-group-item">流水落花 深仇伤寂寞 珠宫贝阙 往事诉辛酸</li>
+                                    <li class="list-group-item" style="height:60px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">联系电话:</label>
+                                            <span class="control-span" th:text="${user.phe}"></span>
+                                        </div>
+                                    </li>
                                 </ul>
+                                <form class="form-horizontal" th:action="@{/back_loan/}" method="post">
+                                    <input name="uId" th:value="${user.uId}" hidden/>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="maxLimit">最大借款金额(万)</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="number" id="maxLimit" name="maxLimit" placeholder="请输入最大借款金额">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="minLimit">最低借款金额（万）</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="number" id="minLimit" name="minLimit" placeholder="请输入最低借款金额">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="interest">贷款利息</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="number" id="interest" name="interest" placeholder="请输入贷款利息">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="lowLimit">最短借款期限（月）</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="number" id="lowLimit" name="lowLimit" placeholder="请输入最短借款期限">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="topLimit">最长借款期限（月）</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="number" id="topLimit" name="topLimit" placeholder="请输入最长借款期限">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-md-offset-3">
+                                            <button class="btn btn-label btn-primary"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>通过</button>
+                                            <button class="btn btn-label btn-danger"><label><i class="mdi mdi-close"></i></label>不通过</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -57,5 +125,6 @@
         </main>
     </div>
 </div>
+<div th:replace="/backstage/Brepetition::javascript"></div>
 </body>
 </html>

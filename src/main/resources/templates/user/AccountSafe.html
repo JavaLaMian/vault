@@ -22,11 +22,7 @@
         }
     </script>
     <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
-    <script>
-        $(function(){
-            seajs.use('module/common/common')
-        })
-    </script>
+
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/user/safety/css/style-ed9716a8f6.css" />
 </head>
 
@@ -85,7 +81,7 @@
                         <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="#">资金记录</a>
+                        <a href="/user/tozj">资金记录</a>
                     </li>
                     <li data-type="datum" id="safe">
                         <a href="/user/toAS">账户安全</a>
@@ -865,7 +861,7 @@
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
-    })
+    });
 
     var jishi = 59;
     var jishuTishi;
