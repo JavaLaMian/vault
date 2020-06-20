@@ -8,62 +8,43 @@ import java.util.Date;
 //
 @Table(name = "perBid")
 public class PerBid {
-    @Column(name = "lId",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
-    private int  perBid;
-
-    @Column(name = "borrowTime",type = MySqlTypeConstant.INT)
-    private int borrowTime;
-
-    @Column(name = "borrower",type = MySqlTypeConstant.INT)
-    private int borrower;
-
-    @Column(name = "perBidName",type = MySqlTypeConstant.VARCHAR,length = 100)
-    private String  perBidName;
-
-    @Column(name = "rate",type = MySqlTypeConstant.DOUBLE)
-    private float rate;
-
-    @Column(name = "addRate",type = MySqlTypeConstant.DOUBLE)
-    private float addRate;
-
-    @Column(name = "inRate",type = MySqlTypeConstant.DOUBLE)
-    private float inRate;
-
-    @Column(name = "combination",type = MySqlTypeConstant.DOUBLE)
-    private float  combination;
-
-    @Column(name = "transLine",type = MySqlTypeConstant.INT)
-    private int  transLine;
-
-    @Column(name = "clockLine",type = MySqlTypeConstant.INT)
-    private int clockLine;
-
-    @Column(name = "transfer",type = MySqlTypeConstant.INT)
-    private int  transfer;
-
-    @Column(name = "bidStatus",type = MySqlTypeConstant.INT)
-    private int bidStatus;
-
-    @Column(name = "startTime",type = MySqlTypeConstant.DATETIME)
-    private Date startTime;
+       private int  perBid;
+        private int bidStatus;
+       private int borrower;
+       private String  perBidName;
+       private  String  inRate ;//投资利率
+       private float rate;
+       private float addRate;
+       private float  combination;
+       private String  transLine;
+       private String clockLine;
+       private int  transfer;
+       private Date startTime;
+       private float enquiry;//可以投资余额
+       private float schedul;//进度
+       private Date expire;//到期时间
+       private int borrowTime;
 
 
     @Override
     public String toString() {
         return "PerBid{" +
                 "perBid=" + perBid +
-                ", borrowTime=" + borrowTime +
+                ", bidStatus=" + bidStatus +
                 ", borrower=" + borrower +
                 ", perBidName='" + perBidName + '\'' +
+                ", inRate='" + inRate + '\'' +
                 ", rate=" + rate +
                 ", addRate=" + addRate +
-                ", inRate=" + inRate +
                 ", combination=" + combination +
-                ", transLine=" + transLine +
-                ", clockLine=" + clockLine +
+                ", transLine='" + transLine + '\'' +
+                ", clockLine='" + clockLine + '\'' +
                 ", transfer=" + transfer +
-                ", bidStatus=" + bidStatus +
                 ", startTime=" + startTime +
+                ", enquiry=" + enquiry +
+                ", schedul=" + schedul +
+                ", expire=" + expire +
+                ", borrowTime=" + borrowTime +
                 '}';
     }
 
@@ -75,12 +56,12 @@ public class PerBid {
         this.perBid = perBid;
     }
 
-    public int getBorrowTime() {
-        return borrowTime;
+    public int getBidStatus() {
+        return bidStatus;
     }
 
-    public void setBorrowTime(int borrowTime) {
-        this.borrowTime = borrowTime;
+    public void setBidStatus(int bidStatus) {
+        this.bidStatus = bidStatus;
     }
 
     public int getBorrower() {
@@ -99,6 +80,14 @@ public class PerBid {
         this.perBidName = perBidName;
     }
 
+    public String getInRate() {
+        return inRate;
+    }
+
+    public void setInRate(String inRate) {
+        this.inRate = inRate;
+    }
+
     public float getRate() {
         return rate;
     }
@@ -115,14 +104,6 @@ public class PerBid {
         this.addRate = addRate;
     }
 
-    public float getInRate() {
-        return inRate;
-    }
-
-    public void setInRate(float inRate) {
-        this.inRate = inRate;
-    }
-
     public float getCombination() {
         return combination;
     }
@@ -131,21 +112,23 @@ public class PerBid {
         this.combination = combination;
     }
 
-    public int getTransLine() {
+    public String getTransLine() {
         return transLine;
     }
 
-    public void setTransLine(int transLine) {
+    public void setTransLine(String transLine) {
         this.transLine = transLine;
     }
 
-    public int getClockLine() {
+    public String getClockLine() {
         return clockLine;
     }
 
-    public void setClockLine(int clockLine) {
+    public void setClockLine(String clockLine) {
         this.clockLine = clockLine;
     }
+
+
 
     public int getTransfer() {
         return transfer;
@@ -155,19 +138,43 @@ public class PerBid {
         this.transfer = transfer;
     }
 
-    public int getBidStatus() {
-        return bidStatus;
-    }
-
-    public void setBidStatus(int bidStatus) {
-        this.bidStatus = bidStatus;
-    }
-
     public Date getStartTime() {
         return startTime;
     }
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public float getEnquiry() {
+        return enquiry;
+    }
+
+    public void setEnquiry(float enquiry) {
+        this.enquiry = enquiry;
+    }
+
+    public float getSchedul() {
+        return schedul;
+    }
+
+    public void setSchedul(float schedul) {
+        this.schedul = schedul;
+    }
+
+    public Date getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Date expire) {
+        this.expire = expire;
+    }
+
+    public int getBorrowTime() {
+        return borrowTime;
+    }
+
+    public void setBorrowTime(int borrowTime) {
+        this.borrowTime = borrowTime;
     }
 }
