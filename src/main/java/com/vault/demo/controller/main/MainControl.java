@@ -33,12 +33,12 @@ public class MainControl{
     BidSer bidSer;
     @RequestMapping("/first")
     public String toMain(HttpServletRequest request){
-        List<Bid> nList =  bidSer.allList();
-        List ncList = nList.subList(0,3);
-        List<PerBid> perList = bidSer.selectPerB();
-        System.out.println("=================="+perList.size());
-        request.setAttribute("ncList",ncList);
-        request.setAttribute("perList",perList);
+        List<Bid> nList = bidSer.allList();
+        List ncList = nList.subList(0, 3);
+        List<PerBid> perList = bidSer.selectPerB(0);
+        System.out.println("==================" + perList.size());
+        request.setAttribute("ncList", ncList);
+        request.setAttribute("perList", perList);
         return "firstPage/first";
     }
 

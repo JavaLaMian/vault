@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class BidSerImpl implements BidSer {
+public class BidSerImpl implements BidSer{
 
     @Resource
     BidDao bidDao;
@@ -46,8 +47,23 @@ public class BidSerImpl implements BidSer {
     }
 
     @Override
-    public List<PerBid> selectPerB() {
-        return bidDao.selectPerB(0);
+    public List<PerBid> selectPerB(int perBid) {
+        return bidDao.selectPerB(perBid);
+    }
+
+    @Override
+    public List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry) {
+        return bidDao.pagePerB(startT,tSize,inRate,enquiry);
+    }
+
+    @Override
+    public int countPerList() {
+        return bidDao.countPerList();
+    }
+
+    @Override
+    public int countPerPage(float inRate, float enquiry) {
+        return bidDao.countPerPage( inRate,  enquiry);
     }
 
     @Override
@@ -65,6 +81,21 @@ public class BidSerImpl implements BidSer {
     @Override
     public List<Tender> getTenderId(int tid,int id,int t) {
         return bidDao.selectTouId(tid,id,t);
+    }
+
+    @Override
+    public List<Map> selectTandU(int bid, int bType) {
+        return bidDao.selectTandU(bid,bType);
+    }
+
+    @Override
+    public List selectUser(int uId) {
+        return bidDao.selectUser(uId);
+    }
+
+    @Override
+    public int countTenByBid(int bid, int bType) {
+        return bidDao.countTenByBid(bid,bType);
     }
 
     @Override
@@ -134,5 +165,10 @@ public class BidSerImpl implements BidSer {
             map.put("ketou",0);
         }
         return map;
+    }
+
+    @Override
+    public Date lastTenTime(int bid) {
+        return null;
     }
 }
