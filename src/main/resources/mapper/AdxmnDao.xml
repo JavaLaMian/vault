@@ -38,10 +38,26 @@
           select * from credit
         ]]>
     </select>
-    <select id="selectgetCredit">
+    <select id="selectgetCredit" resultType="map">
          <![CDATA[
-         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo from credit c
-left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creid}
+         SELECT c.creid,c.uId,c.depart,c.name,c.wages,c.identity,c.positiveIDPhoto,c.negativeIDPhoto,c.creditLV,creditUpdateTime,c.type,h.photo,r.photo as hh,c.funds from credit c
+left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.creid = #{creId}
         ]]>
     </select>
+    <update id="updateCredit">
+        <![CDATA[
+            update credit set creditLV=#{creditLV},type=#{type},creditUpdateTime=#{creditUpdateTime} where creid =#{creId}
+         ]]>
+    </update>
+    <select id="integralList" resultType="map">
+         <![CDATA[
+          select m.id,m.change,m.change,m.total,m.conversionTime,m.changeType,u.uName,i.integralName from myIntegral m LEFT JOIN userimf u on m.uId = u.uId LEFT JOIN integral i on m.iId = i.Id
+        ]]>
+    </select>
+    <update id="updategetbiBid">
+        <![CDATA[
+            update bid set bidStatus = #{bidStatus} where bId=#{id}
+         ]]>
+    </update>
+
 </mapper>

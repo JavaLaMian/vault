@@ -29,6 +29,75 @@
     })
 </script>
 	<link th:href="@{/css/style-1ed5f9e4a1.css}" rel="stylesheet">
+	<style>
+		.zfp{
+			text-align: center;
+			font-size: 18px;
+		}
+		.zfk{
+			width: 100px;
+			line-height: 30px;
+			padding: 0 10px;
+			margin: 10px;
+			font-size: 18px
+		}
+		.zfbut{
+			width: 120px;
+			line-height: 36px;
+			text-align: center;
+			font-size: 14px;
+			border: 1px solid #ff7136;
+			border-radius: 5px;
+		}
+		#chongZhiK{
+			width: 80%;
+			margin: 0;
+			background-color: #ccc5;
+			border-radius: 5px;
+			height: 0;
+			transition: 0.5s;
+		}
+	</style>
+	<style>
+		.circle {
+			stroke-dasharray: 298.5;
+			stroke-dashoffset: 298.5;
+		}
+
+		input[type="checkbox"]:checked+svg .circle {
+			animation: quan 0.9s ease-in-out;
+			animation-fill-mode: forwards;
+		}
+
+		.tick {
+			stroke-dasharray: 87.5;
+			stroke-dashoffset: 87.5;
+		}
+
+		input[type="checkbox"]:checked+svg .tick {
+			animation: gou 0.8s ease-out;
+			animation-fill-mode: forwards;
+			animation-delay: 0.75s;
+		}
+
+		@keyframes quan {
+			from {
+				stroke-dashoffset: 298.5;
+			}
+			to {
+				stroke-dashoffset: 597;
+			}
+		}
+
+		@keyframes gou {
+			from {
+				stroke-dashoffset: 87.5;
+			}
+			to {
+				stroke-dashoffset: 0;
+			}
+		}
+	</style>
 </head>
 <body>
 <input value="true" type="hidden" id="isLogin"/>
@@ -43,311 +112,218 @@
 	<!-- 当前选中菜单 -->
 	<div class="mail">
 		<div class="g-account-main">
-			
-<div class="path">
-	您现在的位置：<span>我的账户 > 账户总览</span>
-</div>
-<div class="center user-box">
-    <!--start 我的账户左边菜单列表-->
-    <div class="account-list" th:fragment="inflist">
-        <div class="account-info">
-            <div class="member-info">
-                <div><span class="name" id="username" th:text="${session.user.uName}">**</span>
-					<span class="member-level pop-tip member-level-2" id="member-level"
-						  title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级
-					</span>
-				</div>
-                <div class="security-level">账户安全：<span id="security-level">低<a href="/user/toAS">{提升}</a></span></div>
-            </div>
-			<div class="badge-info">
-				<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-				<i class="badge-icon badge-realname middle pop-tip" id="badge-realname" style="padding:0px 41px"></i>
-				<i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+			<div class="path">
+				您现在的位置：<span>我的账户 > 账户总览</span>
 			</div>
-            <div class="point-info" id="riskLevel-info">
-                风险评估：***
-                <a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
-            </div>
-            <div class="point-info">
-                我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-                <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
-            </div>
-            <div id="sign-info" class="sign-info"></div>
-
-        </div>
-			<ul class="g-cf left-menu">
-				<li data-type="index" class="cur" id="ov">
-					<a class="h2" href="/user/toAO"><b>账户总览</b></a>
-				</li>
-				<li data-type="invest">
-					<a href="#">我的网贷</a>
-				</li>
-				<li data-type="record">
-					<a href="#">资金记录</a>
-				</li>
-				<li data-type="datum">
-					<a href="/user/toAS">账户安全</a>
-				</li>
-				<li data-type="bankCard" class="last">
-					<a href="#">银行卡管理</a>
-				</li>
-				<li data-type="news">
-					<a href="#">我的消息<span id="msg-count"></span></a>
-				</li>
-				<li data-type="redEnvelope">
-					<a href="#">我的优惠<span id="bonus-count"></span></a>
-				</li>
-				<li data-type="point">
-					<a href="#">我的积分</a>
-				</li>
-				<li data-type="myactivity" class="last">
-					<a href="#">我的活动</a>
-				</li>
-				<li class="planner last" data-type="planner">
-					<a href="#">邀请好友<span>赚收益</span></a>
-				</li>
-			</ul>
-        <div class="qqun">
-            <p class="q1 g-dn">客户交流群：
-                <br/>521069624
-                <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">
-                    <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小母牛在线客户交流群④" title="小母牛在线客户交流群④" />
-                </a>
-            </p>
-            <p class="q2">投标计划群：
-                <br/>479230479
-                <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">
-                    <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小母牛在线客户交流群②" title="小母牛在线客户交流群②"/>
-                </a>
-            </p>
-            <div class="g-cf">
-                <span class="g-fl">微信客服号：<br/>niubaobao88888</span>
-                <div class="weixin-icon" data-key="kfh01">
-                    <i></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<!--<div class="ZebraDialog dialog-estimate" style="position: fixed; left: 274.5px; top: -203px; visibility: visible; width: 800px; opacity: 1;">-->
-		<!--<h3 class="ZebraDialog_Title">风险承受能力评估<a href="javascript:void(0)" class="ZebraDialog_Close" style="right: 20px; top: 9.5px;">×</a></h3><div class="ZebraDialog_BodyOuter ZebraDialog_NoButtons">-->
-		<!--<div class="ZebraDialog_Body">-->
-			<!--<div><div class="wenjuanCon">-->
-				<!--<div class="_qList" style="display: block;">-->
-					<!--<div class="subject">您的主要收入来源是？</div>-->
-					<!--<div class="_qOptions">-->
-						<!--<div class="opt-list">-->
-						<!--<input name="N_1" value="2" type="radio"><span>无固定收入</span></div><div class="opt-list">-->
-						<!--<input name="N_1" value="4" type="radio"><span>工资、劳务报酬</span></div><div class="opt-list">-->
-						<!--<input name="N_1" value="6" type="radio"><span>生产经营所得</span></div><div class="opt-list">-->
-						<!--<input name="N_1" value="8" type="radio"><span>出租、出售房地产等非金融性资产收入</span></div>-->
-						<!--<div class="opt-list"><input name="N_1" value="10" type="radio"><span>利息、股息、转让等金融性资产收入</span></div></div></div><div class="_qList">-->
-				<!--<div class="subject">您的可投资金额？</div>-->
-				<!--<div class="_qOptions">-->
-					<!--<div class="opt-list">-->
-					<!--<input name="N_2" value="2" type="radio"><span>1万以下</span></div><div class="opt-list">-->
-					<!--<input name="N_2" value="4" type="radio"><span>1万-20万</span></div><div class="opt-list">-->
-					<!--<input name="N_2" value="6" type="radio"><span>20万-50万</span></div><div class="opt-list">-->
-					<!--<input name="N_2" value="8" type="radio"><span>50万-100万</span></div><div class="opt-list">-->
-					<!--<input name="N_2" value="10" type="radio"><span>100万以上</span></div></div></div><div class="_qList">-->
-				<!--<div class="subject">您的投资知识可描述为：</div><div class="_qOptions">-->
-				<!--<div class="opt-list">-->
-				<!--<input name="N_3" value="2" type="radio"><span>有限：基本没有金融产品方面的知识</span></div>-->
-				<!--<div class="opt-list">-->
-					<!--<input name="N_3" value="4" type="radio"><span>一般：对金融产品及其相关风险具有基本的知识和理解</span></div>-->
-				<!--<div class="opt-list">-->
-					<!--<input name="N_3" value="6" type="radio"><span>丰富：对金融产品及其相关风险具有丰富的知识和理解</span></div></div></div>-->
-				<!--<div class="_qList">-->
-					<!--<div class="subject">本金10万，不提供保本承诺的情况下，您会选择哪一种投资机会？</div><div class="_qOptions">-->
-					<!--<div class="opt-list"><input name="N_4" value="2" type="radio"><span>有100%的机会赢取100元现金，并收回本金</span></div>-->
-					<!--<div class="opt-list"><input name="N_4" value="4" type="radio"><span>有50％机会赢取5000元现金，并有较高可能性归还本金</span></div><div class="opt-list">-->
-					<!--<input name="N_4" value="6" type="radio"><span>有25％机会赢取5万元现金，并有一定的可能性损失本金</span></div>-->
-					<!--<div class="opt-list"><input name="N_4" value="8" type="radio"><span>有5％机会赢取10万元现金，并有较高可能性损失本金</span></div></div></div>-->
-				<!--<div class="_qList">-->
-					<!--<div class="subject">以下哪项最能说明您的投资经验？</div>-->
-					<!--<div class="_qOptions"><div class="opt-list">-->
-						<!--<input name="N_5" value="2" type="radio"><span>除存款、国债外，我几乎不投资其他金融产品</span></div>-->
-						<!--<div class="opt-list">-->
-							<!--<input name="N_5" value="4" type="radio"><span>大部分投资于存款、国债等，较少投资于股票、基金等风险产品</span></div>-->
-						<!--<div class="opt-list">-->
-							<!--<input name="N_5" value="6" type="radio"><span>资产均衡地分布于存款、国债、银行理财产品、信托产品、股票、基金等</span></div>-->
-						<!--<div class="opt-list">-->
-							<!--<input name="N_5" value="8" type="radio"><span>大部分投资于股票、基金、外汇等高风险产品，较少投资于存款、国债</span></div></div></div>-->
-				<!--<div class="_qList">-->
-					<!--<div class="subject">您的投资目的是？</div><div class="_qOptions"><div class="opt-list">-->
-					<!--<input name="N_7" value="2" type="radio"><span>资产保值</span></div><div class="opt-list">-->
-					<!--<input name="N_7" value="4" type="radio"><span>资产稳健增长</span></div><div class="opt-list">-->
-					<!--<input name="N_7" value="6" type="radio"><span>资产迅速增长</span></div></div></div>-->
-				<!--<div class="_qList"><div class="subject">您预期的投资期限是</div>-->
-					<!--<div class="_qOptions"><div class="opt-list">-->
-						<!--<input name="N_8" value="2" type="radio"><span>少于1年</span></div><div class="opt-list">-->
-						<!--<input name="N_8" value="4" type="radio"><span>1—3年</span></div><div class="opt-list">-->
-						<!--<input name="N_8" value="6" type="radio"><span>3年以上</span></div></div></div><div class="_qList">-->
-				<!--<div class="subject">下列哪项描述最符合您的投资态度？</div><div class="_qOptions"><div class="opt-list">-->
-				<!--<input name="N_9" value="2" type="radio"><span>厌恶风险，不希望本金损失，希望获得稳定回报</span></div><div class="opt-list">-->
-				<!--<input name="N_9" value="4" type="radio"><span>保守投资，不希望本金损失，愿承担一定幅度的收益波动</span></div><div class="opt-list">-->
-				<!--<input name="N_9" value="6" type="radio"><span>寻求资金的较高收益和成长性，愿承担有限的本金损失</span></div><div class="opt-list">-->
-				<!--<input name="N_9" value="8" type="radio"><span>希望赚取高回报，愿意为此承担较大本金损失</span></div></div></div><div class="_qList">-->
-				<!--<div class="subject">您的年龄是？</div>-->
-				<!--<div class="_qOptions"><div class="opt-list">-->
-					<!--<input name="N_11" value="4" type="radio"><span>18-25</span></div>-->
-					<!--<div class="opt-list"><input name="N_11" value="8" type="radio"><span>26-50</span></div>-->
-					<!--<div class="opt-list"><input name="N_11" value="6" type="radio"><span>51-65</span></div>-->
-					<!--<div class="opt-list"><input name="N_11" value="2" type="radio"><span>65以上</span></div>-->
-				<!--</div></div><div class="_qList"><div class="subject">您的家庭就业状况</div><div class="_qOptions">-->
-				<!--<div class="opt-list"><input name="N_12" value="2" type="radio"><span>未婚，无稳定收入工作</span></div>-->
-				<!--<div class="opt-list"><input name="N_12" value="4" type="radio"><span>未婚，有稳定收入工作</span></div>-->
-				<!--<div class="opt-list"><input name="N_12" value="2" type="radio"><span>您与配偶均没有稳定收入的工作或已退休</span>-->
-				<!--</div>-->
-				<!--<div class="opt-list"><input name="N_12" value="6" type="radio"><span>您与配偶其中一人有稳定收入工作</span>-->
-				<!--</div>-->
-				<!--<div class="opt-list"><input name="N_12" value="8" type="radio"><span>您与配偶均有稳定收入工作</span>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--</div>-->
-				<!--<div class="_qList"><div class="subject">家庭总资产状况（含房、车等固定资产）</div><div class="_qOptions">-->
-					<!--<div class="opt-list"><input name="N_13" value="2" type="radio"><span>资产10万以下</span>-->
-					<!--</div>-->
-					<!--<div class="opt-list"><input name="N_13" value="4" type="radio"><span>资产10万-100万</span>-->
-					<!--</div>-->
-					<!--<div class="opt-list"><input name="N_13" value="6" type="radio"><span>资产100万-300万</span>-->
-					<!--</div>-->
-					<!--<div class="opt-list"><input name="N_13" value="8" type="radio"><span>资产300万元以上</span>-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--</div>-->
-				<!--<div class="_qList"><div class="subject">扣除生活必要开支（包含偿还债务），家庭年收入中可用于理财投资的部分占比为？</div>-->
-					<!--<div class="_qOptions"><div class="opt-list">-->
-						<!--<input name="N_16" value="2" type="radio"><span>10%以下</span>-->
-					<!--</div>-->
-						<!--<div class="opt-list">-->
-							<!--<input name="N_16" value="4" type="radio"><span>10%-30%</span></div><div class="opt-list">-->
-							<!--<input name="N_16" value="6" type="radio"><span>30%-50%</span></div><div class="opt-list">-->
-							<!--<input name="N_16" value="8" type="radio"><span>50%-70%</span></div><div class="opt-list">-->
-							<!--<input name="N_16" value="10" type="radio"><span>70%以上</span>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--<div class="_qList">-->
-				<!--<div class="subject">您有多少年投资股票、基金或其他金融衍生品的经验</div><div class="_qOptions"><div class="opt-list">-->
-				<!--<input name="N_17" value="2" type="radio"><span>没有经验</span></div><div class="opt-list">-->
-				<!--<input name="N_17" value="4" type="radio"><span>少于两年</span></div><div class="opt-list">-->
-				<!--<input name="N_17" value="6" type="radio"><span>2至5年</span></div><div class="opt-list">-->
-				<!--<input name="N_17" value="8" type="radio"><span>5年以上</span></div></div></div></div>-->
-				<!--<div class="btns"><span class="_Submit">提交问卷</span>-->
-					<!--<span class="_Prev">上一题</span>-->
-					<!--<font class="indexNow">1</font>/<font class="totalIndex">13</font>-->
-					<!--<span class="_Next">下一题</span></div>-->
-				<!--<div class="bottomTip">本问卷根据国家相关法规要求，旨在了解您对风险的承受意愿及能力，以帮助您控制投标风险</div>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-
-    <!--<script>-->
-        <!--$(function () {-->
-            <!--seajs.use('module/userNavList/js/init');-->
-        <!--});-->
-    <!--</script>-->
-
-    <!--end 我的账户左边菜单列表-->
-				<div class="account-cont">
-						<div class="account-index">
-								<div class="assets">
-										<div class="assets-left">
-												<dl class="total">
-														<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p>&#10;<p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p>&#10;<p>待收本金：含体验金本金及投资冻结金额</p>&#10;<p>待收利息及奖励= 待收利息+待收奖励</p>&#10;<p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
-														<dd>
-															<big>0.00</big>
-															<small>元</small>
-															<span>含0.00元体验金 </span>
-													  </dd>
-												</dl>
-												<div class="detail">
-														<dl class="due-principal">
-																<dt>待收本金(元)</dt>
-																<dd>0.00</dd>
-														</dl>
-														<dl class="due-interest">
-																<dt>待收利息及奖励(元)<i class="icon-question" title="<p>待收利息及奖励是指持有中/转让中的待收利息及待收平台奖励，待收平台奖励包括新手奖励、增利券奖励、限时奖励、续期奖励、返现红包和平台其他奖励</p><p>*转让标待收利息包括待收垫付利息</p>"></i></dt>
-																<dd>0.00</dd>
-														</dl>
-														<dl class="assets-freeze last">
-																<dt>资金冻结(元)<i class="icon-question" title="<p>资金冻结=提现冻结+体验标利息冻结</p><p>体验标利息冻结：用户未在平台完成首次充值时，已回款的体验标利息会处于冻结状态，需用户完成首次充值后才会解冻到网贷余额</p>"></i></dt>
-																<dd>0.00</dd>
-														</dl>
-												</div>
-												<div class="balance">
-														<dl>
-																<dt>可用余额(元)</dt>
-																<dd>0.00</dd>
-														</dl>
-														<a class="withdrawal-btn" href="/payment/withdraw/index">提现</a>
-														<a class="recharge-btn" href="/payment/recharge/index">充值</a>
-												</div>
-												<div style="font-size: 14px;color: #999;padding-bottom: 37px;"><span>累计充值：0元</span><span style="margin-left: 30px;">累计提现：0元</span></div>
-										</div>
-										<div class="assets-right">
-												<!-- <dl class="earned">
-														<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p><p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p><p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p><p>获得让利：购买转让标时的获得让利</p><p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p><p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
-														<dd>0.00</dd>
-												</dl> -->
-												<div class="detail" style="border-bottom: 1px dashed #eeefef">
-													<dl class="profit-earnings">
-														<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p>&#10;<p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p>&#10;<p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p>&#10;<p>获得让利：购买转让标时的获得让利</p>&#10;<p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p>&#10;<p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
-														<dd>0.00</dd>
-													</dl>
-													<!-- <dl class="fp-earnings last">
-														<dt>待收收益(元)</dt>
-														<dd>0.00</dd>
-													</dl> -->
-												</div>
-
-												<div class="detail">
-														<dl class="profit-earnings">
-																<dt>已赚收益(元)</dt>
-																<dd>0.00</dd>
-														</dl>
-														<dl class="fp-earnings last">
-																<dt>邀请好友收益(元)</dt>
-																<dd>0.00</dd>
-														</dl>
-												</div>
-												<div class="pk-area">
-													
-												</div>
-										</div>
-								</div>
-								<div class="lend">
-										<input type="hidden" value='[{"investTime":"2020-06","investAmount":0},{"investTime":"2020-05","investAmount":0},{"investTime":"2020-04","investAmount":0},{"investTime":"2020-03","investAmount":0},{"investTime":"2020-02","investAmount":0},{"investTime":"2020-01","investAmount":0}]' id="sixData" />
-										<div class="charts">
-												<h2>出借走势</h2>
-												<div class="inner">
-													<div id="chartsData"></div>
-												</div>
-										</div>
-										<div class="calendar">
-												<h2>回款日历</h2>
-												<div class="total-data">
-														<div id="date" data-url="https://www.xiaoniu88.com/MyAccount/repayment/schedule/"></div>
-														<div class="total" id="calendar-total"></div>
-												</div>
-										</div>
-								</div>
-								<div class="recommend" id="recommend">
-								</div>
+			<div class="center user-box">
+    		<!--start 我的账户左边菜单列表-->
+				<div class="account-list" th:fragment="inflist">
+					<div class="account-info">
+						<div class="member-info">
+							<div><span class="name" id="username" th:text="${session.user.uName}">**</span>
+								<span class="member-level pop-tip member-level-2" id="member-level"
+									  title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级
+								</span>
+							</div>
+							<div class="security-level">账户安全：<span id="security-level">低<a href="/user/toAS">{提升}</a></span></div>
 						</div>
-					
-					<div class="g-h30"></div>
-					<!-- 普惠广告位760*247 -->
-					<div id="puhuiContainer">
-
+						<div class="badge-info">
+							<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
+							<i class="badge-icon badge-realname middle pop-tip" id="badge-realname" style="padding:0px 41px"></i>
+							<i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+						</div>
+						<div class="point-info" id="riskLevel-info">
+							风险评估：***
+							<a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
+						</div>
+						<div class="point-info">
+							我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
+							<a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+						</div>
+						<div id="sign-info" class="sign-info"></div>
 					</div>
-					<!--内容区 end-->
+					<ul class="g-cf left-menu">
+						<li data-type="index" class="cur" id="ov">
+							<a class="h2" href="/user/toAO"><b>账户总览</b></a>
+						</li>
+						<li data-type="invest">
+							<a href="#">我的网贷</a>
+						</li>
+						<li data-type="record">
+							<a href="/user/tozj">资金记录</a>
+						</li>
+						<li data-type="datum">
+							<a href="/user/toAS">账户安全</a>
+						</li>
+						<li data-type="bankCard" class="last">
+							<a href="/user/viewApply">银行卡管理</a>
+						</li>
+						<li data-type="credit" class="last">
+							<a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
+						</li>
+						<li data-type="news">
+							<a href="#">我的消息<span id="msg-count"></span></a>
+						</li>
+						<li data-type="redEnvelope">
+							<a href="#">我的优惠<span id="bonus-count"></span></a>
+						</li>
+						<li data-type="point">
+							<a href="#">我的积分</a>
+						</li>
+						<li data-type="myactivity" class="last">
+							<a href="#">我的活动</a>
+						</li>
+						<li class="planner last" data-type="planner">
+							<a href="#">邀请好友<span>赚收益</span></a>
+						</li>
+					</ul>
+					<div class="qqun">
+						<p class="q1 g-dn">客户交流群：
+							<br/>521069624
+							<a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">
+								<img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小母牛在线客户交流群④" title="小母牛在线客户交流群④" />
+							</a>
+						</p>
+						<p class="q2">投标计划群：
+							<br/>479230479
+							<a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">
+								<img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="小母牛在线客户交流群②" title="小母牛在线客户交流群②"/>
+							</a>
+						</p>
+						<div class="g-cf">
+							<span class="g-fl">微信客服号：<br/>niubaobao88888</span>
+							<div class="weixin-icon" data-key="kfh01">
+								<i></i>
+							</div>
+						</div>
+					</div>
 				</div>
+				<div class="account-cont">
+				<div class="account-index">
+					<div class="assets">
+						<div class="assets-left">
+							<dl class="total">
+								<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p>&#10;<p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p>&#10;<p>待收本金：含体验金本金及投资冻结金额</p>&#10;<p>待收利息及奖励= 待收利息+待收奖励</p>&#10;<p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
+								<dd>
+									<big th:text="${session.user.avaBalance}"></big>
+									<small>元</small>
+									<span>含0.00元体验金 </span>
+								</dd>
+							</dl>
+							<div class="detail">
+								<dl class="due-principal">
+									<dt>待收本金(元)</dt>
+									<dd th:text="${map.money}"></dd>
+								</dl>
+								<dl class="due-interest">
+									<dt>待收利息及奖励(元)<i class="icon-question" title="<p>待收利息及奖励是指持有中/转让中的待收利息及待收平台奖励，待收平台奖励包括新手奖励、增利券奖励、限时奖励、续期奖励、返现红包和平台其他奖励</p><p>*转让标待收利息包括待收垫付利息</p>"></i></dt>
+									<dd>0.00</dd>
+								</dl>
+								<dl class="assets-freeze last">
+									<dt>资金冻结(元)<i class="icon-question" title="<p>资金冻结=提现冻结+体验标利息冻结</p><p>体验标利息冻结：用户未在平台完成首次充值时，已回款的体验标利息会处于冻结状态，需用户完成首次充值后才会解冻到网贷余额</p>"></i></dt>
+									<dd>0.00</dd>
+								</dl>
+							</div>
+							<div class="balance">
+								<dl>
+									<dt>可用余额(元)</dt>
+									<dd th:text="${session.user.avaBalance}"></dd>
+								</dl>
+								<a th:if="${bank != null}" class="withdrawal-btn" onclick="chuFaBut('tx')">提现</a>
+								<a th:if="${bank != null}" class="recharge-btn" onclick="chuFaBut('cz')">充值</a>
+								<dl th:if="${bank == null}" style="width: 120px;line-height: 124px;position: absolute;">
+									<dt>您还未绑定银行卡</dt>
+								</dl>
+							</div>
+							<div id="chongZhiK">
+								<div id="conzhi" style="display: none">
+									<p class="zfp">
+										充值金额:<input class="zfk" id="moneyCz" oninput="padMoney(this)" type="text">元
+									</p>
+								</div>
+								<div id="tixian" style="display: none">
+									<p class="zfp">
+										提现金额:<input class="zfk" id="moneyTX" oninput="padMoney(this)" type="text">元
+									</p>
+								</div>
+								<div id="zfYanz" style="display: none">
+									<p class="zfp">
+										支付密码:<input class="zfk" style="width: 120px;" id="userPwd" type="password">
+									</p>
+									<p class="zfp">
+										<input type="button" class="zfbut" onclick="quXiaoZf('qx')"
+											   style="background-color:#fff;color:#ff7136;" value="取消">
+										<input type="button" class="zfbut" onclick="quXiaoZf('zf')"
+											   style="background-color: #ff7136;color: #fff" value="确认">
+									</p>
+								</div>
+							</div>
+							<div id="yes" style="width: 100px;height: 100px;position: absolute;left: 46.5%;background-color: transparent;">
+								<input type="checkbox" id="chufa" style="width: 0;height:0;" />
+								<svg width="100" height="100">
+									<circle fill="none" stroke="#68E534" stroke-width="5" cx="50" cy="50" r="47.5" class="circle" stroke-linecap="round" transform="rotate(-22.5 50 50)"/>
+									<polyline fill="none" stroke="#68E534" stroke-width="6" points="22,53.5 43.25,71 76,34.5" stroke-linecap="round" stroke-linejoin="round" class="tick"/>
+								</svg>
+							</div>
+							<div style="font-size: 14px;color: #999;padding-bottom: 37px;">
+								<span th:text="累计充值：+${map.rmax}+元"></span>
+								<span th:text="累计提现：+${map.wmax}+元" style="margin-left: 30px;"></span>
+							</div>
+						</div>
+						<div class="assets-right">
+							<!-- <dl class="earned">
+									<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p><p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p><p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p><p>获得让利：购买转让标时的获得让利</p><p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p><p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
+									<dd>0.00</dd>
+							</dl> -->
+							<div class="detail" style="border-bottom: 1px dashed #eeefef">
+								<dl class="profit-earnings">
+									<dt>累计已赚(元)<i class="icon-question" title="<p style='color:red'>*累计已赚是指用户从加入平台第一天至今实际已到账的收益</p>&#10;<p>累计已赚=已赚收益+已赚邀请奖励-提现手续费；</p>&#10;<p>已赚收益=已赚利息及奖励+获得让利-让利亏损-转让手续费</p>&#10;<p>获得让利：购买转让标时的获得让利</p>&#10;<p>让利亏损：安稳投/散标/转让标转让时，让利亏损金额</p>&#10;<p>转让手续费：安稳投/散标/转让标提前转让时平台收取的服务费</p>"></i></dt>
+									<dd>0.00</dd>
+								</dl>
+								<!-- <dl class="fp-earnings last">
+									<dt>待收收益(元)</dt>
+									<dd>0.00</dd>
+								</dl> -->
+							</div>
+
+							<div class="detail">
+								<dl class="profit-earnings">
+									<dt>已赚收益(元)</dt>
+									<dd>0.00</dd>
+								</dl>
+								<dl class="fp-earnings last">
+									<dt>邀请好友收益(元)</dt>
+									<dd>0.00</dd>
+								</dl>
+							</div>
+							<div class="pk-area"></div>
+						</div>
+					</div>
+				<div class="lend">
+					<input type="hidden" value='[{"investTime":"2020-06","investAmount":0},{"investTime":"2020-05","investAmount":0},{"investTime":"2020-04","investAmount":0},{"investTime":"2020-03","investAmount":0},{"investTime":"2020-02","investAmount":0},{"investTime":"2020-01","investAmount":0}]' id="sixData" />
+					<div class="charts">
+						<h2>出借走势</h2>
+						<div class="inner">
+							<div id="chartsData"></div>
+						</div>
+					</div>
+					<div class="calendar">
+						<h2>回款日历</h2>
+						<div class="total-data">
+							<div id="date" data-url="https://www.xiaoniu88.com/MyAccount/repayment/schedule/"></div>
+							<div class="total" id="calendar-total"></div>
+						</div>
+					</div>
+				</div>
+			<div class="recommend" id="recommend">
 			</div>
 		</div>
-		<div id="monthupPage"  class="monthup-page" style="display:none;">
+				</div>
+		<!--内容区 end-->
+			</div>
+		</div>
+	</div>
+	<div id="monthupPage"  class="monthup-page" style="display:none;">
 			<p class="monthup-title">月月牛授权升级，享专属高收益率</p>
 			<div class="monthup-page-txt-con">
 				<div class="monthup-page-txt">
@@ -400,7 +376,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 月月牛授权升级 弹窗-->
+	<!-- 月月牛授权升级 弹窗-
 	<div id="monthAccreditDialog" style="display:none;">
 		<div class="monthAccredit">
 			<div class="ok-icon"></div>
@@ -415,20 +391,111 @@
 <!--start 尾部-->
 <div th:replace="/common::commonEnd"></div>
 <!--end 尾部-->
-<!--引入统计代码-->
-<div style="display:none">
-    <script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script>
+	var OFf = false;
+    var types = '';
+	function chuFaBut(type) {
+	    types = type;
+        $("#chongZhiK").css("height","153px");
+        $("#chongZhiK").css("padding-bottom","10px");
+        $("#chongZhiK").css("margin","20px auto");
+        $("#chongZhiK").css("margin-top","0");
+        if(type === 'cz'){
+            if(OFf){
+                $("#conzhi").css("display","block");
+                $("#tixian").css("display","none");
+			}else {
+                setTimeout("yanCiType('ofcz')","300");
+			}
+        }else {
+            if(OFf){
+                $("#conzhi").css("display","none");
+                $("#tixian").css("display","block");
+            }else {
+                setTimeout("yanCiType('oftx')","300");
+            }
+        }
+        OFf = true;
+        setTimeout("yanCiType('oncz')","500");
+    }
+    function quXiaoZf(type) {
+	    if(type === 'qx'){
+            OFf = false;
+            types = '';
+            $("#chongZhiK").css("height","0");
+            $("#chongZhiK").css("padding-bottom","0");
+            $("#chongZhiK").css("margin","0 auto");
 
-	  ga('create', 'UA-104712537-1', 'auto');
+            $("#conzhi").css("display","none");
+            $("#tixian").css("display","none");
+            $("#zfYanz").css("display","none");
+		}else {
+	        var pwd = $("#userPwd").val();
+            var money;
+            if(types === 'cz') money = $("#moneyCz").val();
+            else money = $("#moneyTX").val();
 
-	  ga('send', 'pageview');
+            $.post("/user/czTx",{money: money,type:types,pwd:pwd},
+                function (data) {
+                    if(data.msg === 'cg'){
+                        $("#chufa").attr("checked", "true");
+                        setTimeout("shuaXing()","1000");
+                    }else if(data.msg === "mmcw"){
+                        $("#userPwd").css("border-color","red");
+                    }else {
+                        alert(data.msg);
+					}
+            }, "json");
+		}
+    }
+    function padMoney(id) {
+        var time = $(id).val();
+        if(time.charCodeAt(0) == 46){
+            $(id).val("");
+        }else{
+            var arr = time.split(".");
+            if(arr.length === 1){
+                for (var i = 0; i < time.length; i++) {
+                    var t = time.charCodeAt(i);
+                    if (!(t >= 48 && t <= 57)){
+                        if(t !== 46){
+                            console.log("t1"+t);
+                            $(id).val(time.substr(0,time.length-1));
+                        }else{
+                            $(id).val(arr[0]);
+                        }
+                    }
+                }
+            }else{
+                var xiaosu = arr[1];
+                for (var i = 0; i < xiaosu.length; i++) {
+                    var t = xiaosu.charCodeAt(i);
+                    if (t >= 48 && t <= 57){
+                        if(i < 2)$(id).val(arr[0]+"."+xiaosu);
+                        else $(id).val(time.substr(0,time.length-1));
+                    }else{
+                        $(id).val(time.substr(0,time.length-1));
+                    }
+                }
 
-	</script>
-</div>
+            }
+        }
+    };
+    function yanCiType(lx) {
+		if(lx === 'ofcz'){
+            $("#conzhi").css("display","block");
+            $("#tixian").css("display","none");
+		}else if(lx === 'oncz'){
+            $("#zfYanz").css("display","block");
+		}else if(lx === 'oftx'){
+            $("#conzhi").css("display","none");
+            $("#tixian").css("display","block");
+		}
+    }
+    function shuaXing() {
+        location.reload();
+    }
+</script>
 
 <script>
 	//百度统计

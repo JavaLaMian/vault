@@ -17,7 +17,7 @@
             <div class="hotline">全国服务热线：4006-0755-70</div>
             <ul class="info" id="ulLoginStatus">
                 <li class="user logon" th:if="${session.user} ne null">
-                    <a href="/loan/tologin" th:text="${session.user.uName}">
+                    <a href="/loan/tologin" th:text="${session.user.account}">
                         用户名
                     </a>
                     <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
@@ -27,7 +27,7 @@
                     <a href="/user/tologin">注册</a>
                 </li>
                 <li class="line">|</li>
-                <li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
+                <li><a target="_blank" th:href="@{/integral/main(q=0)}">积分商城</a></li>
                 <li class="line">|</li>
                 <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
                 <li class="line">|</li>
@@ -94,14 +94,6 @@
                     <li>
                         <a href="/product/list?type=transfer">转让专区</a>
                     </li>
-                </ul>
-                <ul class="nav nav-information" data-type="security">
-                    <li class="first"><a href="/cms/about/index">信息披露</a></li>
-                    <li><a href="/cms/about/index">关于小母牛</a></li>
-                    <li><a href="/cms/compliance/filingInfo">合规备案</a></li>
-                    <li><a href="/cms/business/consumer">业务介绍</a></li>
-                    <li><a href="/portal/platform/index">运营信息</a></li>
-                    <li><a href="/portal/platform/riskmanagement">保障体系</a></li>
                 </ul>
             </nav>
             <div class="user">

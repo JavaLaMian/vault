@@ -58,7 +58,7 @@
                                                 </label>
                                             </th>
                                             <th>编号</th>
-                                            <th>用户名</th>
+                                            <th>申请人用户ID</th>
                                             <th>单位</th>
                                             <th>工资信息</th>
                                             <th>姓名</th>
@@ -76,13 +76,37 @@
                                                 </label>
                                             </td>
                                             <td th:text="${p.creId}">1</td>
-                                            <td th:text="${p.uId}">尊贵的鲸先生</td>
-                                            <td th:text="${p.depart}">公安</td>
-                                            <td th:text="${p.wages}">100000</td>
-                                            <td th:text="${p.name}">张三</td>
-                                            <td th:text="${p.creditUpdateTime}">2018-02-23</td>
-                                            <td th:text="${p.creditLV}">无</td>
-                                            <td th:text="${p.type}">等待审核</td>
+                                            <td th:text="${p.uId}">1</td>
+                                            <td th:if="${p.depart} eq null">无</td>
+                                            <td th:if="${p.depart} ne null"><p th:text="${p.depart}"></p></td>
+                                            <td th:if="${p.wages} eq null">无</td>
+                                            <td th:if="${p.wages} ne null"><p th:text="${p.wages}"></p></td>
+                                            <td th:if="${p.name} eq null">无</td>
+                                            <td th:if="${p.name} ne null"><p th:text="${p.name}"></p></td>
+                                            <td th:if="${p.creditUpdateTime} eq null">无</td>
+                                            <td th:if="${p.creditUpdateTime} ne null"><p th:text="${#dates.format(p.creditUpdateTime,'yyyy-MM-dd HH:mm')}"></p></td>
+                                            <td th:if="${p.creditLV eq '1'}">
+                                                 <font class="text-success">正常</font>
+                                            </td>
+                                            <td th:if="${p.creditLV eq '2'}">
+                                                <font class="text-warning">关注</font>
+                                            </td>
+                                            <td th:if="${p.creditLV eq '3'}">
+                                                <font class="text-secondary">次级</font>
+                                            </td>
+                                            <td th:if="${p.creditLV eq '4'}">
+                                                <font class="text-dark">可疑</font>
+                                            </td>
+                                            <td th:if="${p.creditLV eq '5'}">
+                                                <font class="text-dark">损失</font>
+                                            </td>
+                                            <td th:if="${p.creditLV eq null}">
+                                                <font class="text-dark">无</font>
+                                            </td>
+
+                                            <td th:if="${p.type eq 0}">等待审核</td>
+                                            <td th:if="${p.type eq 1}">审核中</td>
+                                            <td th:if="${p.type eq 2}">审核完毕</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/XMN/updateCredit/(creId=${p.creId})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

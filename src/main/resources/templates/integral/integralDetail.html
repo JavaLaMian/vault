@@ -28,7 +28,8 @@
             <div class="ac_menu" id="ulLoginStatus">
                     <span class="user" style="margin: 0; color: #999;">
                        <a th:if="${session.user.account}==null" href="/user/tologin">登录</a>　
-                     <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
+                        <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
+                         <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
                     </span>
                 <span>│</span>
                 <a th:href="@{/integral/myIntegral(uid = ${session.user.uId})}">我的积分：<span th:text="${session.total}" style="color: #ffb938">25000</span></a>
@@ -113,13 +114,13 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-6" th:if="${list.integralType} ne '慧财'">
                 <h4>
-                    <span style="line-height:2">确认地址</span>
+                    <span class="text-warning" style="line-height:2">确认地址</span>
                 </h4>
-                <span style="color: #00b8b9" th:if="${credit}==null">还未实名，不可兑换</span>
-                <form th:if="${credit}!=null" th:action="@{/integral/conversion}" method="post" enctype="multipart/form-data">
+                <span class="text-danger" th:if="${credit}==null">还未实名，不可兑换!</span>
+                <span class="text-danger" th:if="${session.total} <${list.integral}">积分不足！无法兑换</span>
+                <form th:if="${credit ne null && session.total ge list.integral}" th:action="@{/integral/conversion2(diz=1,hId=${list.id})}" method="post" enctype="multipart/form-data">
                     <span >
                         <label>姓名:</label>
-                        <span style="color: #00b8b9" th:if="${credit}==null">还未实名，不可兑换</span>
                         <span style="color: #00b8b9" th:if="${credit}!=null" th:text="${credit.name}">林学明</span>
                     </span>
                     &nbsp;&nbsp;&nbsp;
@@ -130,13 +131,14 @@
                     </span>
                     <div class="form-group">
                         <label>地址:</label>
-                        <input class="form-control" type="text" name="place" th:value="${session.user.place}">
+                        <input th:if="${session.place} ==null" class="form-control" type="text" name="place" th:value="${session.user.place}">
+                        <input th:if="${session.place} !=null" class="form-control" type="text" name="place" th:value="${session.place}">
                     </div>
                     <div class="form-group">
                         <p class="text-warning">
                            注意：如若修改了地址请必须点确认！否则兑换将选择查出的地址 <span></span>
                         </p>
-                        <button  type="submit" class="btn btn-primary" >确定</button>
+                        <button  type="submit" class="btn btn-primary">确定</button>
                     </div>
                 </form>
             </div>
@@ -148,7 +150,7 @@
         </div>
         <div class="row">
             <p>
-                <a  th:href="@{/integral/conversion}" th:if="${credit}!=null" class="btn btn-primary btn-lg btn-block">立即兑换</a>
+                <a  th:href="@{/integral/conversion(iId =${list.id},change = ${list.integral},type =${list.integralType},IntName=${list.integralName})}" th:if="${credit ne null && session.total ge list.integral}" class="btn btn-primary btn-lg btn-block">立即兑换</a>
             </p>
         </div>
     </div>

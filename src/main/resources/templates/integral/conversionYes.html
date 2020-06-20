@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的积分</title>
+    <title>兑换成功</title>
     <link rel="shortcut icon" th:href="@{/img/loan/小母牛.png}" type="image/x-icon" />
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/activity/pointmall/list/css/style-048337cfe8.css" />
@@ -13,12 +13,11 @@
     <script th:src="@{/js/bootstrap.js}"></script>
     <style>
         body a{
-            color: white;
-            text-decoration:none
+            color: black;
+            text-decoration: none;
         }
-        body a:hover{
-            color: white;
-            text-decoration:none
+        body a :hover{
+            text-decoration: none;
         }
     </style>
 </head>
@@ -29,7 +28,7 @@
                         <span class="user" style="margin: 0; color: #999;">
                            <a th:if="${session.user.account}==null" href="/user/tologin">登录</a>　
                             <a th:if="${session.user.account}!=null" th:text="${session.user.account}"></a>
-                             <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
+                            <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
                         </span>
                 <span>│</span>
                 <a th:href="@{/integral/myIntegral(uid = ${session.user.uId})}">我的积分：<span th:text="${session.total}" style="color: #ffb938">25000</span></a>
@@ -63,37 +62,38 @@
         </div>
     </div>
     <div class="breadcrumb">
-        <div class="section">
-            您现在的位置：
-            <a th:href="@{/main/first}">首页</a>&gt;
-            <a th:href="@{/integral/main}">积分商城</a>&gt;
-            <a th:href="@{/integral/list(spId=0,currPage=1,sort=0)}">商城列表</a>&gt;我的积分
-        </div>
-    </div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-hover table-bordered">
-                <tr style="background-color: #00b8b9">
-                    <th>编号</th>
-                    <th>积分变动</th>
-                    <th>变动类型</th>
-                    <th>兑换商品名称</th>
-                    <th>兑换时间</th>
-                    <th>积分余额</th>
-                </tr>
-                <tr th:each="p,pStart:${integralList}">
-                    <td th:text="${pStart.count}"></td>
-                    <td th:text="${p.change}"></td>
-                    <td th:text="${p.changeType}"></td>
-                    <td th:if="${p.iId}!=0" th:text="${p.integralName}"></td>
-                    <td th:if="${p.iId}==0" th:text="无"></td>
-                    <td th:text="${p.conversionTime}"></td>
-                    <td th:text="${p.total}"></td>
-                </tr>
-            </table>
-        </div>
+    <div class="section">
+        您现在的位置：
+        <a th:href="@{/main/first}">首页</a>&gt;
+        <a th:href="@{/integral/main}">积分商城</a>&gt;
+        <a th:href="@{/integral/list(spId=0,currPage=1,sort=0)}">商城列表</a>&gt;兑换成功
     </div>
 </div>
+
+    <div class="container">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div style="height: 120px"></div>
+            <div>
+                <img th:src="@{/img/integral/cion2.jpg}" style="width: 50px;height: 50px" >
+                <span style="color: #35ff1f;font-size: large">恭喜您，兑换成功 !</span>
+            </div>
+           <div style="height: 120px"></div>
+            <div>
+                <p th:if="${type} == 2" class="text-warning">注意：您兑换的理财红包将会发放到你的卡卷里面，请注意查收！</p>
+                <p th:if="${type} == 1" class="text-warning">
+                    你的物流单号为：<span style="color: #00b8b9">YT4539469943020</span>
+                </p>
+                <p th:if="${type} == 1" class="text-warning">
+                    温馨提示：本平台不支持物流查询,您可在<span style="color: #00b8b9">微信小程序"110"</span>、<span style="color: #00b8b9">菜鸟裹裹</span>等中查询
+                </p>
+                <br>
+                <span>
+                     <a th:href="@{/integral/list(spId=0,currPage=1,sort = 0)}" class="btn btn-primary btn-block" >确定</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

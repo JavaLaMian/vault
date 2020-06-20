@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class selevicexmnImpl implements selevicexmn {
@@ -48,9 +49,24 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public List<Credit> selectgetCredit(Credit bid) {
+    public List<Map> selectgetCredit(Credit bid) {
         return dao.selectgetCredit(bid);
     }
 
+    @Override
+    public int updateCredit(Credit credit) {
+        int ok = dao.updateCredit(credit);
+        return ok;
+    }
+
+    @Override
+    public List<Map> integralList() {
+        return dao.integralList();
+    }
+
+    @Override
+    public void updategetbiBid(int bidStatus, int id) {
+        dao.updategetbiBid(bidStatus,id);
+    }
 
 }

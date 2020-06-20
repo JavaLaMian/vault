@@ -22,11 +22,7 @@
         }
     </script>
     <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
-    <script>
-        $(function(){
-            seajs.use('module/common/common')
-        })
-    </script>
+
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/user/safety/css/style-ed9716a8f6.css" />
 </head>
 
@@ -46,7 +42,6 @@
         <!-- 面包屑冬导航 -->
         <div class="path">
             您现在的位置：<span><a href="/user/toAO">我的账户</a> > 账户安全</span>
-
         </div>
         <div class="center user-box">
             <!-- 我的账户菜单 -->
@@ -56,7 +51,8 @@
                 <div class="account-info">
                     <div class="member-info">
                         <div>
-                            <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
+                            <span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>
+                            <span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>
                             <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
                         </div>
                         <div class="security-level">账户安全：<span id="security-level">*</span></div>
@@ -85,7 +81,7 @@
                         <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="#">资金记录</a>
+                        <a href="/user/tozj">资金记录</a>
                     </li>
                     <li data-type="datum" id="safe">
                         <a href="/user/toAS">账户安全</a>
@@ -206,12 +202,12 @@
                     <!-- 账户安全设置列表 -->
                     <div class="account_list">
                         <!-- 实名认证 -->
-                        <div myid='realName' class="column" th:if="null eq ${session.credit}">
+                        <div myid='realName' class="column">
 
-                            <div class="column_name not_seted">
+                            <div class="column_name not_seted" th:if="null eq ${session.credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg">
+                            <div class="column_msg" th:if="null eq ${session.credit}">
                                 <span class="setting">
                                     <a myTarget="smdj_rz" href="/user/toApply">请设置</a>
                                 </span>
@@ -219,13 +215,10 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                        </div>
-                        <div myid='realName' class="column" th:if="null ne ${session.credit}">
-
-                            <div class="column_name seted">
+                            <div class="column_name seted" th:if="null ne ${session.credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg">
+                            <div class="column_msg" th:if="null ne ${session.credit}">
                                 <span class="setting" th:if="${session.credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
@@ -235,13 +228,23 @@
                             </div>
                         </div>
                         <!-- 交易密码 -->
-                        <div myid='tdpwd' class="column" th:if="null eq ${session.user.dealPsw}">
+                        <div myid='tdpwd' class="column" >
 
-                            <div class="column_name not_seted">
+                            <div class="column_name not_seted" th:if="null eq ${session.user.dealPsw}">
                                 交易密码
                             </div>
-                            <div class="column_msg">
+                            <div class="column_name seted" th:if="null ne ${session.user.dealPsw}">
+                                交易密码
+                            </div>
+                            <div class="column_msg" th:if="null eq ${session.user.dealPsw}">
                                 <span class="setting"><a myTarget="step_1" class="showSetting">请设置</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">
+                                    原提现密码，保障账户资金安全，提现或改动账户信息的时候需要输入的密码
+								</span>
+                            </div>
+                            <div class="column_msg"  th:if="null ne ${session.user.dealPsw}">
+                                <span class="setting"><a myTarget="step_1" class="showSetting">修改</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">
                                     原提现密码，保障账户资金安全，提现或改动账户信息的时候需要输入的密码
@@ -332,136 +335,37 @@
                                 </div>
                             </form>
                         </div>
-                        <div myid='tdpwd' class="column" th:if="null ne ${session.user.dealPsw}">
-
-                            <div class="column_name seted">
-                                交易密码
-                            </div>
-                            <div class="column_msg">
-                                <span class="setting"><a myTarget="step_1" class="showSetting">修改</a></span>
-                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
-                                <span class="column_info">
-                                    原提现密码，保障账户资金安全，提现或改动账户信息的时候需要输入的密码
-								</span>
-                            </div>
-                            <form id="jymm_form" class="column_form">
-                                <div>
-                                    <div class="step_1" id="s1">
-                                        <!-- 第一步 -->
-                                        <ul class="steps step1">
-                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
-                                        </ul>
-                                        <table class="form_type for_step1">
-                                            <tr>
-                                                <td class="align_right">邮箱地址：</td>
-                                                <td><span class="display_form" th:text="${session.user.email}">178****7767</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align_right">验证码：</td>
-                                                <td>
-                                                    <input class="code_form" name="code" id="jymm_step1_code" type="text" />
-                                                    <a onclick="getMa('jymm_up',this)" id="jymm_step1_get_code" class="get_code inline_block">
-                                                        <span class="get_code_text" id="get_code_text">获取验证码</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="tips"></td>
-                                                <td class="tips">
-                                                    <div id="jymm_step1_codeTip" class="tips_content"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td class=""><a id="jymm_step1_submit" class="sbm_btn inline_block" onclick="oneToTwo()">下一步</a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="step_2" id="s2">
-                                        <!-- 第二步 -->
-                                        <ul class="steps step2">
-                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
-                                        </ul>
-                                        <table class="form_type for_step2">
-                                            <tr>
-                                                <td class="align_right">设置密码：</td>
-                                                <td><input id="jymm_rz_step2_pwd" maxlength="6" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false" onblur="step2p(this)" /></td>
-                                                <td class="width250"><div id="jymm_rz_step2_new_pwdTip" class="tips_content"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="tips"></td>
-                                                <td class="tips"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align_right">再次输入密码：</td>
-                                                <td><input id="jymm_rz_step2_pwd_qr" maxlength="6" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false" onblur="restep2p(this)" /></td>
-                                                <td class="width250"><div id="jymm_rz_step2_new_pwd_qrTip" class="tips_content"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="tips"></td>
-                                                <td class="tips"></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td class=""><a class="sbm_btn inline_block" onclick="twoToThree()">下一步</a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="step_3" id="s3">
-                                        <!-- 第三步 -->
-                                        <ul class="steps step3">
-                                            <li>验证身份</li><li class="align_center">设置交易密码</li><li class="align_right">修改完成</li>
-                                        </ul>
-                                        <table class="form_type for_step3">
-                                            <tr>
-                                                <td class="align_center"><span class="size_16">设置密码成功</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align_center"><a href="javascript:window.location.reload()" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="form_msg">
-                                    <p>
-                                        <font class='blod'>温馨提示：</font>请确保设置的交易密码与登录密码不同，并定期更换交易密码，以确保您的账户更安全。
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
                         <!-- 银行卡认证 -->
-                        <div class="column" th:if="null eq ${session.userBank}">
-                            <div class="column_name not_seted">
+                        <div class="column">
+                            <div class="column_name not_seted" th:if="null eq ${session.userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_msg">
+                            <div class="column_name seted" th:if="null ne ${session.userBank}">
+                                银行卡认证
+                            </div>
+                            <div class="column_msg" th:if="null eq ${session.userBank}">
                                 <span class="setting"><a myTarget="yykrz_xg" class="showSetting">请设置</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <form class="column_form">
+                            <div class="column_msg" th:if="null ne ${session.userBank}">
+                                <span class="setting"><a myTarget="yykrz_xg" class="showSetting">修改</a></span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">提现时资金转入的银行卡账户</span>
+                                <span class="info_con"></span>
+                            </div>
+                            <form class="column_form" th:if="null eq ${session.userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">请先设置实名登记，<a class="link" href="/user/toApply">马上设置</a></span></td>
                                     </tr>
                                 </table>
                             </form>
-                        </div>
-                        <div class="column" th:if="null ne ${session.userBank}">
-                            <div class="column_name seted">
-                                银行卡认证
-                            </div>
-                            <div class="column_msg">
-                                <span class="setting"><a myTarget="yykrz_xg" class="showSetting">修改</a></span>
-                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
-                                <span class="column_info">提现时资金转入的银行卡账户</span>
-                                <span class="info_con"></span>
-                            </div>
-                            <form class="column_form">
+                            <form class="column_form" th:if="null ne ${session.userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
-                                        <td class="align_center"><span class="size_16">页面还没扒到<a class="link" href="#">再等等吧</a></span></td>
+                                        <td class="align_center"><span class="size_16">没空写<a class="link" href="#">再等等吧</a></span></td>
                                     </tr>
                                 </table>
                             </form>
@@ -532,7 +436,7 @@
                                             <td>
                                                 <input id="dl_cdtx" class="code_form" type="text" />
                                                 <a id="dl_code" class="get_code inline_block" onclick="getDlcode('dlmm_up',this)">
-                                                    <span class="get_code_text" id="get_code_text">获取验证码</span>
+                                                    <span class="get_code_text" id="dlmm_get_code_text">获取验证码</span>
                                                 </a>
                                             </td>
                                             <td class="width250">
@@ -551,7 +455,7 @@
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td class=""><a id="dlmm_xg_submit" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
+                                            <td class=""><a id="dlmm_xg_submit" class="sbm_btn inline_block" onclick="dlmm_xg()">确&nbsp;&nbsp;定</a></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -565,7 +469,7 @@
                         <!-- 手机认证 -->
                         <div myid="mobile" class="column">
                             <div class="column_name seted">
-                                手机认证
+                                邮箱认证
                             </div>
                             <div class="column_msg">
                                 <!-- 判断是否是修改鉴权手机号 -->
@@ -573,12 +477,12 @@
                                 <span class="cancel_setting"><a class="cancel_action bk_cancel">取消</a></span>
                                 <span class="phone_info">
 										<span class="column_info">变动账户信息接收验证码，接收资金变动短信通知</span>
-										<span class="info_con">178****7767</span>
+										<span class="info_con" th:text="${session.user.email}">178****7767</span>
 									</span>
                                 <!-- 判断是否是修改鉴权手机号 -->
                             </div>
                             <form id="sjyz_form" class="column_form">
-                                <div class="step_1 step_1_1">
+                                <div class="step_1 step_1_1" id="yx_step1">
                                     <ul class="steps step1">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
@@ -586,14 +490,19 @@
                                     <div class="modify_mode1">
                                         <table class="form_type">
                                             <tr>
-                                                <td class="align_right">当前号码：</td>
+                                                <td class="align_right">当前邮箱：</td>
                                                 <td>
                                                     <span class="display_form">178****7767</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
-                                                <td><input id="sjyz_xg_step1_type1_pcode" class="code_form" type="text" /><a id="sjyz_xg_step1_type1_getpcode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                                <td>
+                                                    <input id="yxyz_xg_step1_code" class="code_form" type="text" />
+                                                    <a id="yxyz_step1_getcode" class="get_code inline_block" onclick="emgetcode('eamil_up',this)">
+                                                        <span id="yxyz_get_code_text">获取验证码</span>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
@@ -603,14 +512,14 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class=""><a id="sjyz_xg_step1_type1_submit" class="sbm_btn inline_block">下一步</a></td>
+                                                <td class=""><a class="sbm_btn inline_block" onclick="emoneTotow()">下一步</a></td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="form_msg">
                                         <p>
                                             <font class='blod'>温馨提示：</font>
-                                            如果您的手机号码注销或丢失，
+                                            如果您的邮箱地址注销或丢失，
                                             请联系客服、拔打 4006-0755-70。
 
                                         </p>
@@ -663,7 +572,11 @@
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
-                                                <td><input id="sjyz_xg_step1_type3_ecode" class="code_form" type="text" /><a id="sjyz_xg_step1_type3_getecode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                                <td><input id="sjyz_xg_step1_type3_ecode" class="code_form" type="text" />
+                                                    <a id="sjyz_xg_step1_type3_getecode" class="get_code inline_block">
+                                                        <span class="get_code_text">获取验证码</span>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
@@ -734,18 +647,20 @@
                                     </div>
                                 </div>
                                 <!-- 其他流程第二步 -->
-                                <div class="step_2">
+                                <div class="step_2" id="yx_step2">
                                     <ul class="steps step2">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
                                     <div class="for_step2">
                                         <table class="form_type">
                                             <tr>
-                                                <td class="align_right">手机号码：</td>
+                                                <td class="align_right">新邮箱：</td>
                                                 <td>
-                                                    <input id="sjyz_xg_step2_mobile" maxlength="11" type="text"/>
+                                                    <input id="yxyz_xg_step2_email" maxlength="11" type="text" onblur="em_new()"/>
                                                 </td>
-                                                <td class="width250"><div id="sjyz_xg_step2_mobileTip" class="tips_content"></div></td>
+                                                <td class="width250">
+                                                    <div id="sjyz_xg_step2_emailTip" class="tips_content"></div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
@@ -753,22 +668,25 @@
                                             </tr>
                                             <tr>
                                                 <td class="align_right">验证码：</td>
-                                                <td><input id="sjyz_xg_step2_pcode" class="code_form" type="text" /><a id="sjyz_xg_step2_getpcode" class="get_code inline_block"><span class="get_code_text">获取验证码</span></a></td>
+                                                <td>
+                                                    <input id="yxyz_xg_step2_code" class="code_form" type="text" onblur="em_check_ma_2()"/>
+                                                    <a id="yxyz_xg_step2_getpcode" class="get_code inline_block">
+                                                        <span id="yxyz_xg_step2_getpcode_text" class="get_code_text">获取验证码</span></a></td>
                                             </tr>
                                             <tr>
                                                 <td class="tips"></td>
                                                 <td class="tips">
-                                                    <div id="sjyz_xg_step2_pcodeTip" class="msg_tips_con"></div>
+                                                    <div id="sjyz_xg_step2_codeTip" class="msg_tips_con"></div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class=""><a id="sjyz_xg_step2_submit" class="sbm_btn inline_block">下一步</a></td>
+                                                <td class=""><a id="yxyz_xg_step2_submit" class="sbm_btn inline_block" onclick="emtwoTothree()">下一步</a></td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="step_3">
+                                <div class="step_3" id="yx_step3">
                                     <ul class="steps step3">
                                         <li>验证身份</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
                                     </ul>
@@ -939,7 +857,7 @@
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
-    })
+    });
 
     var jishi = 59;
     var jishuTishi;
@@ -964,9 +882,6 @@
                     $("#jymi_step1_codetemp").attr("value",yhMa);
                 }
             },"json");
-        }else{
-            //已经在获取验证码
-            $(".bindcard-msg").attr("disaply","block");
         }
     }
     function daojishi(){
@@ -987,8 +902,8 @@
     }
 
     var couldSub=true;
-    function step2p(id) {
-       var val = $(id).val();
+    function step2p() {
+       var val = $("#jymm_rz_step2_pwd").val();
        if (val=="" ||val==null){
            couldSub = false;
            $("#jymm_rz_step2_new_pwdTip").replaceWith("<div id=\"jymm_rz_step2_new_pwdTip\" class=\"onError\">请设置6位数密码</div>");
@@ -996,18 +911,16 @@
            couldSub = false;
            $("#jymm_rz_step2_new_pwdTip").replaceWith("<div id=\"jymm_rz_step2_new_pwdTip\" class=\"onError\">请设置6位数密码</div>");
        }else{
-           couldSub = true;
            $("#jymm_rz_step2_new_pwdTip").replaceWith("<div id=\"jymm_rz_step2_new_pwdTip\" class=\"tips_content\"></div>");
        }
     }
-    function restep2p(id) {
-        var p = $("#jymm_rz_step2_pwd").val();
+    function restep2p() {
+        var p = $("#jymm_rz_step2_pwd_qr").val();
         var val = $(id).val();
         if (p != val){
             couldSub = false;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
         }else{
-            couldSub = true;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"tips_content\"></div>");
         }
     }
@@ -1024,6 +937,9 @@
         }
     }
     function twoToThree() {
+        couldSub = true;
+        step2p();
+        restep2p();
         var p = $("#jymm_rz_step2_pwd").val();
         var qp = $("#jymm_rz_step2_pwd_qr").val();
         if (p =="" || p==null){
@@ -1032,73 +948,103 @@
         }else if((p !="" || p!=null)&&(qp==""||qp==null)){
             couldSub = false;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"onError\">请确认密码</div>");
-        }else if (couldSub == true){
+        }
+        if (couldSub == true){
             $("#s1").css("display","none");
             $("#s2").css("display","none");
             $("#s3").css("display","block");
 
             $.post("/user/zfmm", {dealPwd:p
             }, function (data) {
+                window.location.reload();
             }, "json");
         }
     }
 
+    var dlmm_key_xg = true;
+    var dlMa;
     function dlmm_old() {
-        var pwd = $("#dlmm_old_pwd").val;
-        if (pwd == "" || pwd == null) {
-            $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码不能为空</div>");
-        } else if (pwd != "" || pwd != null) {
-            $.post("/user/checkold", {dp: pwd}, function (data) {
-                if (data == false) {
-                    $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码错误</div>");
-                } else {
-                    $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
-                }
-            }, "json");
+        var pwd = $("#dlmm_old_pwd").val();
+        if (pwd != "" || pwd != null) {
+            // $.post("/user/checkold", {dp: pwd}, function (data) {
+            //     if (data == false) {
+            //         $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码错误</div>");
+            //     } else {
+            //         $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
+            //     }
+            // }, "json");
+            var op = $("#dp").val();
+            if (pwd!=op){
+                dlmm_key_xg=false;
+                $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码错误</div>");
+            }else {
+                $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
+            }
         }
     }
     function dlmm_new() {
-        var pwd = $("#dlmm_new_pwd").val;
-        if (pwd=="" || pwd==null){
-            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">新密码不能为空</div>");
-        }else if ((pwd!="" || pwd!=null)&& pwd.length<6){
+        var pwd = $("#dlmm_new_pwd").val();
+        if ((pwd!="" || pwd!=null)&& pwd.length<6){
+            dlmm_key_xg=false;
             $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">请输入6-20位新登陆密码</div>");
         }else {
             $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
         }
     }
     function dlmm_new_qr() {
-        var pwd = $("#dlmm_new_pwd").val;
-        var qrpwd = $("#dlmm_new_pwd_qr").val;
-        if (qrpwd=="" || qrpwd==null){
-            $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">确认密码不能为空</div>");
-        }else if (qrpwd != pwd){
+        var pwd = $("#dlmm_new_pwd").val();
+        var qrpwd = $("#dlmm_new_pwd_qr").val();
+        if (qrpwd != pwd){
+            dlmm_key_xg=false;
             $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
         }else {
             $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"tips_content\"></div>");
         }
     }
+    function dlmm_ma() {
+        var ma = $("#dl_cdtx").val();
+        if (ma!=dlMa){
+            dlmm_key_xg=false;
+            $("#dl_xg_er").replaceWith("<div id=\"dl_xg_er\" class=\"onError\">验证码错误</div>");
+        }
+    }
     function getDlcode(type,id){
+        dlmm_key_xg=true;
+        dlmm_old();
+        dlmm_new();
+        dlmm_new_qr();
+        var p1 = $("#dlmm_old_pwd").val();
+        var p2 = $("#dlmm_new_pwd").val();
+        var p3 = $("#dlmm_new_pwd_qr").val();
+        if (p1 == "" || p1 == null) {
+            dlmm_key_xg=false;
+            $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码不能为空</div>");
+        } else if (p2=="" || p2==null){
+            dlmm_key_xg=false;
+            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">新密码不能为空</div>");
+        }else if (p3=="" || p3==null){
+            dlmm_key_xg=false;
+            $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">确认密码不能为空</div>");
+        }
         yhMa = null;
         var email = $("#em").val();
-        if($("#get_code_text").text() === "获取验证码"){
-            $("#dl_xg_code").css("background-color","ccc");
-            $("#get_code_text").html('获取(59)');
+        if (dlmm_key_xg==true){
+            if($("#dlmm_get_code_text").text() === "获取验证码"){
+                $("#dl_code").css("background-color","ccc");
+                $("#dlmm_get_code_text").html('获取(59)');
 
-            jishuTishi  = setInterval("daojishi()", "1000");
+                jishuTishi  = setInterval("dlcdaoishi()", "1000");
 
-            $.post("/user/getMa",{email:email,type:type},function (data) {
-                if(data === "" || data == null){
-                    alert("请检查邮箱格式是否正确");
-                    $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
-                }else {
-                    yhMa = data;
-                    alert(yhMa);
-                }
-            },"json");
-        }else{
-            //已经在获取验证码
-            $(".bindcard-msg").attr("disaply","block");
+                $.post("/user/getMa",{email:email,type:type},function (data) {
+                    if(data === "" || data == null){
+                        alert("请检查邮箱格式是否正确");
+                        $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
+                    }else {
+                        dlMa = data;
+                        alert(dlMa);
+                    }
+                },"json");
+            }
         }
     }
     function dlcdaoishi(){
@@ -1106,15 +1052,164 @@
         if(jishi === 0){
             jishi = 59;
             clearInterval(jishuTishi);
-            $("#get_code_text").html('获取验证码');
-            $("#dl_xg_code").css("border","1px solid #fd7500");
-            $("#dl_xg_code").css("background-color","#fd7500");
-            $("#get_code_text").css("background-color","#fd7500");
+            $("#dlmm_get_code_text").html('获取验证码');
+            $("#dl_code").css("border","1px solid #fd7500");
+            $("#dl_code").css("background-color","#fd7500");
+            // $("#dlmm_get_code_text").css("background-color","#fd7500");
         }else{
-            $("#dl_xg_code").css("border","1px solid #ccc");
-            $("#dl_xg_code").css("background-color","#ccc");
-            $("#get_code_text").css("background-color","#ccc");
-            $("#get_code_text").html("获取("+jishi+")");
+            $("#dl_code").css("border","1px solid #ccc");
+            $("#dl_code").css("background-color","#ccc");
+            // $("#dlmm_get_code_text").css("background-color","#ccc");
+            $("#dlmm_get_code_text").html("获取("+jishi+")");
+        }
+    }
+    function dlmm_xg() {
+        dlmm_key_xg=true;
+        dlmm_old();
+        dlmm_new();
+        dlmm_new_qr();
+        dlmm_ma();
+        var p1 = $("#dlmm_old_pwd").val();
+        var p2 = $("#dlmm_new_pwd").val();
+        var p3 = $("#dlmm_new_pwd_qr").val();
+        var ma = $("#dl_cdtx").val();
+        if (p1 == "" || p1 == null) {
+            dlmm_key_xg=false;
+            $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码不能为空</div>");
+        } else if (p2=="" || p2==null){
+            dlmm_key_xg=false;
+            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">新密码不能为空</div>");
+        }else if (p3=="" || p3==null){
+            dlmm_key_xg=false;
+            $("#dlmm_new_pwd_qrTip").replaceWith("<div id=\"dlmm_new_pwd_qrTip\" class=\"onError\">确认密码不能为空</div>");
+        }else if (ma=="" ||ma==null){
+            dlmm_key_xg=false;
+            $("#dl_xg_er").replaceWith("<div id=\"dl_xg_er\" class=\"onError\">验证码不能为空</div>");
+        }
+        if (dlmm_key_xg==true){
+            $.post("/user/dlmm",{loginPsw:p2},function (data) {
+                window.location.reload();
+            },"json");
+        }
+    }
+
+    var emMa;
+    var emMa2;
+    function emgetcode(type,id){
+        yhMa = null;
+        var email = $("#em").val();
+        if($("#yxyz_get_code_text").text() == "获取验证码"){
+            $("#yxyz_step1_getcode").css("background-color","ccc");
+            $("#yxyz_get_code_text").html('获取(59)');
+
+            jishuTishi  = setInterval("emdaoishi()", "1000");
+
+            $.post("/user/getMa",{email:email,type:type},function (data) {
+                if(data === "" || data == null){
+                    alert("请检查邮箱格式是否正确");
+                }else {
+                    emMa = data;
+                    alert(emMa);
+                }
+            },"json");
+        }
+    }
+    function emdaoishi(){
+        jishi -= 1;
+        if(jishi === 0){
+            jishi = 59;
+            clearInterval(jishuTishi);
+            $("#yxyz_get_code_text").html('获取验证码');
+            $("#yxyz_step1_getcode").css("border","1px solid #fd7500");
+            $("#yxyz_step1_getcode").css("background-color","#fd7500");
+        }else{
+            $("#yxyz_step1_getcode").css("border","1px solid #ccc");
+            $("#yxyz_step1_getcode").css("background-color","#ccc");
+            $("#yxyz_get_code_text").html("获取("+jishi+")");
+        }
+    }
+    function em_check_ma() {
+        var ma = $("#yxyz_xg_step1_code").val();
+        if (ma!=emMa){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码错误</div>");
+        }
+    }
+    function emoneTotow() {
+        em_check_ma();
+        var ma = $("#yxyz_xg_step1_code").val();
+        if(ma==null||ma==""){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码不能为空</div>");
+        }else if (ma!=emMa){
+            $("#sjyz_xg_step1_type1_pcodeTip").replaceWith("<div id=\"sjyz_xg_step1_type1_pcodeTip\" class=\"onError\">验证码错误</div>");
+        }else {
+            $("#yx_step1").css("display","none");
+            $("#yx_step2").css("display","block");
+            $("#yx_step3").css("display","none");
+        }
+    }
+
+    function em_new() {
+        var email = $("#yxyz_xg_step2_email").val();
+        var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
+        if (!emailReg.test(email)){
+            $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱格式不正确</div>");
+        }
+    }
+    function em_check_ma_2() {
+        var ma = $("#yxyz_xg_step2_code").val();
+        if (ma!=emMa2){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
+        }
+    }
+    function emgetcode2(type,id){
+        var email = $("#em").val();
+        if($("#yxyz_xg_step2_getpcode_text").text() == "获取验证码"){
+            $("#yxyz_xg_step2_getpcode").css("background-color","ccc");
+            $("#yxyz_xg_step2_getpcode_text").html('获取(59)');
+
+            jishuTishi  = setInterval("emdaoishi()", "1000");
+
+            $.post("/user/getMa",{email:email,type:type},function (data) {
+                if(data === "" || data == null){
+                    alert("请检查邮箱格式是否正确");
+                }else {
+                    emMa2 = data;
+                    alert(emMa2);
+                }
+            },"json");
+        }
+    }
+    function emdaoishi2(){
+        jishi -= 1;
+        if(jishi === 0){
+            jishi = 59;
+            clearInterval(jishuTishi);
+            $("#yxyz_xg_step2_getpcode_text").html('获取验证码');
+            $("#yxyz_xg_step2_getpcode").css("border","1px solid #fd7500");
+            $("#yxyz_xg_step2_getpcode").css("background-color","#fd7500");
+        }else{
+            $("#yxyz_xg_step2_getpcode").css("border","1px solid #ccc");
+            $("#yxyz_xg_step2_getpcodet").css("background-color","#ccc");
+            $("#yxyz_xg_step2_getpcode_text").html("获取("+jishi+")");
+        }
+    }
+    function emtwoTothree() {
+        em_new();
+        em_check_ma_2();
+        em_check_ma();
+        var ma = $("#yxyz_xg_step2_code").val();
+        var email = $("#yxyz_xg_step2_email").val();
+        if(email==""||email==""){
+            $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱不能为空</div>");
+        }
+        if(ma==null||ma==""){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码不能为空</div>");
+        }else if (ma!=emMa){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
+        }else {
+            $("#yx_step1").css("display","none");
+            $("#yx_step2").css("display","none");
+            $("#yx_step3").css("display","block");
         }
     }
 </script>

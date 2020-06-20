@@ -65,9 +65,6 @@ public class Userimf { //6月10日15点23
     @Column(name = "age",type = MySqlTypeConstant.INT)
     private int	age;
 
-    @Column(name = "registerTime",type = MySqlTypeConstant.DATETIME)
-    private Date registerTime;
-
     @Column(name = "lastLoginTime",type = MySqlTypeConstant.DATETIME)
     private Date lastLoginTime;
 
@@ -95,7 +92,6 @@ public class Userimf { //6月10日15点23
                 ", refereerId=" + refereerId +
                 ", creditLv=" + creditLv +
                 ", age=" + age +
-                ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
                 ", place='" + place + '\'' +
                 '}';
@@ -251,14 +247,6 @@ public class Userimf { //6月10日15点23
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public Date getRegisterTime() {
-        return registerTime;
-    }
-
-    public void setRegisterTime(Date registerTime) {
-        this.registerTime = registerTime;
     }
 
     public Date getLastLoginTime() {

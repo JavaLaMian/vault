@@ -28,11 +28,6 @@
     </script>
 
     <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
-    <script>
-        $(function(){
-            seajs.use('module/common/common')
-        })
-    </script>
     <link th:href="@{/css/main/detail-58c71fea0f.css}" rel="stylesheet">
     <style>
         .item{
@@ -605,28 +600,35 @@
 
     function padMoney(id) {
         var time = $(id).val();
-        var arr = time.split(".");
-        if(arr.length === 1){
-            for (var i = 0; i < time.length; i++) {
-                var t = time.charCodeAt(i);
-                if (!(t >= 48 && t <= 57)){
-                    if(t !== 46){
-                        $(id).val(time.substr(0,time.length-1));
-                    }else{
-                        $(id).val(arr[0]);
+        if(time.charCodeAt(0) == 46){
+            $(id).val("");
+        }else{
+            var arr = time.split(".");
+            if(arr.length === 1){
+                for (var i = 0; i < time.length; i++) {
+                    var t = time.charCodeAt(i);
+                    if (!(t >= 48 && t <= 57)){
+                        if(t !== 46){
+                            console.log("t1"+t);
+                            $(id).val(time.substr(0,time.length-1));
+                        }else{
+                            $(id).val(arr[0]);
+                        }
                     }
                 }
-            }
-        }else{
-            var xiaosu = arr[1];
-            var text = "";
-            if(xiaosu.length != 0){
+            }else{
+                var xiaosu = arr[1];
                 for (var i = 0; i < xiaosu.length; i++) {
-                    if(i < 2) text += xiaosu.charAt(i);
-
+                    var t = xiaosu.charCodeAt(i);
+                    if (t >= 48 && t <= 57){
+                        if(i < 2)$(id).val(arr[0]+"."+xiaosu);
+                        else $(id).val(time.substr(0,time.length-1));
+                    }else{
+                        $(id).val(time.substr(0,time.length-1));
+                    }
                 }
+
             }
-            $(id).val(arr[0]+"."+text)
         }
     };
 
@@ -733,7 +735,7 @@
                     var html = "";
                     if(data.size !== 0){
                         var lists = data.list;
-                        html = "<ul style='overflow: hidden;padding: 0 15px;'><li class='titles'><p>标名称</p><p style='width: 34%;'>" +
+                        html = "<ul style='overflow: hidden;padding:15px;'><li class='titles'><p>标名称</p><p style='width: 34%;'>" +
                             "投资时间</p><p>锁定周期</p><p>投资金额</p></li>";
 
                         for(var i = 0;i<lists.length;i++){  //循环LIST
@@ -764,7 +766,7 @@
 
     function formatDateTime(date) {
         var time = new Date(date);
-        time.setTime(time.setHours(time.getHours() + 11));
+        time.setTime(time.setHours(time.getHours()));
         var Y = time.getFullYear() + '-';
         var  M = addZero(time.getMonth() + 1) + '-';
         var D =addZero(time.getDate() - 1) + ' ';
@@ -772,7 +774,6 @@
         var m = addZero(time.getMinutes()) + ':';
         var  s = addZero(time.getSeconds());
         return Y + M + D + h+ m+ s;
-        // }
     }
 
     // 数字补0操作
