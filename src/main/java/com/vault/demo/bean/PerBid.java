@@ -12,18 +12,17 @@ public class PerBid {
         private int bidStatus;
        private int borrower;
        private String  perBidName;
-       private  String  inRate ;
+       private  String  inRate ;//投资利率
        private float rate;
        private float addRate;
        private float  combination;
        private String  transLine;
        private String clockLine;
-       private int  deposit;
        private int  transfer;
        private Date startTime;
        private float enquiry;//可以投资余额
-       private float schedul;
-       private Date expire;
+       private float schedul;//进度
+       private Date expire;//到期时间
        private int borrowTime;
 
 
@@ -40,7 +39,6 @@ public class PerBid {
                 ", combination=" + combination +
                 ", transLine='" + transLine + '\'' +
                 ", clockLine='" + clockLine + '\'' +
-                ", deposit=" + deposit +
                 ", transfer=" + transfer +
                 ", startTime=" + startTime +
                 ", enquiry=" + enquiry +
@@ -130,13 +128,7 @@ public class PerBid {
         this.clockLine = clockLine;
     }
 
-    public int getDeposit() {
-        return deposit;
-    }
 
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
-    }
 
     public int getTransfer() {
         return transfer;

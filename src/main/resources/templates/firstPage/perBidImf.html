@@ -10,11 +10,81 @@
 
 
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+        <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+
         <link rel="shortcut icon" href="//image.xiaoniu88.com/static/WebXn/dist/images/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/css/base-ddb0535420.css" />
         <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
 
+        <script language="JavaScript">
+            function changer(c) {
+                if(c==1){
+                    $("#introduceModel").css("display","block");
+                    $("#borrowingModel").css("display","none");
+                    $("#investListModel").css("display","none");
+                    $("#l1").attr("class","extend-trigger current");
+                    $("#l2").attr("class","extend-trigger");
+                    $("#l3").attr("class","extend-trigger");
 
+                }else if(c==2){
+                    $("#borrowingModel").css("display","block");
+                    $("#introduceModel").css("display","none");
+                    $("#investListModel").css("display","none");
+                    $("#l2").attr("class","extend-trigger current");
+                    $("#l1").attr("class","extend-trigger");
+                    $("#l3").attr("class","extend-trigger");
+                }else if(c==3){
+                    $("#investListModel").css("display","block");
+                    $("#borrowingModel").css("display","none");
+                    $("#introduceModel").css("display","none");
+                    $("#l3").attr("class","extend-trigger current");
+                    $("#l2").attr("class","extend-trigger");
+                    $("#l1").attr("class","extend-trigger");
+                }
+            }
+
+
+
+
+            function padMoney(id) {
+                var time = $(id).val();
+                var arr = time.split(".");
+                if(arr.length === 1){
+                    for (var i = 0; i < time.length; i++) {
+                        var t = time.charCodeAt(i);
+                        if (!(t >= 48 && t <= 57)){
+                            if(t !== 46){
+                                $(id).val(time.substr(0,time.length-1));
+                            }else{
+                                $(id).val(arr[0]);
+                            }
+                        }
+                    }
+                }else{
+                    var xiaosu = arr[1];
+                    var text = "";
+                    if(xiaosu.length != 0){
+                        for (var i = 0; i < xiaosu.length; i++) {
+                            if(i < 2) text += xiaosu.charAt(i);
+                        }
+                    }
+                    $(id).val(arr[0]+"."+text)
+                }
+            };
+
+            function padXiao(id) {
+                var suru = $(id).val();
+                var min = $("#kai").text();
+                if(suru != ''){
+                    suru = parseFloat(suru);
+                    min = parseFloat(min);
+
+                    if(suru < min) $(id).val(min);
+                    else $(id).val(suru);
+                }
+            }
+        </script>
         <script>
             window.global = {
                 cdn: "//image.xiaoniu88.com",
@@ -167,8 +237,6 @@
     <!--[if lt IE 9]>
     <script src="//image.xiaoniu88.com/static/WebXn/dist/lib/html5/html5-083d84e804.js"></script >
     <![endif]-->
-    </div>
-
     <!--导航-->
     <div class="navigation" id="navigationModel">
         <div class="container">
@@ -266,7 +334,7 @@
                         </dl>
                         <dl class="lock-day">
                             <dt>
-                                <span class="f-rest" th:text="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}"></span>元
+                                <span class="f-rest" id="maxMoney" th:text="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}"></span>元
                             </dt>
                             <dd>
                                 可购金额
@@ -338,29 +406,57 @@
                         </dl>
                     </div>
                 </div>
-                <div class="sub-right">
-                    <!--<div class="sellout abs">-->
-                        <!--<div class="info">-->
-                            <!--成功交易时间：-->
-                        <!--</div>-->
-                        <!--<div class="describe">-->
-                            <!--2019-04-29 00:05:26-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <div class="sub-right" style="width: 408px;">
+                    <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
+                        <div class="info">请先登陆您的账号</div>
+                    </div>
+
+                    <div class="sellout abs" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
+                        <div class="info">将从余额扣除</div>
+                        <button class="goumai" onclick="zhifuKuan()">立即购买</button>
+                        <div class="collapse" id="coll2">
+                            <div class="well" style="background-color: #f2dede;color: #a94442;border-color:#ebccd1;text-align: center">
+                                <form th:action="@{/main/getbid}" method="post">
+                                    <input th:value="${session.user.getuId()}" type="hidden" name="uId">
+                                    <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bType">
+                                    <input th:if="${bx.bId != null}" th:value="${bx.bId}" type="hidden" name="bId">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">投资金额</span>
+                                        <input type="text" name="tenMoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
+                                        <span class="input-group-addon">100元起投</span>
+                                    </div>
+                                    <div class="input-group" style="margin: 10px 0">
+                                        <span class="input-group-addon">交易密码</span>
+                                        <input type="password" name="pwd" class="form-control">
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger" onclick="zhifuKuan()">取消</button>
+                                        <button class="btn btn-primary">确认</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sellout abs" th:if="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}==0.00">
+                        <div class="info">此标已达限额 最后一次投资时间</div>
+                        <div class="describe" th:text="${#dates.format(lastTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
         <div class="extend" id="extendModel">
             <ul class="tab">
-                <li data-type="introduce" class="extend-trigger current"><i class="icon icon-project"></i><span>项目详情</span></li>
-                <li data-type="borrowing" class="extend-trigger"><i class="icon icon-borrowing"></i><span>借款人信息</span></li>
-                <li data-type="investList" class="extend-trigger"><i class="icon icon-invest"></i><span>投标记录</span></li>
+                <li data-type="introduce" class="extend-trigger current" id="l1" onclick="changer(1)"><i class="icon icon-project"></i><span>项目详情</span></li>
+                <li data-type="borrowing" class="extend-trigger" id="l2"  onclick="changer(2)"><i class="icon icon-borrowing"></i><span>借款人信息</span></li>
+                <li data-type="investList" class="extend-trigger" id="l3"   onclick="changer(3)"><i class="icon icon-invest"></i><span>投标记录</span></li>
             </ul>
             <div class="items">
                 <div class="item introduce tableList" id="introduceModel" style="display: block;">
                     <h3 class="title">项目简介与风险评估</h3>
                     <div class="extend-describe">
-                        本项借款属于个人借款，借款总金<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元。借款人<span th:text="${#strings.substring(u.uName,0,1)}"></span>某个人资质已通过审核,申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
+                        本项借款属于个人借款，借款总金<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元。借款人<span th:text="${u.uName}"></span>某个人资质已通过审核,申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
                     </div>
                     <h3 class="title">借款用途</h3>
                     <div class="extend-describe">
@@ -398,7 +494,6 @@
                         </dd>
                     </dl>
                 </div>
-
                 <div class="item borrowing tableList" id="borrowingModel" style="display: none;">
                     <div class="queue">
                         <div class="node first">
@@ -407,12 +502,12 @@
                                 <span>借款基础信息</span>
                             </div>
                             <div class="infos">
-                                <span>借款金额：<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元</span>
-                                <span>借款期限：<span th:text="${p.borrowTime}"></span>个月</span>
+                                <span th:text="'借款金额：'+${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}+'元'"></span>
+                                <span th:text="'借款期限：'+${p.borrowTime}+'个月'"></span>
                                 <span>还款方式：每月还本付息</span>
                                 <span>借款用途：个人消费</span>
-                                <span>签约时间：<span th:text="${p.startTime}"></span></span>
-                                <span>约定利率：<span th:text="${p.rate}"></span>%</span>
+                                <span th:text="'签约时间：'+${p.startTime}"></span>
+                                <span th:text="'约定利率：'+${p.rate}+'%'"></span>
                                 <span>还款来源：工资收入</span>
                                 <span>还款保障措施：该笔借款由深圳市易美网络科技有限公司提供担保。</span>
                             </div>
@@ -423,8 +518,8 @@
                                 <span>借款人基础信息</span>
                             </div>
                             <div class="infos">
-                                <span>借款人：<span th:text="${#strings.substring(u.uName,0,1)}"></span>某</span>
-                                <span>身份证：<span th:text="${#strings.substring(u.identity,0,2)}+'****'+${#strings.substring(u.identity,13,4)}"></span></span>
+                                <span th:text="'借款人：'+${#strings.substring(u.uName,0,1)}+'某'"></span>
+                                <span th:text="'身份证：****'+${#strings.substring(u.identity,0,3)}"></span>
                             </div>
                         </div>
                         <div class="node">
@@ -439,7 +534,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="item recordList investList g-dn" id="investListModel" style="display: none; text-align: center;">
                     <div class="content">
                         <div class="sequence g-tl">
@@ -456,13 +550,14 @@
                             </thead>
                             <tbody>
                             <tr class="even" th:each="ti:${t}">
-                                <td><i class="vipIcon icon-vipplatinum_member"></i></td>
-                                <td>7,193.00</td>
-                                <td>2019-04-29 00:05:18</td>
+                                <td><span th:text="'***'+${#strings.substring(ti.uName,0,1)}"></span><i class="vipIcon icon-vipplatinum_member"></i></td>
+                                <td th:text="${ti.tenMoney}"></td>
+                                <td th:text="${#dates.format(ti.tenTime,'yyyy-MM-dd')}"></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+
                     <div class="page paginator" style="visibility: hidden;">
                         <div class="paginator-main" id="paginator-main" style="display: block;">
                             <div class="paginator-info">
@@ -496,6 +591,9 @@
             </div>
         </div>
     </div>
+
+
+
     <div id="token">
         <input type="hidden" id="ooh.token.name" name="ooh.token.name" value="a605da2933844b6788304d0dbbc62f73" />
         <input type="hidden" id="ooh.token.value" name="ooh.token.value" value="U0MIT1KTAYMDN7EYQDUGGOE3VRQ7YA0" />
@@ -577,7 +675,5 @@
             <span id="YSF-BTN-CLOSE"></span>
         </div>
     </div>
-
     </body>
-
     </html>

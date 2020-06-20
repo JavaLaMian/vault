@@ -33,7 +33,7 @@ public class MainControl {
     BidSer bidSer;
 
     @RequestMapping("/first")
-    public String toMain(HttpServletRequest request) {
+    public String toMain(HttpServletRequest request){
         List<Bid> nList = bidSer.allList();
         List ncList = nList.subList(0, 3);
         List<PerBid> perList = bidSer.selectPerB(0);
@@ -75,16 +75,18 @@ public class MainControl {
     }
 
     @RequestMapping("/perImf")
-    public String perImf(int id, HttpServletRequest request) {
+    public String perImf(int id, HttpServletRequest request){
         PerBid p = bidSer.selectByPid(id);
-        System.out.println(p.getBorrower() + "-------------------------------------");
-        List userimf = bidSer.selectUser(p.getBorrower());
-        List<Tender> tenders = bidSer.getTenderId(id, 3, 0);
+        List<Map> userimf = bidSer.selectUser(p.getBorrower());
+        Map u = userimf.get(0);
+        List<Map> tenders = bidSer.selectTandU(id,  3);
         int countU = bidSer.countTenByBid(id, 3);
+        Date lastTime = bidSer.lastTenTime(id);
         request.setAttribute("p", p);
-        request.setAttribute("u", userimf);
+        request.setAttribute("u", u);
         request.setAttribute("t", tenders);
         request.setAttribute("countU", countU);
+        request.setAttribute("lastTime",lastTime);
         return "firstPage/perBidImf";
     }
 

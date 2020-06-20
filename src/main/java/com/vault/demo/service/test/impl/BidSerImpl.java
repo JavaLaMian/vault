@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class BidSerImpl implements BidSer
-{
+public class BidSerImpl implements BidSer{
 
     @Resource
     BidDao bidDao;
@@ -74,7 +74,6 @@ public class BidSerImpl implements BidSer
     }
 
 
-
     @Override
     public PerBid selectByPid(int perBid){
         List<PerBid> pids = bidDao.selectPerB(perBid);
@@ -82,8 +81,13 @@ public class BidSerImpl implements BidSer
     }
 
     @Override
-    public List<Tender> getTenderId(int tid,int id,int t) {
-        return bidDao.selectTouId(tid,id,t);
+    public List<Tender> getTenderId(int uId ,int bId,int bType){
+        return bidDao.selectTouId(uId,bId,bType);
+    }
+
+    @Override
+    public List<Map> selectTandU(int bid, int bType) {
+        return bidDao.selectTandU(bid,bType);
     }
 
     @Override
@@ -155,6 +159,11 @@ public class BidSerImpl implements BidSer
         return map;
     }
 
+    @Override
+    public Date lastTenTime(int bid) {
+        return bidDao.lastTenTime(bid);
+    }
+
 
     @Override
     public List selectUser(int uId){
@@ -163,6 +172,6 @@ public class BidSerImpl implements BidSer
 
     @Override
     public int countTenByBid(int bid, int bType) {
-        return 0;
+        return bidDao.countTenByBid(bid,bType);
     }
 }

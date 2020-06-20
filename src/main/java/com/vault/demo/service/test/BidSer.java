@@ -7,6 +7,7 @@ import com.vault.demo.bean.Userimf;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,10 @@ public interface BidSer{
     int  countPerPage(float inRate,float enquiry);
     Bid selectByBid(int bid);
     PerBid selectByPid(int pid);
-    List<Tender> getTenderId(int tid, int id, int t);
+    List<Tender> getTenderId(int uId ,int bId,int bType);
+
+    List<Map> selectTandU(int bid, int bType);
+
     List selectUser(int uId);
     int countTenByBid(int bid,int bType);
 
@@ -42,4 +46,7 @@ public interface BidSer{
     List<Map> getComList(int uId);
 
     Map padTouBiao(HttpSession session,int id,int t);
+
+    Date lastTenTime(int bid );
+
 }

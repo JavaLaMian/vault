@@ -14,7 +14,6 @@ public interface UserService {
     Userimf pandEmail(String email);
     Userimf logPadUser(Userimf userimf);
     int updetaPwd(String email,String pwd);
-
     void bindCredit(Credit credit);
     void bindBank(UserBank userBank);
     UserBank getBC(int uId);
