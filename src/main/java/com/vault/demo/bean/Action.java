@@ -38,6 +38,8 @@ public class Action {//6月10日16点42
     @Column(name = "tobePay",type = MySqlTypeConstant.DOUBLE)
     private float tobePay;
 
+    private Date actime;
+
     @Override
     public String toString() {
         return "Action{" +
@@ -49,7 +51,24 @@ public class Action {//6月10日16点42
                 ", maxRepayTime=" + maxRepayTime +
                 ", acStatus=" + acStatus +
                 ", tobePay=" + tobePay +
+                ", actime=" + actime +
                 '}';
+    }
+
+    public static int getBEFORE() {
+        return BEFORE;
+    }
+
+    public static int getIN() {
+        return IN;
+    }
+
+    public static int getCAN() {
+        return CAN;
+    }
+
+    public static int getEND() {
+        return END;
     }
 
     public int getaId() {
@@ -114,5 +133,13 @@ public class Action {//6月10日16点42
 
     public void setTobePay(float tobePay) {
         this.tobePay = tobePay;
+    }
+
+    public Date getActime() {
+        return actime;
+    }
+
+    public void setActime(Date actime) {
+        this.actime = actime;
     }
 }

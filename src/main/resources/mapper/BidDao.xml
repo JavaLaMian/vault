@@ -20,13 +20,46 @@
         ]]>
     </select>
 
-    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid" parameterType="int">
-        <![CDATA[
-          select *,(rate-addRate) as inRate from perBid
+    <select id="countPerList" resultType="int">
+         <![CDATA[
+          select COUNT(*) from perBid
         ]]>
+    </select>
+
+    <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <if test="perBid != null and perBid != 0">
             where perBid = #{perBid}
         </if>
+    </select>
+
+    <select id="countPerPage" resultType="int">
+        select count(*) from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        <where>
+            <if test="inRate==3">(rate-addRate) &lt; 7</if>
+            <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
+            <if test="inRate==5">(rate-addRate) &gt;= 8 and (rate-addRate) &lt;=10</if>
+            <if test="inRate==6">(rate-addRate) &gt; 10</if>
+            <if test="enquiry==3"> and (combination-sumM) &lt; 5000</if>
+            <if test="enquiry==4"> and (combination-sumM) &gt;= 5000 and (combination-sumM) &lt; 10000</if>
+            <if test="enquiry==5"> and (combination-sumM) &gt;= 10000 and (combination-sumM) &lt;= 50000</if>
+            <if test="enquiry==6"> and (combination-sumM) &gt; 50000</if>
+        </where>
+    </select>
+
+    <select id="pagePerB" resultType="com.vault.demo.bean.PerBid">
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        <where>
+            <if test="inRate==3">(rate-addRate) &lt; 7</if>
+            <if test="inRate==4">(rate-addRate) &gt;= 7 and (rate-addRate) &lt;8</if>
+            <if test="inRate==5">(rate-addRate) &gt;= 8 and (rate-addRate) &lt;=10</if>
+            <if test="inRate==6">(rate-addRate) &gt; 10</if>
+            <if test="enquiry==3"> and (combination-sumM) &lt; 5000</if>
+            <if test="enquiry==4"> and (combination-sumM) &gt;= 5000 and (combination-sumM) &lt; 10000</if>
+            <if test="enquiry==5"> and (combination-sumM) &gt;= 10000 and (combination-sumM) &lt;= 50000</if>
+            <if test="enquiry==6"> and (combination-sumM) &gt; 50000</if>
+        </where>
+            limit #{startT},#{tSize}
     </select>
 
     <delete id="deleteById" parameterType="com.vault.demo.bean.Bid">
@@ -42,10 +75,22 @@
     </insert>
     
     <select id="selectTouId" resultType="com.vault.demo.bean.Tender" parameterType="int">
-        select * from tender where bId = #{bId} and bType = #{bType}
+        select * from tender  where bId = #{bId} and bType = #{bType}
         <if test="uId != null and uId != 0">
             and uId = #{uId}
         </if>
+    </select>
+
+    <select id="selectTandU" resultType="map" parameterType="int">
+        select * from tender left join userimf using(uId)  where bId = #{bId} and bType = #{bType}
+    </select>
+
+    <select id="countTenByBid"  resultType="int" parameterType="int">
+        select count(*) from tender where bId = #{bId} and bType = #{bType}
+    </select>
+
+    <select id="selectUser" resultType="map" parameterType="int">
+        select * from userimf left join credit using(uId)
     </select>
 
     <insert id="addTender" parameterType="com.vault.demo.bean.Tender">
@@ -56,5 +101,10 @@
     </update>
     <select id="comUserList" resultType="Map" parameterType="int">
         select b.bidName,t.tenTime,b.clockLine,t.tenMoney from tender t,bid b where t.bId = b.bId and t.uId = #{uId}
+    </select>
+
+
+    <select id="lastTenTime" resultType="Date" parameterType="int">
+        select  tenTime from tender where bid  = #{bid} and bType = 3 ORDER BY tenTime desc limit  0,1
     </select>
 </mapper>

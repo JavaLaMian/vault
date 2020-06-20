@@ -49,7 +49,7 @@
             <input id="_point_current_menu" type="hidden" value="mall">
             <ul class="nav">
                 <li>
-                    <a th:href="@{/integral/main}"  id="_menu_mall" class="cur">积分兑换</a>
+                    <a th:href="@{/integral/main(q=0)}"  id="_menu_mall" class="cur">积分兑换</a>
                 </li>
                 <!--  -->
                 <li>
@@ -65,7 +65,7 @@
     <div class="section">
         您现在的位置：
         <a th:href="@{/main/first}">首页</a>&gt;
-        <a th:href="@{/integral/main}">积分商城</a>&gt;
+        <a th:href="@{/integral/main(q=0)}">积分商城</a>&gt;
         <a th:href="@{/integral/list(spId=0,currPage=1,sort=0)}">商城列表</a>&gt;兑换成功
     </div>
 </div>
