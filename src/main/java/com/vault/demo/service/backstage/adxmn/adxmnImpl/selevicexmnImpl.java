@@ -69,4 +69,14 @@ public class selevicexmnImpl implements selevicexmn {
         dao.updategetbiBid(bidStatus,id);
     }
 
+    @Override
+    public float selectBidmoney(int bidType) {
+        return dao.selectBidmoney(bidType);
+    }
+
+    @Override
+    public int selectgetByid() {
+        return dao.selectgetByid();
+    }
+
 }
