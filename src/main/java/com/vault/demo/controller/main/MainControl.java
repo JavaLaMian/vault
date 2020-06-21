@@ -35,21 +35,21 @@ public class MainControl{
     public String toMain(HttpServletRequest request){
         List<Bid> nList = bidSer.allList();
         List ncList = nList.subList(0, 3);
-        List<PerBid> perList = bidSer.selectPerB(0);
-        System.out.println("==================" + perList.size());
+        //List<PerBid> perList = bidSer.selectPerB(0);
+        /*System.out.println("==================" + perList.size());
         request.setAttribute("ncList", ncList);
-        request.setAttribute("perList", perList);
+        request.setAttribute("perList", perList);*/
         return "firstPage/first";
     }
 
 
     @RequestMapping("/perList")
     public String perList(PerBid perBid, Pager pager, HttpServletRequest request) {
-        pager.page(bidSer.countPerPage(perBid.getRate(), perBid.getEnquiry()));
-        List<PerBid> list = bidSer.pagePerB((pager.thisPage - 1) * pager.titleSize, pager.titleSize, perBid.getRate(), perBid.getEnquiry());
-        request.setAttribute("pager", pager);
+        //pager.page(bidSer.countPerPage(perBid.getRate(), perBid.getEnquiry()));
+        //List<PerBid> list = bidSer.pagePerB((pager.thisPage - 1) * pager.titleSize, pager.titleSize, perBid.getRate(), perBid.getEnquiry());
+        /*request.setAttribute("pager", pager);
         request.setAttribute("list", list);
-        request.setAttribute("p", perBid);
+        request.setAttribute("p", perBid);*/
         return "firstPage/proseList";
     }
 
@@ -74,7 +74,7 @@ public class MainControl{
 
     }
 
-    @RequestMapping("/perImf")
+    /*@RequestMapping("/perImf")
     public String perImf(int id, HttpServletRequest request){
         PerBid p = bidSer.selectByPid(id);
         List<Map> userimf = bidSer.selectUser(p.getBorrower());
@@ -88,7 +88,7 @@ public class MainControl{
         request.setAttribute("countU", countU);
         request.setAttribute("lastTime",lastTime);
         return "firstPage/perBidImf";
-    }
+    }*/
 
     @RequestMapping("/getbid")
     public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException { //用户购买标
