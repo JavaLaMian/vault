@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.Driver;
 
 @RequestMapping("/user")
 @Controller
@@ -96,8 +97,8 @@ public class UserControllerForCredit {
         dirPath = dirPath + "\\src\\main\\resources\\static\\photoHouse";
 //        System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
 
+        //找到项目发布路径
         File path = new File(ResourceUtils.getURL("classpath:").getPath());
-
         File upload = new File(path.getAbsolutePath(),"static/photoHouse/");
 
         //找到项目发布路径根目录
@@ -130,6 +131,9 @@ public class UserControllerForCredit {
 
 //        Resource resource = new ClassPathResource("");
 //        System.out.println(resource.getFile().getAbsolutePath());
+
+
+
         return "redirect:toCreditRegisterPage";
     }
 }

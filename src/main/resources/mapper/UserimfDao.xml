@@ -83,4 +83,14 @@
             where uid = #{uId} ORDER BY reTime  desc
         ]]>
     </select>
+    <select id="selectBounty" resultType="com.vault.demo.bean.Bounty">
+        <![CDATA[
+          select * from bounty where uId = #{uId} and boType = #{type}
+        ]]>
+    </select>
+    <update id="updateBounty">
+        <![CDATA[
+          update bounty set boType=#{type} where boId = #{id}
+        ]]>
+    </update>
 </mapper>

@@ -68,6 +68,7 @@ public class MainControl{
             model.addAttribute("to",max.get("to"));//最后一次投标
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
+            model.addAttribute("ylist",max.get("yuhui"));//优惠券
         }
         return "firstPage/prose";
 
@@ -90,14 +91,22 @@ public class MainControl{
     }
 
     @RequestMapping("/getbid")
-    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session) throws ParseException { //用户购买标
+    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException { //用户购买标
         Userimf userimf = (Userimf)session.getAttribute("user");
         String userMon = userimf.getAvaBalance()+"";
+        System.out.println(uhId + "|" +yhHmon);
         if(pwd.equals(userimf.getDealPsw())){
             BigDecimal zhichu = new BigDecimal(tender.getTenMoney()+"");
             BigDecimal wan = new BigDecimal("10000");
 
             BigDecimal zcMoney = zhichu.multiply(wan);
+            if(uhId != 0){
+                System.out.println("优惠前："+zcMoney);
+                BigDecimal yuhui = new BigDecimal(""+yhHmon);
+                zcMoney = zcMoney.subtract(yuhui);
+                bidSer.updYuHui(uhId,0);
+                System.out.println("优惠后："+zcMoney);
+            }
             BigDecimal useMoney = new BigDecimal(userMon);
 
             if(useMoney.compareTo(zcMoney) == 1) {
