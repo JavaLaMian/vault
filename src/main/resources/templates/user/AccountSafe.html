@@ -87,7 +87,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
+                        <a href="/user/viewApply">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -188,15 +188,12 @@
 
                         <div class="security_level">
                             <span class="inline_block">您的账户安全等级：</span>
-                            <span class="inline_block level_level_num">
-                                低
-                            </span>
+                            <span id="textlv"></span>
                             <span class="inline_block">
-									<div class='level_100'>
-										<div style="width:30%"></div>
+                                <div class='level_100'>
+										<div id="fxzhi" style="width:30%"></div>
 									</div>
-								</span>
-                            <a id="resetAccountLevel" class="inline_block">重新检验</a>
+                            </span>
                         </div>
                     </div>
                     <!-- 账户安全设置列表 -->
@@ -204,10 +201,10 @@
                         <!-- 实名认证 -->
                         <div myid='realName' class="column">
 
-                            <div class="column_name not_seted" th:if="null eq ${session.credit}">
+                            <div class="column_name not_seted" th:if="null eq ${credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${session.credit}">
+                            <div class="column_msg" th:if="null eq ${credit}">
                                 <span class="setting">
                                     <a myTarget="smdj_rz" href="/user/toApply">请设置</a>
                                 </span>
@@ -215,11 +212,11 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.credit}">
+                            <div class="column_name seted lv15" th:if="null ne ${credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null ne ${session.credit}">
-                                <span class="setting" th:if="${session.credit.identity} ne null">
+                            <div class="column_msg" th:if="null ne ${credit}">
+                                <span class="setting" th:if="${credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
@@ -233,7 +230,7 @@
                             <div class="column_name not_seted" th:if="null eq ${session.user.dealPsw}">
                                 交易密码
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.user.dealPsw}">
+                            <div class="column_name seted lv15" th:if="null ne ${session.user.dealPsw}">
                                 交易密码
                             </div>
                             <div class="column_msg" th:if="null eq ${session.user.dealPsw}">
@@ -337,32 +334,32 @@
                         </div>
                         <!-- 银行卡认证 -->
                         <div class="column">
-                            <div class="column_name not_seted" th:if="null eq ${session.userBank}">
+                            <div class="column_name not_seted" th:if="null eq ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.userBank}">
+                            <div class="column_name seted lv15" th:if="null ne ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${session.userBank}">
+                            <div class="column_msg" th:if="null eq ${userBank}">
                                 <span class="setting"><a myTarget="yykrz_xg" class="showSetting">请设置</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_msg" th:if="null ne ${session.userBank}">
+                            <div class="column_msg" th:if="null ne ${userBank}">
                                 <span class="setting"><a myTarget="yykrz_xg" class="showSetting">修改</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <form class="column_form" th:if="null eq ${session.userBank}">
+                            <form class="column_form" th:if="null eq ${userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">请先设置实名登记，<a class="link" href="/user/toApply">马上设置</a></span></td>
                                     </tr>
                                 </table>
                             </form>
-                            <form class="column_form" th:if="null ne ${session.userBank}">
+                            <form class="column_form" th:if="null ne ${userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">没空写<a class="link" href="#">再等等吧</a></span></td>
@@ -466,7 +463,7 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- 手机认证 -->
+                        <!-- 邮箱认证 -->
                         <div myid="mobile" class="column">
                             <div class="column_name seted">
                                 邮箱认证
@@ -706,7 +703,6 @@
 
                             </form>
                         </div>
-                        <!-- 邮箱认证 -->
                         <!-- 紧急联系人 -->
                         <div myid="contact" class="column">
                             <div class="column_name not_seted">
@@ -789,7 +785,7 @@
         seajs.use('user/safety/js/init')
     });
 </script>
-
+<script async="" src="https://qiyukf.com/script/bbf1f358fbe2baf496d7d57ff885bbd8.js"></script>
 <!--footer-->
 <div class="footer" th:fragment="commonFooter">
     <div class="g-o" style="width:1170px">
@@ -853,11 +849,32 @@
 </div>
 
 <!--end 尾部-->
-
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
     });
+
+    function fengXiang() {
+        var lv15 = $(".account_list").find(".column").children(".lv15").length*15;
+        lv15 = lv15 + 30;//登陆密码与邮箱绑定
+        var color = '';
+        var text = '';
+        if(lv15 <= 30){
+            color = "#fd7500";
+            text = "低";
+        }else if(lv15 <= 80){
+            text = "中";
+            color = "rgb(255,200,67)";
+        }else {
+            text = "高";
+            color = "rgb(68,189,74)";
+        }
+        $("#textlv").text(text);
+        $("#textlv").css("color",color);
+        $("#fxzhi").css("width",lv15+"%");
+        $("#fxzhi").css("background",color)
+    }
+    fengXiang();
 
     var jishi = 59;
     var jishuTishi;
@@ -878,7 +895,6 @@
                     $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
                 }else {
                     yhMa = data;
-                    alert(yhMa)
                     $("#jymi_step1_codetemp").attr("value",yhMa);
                 }
             },"json");

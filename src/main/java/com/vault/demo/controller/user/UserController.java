@@ -1,6 +1,9 @@
 package com.vault.demo.controller.user;
 
+import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Userimf;
+import com.vault.demo.service.test.BidSer;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,6 +26,17 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService service;
+    @Resource
+    BidSer bidSer;
+    @RequestMapping("/first")
+    public String toMain(HttpServletRequest request){
+        List<Bid> nList =  bidSer.allList();
+        List ncList = nList.subList(0,3);
+        List<PerBid> perList = bidSer.selectPerB();
+        request.setAttribute("ncList",ncList);
+        request.setAttribute("perList",perList);
+        return "firstPage/first";
+    }
 
     @RequestMapping("/tologin")
     public String toUserLogin(String zc){
@@ -77,7 +92,7 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:toAO";
+                return "redirect:first";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";

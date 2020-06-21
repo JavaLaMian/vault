@@ -35,4 +35,5 @@ public interface BidSer{
     List<Map> getComList(int uId);
 
     Map padTouBiao(HttpSession session,int id,int t);
+    void updYuHui(int id,int type);
 }
