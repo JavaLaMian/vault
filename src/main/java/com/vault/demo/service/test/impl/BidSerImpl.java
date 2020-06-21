@@ -169,6 +169,6 @@ public class BidSerImpl implements BidSer{
 
     @Override
     public Date lastTenTime(int bid) {
-        return null;
+        return bidDao.lastTenTime(bid);
     }
 }

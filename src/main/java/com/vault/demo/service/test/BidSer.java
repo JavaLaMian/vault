@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+//
 public interface BidSer{
     public static final int TYPE_NEWCOMER = 1;//新手标
     public static final int TYPE_NORM = 2;//散标

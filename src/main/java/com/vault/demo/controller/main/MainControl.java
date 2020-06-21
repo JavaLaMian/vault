@@ -64,7 +64,7 @@ public class MainControl{
             model.addAttribute("bx",perBid);
         }
         if(session.getAttribute("user") != null){
-            Map max = bidSer.padTouBiao(session,id,t);//标id 标种类 t
+            Map max = bidSer.padTouBiao(session,id,t);//标id 标种类 t1
             model.addAttribute("to",max.get("to"));//最后一次投标
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
