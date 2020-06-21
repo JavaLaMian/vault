@@ -44,19 +44,24 @@ public class UserController2 {
     @RequestMapping("/toAS")
     public String toAS(HttpSession session,Model model){
         Userimf user = (Userimf) session.getAttribute("user");
-        List list = service.getWorryCall(user);
-        model.addAttribute("worryCall",list);
         if(user != null){
             try {
                 Credit credit = service.getCredit(user.getuId());
                 UserBank userBank = service.getBC(user.getuId());
                 model.addAttribute("credit",credit);
                 model.addAttribute("userBank",userBank);
+                List list = service.getWorryCall(user);
+                if (list.size()==0){
+                    model.addAttribute("worryCall",null);
+                }else {
+                    model.addAttribute("worryCall",list);
+                }
             }catch (Exception e){
                 model.addAttribute("credit",null);
                 model.addAttribute("userBank",null);
                 model.addAttribute("worryCall",null);
             }
+
             return "user/AccountSafe";
         }else {
             return "loan/login";
@@ -170,7 +175,6 @@ public class UserController2 {
     @ResponseBody
     public String bindWorryCall(WorryCall worryCall, HttpSession session){
         Userimf userimf = (Userimf) session.getAttribute("user");
-        System.out.println(worryCall.toString());
         worryCall.setuId(userimf.getuId());
         service.bindWorryCall(worryCall);
         return "";
