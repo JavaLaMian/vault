@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-//
+
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -64,7 +64,7 @@ public class MainControl{
             model.addAttribute("bx",perBid);
         }
         if(session.getAttribute("user") != null){
-            Map max = bidSer.padTouBiao(session,id,t);//标id 标种类 t1
+            Map max = bidSer.padTouBiao(session,id,t);//标id 标种类 t
             model.addAttribute("to",max.get("to"));//最后一次投标
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
