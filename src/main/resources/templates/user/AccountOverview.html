@@ -143,7 +143,7 @@
 						<div id="sign-info" class="sign-info"></div>
 					</div>
 					<ul class="g-cf left-menu">
-						<li data-type="index" class="cur" id="ov">
+						<li data-type="index" id="ov">
 							<a class="h2" href="/user/toAO"><b>账户总览</b></a>
 						</li>
 						<li data-type="invest">
@@ -492,15 +492,9 @@
 	</div>
 	<script type="text/javascript">
 
-		var PAGE_DATA = {
-      rewardedDetails: {
-        investBonusSum: "0.00"*1,
-        interestIncomeSum: "0"*1,
-        productRaiseRewardSum: "0"*1,
-        otherRewardSum: "0.00"*1,
-      },
-			depositFlag: '3'*1 //是否开通存管账户 1已开户 2开户中 3未开户
-		};
+        $(window).bind("load", function () {
+            $("#ov").addClass("cur");
+        })
 	
 	</script>
 </body>

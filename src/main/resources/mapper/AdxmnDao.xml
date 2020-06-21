@@ -56,12 +56,17 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
     </select>
     <update id="updategetbiBid">
         <![CDATA[
-            update bid set bidStatus = 3 where bId=#{bId}
+            update bid set bidStatus = #{bidStatus} where bId=#{id}
          ]]>
     </update>
-    <update id="updategetbiBid1">
-        <![CDATA[
-            update bid set bidStatus = 0 where bId=#{bId}
+    <select id="selectgetByid" resultType="int">
+         <![CDATA[
+           select distinct bid from tender
          ]]>
-    </update>
+    </select>
+    <select id="selectBidmoney" resultType="float">
+         <![CDATA[
+           select Sum(tenMoney) from tender where bid = #{bidType}
+         ]]>
+    </select>
 </mapper>

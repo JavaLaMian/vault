@@ -31,12 +31,12 @@ public class BackLoanServiceImpl implements BackLoanService{
 
     @Override
     public House selHouseByHid(int hId) {
-        return null;
+        return backLoanDao.selHouseByHid(hId);
     }
 
     @Override
     public Car selCarByCid(int cId) {
-        return null;
+        return backLoanDao.selCarByCid(cId);
     }
 
     @Override

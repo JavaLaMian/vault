@@ -13,6 +13,11 @@
           select * from loan where uId=#{uId} and loanStatue=0
         ]]>
     </select>
+    <select id="selCreditByUid" resultType="Credit">
+        <![CDATA[
+          select * from credit where uId=#{uId}
+        ]]>
+    </select>
     <select id="selHouseByHid" resultType="House">
         <![CDATA[
           select * from house where uId=#{uId}
@@ -25,7 +30,7 @@
     </select>
     <select id="selUserByUid" resultType="Userimf">
         <![CDATA[
-          select * from Userimf where uId=#{uId}
+          select * from userimf where uId=#{uId}
         ]]>
     </select>
 </mapper>

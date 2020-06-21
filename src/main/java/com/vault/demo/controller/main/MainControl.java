@@ -1,6 +1,7 @@
 package com.vault.demo.controller.main;
 
 
+import com.vault.demo.bean.*;
 import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
@@ -17,6 +18,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -28,13 +33,24 @@ public class MainControl{
     BidSer bidSer;
     @RequestMapping("/first")
     public String toMain(HttpServletRequest request){
-        List<Bid> nList =  bidSer.allList();
-        List ncList = nList.subList(0,3);
-        List<PerBid> perList = bidSer.selectPerB();
-        System.out.println("=================="+perList.size());
-        request.setAttribute("ncList",ncList);
-        request.setAttribute("perList",perList);
+        List<Bid> nList = bidSer.allList();
+        List ncList = nList.subList(0, 3);
+        List<PerBid> perList = bidSer.selectPerB(0);
+        System.out.println("==================" + perList.size());
+        request.setAttribute("ncList", ncList);
+        request.setAttribute("perList", perList);
         return "firstPage/first";
+    }
+
+
+    @RequestMapping("/perList")
+    public String perList(PerBid perBid, Pager pager, HttpServletRequest request) {
+        pager.page(bidSer.countPerPage(perBid.getRate(), perBid.getEnquiry()));
+        List<PerBid> list = bidSer.pagePerB((pager.thisPage - 1) * pager.titleSize, pager.titleSize, perBid.getRate(), perBid.getEnquiry());
+        request.setAttribute("pager", pager);
+        request.setAttribute("list", list);
+        request.setAttribute("p", perBid);
+        return "firstPage/proseList";
     }
 
     @RequestMapping("/prose")
@@ -55,6 +71,23 @@ public class MainControl{
             model.addAttribute("ylist",max.get("yuhui"));//优惠券
         }
         return "firstPage/prose";
+
+    }
+
+    @RequestMapping("/perImf")
+    public String perImf(int id, HttpServletRequest request){
+        PerBid p = bidSer.selectByPid(id);
+        List<Map> userimf = bidSer.selectUser(p.getBorrower());
+        Map u = userimf.get(0);
+        List<Map> tenders = bidSer.selectTandU(id,  3);
+        int countU = bidSer.countTenByBid(id, 3);
+        Date lastTime = bidSer.lastTenTime(id);
+        request.setAttribute("p", p);
+        request.setAttribute("u", u);
+        request.setAttribute("t", tenders);
+        request.setAttribute("countU", countU);
+        request.setAttribute("lastTime",lastTime);
+        return "firstPage/perBidImf";
     }
 
     @RequestMapping("/getbid")

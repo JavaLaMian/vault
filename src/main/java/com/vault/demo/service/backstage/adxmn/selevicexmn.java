@@ -18,6 +18,7 @@ public interface selevicexmn {
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
     List<Map> integralList();//查询出积分兑换信息
-    void updategetbiBid(Bid bid);//根据id修改投标状态
-    void updategetbiBid1(Bid bid);//根据id修改投标状态
+    void updategetbiBid(int bidStatus,int id);//根据id修改投标状态
+    float selectBidmoney(int bidType);//根据标种查询出标的总金额
+    int selectgetByid();//查询出用户投了哪些标
 }
