@@ -720,7 +720,7 @@
                                 紧急联系人
                             </div>
                             <div class="column_msg">
-                                <span class="setting" th:if="null eq ${worryCall.get(0)}"><a myTarget="jjlxr_rz" class="showSetting">请设置</a></span>
+                                <span class="setting" th:if="null eq ${worryCall}"><a myTarget="jjlxr_rz" class="showSetting">请设置</a></span>
                                 <span class="setting" th:if="null ne ${worryCall}"><a myTarget="jjlxr_list" class="showSetting">查看</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">当有紧急情况联系不到您的时候，可以联系您的亲人朋友</span>
@@ -777,7 +777,7 @@
                                     </table>
                                 </div>
                                 <div class="jjlxr_list">
-                                    <table style="text-align: center">
+                                    <table style="text-align: center;padding: 5px;" border="1px solid #ededed;color:#ededed"  >
                                         <tr>
                                             <td class="width250">编号</td>
                                             <td class="width250">姓名</td>
@@ -785,17 +785,15 @@
                                             <td class="width250">电话</td>
                                             <td class="width250">操作</td>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr th:each="worryCall:${worryCall}">
+                                            <td th:text="${worryCall.Id}"></td>
+                                            <td th:text="${worryCall.name}"></td>
+                                            <td th:text="${worryCall.relationship}"></td>
+                                            <td th:text="${worryCall.phe}"></td>
                                             <td><a>移除</a></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td class=""><a class="sbm_btn inline_block" style="height: 28px;line-height: 28px;width: 100px">添加</a></td>
+                                            <td colspan="5"><a myTarget="jjlxr_rz" class="showSetting">添加</a></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -888,6 +886,10 @@
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
+    })
+
+    $("#add").click(function () {
+
     })
 
     var jishi = 59;
