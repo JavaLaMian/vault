@@ -3,7 +3,8 @@ package com.vault.demo.service.loan.impl;
 import com.vault.demo.bean.*;
 import com.vault.demo.dao.CarDao;
 import com.vault.demo.dao.HouseDao;
-import com.vault.demo.dao.loan.CreditDao;
+import com.vault.demo.dao.CreditDao;
+import com.vault.demo.dao.loan.ActionDao;
 import com.vault.demo.dao.loan.LoanDao;
 import com.vault.demo.service.loan.LoanService;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     CarDao carDao;
+
+    @Resource
+    ActionDao actionDao;
 
     @Override
     public void TestInsertLoan() {
@@ -77,6 +81,11 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void insertHouse(House house) {
         houseDao.insertHouse(house);
+    }
+
+    @Override
+    public Action selectActionByLId(Loan loan) {
+        return actionDao.selectActionByLId(loan);
     }
 
 }
