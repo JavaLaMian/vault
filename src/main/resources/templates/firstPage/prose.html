@@ -220,22 +220,15 @@
         <div class="hotline">全国服务热线：4006-0755-70</div>
         <ul class="info" id="ulLoginStatus">
             <li class="user" th:if="${session.user!=null}">
-                <a href="/user/toAO" th:text="${session.user.uName}">
-                </a>
+                <a href="/user/toAO" th:text="${session.user.uName}"></a>
                 <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
             </li>
             <li class="user" th:if="${session.user==null}">
-                <a href="/user/login" id="head-login-btn">登录</a>
-                <a href="/user/register">注册</a>
+                <a href="/user/tologin" id="head-login-btn">登录</a>
+                <a href="/user/tologin?zc=zc">注册</a>
             </li>
             <li class="line">|</li>
             <li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
-            <li class="line">|</li>
-            <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
-            <li class="line">|</li>
-            <li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
-            <li class="line">|</li>
-            <li><a target="_blank" href="/cms/about/service">客服团队</a></li>
             <li class="line">|</li>
             <li class="app-area">
                 <a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
@@ -389,7 +382,7 @@
                     </li>
                 </ul>
             </div>
-
+            <!---->
             <div class="sub-right" style="width: 408px;">
                 <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                     <div class="info">请先登陆您的账号</div>

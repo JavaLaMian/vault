@@ -31,59 +31,51 @@ public class QuartzTask implements Job {
                 Date date = simpleDateFormat.parse(exprie);//封标期时间
                 int time = date1.compareTo(new Date());//上线时间小于当前时间 -1
                 int time1 = date.compareTo(new Date());//封标时间小于当前时间 -1
-                Date date2 = null;//锁定期时间
                 Float summoeny = bid.getSumLimit();//总体累计限额
                 int id = is.selectgetByid();
                 Float moeny = is.selectBidmoney(id); //查询出有哪些标投过，再根据id去查投了多少钱
                 if(bid.getBidType() == Bid.getNEWHAND() || bid.getBidType() == Bid.getNORM()){//新手标和优享标
                    if(bid.getBidStatus() == Bid.getREADY()){//预售标
-                        System.out.println(time+"时间"+time1+"id"+bid.getbId());
-                        if(time != -1 && time1 != -1){//在售（ON=0）
+//                        System.out.println(time+"时间"+time1+"id"+bid.getbId());
+                        if(time == -1 && time1 != -1){//在售（ON=0）
                             is.updategetbiBid(Bid.getNO(),bid.getbId());
                         }
                     }else if(bid.getBidStatus() == Bid.getNO()){//在售标
-                       if((time == -1 && time1 != -1) || ( moeny >= summoeny)){
+                       if((time == -1 && time1 == -1) || ( moeny >= summoeny)){//售罄标
                            is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                        }
-                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getEMPTY()){//查询所有定期的标并且售罄的标 加上封标期时间 然后对比当前时间 小于就是锁定期 大于就是转让期
+                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getEMPTY()){//定期售罄标
                        if(bid.getClockLine().equals("1")){//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
                            cal.add(Calendar.HOUR,1*24*30*3);//需要加上的时间
-                           date2 = cal.getTime();
+                           Date date2 = cal.getTime();
                            int ti = date2.compareTo(new Date());
-                           if(ti == -1){//标到期 将标改为转让期
+                           if(ti == -1){//标到期 将标改为锁定期
                                is.updategetbiBid(Bid.getLockup(),bid.getbId());
                            }
                        }
-                       else if(bid.getClockLine().equals("2")){//定期为应该1个月的
+                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getLockup()){//定期锁定期标
+                       if(bid.getClockLine().equals("1")) {//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
-                           cal.add(Calendar.HOUR,1*24*30*6);//需要加上的时间
-                           date2 = cal.getTime();
-                           int ti = date2.compareTo(new Date());
-                           if(ti == -1){//标到期 将标改为转让期
-                               is.updategetbiBid(Bid.getLockup(),bid.getbId());
+                           cal.add(Calendar.HOUR,1*24*30*4);//需要加上的时间
+                           Date date3 = cal.getTime();//转让期时间
+                           int ti = date3.compareTo(new Date());
+                           if(ti != -1){//标为转让期
+                               is.updategetbiBid(Bid.getTransferss(),bid.getbId());
                            }
                        }
-                       else if(bid.getClockLine().equals("3")){//定期为应该1个月的
+                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getTransferss()){//定期转让期
+                       if(bid.getClockLine().equals("1")) {//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
-                           cal.add(Calendar.HOUR,1*24*30*12);//需要加上的时间
-                           date2 = cal.getTime();
-                           int ti = date2.compareTo(new Date());
-                           if(ti == -1){//标到期 将标改为转让期
-                               is.updategetbiBid(Bid.getLockup(),bid.getbId());
+                           cal.add(Calendar.HOUR,1*24*30*4);//需要加上的时间
+                           Date date3 = cal.getTime();
+                           int ti = date3.compareTo(new Date());
+                           if(ti == -1){//标为关闭
+                               is.updategetbiBid(Bid.getCLOSE(),bid.getbId());
                            }
-                       }
-                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getLockup()){//查询所有定期的标并且是锁定期  加上转让期然后再对比 小于就是转让期 大于就是关闭计算利率金钱
-                       Calendar cal = Calendar.getInstance();//创建时间相加
-                       cal.setTime(date2);
-                       cal.add(Calendar.HOUR,1*24*30);//需要加上的时间
-                       Date date3 = cal.getTime();
-                       int ti = date2.compareTo(new Date());
-                       if(ti == 1){//标到期 将标改为关闭
-                           is.updategetbiBid(Bid.getCLOSE(),bid.getbId());
                        }
                    }
 

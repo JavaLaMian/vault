@@ -44,42 +44,52 @@
                 }
             }
 
-
-
-
             function padMoney(id) {
                 var time = $(id).val();
-                var arr = time.split(".");
-                if(arr.length === 1){
-                    for (var i = 0; i < time.length; i++) {
-                        var t = time.charCodeAt(i);
-                        if (!(t >= 48 && t <= 57)){
-                            if(t !== 46){
-                                $(id).val(time.substr(0,time.length-1));
-                            }else{
-                                $(id).val(arr[0]);
+                if(time.charCodeAt(0) == 46){
+                    $(id).val("");
+                }else{
+                    var arr = time.split(".");
+                    if(arr.length === 1){
+                        for (var i = 0; i < time.length; i++) {
+                            var t = time.charCodeAt(i);
+                            if (!(t >= 48 && t <= 57)){
+                                if(t !== 46){
+                                    console.log("t1"+t);
+                                    $(id).val(time.substr(0,time.length-1));
+                                }else{
+                                    $(id).val(arr[0]);
+                                }
                             }
                         }
-                    }
-                }else{
-                    var xiaosu = arr[1];
-                    var text = "";
-                    if(xiaosu.length != 0){
+                    }else{
+                        var xiaosu = arr[1];
                         for (var i = 0; i < xiaosu.length; i++) {
-                            if(i < 2) text += xiaosu.charAt(i);
+                            var t = xiaosu.charCodeAt(i);
+                            if (t >= 48 && t <= 57){
+                                if(i < 2)$(id).val(arr[0]+"."+xiaosu);
+                                else $(id).val(time.substr(0,time.length-1));
+                            }else{
+                                $(id).val(time.substr(0,time.length-1));
+                            }
                         }
+
                     }
-                    $(id).val(arr[0]+"."+text)
                 }
             };
+
             function padXiao(id) {
                 var suru = $(id).val();
-                var min = $("#kai").text();
+                var min = 100;
+                var max = $("#maxMoney").text();
                 if(suru != ''){
                     suru = parseFloat(suru);
                     min = parseFloat(min);
 
                     if(suru < min) $(id).val(min);
+                    else $(id).val(suru);
+
+                    if(suru > max) $(id).val(max);
                     else $(id).val(suru);
                 }
             }
@@ -358,14 +368,7 @@
                                 <i class="icon icon-question-mark js_poshytip" title="每月还本金及利息，其中还款本金每月相同。"></i>
                             </dd>
                         </dl>
-                        <!--<dl>-->
-                            <!--<dt>-->
-                                <!--起息日期：-->
-                            <!--</dt>-->
-                            <!--<dd>-->
-                                <!--2019-04-29-->
-                            <!--</dd>-->
-                        <!--</dl>-->
+
                         <dl>
                             <dt>
                                 项目进度：
@@ -409,7 +412,7 @@
                     <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                         <div class="info">请先登陆您的账号</div>
                     </div>
-
+<!---->
                     <div class="sellout abs" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
                         <div class="info">将从余额扣除</div>
                         <button class="goumai" onclick="zhifuKuan()">立即购买</button>
