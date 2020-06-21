@@ -45,6 +45,7 @@ public class QuartzTask implements Job {
                            is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                        }
                    }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getEMPTY()){//定期售罄标
+
                        if(bid.getClockLine().equals("1")){//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
