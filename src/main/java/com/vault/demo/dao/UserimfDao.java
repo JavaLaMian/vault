@@ -1,5 +1,6 @@
 package com.vault.demo.dao;
 
+import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.Userimf;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,7 @@ public interface UserimfDao {
     Userimf selectByUserimf(Userimf userimf); //查询是否存在这个用户
     int updateUserPwd(@Param("loginPsw") String loginPsw, @Param("email") String email);
     List<Map> selectUserZhijin(@Param("uId") int uId);
+
+    List<Bounty> selectBounty(@Param("uId") int uId,@Param("type") int type);
+    void updateBounty(@Param("id") int id,@Param("type") int type);
 }

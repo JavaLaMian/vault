@@ -143,7 +143,7 @@
 						<div id="sign-info" class="sign-info"></div>
 					</div>
 					<ul class="g-cf left-menu">
-						<li data-type="index" class="cur" id="ov">
+						<li data-type="index" id="ov">
 							<a class="h2" href="/user/toAO"><b>账户总览</b></a>
 						</li>
 						<li data-type="invest">
@@ -358,34 +358,6 @@
 			<p>设置失败，请重试！</p>
 		</div>
 	</div>
-	
-	<!-- 月月牛升级升财牛弹窗 -->
-	<div id="monthupDialog" style="display:none;">
-		<div class="monthup">
-			<div class="txtdiv"> 
-				<p>您当前持有的月月牛已到期，授权升级为升财牛后即可继续以当前收益率持有</p>
-				<div class="list-con">
-					<ul id="monthInfo">
-					</ul>
-					<i></i>
-					<ul class="newlist" id="monthUpInfo">
-					</ul>
-				</div>
-				<p class="txt1">一键授权升级，即可享专属高收益率</p>
-				<!-- <a>授权升级</a> -->
-			</div>
-		</div>
-	</div>
-	<!-- 月月牛授权升级 弹窗-
-	<div id="monthAccreditDialog" style="display:none;">
-		<div class="monthAccredit">
-			<div class="ok-icon"></div>
-			<p class="submited-txt">升级申请已提交</p>
-			<p>升级结果将以短信通知您，请留意短信通知。</p>
-			<p class="attention">注：小母牛将于次日统一执行当日授权升级的申请</p>
-		</div>
-	</div>
-
 	<!--footer-->
 <div th:replace="/common::commonFooter"></div>
 <!--start 尾部-->
@@ -520,15 +492,9 @@
 	</div>
 	<script type="text/javascript">
 
-		var PAGE_DATA = {
-      rewardedDetails: {
-        investBonusSum: "0.00"*1,
-        interestIncomeSum: "0"*1,
-        productRaiseRewardSum: "0"*1,
-        otherRewardSum: "0.00"*1,
-      },
-			depositFlag: '3'*1 //是否开通存管账户 1已开户 2开户中 3未开户
-		};
+        $(window).bind("load", function () {
+            $("#ov").addClass("cur");
+        })
 	
 	</script>
 </body>

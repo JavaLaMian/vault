@@ -3,6 +3,7 @@ package com.vault.demo.controller.user;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.UserBank;
 import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.WorryCall;
 import com.vault.demo.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,6 +44,8 @@ public class UserController2 {
     @RequestMapping("/toAS")
     public String toAS(HttpSession session,Model model){
         Userimf user = (Userimf) session.getAttribute("user");
+        List list = service.getWorryCall(user);
+        model.addAttribute("worryCall",list);
         if(user != null){
             try {
                 Credit credit = service.getCredit(user.getuId());
@@ -51,6 +55,7 @@ public class UserController2 {
             }catch (Exception e){
                 model.addAttribute("credit",null);
                 model.addAttribute("userBank",null);
+                model.addAttribute("worryCall",null);
             }
             return "user/AccountSafe";
         }else {
@@ -151,5 +156,23 @@ public class UserController2 {
             map.put("msg","mmcw");
         }
         return map;
+    }
+    @RequestMapping("/emailUp")
+    @ResponseBody
+    public String emailUp(String newEmail,HttpSession session){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        userimf.setEmail(newEmail);
+        service.upUser(userimf);
+        session.setAttribute("user",userimf);
+        return "";
+    }
+    @RequestMapping("/bindWorryCall")
+    @ResponseBody
+    public String bindWorryCall(WorryCall worryCall, HttpSession session){
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        System.out.println(worryCall.toString());
+        worryCall.setuId(userimf.getuId());
+        service.bindWorryCall(worryCall);
+        return "";
     }
 }

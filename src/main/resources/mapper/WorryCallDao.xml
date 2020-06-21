@@ -11,7 +11,7 @@
           insert into worryCall(Id,uId,relationship,phe,name) values(null,#{uId},#{relationship},#{phe},#{name})
         ]]>
     </insert>
-    <select id="selectWorryByUId" resultType="com.vault.demo.bean.WorryCall" parameterType="com.vault.demo.bean.Userimf">
+    <select id="selectWorryByUId" resultType="WorryCall" parameterType="Userimf">
         <![CDATA[
           select * from worryCall where uId=#{uId}
         ]]>

@@ -22,7 +22,11 @@
         }
     </script>
     <script type="text/javascript" src="http://image.xiaoniu88.com/static/WebXn/dist/module/common/common-83987ed24e.js"></script>
-
+    <script>
+        $(function(){
+            seajs.use('module/common/common')
+        })
+    </script>
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/user/safety/css/style-ed9716a8f6.css" />
 </head>
 
@@ -81,7 +85,7 @@
                         <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="/user/tozj">资金记录</a>
+                        <a href="#">资金记录</a>
                     </li>
                     <li data-type="datum" id="safe">
                         <a href="/user/toAS">账户安全</a>
@@ -204,10 +208,10 @@
                         <!-- 实名认证 -->
                         <div myid='realName' class="column">
 
-                            <div class="column_name not_seted" th:if="null eq ${session.credit}">
+                            <div class="column_name not_seted" th:if="null eq ${credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${session.credit}">
+                            <div class="column_msg" th:if="null eq ${credit}">
                                 <span class="setting">
                                     <a myTarget="smdj_rz" href="/user/toApply">请设置</a>
                                 </span>
@@ -215,11 +219,11 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.credit}">
+                            <div class="column_name seted" th:if="null ne ${credit}">
                                 实名认证
                             </div>
-                            <div class="column_msg" th:if="null ne ${session.credit}">
-                                <span class="setting" th:if="${session.credit.identity} ne null">
+                            <div class="column_msg" th:if="null ne ${credit}">
+                                <span class="setting" th:if="${credit.identity} ne null">
                                     <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
@@ -337,32 +341,32 @@
                         </div>
                         <!-- 银行卡认证 -->
                         <div class="column">
-                            <div class="column_name not_seted" th:if="null eq ${session.userBank}">
+                            <div class="column_name not_seted" th:if="null eq ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.userBank}">
+                            <div class="column_name seted" th:if="null ne ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${session.userBank}">
+                            <div class="column_msg" th:if="null eq ${userBank}">
                                 <span class="setting"><a myTarget="yykrz_xg" class="showSetting">请设置</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_msg" th:if="null ne ${session.userBank}">
+                            <div class="column_msg" th:if="null ne ${userBank}">
                                 <span class="setting"><a myTarget="yykrz_xg" class="showSetting">修改</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <form class="column_form" th:if="null eq ${session.userBank}">
+                            <form class="column_form" th:if="null eq ${userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">请先设置实名登记，<a class="link" href="/user/toApply">马上设置</a></span></td>
                                     </tr>
                                 </table>
                             </form>
-                            <form class="column_form" th:if="null ne ${session.userBank}">
+                            <form class="column_form" th:if="null ne ${userBank}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">没空写<a class="link" href="#">再等等吧</a></span></td>
@@ -466,7 +470,7 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- 手机认证 -->
+                        <!-- 邮箱认证 -->
                         <div myid="mobile" class="column">
                             <div class="column_name seted">
                                 邮箱认证
@@ -656,7 +660,7 @@
                                             <tr>
                                                 <td class="align_right">新邮箱：</td>
                                                 <td>
-                                                    <input id="yxyz_xg_step2_email" maxlength="11" type="text" onblur="em_new()"/>
+                                                    <input id="yxyz_xg_step2_email" type="text" onblur="em_new()"/>
                                                 </td>
                                                 <td class="width250">
                                                     <div id="sjyz_xg_step2_emailTip" class="tips_content"></div>
@@ -670,7 +674,7 @@
                                                 <td class="align_right">验证码：</td>
                                                 <td>
                                                     <input id="yxyz_xg_step2_code" class="code_form" type="text" onblur="em_check_ma_2()"/>
-                                                    <a id="yxyz_xg_step2_getpcode" class="get_code inline_block">
+                                                    <a id="yxyz_xg_step2_getpcode" class="get_code inline_block" onclick="emgetcode2('eamil_bind',this)">
                                                         <span id="yxyz_xg_step2_getpcode_text" class="get_code_text">获取验证码</span></a></td>
                                             </tr>
                                             <tr>
@@ -709,11 +713,15 @@
                         <!-- 邮箱认证 -->
                         <!-- 紧急联系人 -->
                         <div myid="contact" class="column">
-                            <div class="column_name not_seted">
+                            <div class="column_name not_seted" th:if="null eq ${worryCall}">
+                                紧急联系人
+                            </div>
+                            <div class="column_name seted" th:if="null ne ${worryCall}">
                                 紧急联系人
                             </div>
                             <div class="column_msg">
-                                <span class="setting"><a myTarget="jjlxr_rz" class="showSetting">请设置</a></span>
+                                <span class="setting" th:if="null eq ${worryCall.get(0)}"><a myTarget="jjlxr_rz" class="showSetting">请设置</a></span>
+                                <span class="setting" th:if="null ne ${worryCall}"><a myTarget="jjlxr_list" class="showSetting">查看</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">当有紧急情况联系不到您的时候，可以联系您的亲人朋友</span>
                                 <span class="info_con"></span>
@@ -728,13 +736,13 @@
                                                 <div class="selectArea">
                                                     <div id="jjlxr_rz_type" class="selected" val="">请选择</div>
                                                     <ul class="options">
-                                                        <li val="1">配偶</li>
-                                                        <li val="2">父母</li>
-                                                        <li val="3">子女</li>
-                                                        <li val="4">亲戚</li>
-                                                        <li val="5">同学</li>
-                                                        <li val="6">朋友</li>
-                                                        <li val="7">同事</li>
+                                                        <li val="配偶">配偶</li>
+                                                        <li val="父母">父母</li>
+                                                        <li val="子女">子女</li>
+                                                        <li val="亲戚">亲戚</li>
+                                                        <li val="同学">同学</li>
+                                                        <li val="朋友">朋友</li>
+                                                        <li val="同事">同事</li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -764,7 +772,30 @@
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td class=""><a id="jjlxr_rz_submit" class="sbm_btn inline_block">确认</a></td>
+                                            <td class=""><a class="sbm_btn inline_block" onclick="worryCall()">确认</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="jjlxr_list">
+                                    <table style="text-align: center">
+                                        <tr>
+                                            <td class="width250">编号</td>
+                                            <td class="width250">姓名</td>
+                                            <td class="width250">与本人关系</td>
+                                            <td class="width250">电话</td>
+                                            <td class="width250">操作</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><a>移除</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class=""><a class="sbm_btn inline_block" style="height: 28px;line-height: 28px;width: 100px">添加</a></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -857,17 +888,20 @@
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
-    });
+    })
 
     var jishi = 59;
     var jishuTishi;
     var yhMa;
     function getMa(type,id){
+        clearInterval(jishuTishi);
         yhMa = null;
         var email = $("#em").val();
         var val = $(id).firstElementChild;
         if($("#get_code_text").text() === "获取验证码"){
             $("#jymm_step1_get_code").css("background-color","ccc");
+            $("#jymm_step1_get_code").css("border","1px solid #ccc");
+            $("#jymm_step1_get_code").css("background-color","#ccc");
             $("#get_code_text").html('获取(59)');
 
             jishuTishi  = setInterval("daojishi()", "1000");
@@ -894,9 +928,6 @@
             $("#jymm_step1_get_code").css("background-color","#fd7500");
             $("#get_code_text").css("background-color","#fd7500");
         }else{
-            $("#jymm_step1_get_code").css("border","1px solid #ccc");
-            $("#jymm_step1_get_code").css("background-color","#ccc");
-            $("#get_code_text").css("background-color","#ccc");
             $("#get_code_text").html("获取("+jishi+")");
         }
     }
@@ -1009,6 +1040,7 @@
         }
     }
     function getDlcode(type,id){
+        clearInterval(jishuTishi);
         dlmm_key_xg=true;
         dlmm_old();
         dlmm_new();
@@ -1030,7 +1062,9 @@
         var email = $("#em").val();
         if (dlmm_key_xg==true){
             if($("#dlmm_get_code_text").text() === "获取验证码"){
-                $("#dl_code").css("background-color","ccc");
+                $("#dl_code").css("background-color","#ccc");
+                $("#dl_code").css("border","1px solid #ccc");
+                $("#dl_code").css("background-color","#ccc");
                 $("#dlmm_get_code_text").html('获取(59)');
 
                 jishuTishi  = setInterval("dlcdaoishi()", "1000");
@@ -1057,8 +1091,6 @@
             $("#dl_code").css("background-color","#fd7500");
             // $("#dlmm_get_code_text").css("background-color","#fd7500");
         }else{
-            $("#dl_code").css("border","1px solid #ccc");
-            $("#dl_code").css("background-color","#ccc");
             // $("#dlmm_get_code_text").css("background-color","#ccc");
             $("#dlmm_get_code_text").html("获取("+jishi+")");
         }
@@ -1094,12 +1126,14 @@
     }
 
     var emMa;
-    var emMa2;
     function emgetcode(type,id){
+        clearInterval(jishuTishi);
         yhMa = null;
         var email = $("#em").val();
         if($("#yxyz_get_code_text").text() == "获取验证码"){
-            $("#yxyz_step1_getcode").css("background-color","ccc");
+            $("#yxyz_step1_getcode").css("background-color","#ccc");
+            $("#yxyz_step1_getcode").css("border","1px solid #ccc");
+            $("#yxyz_step1_getcode").css("background-color","#ccc");
             $("#yxyz_get_code_text").html('获取(59)');
 
             jishuTishi  = setInterval("emdaoishi()", "1000");
@@ -1123,8 +1157,6 @@
             $("#yxyz_step1_getcode").css("border","1px solid #fd7500");
             $("#yxyz_step1_getcode").css("background-color","#fd7500");
         }else{
-            $("#yxyz_step1_getcode").css("border","1px solid #ccc");
-            $("#yxyz_step1_getcode").css("background-color","#ccc");
             $("#yxyz_get_code_text").html("获取("+jishi+")");
         }
     }
@@ -1148,35 +1180,49 @@
         }
     }
 
+    var emMa2;
+    var emailUp_key=true;
     function em_new() {
         var email = $("#yxyz_xg_step2_email").val();
         var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
         if (!emailReg.test(email)){
+            emailUp_key=false;
             $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱格式不正确</div>");
         }
     }
     function em_check_ma_2() {
         var ma = $("#yxyz_xg_step2_code").val();
         if (ma!=emMa2){
+            emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
+        }else if(ma==""||ma==null){
+            $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"msg_tips_con\"></div>");
         }
     }
     function emgetcode2(type,id){
-        var email = $("#em").val();
-        if($("#yxyz_xg_step2_getpcode_text").text() == "获取验证码"){
-            $("#yxyz_xg_step2_getpcode").css("background-color","ccc");
-            $("#yxyz_xg_step2_getpcode_text").html('获取(59)');
+        clearInterval(jishuTishi);
+        em_new();
+        var email = $("#yxyz_xg_step2_email").val();
+        if(email==""||email==""){
+            $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱不能为空</div>");
+        }else {
+            if($("#yxyz_xg_step2_getpcode_text").text() == "获取验证码"){
+                $("#yxyz_xg_step2_getpcode").css("background-color","#ccc");
+                $("#yxyz_xg_step2_getpcode").css("border","1px solid #ccc");
+                $("#yxyz_xg_step2_getpcode").css("background-color","#ccc");
+                $("#yxyz_xg_step2_getpcode_text").html('获取(59)');
 
-            jishuTishi  = setInterval("emdaoishi()", "1000");
+                jishuTishi  = setInterval("emdaoishi2()", "1000");
 
-            $.post("/user/getMa",{email:email,type:type},function (data) {
-                if(data === "" || data == null){
-                    alert("请检查邮箱格式是否正确");
-                }else {
-                    emMa2 = data;
-                    alert(emMa2);
-                }
-            },"json");
+                $.post("/user/getMa",{email:email,type:type},function (data) {
+                    if(data === "" || data == null){
+                        alert("请检查邮箱格式是否正确");
+                    }else {
+                        emMa2 = data;
+                        alert(emMa2);
+                    }
+                },"json");
+            }
         }
     }
     function emdaoishi2(){
@@ -1188,28 +1234,46 @@
             $("#yxyz_xg_step2_getpcode").css("border","1px solid #fd7500");
             $("#yxyz_xg_step2_getpcode").css("background-color","#fd7500");
         }else{
-            $("#yxyz_xg_step2_getpcode").css("border","1px solid #ccc");
-            $("#yxyz_xg_step2_getpcodet").css("background-color","#ccc");
             $("#yxyz_xg_step2_getpcode_text").html("获取("+jishi+")");
         }
     }
     function emtwoTothree() {
+        emailUp_key=true;
         em_new();
         em_check_ma_2();
-        em_check_ma();
         var ma = $("#yxyz_xg_step2_code").val();
         var email = $("#yxyz_xg_step2_email").val();
         if(email==""||email==""){
+            emailUp_key=false;
             $("#sjyz_xg_step2_emailTip").replaceWith("<div id=\"sjyz_xg_step2_emailTip\" class=\"onError\">邮箱不能为空</div>");
-        }
-        if(ma==null||ma==""){
+        }else if(ma==null||ma==""){
+            emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码不能为空</div>");
-        }else if (ma!=emMa){
+        }else if (ma!=emMa2){
+            alert(ma+"///"+emMa2);
+            emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
-        }else {
+        }
+        if (emailUp_key==true){
+            $.post("/user/emailUp",{newEmail:email},function (data) {},"json")
             $("#yx_step1").css("display","none");
             $("#yx_step2").css("display","none");
             $("#yx_step3").css("display","block");
+        }
+    }
+
+    function worryCall() {
+        var rela =$("#jjlxr_rz_type").text();
+        var name =$("#jjlxr_rz_name").val();
+        var phe =$("#jjlxr_rz_mobile").val();
+        if ($("#jjlxr_rz_nameTip").children().length>0||(name==""||name==null)){
+
+        }else if($("#jjlxr_rz_mobileTip:has(div)").length>0||(phe==""||phe==null)){
+
+        }else {
+            $.post("/user/bindWorryCall",{relationship:rela,name:name,phe:phe},function (data) {
+                window.location.href = 'user/toAS';
+            },"json");
         }
     }
 </script>

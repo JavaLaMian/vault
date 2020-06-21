@@ -65,12 +65,18 @@
                                                     </label>
                                                 </td>
                                                 <td th:text="${p.id}"></td>
-                                                <td th:text="${p.uName}"></td>
-                                                <td th:text="${p.integralName}"></td>
-                                                <td th:text="${p.change}"></td>
-                                                <td th:text="${p.changeType}"></td>
-                                                <td th:text="${p.total}"></td>
-                                                <td th:text="${#dates.format(p.conversionTime,'yyyy-MM-dd HH:mm')}">0</td>
+                                                <td th:if="${p.uName} eq null">无</td>
+                                                <td th:if="${p.uName} ne null"><p th:text="${p.uName}"></p></td>
+                                                <td th:if="${p.integralName} eq null">无</td>
+                                                <td th:if="${p.integralName} ne null"><p th:text="${p.integralName}"></p></td>
+                                                <td th:if="${p.change} eq null">无</td>
+                                                <td th:if="${p.change} ne null"><p th:text="${p.change}"></p></td>
+                                                <td th:if="${p.changeType} eq null">无</td>
+                                                <td th:if="${p.changeType} ne null"><p th:text="${p.changeType}"></p></td>
+                                                <td th:if="${p.total} eq null">无</td>
+                                                <td th:if="${p.total} ne null"><p th:text="${p.total}"></p></td>
+                                                <td th:if="${p.conversionTime} eq null">无</td>
+                                                <td th:if="${p.conversionTime} ne null"><p th:text="${p.conversionTime}"></p></td>
 
                                                 <td>
                                                     <div class="btn-group">
