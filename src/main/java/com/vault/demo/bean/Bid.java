@@ -11,11 +11,21 @@ public class Bid {//6月10日15：29
 
     private static final int NEWHAND = 1; //新手标
     private static final int NORM = 2;  //优享标
-    private static final int YES = 1;
+    private static final int YES = 1;//是否自动转让
     private static final int NO = 0;  //在售（ON=0）
     private static final int READY = 1; //预售（READY=1）
     private static final int EMPTY = 3; //售罄
     private static final int CLOSE = 2; //关闭
+    private static final int lockup = 4;//锁定期
+    private static final int transferss = 5;//转让期
+
+    public static int getLockup() {
+        return lockup;
+    }
+
+    public static int getTransferss() {
+        return transferss;
+    }
 
     @Column(name = "bId", type = MySqlTypeConstant.INT, length = 11, isKey = true, isAutoIncrement = true)
     private int bId;

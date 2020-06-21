@@ -1,9 +1,7 @@
 package com.vault.demo.service.test.impl;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.PerBid;
-import com.vault.demo.bean.Tender;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
+import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
 import org.springframework.stereotype.Service;
@@ -17,9 +15,11 @@ import java.util.Map;
 
 @Service
 public class BidSerImpl implements BidSer {
-
     @Resource
     BidDao bidDao;
+    @Resource
+    UserimfDao useDao;
+
     @Override
     public List<Bid> allList() {
         return bidDao.allList(0);
@@ -133,6 +133,18 @@ public class BidSerImpl implements BidSer {
         }else {
             map.put("ketou",0);
         }
+        //查询是否有优惠券
+        List<Bounty> blist = useDao.selectBounty(userimf.getuId(),4); //4理财红包
+        if(blist.size() != 0){
+            map.put("yuhui",blist);
+        }else {
+            map.put("yuhui",null);
+        }
         return map;
+    }
+
+    @Override
+    public void updYuHui(int id, int type) {
+        useDao.updateBounty(id,type);
     }
 }

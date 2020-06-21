@@ -3,6 +3,7 @@ package com.vault.demo.service.user.impl;
 import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
+import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.user.UserService;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private CreditDao cdao;
     @Resource
     private BidDao bidDao;
+    @Resource
+    private WorryCallDao wcDao;
 
     @Override
     public int addUserImf(Userimf user) {
@@ -66,6 +69,8 @@ public class UserServiceImpl implements UserService {
         }else if("dlmm_up".equals(type)){
             text = "您正在重设登陆密码，验证码为 "+ma+",若非本人操作请忽略";
         }else if("eamil_up".equals(type)){
+            text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("eamil_bind".equals(type)){
             text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
         }
 
@@ -156,6 +161,16 @@ public class UserServiceImpl implements UserService {
             map.put("wmax",wlist.get(0).get("wmon")+"");
         }
         return map;
+    }
+
+    @Override
+    public void bindWorryCall(WorryCall worryCall) {
+        wcDao.saveWorryCall(worryCall);
+    }
+
+    @Override
+    public List getWorryCall(Userimf userimf) {
+        return wcDao.selectWorryByUId(userimf);
     }
 
     @Override
