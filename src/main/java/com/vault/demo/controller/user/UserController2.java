@@ -63,8 +63,8 @@ public class UserController2 {
         }
     }
     @RequestMapping("/toApply")
-    public String toApply(HttpSession session){
-        session.setAttribute("applyType","apply");
+    public String toApply(Model model){
+        model.addAttribute("applyType","apply");
         return "user/apply";
     }
 
@@ -111,6 +111,7 @@ public class UserController2 {
         service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);
+        session.setAttribute("user",user);
 
         Map map = new HashMap();
         map.put("msg","cg");
