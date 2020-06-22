@@ -3,9 +3,11 @@ package com.vault.demo.service.test;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Tender;
+import com.vault.demo.bean.Userimf;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,6 @@ public interface BidSer{
     public static final int STATUE_CLOSE = 2;
     public static final int DEPOSIT_CURRENT =1;
     public static final int DEPOSIT_FIX=2;
-
 
     List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry);
     int countPerList();
@@ -42,6 +43,7 @@ public interface BidSer{
     Date lastTenTime(int bid);
     List selectUser(int uId);
     void updYuHui(int id,int type);
+    String biaoPay(Tender tender, Userimf userimf, int uhId, float yhHmon, String daoqi) throws ParseException;
     int countTenByBid(int bid, int bType);
     List<Map> selectTandU(int bId,int bType);
 }
