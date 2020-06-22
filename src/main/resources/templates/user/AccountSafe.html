@@ -724,10 +724,10 @@
                                 <span class="setting" th:if="null ne ${worryCall}"><a myTarget="jjlxr_list" class="showSetting">查看</a></span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">当有紧急情况联系不到您的时候，可以联系您的亲人朋友</span>
-                                <span class="info_con"></span>
-                                <span class="info_con"></span>
+                                <span class="info_con"th:if="null ne ${worryCall}" th:text="${worryCall.name}"></span>
+                                <span class="info_con"th:if="null ne ${worryCall}" th:text="${worryCall.phe}"></span>
                             </div>
-                            <form id="jjlxr_form" class="column_form">
+                            <form id="jjlxr_form" class="column_form" th:if="null eq ${worryCall}">
                                 <div class="jjlxr_rz">
                                     <table class="form_type">
                                         <tr>
@@ -776,28 +776,113 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="jjlxr_list">
-                                    <table style="text-align: center;padding: 5px;" border="1px solid #ededed;color:#ededed"  >
-                                        <tr>
-                                            <td class="width250">编号</td>
-                                            <td class="width250">姓名</td>
-                                            <td class="width250">与本人关系</td>
-                                            <td class="width250">电话</td>
-                                            <td class="width250">操作</td>
-                                        </tr>
-                                        <tr th:each="worryCall:${worryCall}">
-                                            <td th:text="${worryCall.Id}"></td>
-                                            <td th:text="${worryCall.name}"></td>
-                                            <td th:text="${worryCall.relationship}"></td>
-                                            <td th:text="${worryCall.phe}"></td>
-                                            <td><a>移除</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5"><a myTarget="jjlxr_rz" class="showSetting">添加</a></td>
-                                        </tr>
-                                    </table>
-                                </div>
                             </form>
+                            <form id="jjlxr_form" class="column_form" th:if="null ne ${worryCall}">
+                            <div class="step_1">
+                                <ul class="steps step1">
+                                    <li>信息确认</li><li class="align_center">修改紧急联系人</li><li class="align_right">修改完成</li>
+                                </ul>
+                                <div class="for_step1">
+                                    <table class="form_type">
+                                        <tbody><tr>
+                                            <td class="align_right">联系人姓名：</td>
+                                            <td>
+                                                <span class="display_form" th:text="${worryCall.name}">卡**</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">联系人手机：</td>
+                                            <td>
+                                                <span class="display_form" th:text="${worryCall.phe}">178****7767</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">
+                                                联系人关系：
+                                            </td>
+                                            <td>
+												<span class="display_form" th:text="${worryCall.relationship}">子女</span>
+                                            </td>
+                                            <td>
+                                                <span class="display_form"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td class=""><a id="jjlxr_xg_step1_submit" class="sbm_btn inline_block" onclick="worryOneToTow()">下一步</a></td>
+                                        </tr>
+                                        </tbody></table>
+                                </div>
+                            </div>
+                            <div class="step_2" style="display: none;">
+                                <ul class="steps step2">
+                                    <li>信息确认</li><li class="align_center">修改紧急联系人</li><li class="align_right">修改完成</li>
+                                </ul>
+                                <div class="for_step2">
+                                    <table class="form_type">
+                                        <tbody><tr>
+                                            <td class="align_right">联系人关系：</td>
+                                            <td>
+                                                <div class="selectArea">
+                                                    <div id="jjlxr_xg_step2_type" class="selected" val="">请选择</div>
+                                                    <ul class="options" style="display: none;">
+                                                        <li val="1">配偶</li>
+                                                        <li val="2">父母</li>
+                                                        <li val="3">子女</li>
+                                                        <li val="4">亲戚</li>
+                                                        <li val="5">同学</li>
+                                                        <li val="6">朋友</li>
+                                                        <li val="7">同事</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td class="width250"><div id="jjlxr_xg_step2_typeTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">联系人姓名：</td>
+                                            <td><input id="jjlxr_xg_step2_name" type="text"></td>
+                                            <td class="width250"><div id="jjlxr_xg_step2_nameTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_right">联系人手机：</td>
+                                            <td><input id="jjlxr_xg_step2_mobile" maxlength="11" type="text"></td>
+                                            <td class="width250"><div id="jjlxr_xg_step2_mobileTip" class="tips_content"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tips"></td>
+                                            <td class="tips"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td class=""><a id="jjlxr_xg_submit" class="sbm_btn inline_block" onclick="worryCall_xg()">下一步</a></td>
+                                        </tr>
+                                        </tbody></table>
+                                </div>
+                            </div>
+                            <div class="step_3" style="display: none;">
+                                <ul class="steps step3">
+                                    <li>信息确认</li><li class="align_center">修改号码</li><li class="align_right">修改完成</li>
+                                </ul>
+                                <div class="for_step3">
+                                    <table class="form_type marginAuto">
+                                        <tbody><tr>
+                                            <td class="align_center"><span class="size_16">修改成功</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align_center"><a href="javascript:window.location.reload()" class="sbm_btn inline_block">确&nbsp;&nbsp;定</a></td>
+                                        </tr>
+                                        </tbody></table>
+                                </div>
+                            </div>
+                        </form>
                         </div>
                         <div myid="assess" class="column">
                             <div class="column_name">风险评估</div>
@@ -1268,13 +1353,38 @@
         var rela =$("#jjlxr_rz_type").text();
         var name =$("#jjlxr_rz_name").val();
         var phe =$("#jjlxr_rz_mobile").val();
+        if (rela=="请选择"){
+            rela="朋友";
+        }
         if ($("#jjlxr_rz_nameTip").children().length>0||(name==""||name==null)){
 
         }else if($("#jjlxr_rz_mobileTip:has(div)").length>0||(phe==""||phe==null)){
 
         }else {
             $.post("/user/bindWorryCall",{relationship:rela,name:name,phe:phe},function (data) {
-                window.location.href = 'user/toAS';
+                window.location.reload();
+            },"json");
+        }
+    }
+    function worryOneToTow() {
+        $(".step_1").css("display","none");
+        $(".step_2").css("display","block");
+    }
+    function worryCall_xg() {
+        var rela =$("#jjlxr_xg_step2_type").text();
+        var name =$("#jjlxr_xg_step2_name").val();
+        var phe =$("#jjlxr_xg_step2_mobile").val();
+        if ($("#jjlxr_xg_step2_nameTip").children().length>0||(name==""||name==null)){
+
+        }else if($("#jjlxr_xg_step2_mobileTip:has(div)").length>0||(phe==""||phe==null)){
+
+        }else {
+            $.post("/user/WorryCallUp",{relationship:rela,name:name,phe:phe},function (data) {
+                if (data==true){
+                }
+                $(".step_1").css("display","none");
+                $(".step_2").css("display","none");
+                $(".step_3").css("display","block");
             },"json");
         }
     }
