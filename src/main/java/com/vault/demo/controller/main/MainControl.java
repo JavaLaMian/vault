@@ -91,7 +91,7 @@ public class MainControl{
     }
 
     @RequestMapping("/getbid")
-    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException { //用户购买标
+    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException{ //用户购买标
         Userimf userimf = (Userimf)session.getAttribute("user");
         String userMon = userimf.getAvaBalance()+"";
         System.out.println(uhId + "|" +yhHmon);
@@ -126,7 +126,6 @@ public class MainControl{
         map.put("list",blist);
         map.put("moneyMax",zon+"");
         map.put("size",blist.size()+"");
-
         return map;
     }
 
@@ -148,20 +147,20 @@ public class MainControl{
     }
 
     @RequestMapping("perPay")
-    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi) throws ParseException {
+    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi) throws ParseException{
         Userimf userimf = (Userimf)session.getAttribute("user");
         if(pwd.equals(userimf.getDealPsw())){
             String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
             if("cg".equals(fh)){
                 //购买成功
-                return  "redirect:perImf?id="+tender.getbType();
+                return  "redirect:perImf?id="+tender.getbId();
             }else {
                 //余额不足
-                return "redirect:perImf?id="+tender.getbType();
+                return "redirect:perImf?id="+tender.getbId();
             }
         }else {
             //支付密码错误
-           return  "redirect:perImf?id="+tender.getbType();
+           return  "redirect:perImf?id="+tender.getbId();
         }
 
     }

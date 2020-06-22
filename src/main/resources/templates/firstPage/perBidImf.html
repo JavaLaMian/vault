@@ -146,29 +146,6 @@
                     }
                 }
             };
-
-            function padXiao(id) {
-                var suru = $(id).val();
-                var min = 100;
-                var max = $("#maxMoney").text();
-                if(suru != ''){
-                    suru = parseFloat(suru);
-                    min = parseFloat(min);
-
-                    if(suru < min){
-                        console.log("suru<min"+suru);
-                        $(id).val(min);
-                    }
-                    else $(id).val(suru);
-
-                    if(suru > max){
-                        console.log("suru>max"+suru);
-                        $(id).val(max);
-                    }
-                    else $(id).val(suru);
-                }
-                console.log(min+"|"+max);
-            }
         </script>
         <script>
             window.global = {
@@ -669,7 +646,8 @@
                                     <input th:value="${session.user.getuId()}" type="hidden" name="uId">
                                     <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bId">
                                     <input id="yhHid" value="0" type="hidden" name="uhId">
-                                    <input type="hidden" name="daoqi" th:value="${p.expire}">
+                                    <input type="hidden" name="daoqi" th:value="${#dates.format(p.expire,'yyyy-MM-dd')}">
+                                    `<input type="hidden" name="bType" value="3">
                                     <input id="yhHmon" value="0" type="hidden" name="yhHmon">
                                     <div class="input-group">
                                         <span class="input-group-addon">投资金额</span>
@@ -894,6 +872,30 @@
         $(function(){
             seajs.use('page/product/detail/sanbiao/js/detail');
         });
+
+
+        function padXiao(id) {
+            var suru = $(id).val();
+            var min = 100;
+            var max = $("#maxMoney").text();
+            if(suru != ''){
+                suru = parseFloat(suru);
+                min = parseFloat(min);
+
+                if(suru < min){
+                    console.log("suru<min"+suru);
+                    $(id).val(min);
+                }
+                else $(id).val(suru);
+
+                if(suru > max){
+                    console.log("suru>max"+suru);
+                    $(id).val(max);
+                }
+                else $(id).val(suru);
+            }
+            console.log(min+"|"+max);
+        }
     </script>
     <script async="" src="https://qiyukf.com/script/bbf1f358fbe2baf496d7d57ff885bbd8.js"></script>
     <div id="ly-side-bar" style="left: 92.735%; bottom: 0px; margin-bottom: 120px;" class="ly-side-bar side-bar-xn">
