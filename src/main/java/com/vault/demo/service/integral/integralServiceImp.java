@@ -87,5 +87,10 @@ public class integralServiceImp implements integralService {
         return dao.selectSignTime(id);
     }
 
+    @Override
+    public int selectSignCount(String time) {
+        return dao.selectSignCount(time);
+    }
+
 
 }
