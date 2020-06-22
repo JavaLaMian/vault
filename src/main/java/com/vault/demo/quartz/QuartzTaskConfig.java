@@ -18,16 +18,16 @@ public class QuartzTaskConfig {
                 .build();
         return jobDetail;
     }
-    @Bean
-    public Trigger myTrigger(){
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .forJob(myJobDetail())//把任务详情设置给触发器
-                .withIdentity("myTrigger","myTiggerGroup1")
-                .startNow()//马上开始
-//                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever()) //可以直接换成ConTrigger
-//                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))//直接写表单式 每5分钟执行一次
-                .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))//直接写表单式 每5分钟执行一次
-                .build();
-        return trigger;
-    }
+//    @Bean
+//    public Trigger myTrigger(){
+//        Trigger trigger = TriggerBuilder.newTrigger()
+//                .forJob(myJobDetail())//把任务详情设置给触发器
+//                .withIdentity("myTrigger","myTiggerGroup1")
+//                .startNow()//马上开始
+////                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever()) //可以直接换成ConTrigger
+////                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))//直接写表单式 每5分钟执行一次
+////                .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))//直接写表单式 每5分钟执行一次
+//                .build();
+//        return trigger;
+//    }
 }

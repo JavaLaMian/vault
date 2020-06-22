@@ -1,9 +1,6 @@
 package com.vault.demo.service.user;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.WorryCall;
+import com.vault.demo.bean.*;
 import org.apache.commons.mail.EmailException;
 
 import java.util.List;
@@ -28,4 +25,5 @@ public interface UserService {
 
     int userChongTi(String type,String money,Userimf userimf);
     List<Map> useZhiJinList(int uId);//用户资金记录
+    List<Bounty> yhList(int uId);
 }

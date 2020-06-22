@@ -252,6 +252,11 @@ public class UserServiceImpl implements UserService {
         return mlist;
     }
 
+    @Override
+    public List<Bounty> yhList(int uId) {
+        return dao.selectBounty(uId,0);
+    }
+
     private static String getNowDate(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(date);

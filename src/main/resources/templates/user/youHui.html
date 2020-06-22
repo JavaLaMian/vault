@@ -49,6 +49,33 @@
             float: left;
             text-align: center;
         }
+        .moneyS{
+            position: relative;
+            width: 100%;
+            text-align: center;
+            color: yellow;
+            font-size: 18px;
+            height: 27px;
+            top: 50%;
+        }
+        .moneyType{
+            text-align: center;
+            background-color: rgb(93,93,93);
+            color: white;
+            font-size: 16px;
+        }
+        .moneyTime{
+            text-align: center;
+            background-color: rgb(93,93,93);
+            color: #ccc;
+            height: 25px;
+        }
+        .moneyBao{
+            width: 150px;
+            height: 240px;
+            float: left;
+            margin: 0 25px;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +124,7 @@
                     <li data-type="">
                         <a href="#">我的网贷</a>
                     </li>
-                    <li data-type="record" class="cur">
+                    <li data-type="record">
                         <a href="/user/tozj">资金记录</a>
                     </li>
                     <li data-type="datum">
@@ -112,7 +139,7 @@
                     <li data-type="news">
                         <a href="#">我的消息<span id="msg-count"></span></a>
                     </li>
-                    <li data-type="redEnvelope">
+                    <li data-type="redEnvelope" class="cur">
                         <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li data-type="point">
@@ -220,26 +247,50 @@
 <!--end 尾部-->
 <script type="text/javascript">
     function getJilu() {
-        $.post("/user/zhijin", {}, function (data) {
+        $.post("/user/yuhui", {}, function (data) {
             var html = "";
             if(data.size != 0){
-                html = "<ul style='overflow: hidden;padding:15px;'><li class='titles'><p>类型</p><p style='width: 34%;'>" +
-                    "时间</p><p>相关名称</p><p>所花金额</p></li>";
+                html = "<div style='float: left;width: 90%;padding: 0 5%;'>";
                 var lists = data.list;
 
                 for(var i = 0;i<lists.length;i++){  //循环LIST
                     var veh = lists[i];
-                    var money = veh.reMoney;
-                    var name = veh.bankName;
-                    var type = typeName(veh.t);
-                    var dates = formatDateTime(veh.reTime);
+                    var money = veh.boMoney;
+                    var type = typeName(veh.boType);
+                    var dates = formatDateTime(veh.boTime);
 
-                    html += "<li class='lie'><p>"+type+"</p><p style='width: 34%;'>"
-                        +dates+"</p><p>"+name+"</p><p>"+money+"元</p></li>";
+                    if(veh.boType === 1){
+                        html += "<div class=\"moneyBao\">\n" +
+                            "                        <p class=\"moneyS\"></p>\n" +
+                            "                        <a target=\"_blank\" href=\"/main/first\">\n" +
+                            "                            <img src=\"/img/integral/jianli.png\" style=\"width: 100%;\">\n" +
+                            "                        </a>\n" +
+                            "                        <p class=\"moneyType\">"+money+"元"+type+"</p>\n" +
+                            "                        <p class=\"moneyTime\">"+dates+"</p>\n" +
+                            "                    </div>"
+                    }else if(veh.boType === 0){
+                        html += "<div class=\"moneyBao\">\n" +
+                            "                        <p class=\"moneyS\">"+money+"元</p>\n" +
+                            "                        <a target=\"_blank\" href=\"/main/first\">\n" +
+                            "                            <img src='/img/integral/name7.jpg' style=\"width: 100%;\">\n" +
+                            "                        </a>\n" +
+                            "                        <p class=\"moneyType\">"+type+"</p>\n" +
+                            "                        <p class=\"moneyTime\">"+dates+"</p>\n" +
+                            "                    </div>"
+                    }else {
+                        html += "<div class=\"moneyBao\">\n" +
+                            "                        <p class=\"moneyS\">"+money+"元</p>\n" +
+                            "                        <a target=\"_blank\" href=\"/main/first\">\n" +
+                            "                            <img src=\"/img/integral/name7.jpg\" style=\"width: 100%;\">\n" +
+                            "                        </a>\n" +
+                            "                        <p class=\"moneyType\">"+type+"</p>\n" +
+                            "                        <p class=\"moneyTime\">"+dates+"</p>\n" +
+                            "                    </div>"
+                    }
                 }
-                html += "</ul>";
+                html += "</div>";
             }else {
-                html += "<h1 style='text-align: center;font-size: 24px'>您尚未产生资金记录，赶快去投个标吧</h1>"
+                html += "<h1 style='text-align: center;font-size: 24px'>您尚未拥有红包、体验金</h1>"
             }
             $("#bodys .g-tc").remove();
             $("#bodys").append(html);
@@ -250,12 +301,11 @@
     function typeName(type) {
         var name = '';
         switch (type){
-            case -1:name='提现';break;
-            case -2:name='散标';break;
-            case -3:name='普通标';break;
-            case -4:name='新手标';break;
-            case 1:name='充值';break;
-            case 2:name='贷款';break;
+            case 1:name='体验金';break;
+            case 2:name='返现红包';break;
+            case 3:name='邀人奖励';break;
+            case 4:name='理财红包';break;
+            case 0:name='已使用';break;
             default:name='---';
         }
         return name;
