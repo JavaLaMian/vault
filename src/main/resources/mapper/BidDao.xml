@@ -27,7 +27,10 @@
     </select>
 
     <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
-        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100)
+        as schedul ,date_add(startTime, interval borrowTime month) as expire
+        from perBid p left join (select sum(tenMoney) as sumM,bid from tender
+        where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <if test="perBid != null and perBid != 0">
             where perBid = #{perBid}
         </if>
