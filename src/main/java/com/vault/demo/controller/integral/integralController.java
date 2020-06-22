@@ -26,7 +26,6 @@ public class integralController {
         if(user == null){
             return "redirect:/user/tologin";
         }
-
         Sign sign1  = service.selectSignTime(user.getuId());
         MyIntegral myIntegral = service.selectMyIntegral2(user.getuId());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -34,9 +33,7 @@ public class integralController {
         if(sign1 != null){
             String time = sdf.format(sign1.getSignTime()); //上次签到时间
             String now = sdf.format(new Date());
-            System.out.println("time:"+time+"现在时间："+now);
             int i = sdf.parse(time).compareTo(sdf.parse(now));
-            System.out.println("i:"+i);
             if( i == -1){ //当天没签到
                 model.addAttribute("sign",1);
             }
@@ -47,28 +44,26 @@ public class integralController {
         //一天之内只能签到一次
         if(q == 1){
             if(sign1 ==null){
-                System.out.println("sign为null");
                 sign.setRunning(1);
                 sign.setSignIntegral(1);
             }
             else{
-                System.out.println("sign不为null");
                 //获取断签的时间
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(sdf.parse(sdf.format(sign1.getSignTime())));
-                calendar.add(calendar.HOUR_OF_DAY,2);
+                calendar.add(calendar.DAY_OF_MONTH,+2);
                 Date time2 = calendar.getTime();
-                System.out.println("上次签到时间："+time2);
-                System.out.println("断签时间："+calendar.getTime());
+                System.out.println("断签时间："+time2);
+                System.out.println("上次签到时间："+sign1.getSignTime());
 
                 int data = time2.compareTo(sign1.getSignTime());
                 System.out.println("date:"+data);
-                if(data == -1){//当前时间大于短签时间 就是 -1
+                if(data == -1){//上次签到时间大于短签时间 就是 -1
                     sign.setRunning(1);
                     sign.setSignIntegral(1);
                 }else{
                     sign.setRunning(sign1.getRunning()+1);
-                    sign1.setSignIntegral(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
+                    sign.setSignIntegral(sign1.getRunning() > 6 ? 7 :(sign1.getSignIntegral()+1));
                 }
             }
             sign.setuId(user.getuId());
@@ -82,8 +77,8 @@ public class integralController {
                     myintegral.setTotal(myIntegral.getTotal()+1);
                 }else{
                     myintegral.setChange(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
-                    totalq = myIntegral.getTotal()+(sign1.getRunning() > 6 ? 7 :sign1.getSignIntegral()+1);
-                    myintegral.setTotal(myIntegral.getTotal()+totalq);
+                    totalq = myIntegral.getTotal()+(sign1.getRunning() > 6 ? 7 :(sign1.getSignIntegral()+1) );
+                    myintegral.setTotal(totalq);
                 }
                 myintegral.setuId(user.getuId());
                 myintegral.setChangeType("签到");
@@ -92,8 +87,10 @@ public class integralController {
                 model.addAttribute("sign",2);
             }
         }
-        session.setAttribute("total",myIntegral.getTotal()+totalq);
+        int signCount = service.selectSignCount("%"+sdf.format(new Date())+"%");
+        session.setAttribute("total",totalq == 0 ? myIntegral.getTotal():totalq);
         session.setAttribute("user",user);
+        model.addAttribute("signCount",signCount);
         return "integral/integralMain";
     }
 
@@ -256,7 +253,7 @@ public class integralController {
         return "redirect:/integral/detail?id="+hId;
     }
 
-    //积分商城主页面
+    //积分商城广告页
     @RequestMapping("/main2")
     public String integralMain2(HttpSession session){
         Userimf user = (Userimf) session.getAttribute("user");
