@@ -181,6 +181,7 @@ public class UserController2 {
         Userimf user = (Userimf) session.getAttribute("user");
         worryCall.setuId(user.getuId());
         service.upWorryCall(worryCall);
+
         return true;
     }
 }
