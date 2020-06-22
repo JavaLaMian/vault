@@ -382,7 +382,7 @@
                     </li>
                 </ul>
             </div>
-
+            <!---->
             <div class="sub-right" style="width: 408px;">
                 <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                     <div class="info">请先登陆您的账号</div>
@@ -705,6 +705,7 @@
         }
     }
     var kunoff = 0;
+
     function zhifuKuan(){
         if(kunoff === 0){
             jishuTishi = setInterval("tishiFun()", "8");

@@ -96,37 +96,12 @@ public class MainControl{
         String userMon = userimf.getAvaBalance()+"";
         System.out.println(uhId + "|" +yhHmon);
         if(pwd.equals(userimf.getDealPsw())){
-            BigDecimal zhichu = new BigDecimal(tender.getTenMoney()+"");
-            BigDecimal wan = new BigDecimal("10000");
-
-            BigDecimal zcMoney = zhichu.multiply(wan);
-            if(uhId != 0){
-                System.out.println("优惠前："+zcMoney);
-                BigDecimal yuhui = new BigDecimal(""+yhHmon);
-                zcMoney = zcMoney.subtract(yuhui);
-                bidSer.updYuHui(uhId,0);
-                System.out.println("优惠后："+zcMoney);
-            }
-            BigDecimal useMoney = new BigDecimal(userMon);
-
-            if(useMoney.compareTo(zcMoney) == 1) {
-               //余额充足
-                BigDecimal cha = useMoney.subtract(zcMoney);
-                float jieguo = cha.floatValue();
-                System.out.println("差"+jieguo);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date utilDate = sdf.parse(daoqi+" 00:00:00");
-                tender.setTenTime(new Date());
-                tender.setTenCicle(utilDate);
-
-                if(bidSer.setTender(tender) == 1) System.out.println("购买成功");
-                if(bidSer.gouMai(jieguo,userimf.getuId()) == 1) System.out.println("支付成功");
-
-                return "redirect:first";
-            }else {
-                System.out.println("余额不足");
+            String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
+            if("yebz".equals(fh)){
                 String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
                 return url;
+            }else {
+                return "redirect:first";
             }
         }else {
             System.out.println("密码错误");
@@ -170,5 +145,24 @@ public class MainControl{
             map.put("pad",0);
             return map;
         }
+    }
+
+    @RequestMapping("perPay")
+    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi) throws ParseException {
+        Userimf userimf = (Userimf)session.getAttribute("user");
+        if(pwd.equals(userimf.getDealPsw())){
+            String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
+            if("cg".equals(fh)){
+                //购买成功
+                return  "redirect:perImf?id="+tender.getbType();
+            }else {
+                //余额不足
+                return "redirect:perImf?id="+tender.getbType();
+            }
+        }else {
+            //支付密码错误
+           return  "redirect:perImf?id="+tender.getbType();
+        }
+
     }
 }

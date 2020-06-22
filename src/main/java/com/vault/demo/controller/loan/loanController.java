@@ -140,13 +140,14 @@ public class loanController {
 
             if (credit == null
                     || credit.getName() == null || "".equals(credit.getName())
-                    || credit.getDepart() == null || "".equals(credit.getDepart())
-                    || credit.getWages() == null || "".equals(credit.getWages())
                     || credit.getIdentity() == null || "".equals(credit.getIdentity())
                     || userBank == null
-                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
                     || userimf.getPhe() == null || "".equals(userimf.getPhe())
-                    ||  worryCall ==null){
+                    ||  worryCall == null
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+                    ){
                 model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
 //                model.addAttribute("Name",true);
 //                model.addAttribute("Name",true);

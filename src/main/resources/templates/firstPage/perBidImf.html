@@ -18,6 +18,75 @@
         <script type="text/javascript" src="//image.xiaoniu88.com/static/WebXn/dist/lib/base-6100562494.js"></script>
 
         <script language="JavaScript">
+            var tis = 0;
+            var tis2 = 255;
+            var weizi = 1;
+            var jishuTishi;
+
+            function tishiFun() {
+                if (tis <= 255) {
+                    tis += 1;
+                    huxiColor(tis, weizi);
+
+                    if (tis == 255) tis2 = 255;
+                } else {
+                    tis2 -= 1;
+                    huxiColor(tis2, weizi);
+
+                    if (tis2 == 0) {
+                        tis = 0; /*执行到此处证明已经循环完一次*/
+                        if (weizi == 1) weizi = 2;
+                        else if (weizi == 2) weizi = 3;
+                        else if (weizi == 3) weizi = 1;
+                    }
+                }
+            }
+
+            var uhid = 0;
+            function yuHuixuan(id,uid) {
+                if(uid !== uhid){
+                    $(id).siblings().css("border","1px dashed red");
+                    $(id).siblings().find(".yHtis").text("点击使用");
+                    $(id).siblings().find(".yHtis").css("color","#aaa");
+                    $(id).css("border","1px solid red");
+                    $(id).find(".yHtis").text("已选中");
+                    $(id).find(".yHtis").css("color","black");
+                    uhid = uid;
+                    $("#yhHid").val(uhid);
+                    $("#yhHmon").val($(id).find(".yHtext").find("span").text());
+                }else if(uid === uhid){
+                    $(id).css("border","1px dashed red");
+                    $(id).find(".yHtis").text("点击使用");
+                    $(id).find(".yHtis").css("color","#aaa");
+                    uhid = 0;
+                    $("#yhHmon").val(0);
+                    $("#yhHid").val(uhid);
+                }
+            }
+
+            function huxiColor(size, xy) { /*呼吸变色*/
+                if (xy == 1) {
+                    $(".yHlist .yHtext").css("color", "rgb(0," + size + ","+size+")");
+                } else if (xy == 2) {
+                    $(".yHlist .yHtext").css("color", "rgb(" + size + "," + size + ",0)");
+                } else if (xy == 3) {
+                    $(".yHlist .yHtext").css("color", "rgb(0," + size + ",0)");
+                }
+            }
+
+            var kunoff = 0;
+            function zhifuKuan(){
+                if(kunoff === 0){
+                    jishuTishi = setInterval("tishiFun()", "8");
+                    $("#coll2").css("display","block");
+                    kunoff = 1;
+                }else {
+                    clearInterval(jishuTishi);
+                    $("#coll2").css("display","none");
+                    kunoff = 0;
+                }
+            }
+
             function changer(c) {
                 if(c==1){
                     $("#introduceModel").css("display","block");
@@ -86,12 +155,19 @@
                     suru = parseFloat(suru);
                     min = parseFloat(min);
 
-                    if(suru < min) $(id).val(min);
+                    if(suru < min){
+                        console.log("suru<min"+suru);
+                        $(id).val(min);
+                    }
                     else $(id).val(suru);
 
-                    if(suru > max) $(id).val(max);
+                    if(suru > max){
+                        console.log("suru>max"+suru);
+                        $(id).val(max);
+                    }
                     else $(id).val(suru);
                 }
+                console.log(min+"|"+max);
             }
         </script>
         <script>
@@ -114,7 +190,177 @@
             })
         </script>
         <link rel="stylesheet" type="text/css" href="//image.xiaoniu88.com/static/WebXn/dist/page/product/detail/sanbiao/css/detail-591415ba00.css" />
+        <style>
+            .item{
+                min-height: 290px;
+                width: 1000px;
+                margin: 40px auto;
+                padding-bottom: 30px;
+            }
+            .goumai{
+                width: 122px;
+                line-height: 36px;
+                text-align: center;
+                font-size: 14px;
+                border-radius: 5px;
+                color: #ff7136;
+                border: 1px solid #ff7136;
+                background-color: white;
+                cursor:pointer
+            }
+            .goumai:hover{
+                color: white;
+                background-color: #ff7136;
+            }
+            .collapse {
+                display: none;
+            }
+            .well {
+                min-height: 20px;
+                width: 260px;
+                padding: 19px;
+                margin-bottom: 20px;
+                border: 1px solid #e3e3e3;
+                border-radius: 4px;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+            }
+            .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .btn-group > .btn:first-child {
+                margin-left: 76px;
+            }
+            .btn-group > .btn, .btn-group-vertical > .btn {
+                position: relative;
+                float: left;
+            }
+            .btn-danger {
+                color: #fff;
+                background-color: #d9534f;
+                border-color: #d43f3a;
+            }
+            .btn {
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                touch-action: manipulation;
+                cursor: pointer;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .btn-primary {
+                color: #fff;
+                background-color: #337ab7;
+                border-color: #2e6da4;
+                border-radius: 0 4px 4px 0;
+            }
+            .input-group {
+                position: relative;
+                display: table;
+                border-collapse: separate;
+                -webkit-box-sizing: border-box;
+            }
+            .input-group {
+                position: relative;
+                display: table;
+                border-collapse: separate;
+            }
+            .input-group-addon:first-child {
+                border-right: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .input-group-addon {
+                padding: 6px 12px;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1;
+                color: #555;
+                text-align: center;
+                background-color: #eee;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            .input-group-addon{
+                width: 1%;
+                white-space: nowrap;
+                vertical-align: middle;
+                display: table-cell;
+            }
+            .input-group .form-control {
+                position: relative;
+                z-index: 2;
+                float: left;
+                width: 84%;
+                margin-bottom: 0;
+            }
+            .form-control {
+                display: block;
+                width: 100%;
+                height: 25px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            }
+            .lie{
+                float: left;
+                width: 100%;
+                list-style-type:none;
+                margin: 5px 0;
+                border-bottom: 1px dashed #ccc;
+                transition: 0.5s;
+            }
+            .lie:hover{
+                border-bottom: 1px solid #ccc;
+                box-shadow: 5px 5px 15px #ccc;
+            }
+            .lie p{
+                width: 22%;
+                margin: 0;
+                padding: 10px 0;
+                float: left;
+                text-align: center;
+            }
+            .titles{
+                float: left;
+                width: 100%;
+                list-style-type:none;
+                margin: 5px 0;
+                border-bottom: 1px solid #000;
+            }
+            .titles p{
+                width: 22%;
+                margin: 0;
+                padding: 10px 0;
+                font-size: 18px;
+                float: left;
+                text-align: center;
+            }
 
+            .yHlist{
+                height: 40px;
+                padding: 3px 5px;
+                background-color: #f2dede;
+                border: 1px dashed red;
+                margin-bottom: 5px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
 
@@ -137,30 +383,22 @@
 
             <div class="hotline">全国服务热线：4006-0755-70</div>
             <ul class="info" id="ulLoginStatus">
-
-
-                <li class="user logon">
-                    <a href="/MyAccount/index">
-                        xnwp6190766
-
-                    </a>
+                <li class="user" th:if="${session.user!=null}">
+                    <a href="/user/toAO" th:text="${session.user.uName}"></a>
                     <a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
                 </li>
-
-
+                <li class="user" th:if="${session.user==null}">
+                    <a href="/user/tologin" id="head-login-btn">登录</a>
+                    <a href="/user/tologin?zc=zc">注册</a>
+                </li>
                 <li class="line">|</li>
-                <li><a target="_blank" href="/activity/pointmall/usual/index">积分商城</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/about/service">客服团队</a></li>
+                <li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
                 <li class="line">|</li>
                 <li class="app-area">
                     <a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
                     <div class="panel">
-                        <img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px" height="88px" alt="专业P2P网贷平台-小牛在线APP" />
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px"
+                             height="88px" alt="专业P2P网贷平台-小牛在线APP" />
                         <span>小牛在线APP</span>
                     </div>
                 </li>
@@ -168,7 +406,8 @@
                 <li class="code-area wx-area">
                     <div class="img-code"><i class="icon-common icon-common-weixin"></i></div>
                     <div class="panel">
-                        <img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px" height="88px" alt="小牛在线互联网金融平台官方微信" />
+                        <img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px"
+                             height="88px" alt="小牛在线互联网金融平台官方微信" />
                         <span>官方微信</span>
                     </div>
                 </li>
@@ -192,7 +431,6 @@
         </div>
     </header>
 
-    <body style="">
     <div style="left: 0px; top: 0px; visibility: hidden; position: absolute;" class="">
         <table class="ui_border">
             <tbody>
@@ -342,8 +580,11 @@
                             </dd>
                         </dl>
                         <dl class="lock-day">
-                            <dt>
-                                <span class="f-rest" id="maxMoney" th:text="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}"></span>元
+                            <dt th:if="${p.enquiry gt 0}">
+                                <span class="f-rest" id="maxMoney" th:text="${#numbers.formatDecimal(p.enquiry*10000,1,'COMMA',2,'POINT')}"></span>元
+                            </dt>
+                            <dt th:if="${p.enquiry==null||p.enquiry==0}">
+                                <span class="f-rest" id="maxMoney" th:text="${p.combination*10000}"></span>元
                             </dt>
                             <dd>
                                 可购金额
@@ -356,7 +597,6 @@
                                 到期时间：
                             </dt>
                             <dd  th:text="${#dates.format(p.expire,'yyyy-MM-dd')}">
-
                             </dd>
                         </dl>
                         <dl>
@@ -399,10 +639,10 @@
                             <dt>
                                 出借条件：
                             </dt>
-                            <dd th:if="${p.combination gt 10000}">
+                            <dd th:if="${p.combination gt 1}">
                                 信用要求：良好
                             </dd>
-                            <dd th:if="${p.combination le 10000}">
+                            <dd th:if="${p.combination le 1}">
                                 信用要求：优秀
                             </dd>
                         </dl>
@@ -412,16 +652,25 @@
                     <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                         <div class="info">请先登陆您的账号</div>
                     </div>
-
                     <div class="sellout abs" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
                         <div class="info">将从余额扣除</div>
                         <button class="goumai" onclick="zhifuKuan()">立即购买</button>
                         <div class="collapse" id="coll2">
                             <div class="well" style="background-color: #f2dede;color: #a94442;border-color:#ebccd1;text-align: center">
-                                <form th:action="@{/main/getbid}" method="post">
+                                <div th:if="ylist!=null" style="width: 135px;position: absolute;left: -110px;">
+                                    <div th:each="e:${ylist}" class="yHlist" th:onclick="'javascript:yuHuixuan(this,'+${e.boId}+')'">
+                                        <p class="yHtext" style="text-align: left;padding-left: 3px;">
+                                            <span th:text="${e.boMoney}"></span>元 优惠券
+                                        </p>
+                                        <p class="yHtis" style="text-align: right;color: #aaa;font-size: 10px">点击使用</p>
+                                    </div>
+                                </div>
+                                <form th:action="@{/main/perPay}" method="post">
                                     <input th:value="${session.user.getuId()}" type="hidden" name="uId">
-                                    <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bType">
-                                    <input th:if="${bx.bId != null}" th:value="${bx.bId}" type="hidden" name="bId">
+                                    <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bId">
+                                    <input id="yhHid" value="0" type="hidden" name="uhId">
+                                    <input type="hidden" name="daoqi" th:value="${p.expire}">
+                                    <input id="yhHmon" value="0" type="hidden" name="yhHmon">
                                     <div class="input-group">
                                         <span class="input-group-addon">投资金额</span>
                                         <input type="text" name="tenMoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
@@ -441,7 +690,6 @@
                     </div>
 
                     <div class="sellout abs" th:if="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}==0.00">
-                        <div class="info">此标已达限额 最后一次投资时间</div>
                         <div class="describe" th:text="${#dates.format(lastTime,'yyyy-MM-dd HH:mm:ss')}"></div>
                     </div>
 
@@ -458,7 +706,7 @@
                 <div class="item introduce tableList" id="introduceModel" style="display: block;">
                     <h3 class="title">项目简介与风险评估</h3>
                     <div class="extend-describe">
-                        本项借款属于个人借款，借款总金<span th:text="${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}"></span>元。借款人<span th:text="${u.uName}"></span>某个人资质已通过审核,申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
+                        本项借款属于个人借款，借款总金<span th:text="${#numbers.formatDecimal(p.combination*10000,1,'COMMA',2,'POINT')}"></span>元。借款人<span th:text="${u.uName}"></span>某个人资质已通过审核,申请信息已核实，结合资料审查和风险项综合评估，其还款能力符合要求。根据借款人当前情况评估，其还款来源能够覆盖借款本息且还款意愿良好。但不排除未来因宏观经济、市场产品价格波动、经营不善等因素导致借款人经营情况、财务状况恶化，从而发生逾期的可能 。
                     </div>
                     <h3 class="title">借款用途</h3>
                     <div class="extend-describe">
@@ -504,7 +752,7 @@
                                 <span>借款基础信息</span>
                             </div>
                             <div class="infos">
-                                <span th:text="'借款金额：'+${#numbers.formatDecimal(p.combination,1,'COMMA',2,'POINT')}+'元'"></span>
+                                <span th:text="'借款金额：'+${#numbers.formatDecimal(p.combination*10000,1,'COMMA',2,'POINT')}+'元'"></span>
                                 <span th:text="'借款期限：'+${p.borrowTime}+'个月'"></span>
                                 <span>还款方式：每月还本付息</span>
                                 <span>借款用途：个人消费</span>
@@ -553,7 +801,7 @@
                             <tbody>
                             <tr class="even" th:each="ti:${t}">
                                 <td><span th:text="'***'+${#strings.substring(ti.uName,0,1)}"></span><i class="vipIcon icon-vipplatinum_member"></i></td>
-                                <td th:text="${ti.tenMoney}"></td>
+                                <td th:text="${ti.tenMoney}*10000"></td>
                                 <td th:text="${#dates.format(ti.tenTime,'yyyy-MM-dd')}"></td>
                             </tr>
                             </tbody>
@@ -631,7 +879,6 @@
 
             ga('create', 'UA-104712537-1', 'auto');
             ga('send', 'pageview');
-
         </script>
     </div>
     <script>
@@ -677,5 +924,6 @@
             <span id="YSF-BTN-CLOSE"></span>
         </div>
     </div>
+
     </body>
     </html>
