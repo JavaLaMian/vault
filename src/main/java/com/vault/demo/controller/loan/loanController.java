@@ -72,7 +72,6 @@ public class loanController {
         Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
 
         session.setAttribute("user",userimfEX);
-        session.setAttribute("userLoan",loanService.LoanNow(userimfEX));//获取用户的贷款信息
 
         return "redirect:/loan/main2";
     }
@@ -115,10 +114,15 @@ public class loanController {
 
     //借贷中心
     @RequestMapping("/main2")
-    public String main2(HttpSession session) {
+    public String main2(HttpSession session, Model model) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
+
+        Loan loan = loanService.LoanNow((Userimf)session.getAttribute("user"));
+
+        session.setAttribute("userLoan",loan);//获取用户的贷款信息
+        model.addAttribute("action",loanService.selectActionByLId(loan));//获取用户贷款成功后的记录表
 
         return "loan/loanJie";
     }
@@ -140,13 +144,14 @@ public class loanController {
 
             if (credit == null
                     || credit.getName() == null || "".equals(credit.getName())
-                    || credit.getDepart() == null || "".equals(credit.getDepart())
-                    || credit.getWages() == null || "".equals(credit.getWages())
                     || credit.getIdentity() == null || "".equals(credit.getIdentity())
                     || userBank == null
-                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
+                    ||  worryCallList.size() <= 0
                     || userimf.getPhe() == null || "".equals(userimf.getPhe())
-                    ||  worryCallList.size() <= 0){
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+                    ){
                 model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
 //                model.addAttribute("Name",true);
 //                model.addAttribute("Name",true);

@@ -1,9 +1,7 @@
 package com.vault.demo.service.test.impl;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.PerBid;
-import com.vault.demo.bean.Tender;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
+import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.test.BidDao;
 import com.vault.demo.service.test.BidSer;
 import org.apache.ibatis.annotations.Param;
@@ -12,16 +10,20 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service//
 public class BidSerImpl implements BidSer{
-
+    @Resource
+    UserimfDao useDao;
     @Resource
     BidDao bidDao;
+
     @Override
     public List<Bid> allList() {
         return bidDao.allList(0);
@@ -161,12 +163,55 @@ public class BidSerImpl implements BidSer{
         } else {
             map.put("ketou", 0);
         }
+        //查询是否有优惠券
+        List<Bounty> blist = useDao.selectBounty(userimf.getuId(),4); //4理财红包
+        if(blist.size() != 0){
+            map.put("yuhui",blist);
+        }else {
+            map.put("yuhui",null);
+        }
         return map;
     }
 
     @Override
     public void updYuHui(int id, int type) {
+        useDao.updateBounty(id,type);
+    }
 
+    @Override
+    public String biaoPay(Tender tender,Userimf userimf,int uhId,float yhHmon,String daoqi) throws ParseException {
+        String userMon = userimf.getAvaBalance()+"";
+        BigDecimal zhichu = new BigDecimal(tender.getTenMoney()+"");
+        BigDecimal wan = new BigDecimal("10000");
+
+        BigDecimal zcMoney = zhichu.multiply(wan);
+        if(uhId != 0){
+            System.out.println("优惠前："+zcMoney);
+            BigDecimal yuhui = new BigDecimal(""+yhHmon);
+            zcMoney = zcMoney.subtract(yuhui);
+            updYuHui(uhId,0);
+            System.out.println("优惠后："+zcMoney);
+        }
+        BigDecimal useMoney = new BigDecimal(userMon);
+
+        if(useMoney.compareTo(zcMoney) == 1) {
+            //余额充足
+            BigDecimal cha = useMoney.subtract(zcMoney);
+            float jieguo = cha.floatValue();
+            System.out.println("差"+jieguo);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date utilDate = sdf.parse(daoqi+" 00:00:00");
+            tender.setTenTime(new Date());
+            tender.setTenCicle(utilDate);
+
+            if(setTender(tender) == 1) System.out.println("购买成功");
+            if(gouMai(jieguo,userimf.getuId()) == 1) System.out.println("支付成功");
+
+            return "cg";
+        }else {
+            System.out.println("余额不足");
+            return "yebz";
+        }
     }
 
     @Override

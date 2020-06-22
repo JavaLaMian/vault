@@ -26,7 +26,7 @@ public class QuartzTaskConfig {
                 .startNow()//马上开始
 //                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever()) //可以直接换成ConTrigger
 //                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))//直接写表单式 每5分钟执行一次
-                //.withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))//直接写表单式 每5分钟执行一次
+              //  .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))//直接写表单式 每5分钟执行一次
                 .build();
         return trigger;
     }

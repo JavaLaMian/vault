@@ -58,29 +58,26 @@
 	<i class="icon-common icon-common-close"></i>
 </div>
 
-
 <header class="header">
 	<div class="container">
-
 		<div class="hotline">全国服务热线：4006-0755-70</div>
 		<ul class="info" id="ulLoginStatus">
-			<li class="user">
-				<a href="/user/login" id="head-login-btn">登录</a>
-				<a href="/user/register">注册</a>
+			<li class="user" th:if="${session.user!=null}">
+				<a href="/user/toAO" th:text="${session.user.uName}"></a>
+				<a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+			</li>
+			<li class="user" th:if="${session.user==null}">
+				<a href="/user/tologin" id="head-login-btn">登录</a>
+				<a href="/user/tologin?zc=zc">注册</a>
 			</li>
 			<li class="line">|</li>
 			<li><a target="_blank" th:href="@{/integral/main(q=0)}">积分商城</a></li>
 			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
-			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
-			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/about/service">客服团队</a></li>
-			<li class="line">|</li>
 			<li class="app-area">
 				<a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
 				<div class="panel">
-					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px" height="88px" alt="专业P2P网贷平台-小牛在线APP" />
+					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px"
+						 height="88px" alt="专业P2P网贷平台-小牛在线APP" />
 					<span>小牛在线APP</span>
 				</div>
 			</li>
@@ -88,7 +85,8 @@
 			<li class="code-area wx-area">
 				<div class="img-code"><i class="icon-common icon-common-weixin"></i></div>
 				<div class="panel">
-					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px" height="88px" alt="小牛在线互联网金融平台官方微信" />
+					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px"
+						 height="88px" alt="小牛在线互联网金融平台官方微信" />
 					<span>官方微信</span>
 				</div>
 			</li>
@@ -122,7 +120,7 @@
 		</h1>
 		<nav class="info">
 			<div class="nav nav-index" data-type="index">
-				<a href="/">首页</a>
+				<a href="/main/first">首页</a>
 			</div>
 			<ul class="nav nav-financial" data-type="financial">
 				<li class="first">
