@@ -22,4 +22,5 @@ public interface LoanService {
     Car selectCarByUId(Userimf userimf);
     void insertCar(Car car);
     void insertHouse(House house);
+    Action selectActionByLId(Loan loan);
 }

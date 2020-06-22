@@ -74,8 +74,6 @@ public class MainControl{
 
     }
 
-
-
     @RequestMapping("/perImf")
     public String perImf(int id, HttpServletRequest request){
         PerBid p = bidSer.selectByPid(id);
@@ -95,6 +93,7 @@ public class MainControl{
     @RequestMapping("/getbid")
     public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException { //用户购买标
         Userimf userimf = (Userimf)session.getAttribute("user");
+        String userMon = userimf.getAvaBalance()+"";
         System.out.println(uhId + "|" +yhHmon);
         if(pwd.equals(userimf.getDealPsw())){
             String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
@@ -105,7 +104,7 @@ public class MainControl{
                 return "redirect:first";
             }
         }else {
-            //密码错误
+            System.out.println("密码错误");
             String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
             return url;
         }
