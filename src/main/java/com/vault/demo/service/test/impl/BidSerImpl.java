@@ -176,7 +176,7 @@ public class BidSerImpl implements BidSer{
     public void updYuHui(int id, int type) {
         useDao.updateBounty(id,type);
     }
-
+//
     @Override
     public String biaoPay(Tender tender,Userimf userimf,int uhId,float yhHmon,String daoqi) throws ParseException{
         String userMon = userimf.getAvaBalance()+"";
