@@ -1,24 +1,24 @@
-//package com.vault.demo.quartz;
-//
-//import com.vault.demo.bean.Bid;
-//import com.vault.demo.service.backstage.adxmn.selevicexmn;
-//import org.quartz.Job;
-//import org.quartz.JobExecutionContext;
-//import org.quartz.JobExecutionException;
-//
-//import javax.annotation.Resource;
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Calendar;
-//import java.util.Date;
-//import java.util.List;
-//
-//public class QuartzTask implements Job {
-//    @Resource
-//    selevicexmn is;
-//    @Override
-//    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-//        //查询出所有标 新手标和优享标
+package com.vault.demo.quartz;
+
+import com.vault.demo.bean.Bid;
+import com.vault.demo.service.backstage.adxmn.selevicexmn;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class QuartzTask implements Job {
+    @Resource
+    selevicexmn is;
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        //查询出所有标 新手标和优享标
 //        List<Bid> list = is.Bidlist();
 //        Bid bid = new Bid();
 //        for(int i=0;i<list.size();i++){
@@ -87,5 +87,5 @@
 //            }
 //
 //        }
-//    }
-//}
+    }
+}
