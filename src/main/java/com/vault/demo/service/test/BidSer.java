@@ -23,7 +23,6 @@ public interface BidSer{
     public static final int DEPOSIT_CURRENT =1;
     public static final int DEPOSIT_FIX=2;
 
-
     List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry);
     int countPerList();
     int countPerPage (float inRate, float enquiry);
