@@ -50,26 +50,21 @@ public class UserController2 {
                 UserBank userBank = service.getBC(user.getuId());
                 model.addAttribute("credit",credit);
                 model.addAttribute("userBank",userBank);
-                List list = service.getWorryCall(user);
-                if (list.size()==0){
-                    model.addAttribute("worryCall",null);
-                }else {
-                    model.addAttribute("worryCall",list);
-                }
+                WorryCall worryCall = service.getWorryCall(user);
+                model.addAttribute("worryCall",worryCall);
             }catch (Exception e){
                 model.addAttribute("credit",null);
                 model.addAttribute("userBank",null);
                 model.addAttribute("worryCall",null);
             }
-
             return "user/AccountSafe";
         }else {
             return "loan/login";
         }
     }
     @RequestMapping("/toApply")
-    public String toApply(HttpSession session){
-        session.setAttribute("applyType","apply");
+    public String toApply(Model model){
+        model.addAttribute("applyType","apply");
         return "user/apply";
     }
 
@@ -116,6 +111,7 @@ public class UserController2 {
         service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);
+        session.setAttribute("user",user);
 
         Map map = new HashMap();
         map.put("msg","cg");
@@ -134,13 +130,13 @@ public class UserController2 {
     }
     @RequestMapping("/dlmm")
     @ResponseBody
-    public String dlmm(String loginPsw,HttpSession session){
+    public Boolean dlmm(String loginPsw,HttpSession session){
         Userimf userimf = (Userimf) session.getAttribute("user");
         userimf.setLoginPsw(loginPsw);
         System.out.println(userimf);
         service.upUser(userimf);
         session.setAttribute("user",userimf);
-        return "";
+        return true;
     }
     @RequestMapping("/czTx")
     @ResponseBody
@@ -164,19 +160,28 @@ public class UserController2 {
     }
     @RequestMapping("/emailUp")
     @ResponseBody
-    public String emailUp(String newEmail,HttpSession session){
+    public Boolean emailUp(String newEmail,HttpSession session){
         Userimf userimf = (Userimf) session.getAttribute("user");
         userimf.setEmail(newEmail);
         service.upUser(userimf);
         session.setAttribute("user",userimf);
-        return "";
+        return true;
     }
     @RequestMapping("/bindWorryCall")
     @ResponseBody
-    public String bindWorryCall(WorryCall worryCall, HttpSession session){
+    public Boolean bindWorryCall(WorryCall worryCall, HttpSession session){
         Userimf userimf = (Userimf) session.getAttribute("user");
         worryCall.setuId(userimf.getuId());
         service.bindWorryCall(worryCall);
-        return "";
+        return true;
+    }
+    @RequestMapping("/WorryCallUp")
+    @ResponseBody
+    public Boolean upWorryCall(WorryCall worryCall,HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        worryCall.setuId(user.getuId());
+        service.upWorryCall(worryCall);
+
+        return true;
     }
 }
