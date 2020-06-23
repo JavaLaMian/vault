@@ -135,6 +135,8 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
+        session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
         if ("".equals(loanTypeStr)) {
 
         }else if ("xinyong".equals(loanTypeStr)){ //如果是信用贷款类型
@@ -250,6 +252,10 @@ public class loanController {
 
     @RequestMapping("/toSubmitAcMoney")
     public String toSubmitAcMoney(Action action,HttpSession session,Loan loan){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         loan = (Loan) session.getAttribute("userLoan");
 
         System.out.println("loan:" + loan);
@@ -314,6 +320,10 @@ public class loanController {
     @RequestMapping("/checkAcMoney")
     @ResponseBody
     public String checkAcMoney(HttpSession session, float acMoney){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         Loan loan = (Loan) session.getAttribute("userLoan");
         float minLimit = loan.getMinLimit();
         float maxLimit = loan.getMaxLimit();
@@ -335,6 +345,10 @@ public class loanController {
 
     @RequestMapping("/toLoanEnd")
     public String toLoanEnd(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         Loan loan = (Loan) session.getAttribute("userLoan");
         loan.setLoanStatue(1);
         Action action = loanService.selectActionByLId(loan);

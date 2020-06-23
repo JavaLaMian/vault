@@ -19,6 +19,6 @@ public interface BackLoanDao {
     Userimf selUserByUid(int uId);
     void updLoan(@Param("loan") Loan loan);
     Loan selLoanByLid(int lId);
-    int addPerBid(@Param("perBid") PerBid perBid);
+    void addPerBid(@Param("perBid") PerBid perBid);
     void updPerBidStatus(@Param("loan")Loan loan,@Param("action") Action action);
 }
