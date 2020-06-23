@@ -90,6 +90,9 @@
         <if test="type != null and type != 0">
             and boType = #{type}
         </if>
+        <![CDATA[
+          ORDER BY boType desc
+        ]]>
     </select>
     <update id="updateBounty">
         <![CDATA[

@@ -321,24 +321,24 @@
             </ul>
         </nav>
         <div th:if="${session.user==null}" class="user">
-            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/tologin')" class="title">
+            <span style="cursor: pointer;" class="title">
                 <div class="img-box"></div>
-                <span>点我登陆</span>
+                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
             </span>
         </div>
-        <div th:if="${session.user!=null}" class="user">
-            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/toAO')" class="title">
-                <div class="img-box"></div>
-                <span>我的账户</span>
-                <i class="icon-common icon-common-to-bottom"></i>
-            </span>
+        <div th:if="${session.user!=null}"  class="user">
+					<span class="title">
+						<div class="img-box"></div>
+						<span><a style="color: black" href="/user/toAO">我的账户</a></span>
+						<i class="icon-common icon-common-to-bottom"></i>
+					</span>
             <ul>
-                <li><a href="javascript:gotoLogin('/user/toAO');">充值</a></li>
-                <li><a href="javascript:gotoLogin('/user/toAO');">提现</a></li>
-                <li><a href="javascript:gotoLogin('/loan/main');">我的网贷</a></li>
-                <li><a href="javascript:gotoLogin('/user/toAS');">账户安全</a></li>
+                <li><a href="/user/toAO">充值</a></li>
+                <li><a href="/user/toAO">提现</a></li>
+                <li><a href="/loan/main">我的网贷</a></li>
+                <li><a href="/user/toAS">账户安全</a></li>
                 <li><a href="#">我的消息</a></li>
-                <li><a href="javascript:gotoLogin('/user/toYuhui');">红包优惠券</a></li>
+                <li><a href="/user/toYuhui">红包优惠券</a></li>
             </ul>
         </div>
     </div>
@@ -398,7 +398,7 @@
                         </dt>
                         <dd>可加入最低额度
                             <span th:if="${ketou == null}" th:text="${bx.startLimit}"></span>
-                            <span id="kai" th:if="${kai != null}" th:text="${kai}"></span>元</dd>
+                            <span id="kai" th:if="${kai != null}" th:text="${kai}"></span>万</dd>
                     </dl>
                 </div>
                 <ul class="sub-left-mid"></ul>
@@ -408,15 +408,13 @@
                         <p class="p1" th:case="0" th:text="|正在销售|"></p>
                         <p class="p1" th:case="3" th:text="|售罄|"></p>
                         <p class="p1" th:case="2" th:text="|关闭交易|"></p>
+                        <p class="p1" th:case="4" th:text="|锁定期|"></p>
                     </li>
                 </ul>
             </div>
             <!---->
-            <div class="sub-right" style="width: 408px;">
-                <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
-                    <div class="info">请先登陆您的账号</div>
-                </div>
-                <div class="sellout abs" th:if="${session.user!=null and ketou != 0}" style="background: rgb(254,250,250)">
+            <div class="sub-right" style="width: 408px;"  th:if="${bx.bId != null}" th:switch="${bx.bidStatus}">
+                <div class="sellout abs" th:case="0" th:if="${session.user!=null and ketou != 0}" style="background: rgb(254,250,250)">
                     <div class="info">将从余额扣除</div>
                     <button class="goumai" onclick="zhifuKuan()">立即购买</button>
                     <div class="collapse" id="coll2">
@@ -456,7 +454,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="sellout abs" th:if="${session.user!=null and ketou == 0}">
+                <div class="sellout abs" th:case="1" th:if="${session.user!=null}" style="background: rgb(254,250,250);">
+                    <div class="info">该标尚未开始销售 请留意开售时间</div>
+                </div>
+                <div class="sellout abs" th:case="3" th:if="${session.user!=null}">
+                    <div class="info">该标已售馨 请浏览其它标</div>
+                </div>
+                <div class="sellout abs" th:case="2" th:if="${session.user!=null}">
+                    <div class="info">该标已关闭交易</div>
+                </div>
+                <div class="sellout abs" th:case="4" th:if="${session.user!=null}">
+                    <div class="info">该标已锁定</div>
+                </div>
+                <div class="sellout abs" th:case="*" th:if="${session.user==null}" style="background: rgb(254,250,250);">
+                    <div class="info">请先登陆您的账号</div>
+                </div>
+                <div class="sellout abs"  th:case="*" th:if="${session.user!=null and ketou == 0}">
                     <div class="info">此标已达限额 最后一次投资时间</div>
                     <div class="describe" th:text="${#dates.format(to.tenTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
                 </div>
@@ -488,7 +501,7 @@
             </ul>
         </div>
         <div class="extend" id="extendModel">
-            <ul class="tab" style="padding: 0px 50px">
+            <ul class="tab" style="padding: 0 185px">
                 <li data-type="introduce" class="extend-trigger current" onclick="tabQieHuan(this)">
                     <i class="icon icon-project"></i>
                     <span>工具介绍</span>
@@ -496,9 +509,6 @@
                 <li data-type="projectList" class="extend-trigger" onclick="tabQieHuan(this)">
                     <i class="icon icon-issue"></i>
                     <span>投标项目列表</span></li>
-                <li data-type="analyzeList" class="extend-trigger" onclick="tabQieHuan(this)">
-                    <i class="icon icon-analyze"></i>
-                    <span>投标项目分析</span></li>
                 <li data-type="investList" class="extend-trigger" onclick="tabQieHuan(this)">
                     <i class="icon icon-invest"></i>
                     <span>投标记录</span>
@@ -572,11 +582,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="item introduce tableList" id="analyzeListModel" style="display: none;">
-                    <h1 style="text-align: center;font-size: 22px">当前数据过少 请稍等哦</h1>
-                </div>
-
                 <div class="item introduce tableList" id="investListModel" style="display: none;">
                     <div class="content">
                         <div class="g-tc" style="padding-top: 100px;">
@@ -653,9 +658,6 @@
 <script src="//image.xiaoniu88.com/static/WebXn/dist/page/product/detail/ushare/js/detail-8c8420d88e.js"></script>
 
 <script>
-    function  gotoLogin(url) {
-        window.location.href=url;
-    }
     var tis = 0;
     var tis2 = 255;
     var weizi = 1;
@@ -762,7 +764,7 @@
         var max = $("#ketous").text();
         if(suru != ''){
             suru = parseFloat(suru);
-            min = parseFloat(min) * 0.01;
+            min = parseFloat(min);
 
             if(suru < min) $(id).val(min);
             else $(id).val(suru);
@@ -831,7 +833,6 @@
     }
     var dian = 0;
     function setList(id) {
-        //<a class="extend-trigger color-blue" data-type="analyzeList" href="javascript:void(0)" style="margin-left:15px">查看资产组合分析</a></div>
         if(dian === 0){
             $.post("/main/blist",{},function (data) {
                 var html = "<div class='g-tl sequence'> 投标项目总金额<span>"+data.moneyMax+"</span>万，共计<span>"+data.size+"</span>个项目</div>";
