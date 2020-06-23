@@ -85,8 +85,11 @@
     </select>
     <select id="selectBounty" resultType="com.vault.demo.bean.Bounty">
         <![CDATA[
-          select * from bounty where uId = #{uId} and boType = #{type}
+          select * from bounty where uId = #{uId}
         ]]>
+        <if test="type != null and type != 0">
+            and boType = #{type}
+        </if>
     </select>
     <update id="updateBounty">
         <![CDATA[

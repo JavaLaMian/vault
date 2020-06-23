@@ -1,6 +1,7 @@
 package com.vault.demo.controller.user;
 
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
@@ -154,4 +155,25 @@ public class UserController {
         return service.updetaPwd(email,pwd);
     }
 
+    @RequestMapping("/toYuhui")
+    public String toYouHui(HttpSession session){
+        Userimf user = (Userimf)session.getAttribute("user");
+        if(user != null){
+            return "user/youHui";
+        }else {
+            return "redirect:tologin";
+        }
+    }
+
+    @RequestMapping("/yuhui")
+    @ResponseBody
+    public Map getUseYuhui(HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        Map map = new HashMap();
+        List<Bounty> mlist = service.yhList(user.getuId());
+        System.out.println(mlist.toString());
+        map.put("list",mlist);
+        map.put("size",mlist.size());
+        return map;
+    }
 }

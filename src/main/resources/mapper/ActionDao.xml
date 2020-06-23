@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.loan.ActionDao">
+    <select id="selectActionByLId" resultType="com.vault.demo.bean.Action" parameterType="com.vault.demo.bean.Loan">
+        <![CDATA[
+          select * from admin where lId=#{lId}
+        ]]>
+    </select>
+    <insert id="insertAction" parameterType="com.vault.demo.bean.Action">
+        <![CDATA[
+          insert into action(aId,lId,uId,acMoney,minRepayTime,maxRepayTime,actime,acStatus,tobePay) values(null,#{lId},#{uId},#{acMoney},#{minRepayTime},#{maxRepayTime},#{actime},#{acStatus},#{tobePay})
+        ]]>
+    </insert>
+</mapper>
