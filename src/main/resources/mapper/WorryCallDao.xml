@@ -16,4 +16,9 @@
           select * from worryCall where uId=#{uId}
         ]]>
     </select>
+    <update id="upWorryCall" parameterType="WorryCall">
+        <![CDATA[
+          UPDATE worryCall set relationship=#{relationship},phe=#{phe},name=#{name} where uId=#{uId}
+        ]]>
+    </update>
 </mapper>

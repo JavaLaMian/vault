@@ -169,7 +169,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List getWorryCall(Userimf userimf) {
+    public void upWorryCall(WorryCall worryCall) {
+        wcDao.upWorryCall(worryCall);
+    }
+
+    @Override
+    public WorryCall getWorryCall(Userimf userimf) {
         return wcDao.selectWorryByUId(userimf);
     }
 
@@ -248,8 +253,12 @@ public class UserServiceImpl implements UserService {
             maxList.add(map);
         }*/
         List<Map> mlist = dao.selectUserZhijin(uId);
-        //System.out.println(mlist.toString());
         return mlist;
+    }
+
+    @Override
+    public List<Bounty> yhList(int uId) {
+        return dao.selectBounty(uId,0);
     }
 
     private static String getNowDate(Date date) {

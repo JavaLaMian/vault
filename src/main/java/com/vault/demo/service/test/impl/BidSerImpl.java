@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service//
+@Service
 public class BidSerImpl implements BidSer{
     @Resource
     UserimfDao useDao;
@@ -23,8 +25,8 @@ public class BidSerImpl implements BidSer{
     BidDao bidDao;
 
     @Override
-    public List<Bid> allList() {
-        return bidDao.allList(0);
+    public List<Bid> allList(int bId,int bType) {
+        return bidDao.allList(bId,bType);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class BidSerImpl implements BidSer{
 
     @Override
     public Bid selectByBid(int bid) {
-        List<Bid> bids = bidDao.allList(bid);
+        List<Bid> bids = bidDao.allList(bid,0);
         return bids.get(0);
     }
 
@@ -93,6 +95,22 @@ public class BidSerImpl implements BidSer{
     @Override
     public List<Map> selectTandU(int bid, int bType){
         return bidDao.selectTandU(bid,bType);
+    }
+
+    @Override
+    public int countUser() {
+        return bidDao.countUser();
+    }
+
+    @Override
+    public float countTenMoney() {
+        return bidDao.countTenMoney();
+    }
+
+    @Override
+    public List<Bounty> getHonBao(int uId) {
+        List<Bounty> blist = useDao.selectBounty(uId,4); //4理财红包
+        return blist;
     }
 
     @Override
@@ -120,11 +138,10 @@ public class BidSerImpl implements BidSer{
     @Override
     public Map padTouBiao(HttpSession session,int id,int t) {
         Map map = new HashMap();
-        Bid bid = bidDao.allList(id).get(0);
+        Bid bid = bidDao.allList(id,0).get(0);
         Userimf userimf = (Userimf) session.getAttribute("user");
         //判断该用户是否投过此标 用户id 标id 标类
         List<Tender> tenders = bidDao.selectTouId(userimf.getuId(), id, t);
-
         BigDecimal zon = new BigDecimal("0"); //当前用户投此标总额
         BigDecimal userMax = new BigDecimal(bid.getPersonLimit() + "");//个人累计限额
         if (tenders.size() != 0) { //投过此标
@@ -174,6 +191,54 @@ public class BidSerImpl implements BidSer{
     @Override
     public void updYuHui(int id, int type) {
         useDao.updateBounty(id,type);
+    }
+//
+    @Override
+    public String biaoPay(Tender tender,Userimf userimf,int uhId,float yhHmon,String daoqi) throws ParseException{
+        String userMon = userimf.getAvaBalance()+"";
+        BigDecimal zhichu = new BigDecimal(tender.getTenMoney()+"");
+        BigDecimal wan = new BigDecimal("10000");
+        BigDecimal zcMoney;
+        if(tender.getbType()==3){
+            zcMoney = zhichu;
+            System.out.println(tender.toString()+"1111111111111111111111111");
+            zhichu = zhichu.divide(wan);
+            tender.setTenMoney(zhichu.floatValue());
+        }else {
+            zcMoney = zhichu.multiply(wan);
+        }
+
+        if(uhId != 0){
+            System.out.println("优惠前："+zcMoney);
+            BigDecimal yuhui = new BigDecimal(""+yhHmon);
+            zcMoney = zcMoney.subtract(yuhui);
+            updYuHui(uhId,0);
+            System.out.println("优惠后："+zcMoney);
+        }
+        BigDecimal useMoney = new BigDecimal(userMon);
+
+        if(useMoney.compareTo(zcMoney) == 1) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date utilDate;
+            //余额充足
+            BigDecimal cha = useMoney.subtract(zcMoney);
+            float jieguo = cha.floatValue();
+            System.out.println("差"+jieguo);
+
+            utilDate = sdf.parse(daoqi+" 00:00:00");
+
+            tender.setTenTime(new Date());
+            tender.setTenCicle(utilDate);
+
+            if(setTender(tender) == 1) System.out.println("购买成功");
+            if(gouMai(jieguo,userimf.getuId()) == 1) System.out.println("支付成功");
+
+            return "cg";
+        }else {
+            System.out.println("余额不足");
+            return "yebz";
+        }
     }
 
     @Override

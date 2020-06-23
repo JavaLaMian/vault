@@ -9,9 +9,14 @@
         <![CDATA[
           select * from bid
         ]]>
-        <if test="bId != null and bId != 0">
-            where bId = #{bId}
+        <where>
+        <if test="bType!=null and bType!=0">
+           bidType =#{bType}
         </if>
+        <if test="bId != null and bId != 0">
+            and bId = #{bId}
+        </if>
+        </where>
     </select>
 
     <select id="selectByType" resultType="com.vault.demo.bean.Bid">
@@ -27,7 +32,10 @@
     </select>
 
     <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
-        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100) as schedul ,date_add(startTime, interval borrowTime month) as expire  from perBid p left join (select sum(tenMoney) as sumM,bid from tender  where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
+        select *,(rate-addRate) as inRate,(combination-sumM) as enquiry,(sumM/combination*100)
+        as schedul ,date_add(startTime, interval borrowTime month) as expire
+        from perBid p left join (select sum(tenMoney) as sumM,bid from tender
+        where bType = 3 GROUP BY bid)as ten on p.perBid = ten.bid
         <if test="perBid != null and perBid != 0">
             where perBid = #{perBid}
         </if>
@@ -106,5 +114,14 @@
 
     <select id="lastTenTime" resultType="Date" parameterType="int">
         select  tenTime from tender where bid  = #{bid} and bType = 3 ORDER BY tenTime desc limit  0,1
+    </select>
+
+
+    <select id="countUser" resultType="int">
+        select COUNT(*)from userimf
+    </select>
+
+    <select id="countTenMoney" resultType="float">
+        select COUNT(tenMoney) from tender
     </select>
 </mapper>

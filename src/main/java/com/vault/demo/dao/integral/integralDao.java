@@ -31,4 +31,7 @@ public interface integralDao {
 
     //查出上次签到时间
     Sign selectSignTime(int id);
+
+    //查出今天签到人
+    int selectSignCount(String time);
 }

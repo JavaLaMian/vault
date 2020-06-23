@@ -1,23 +1,23 @@
-package com.vault.demo.quartz;
-
-import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
-@Configuration
-@EnableScheduling//激活自动调度
-public class QuartzTaskConfig {
-    @Bean
-    public JobDetail myJobDetail(){
-        JobDetail jobDetail = (JobDetail) JobBuilder.newJob(QuartzTask.class)
-                .withIdentity("myjob1")//设置组名
-                //jobDateMap可以给任务execute传递参数
-//                .usingJobData("job_parm","job_parm1")
-                .storeDurably()
-                .build();
-        return jobDetail;
-    }
+//package com.vault.demo.quartz;
+//
+//import org.quartz.*;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.scheduling.annotation.EnableScheduling;
+//
+//@Configuration
+//@EnableScheduling//激活自动调度
+//public class QuartzTaskConfig {
+//    @Bean
+//    public JobDetail myJobDetail(){
+//        JobDetail jobDetail = (JobDetail) JobBuilder.newJob(QuartzTask.class)
+//                .withIdentity("myjob1")//设置组名
+//                //jobDateMap可以给任务execute传递参数
+////                .usingJobData("job_parm","job_parm1")
+//                .storeDurably()
+//                .build();
+//        return jobDetail;
+//    }
 //    @Bean
 //    public Trigger myTrigger(){
 //        Trigger trigger = TriggerBuilder.newTrigger()
@@ -30,4 +30,4 @@ public class QuartzTaskConfig {
 //                .build();
 //        return trigger;
 //    }
-}
+//}
