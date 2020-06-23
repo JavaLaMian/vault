@@ -3,6 +3,8 @@ package com.vault.demo.service.backstage.adxmn;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Loan;
+import com.vault.demo.bean.Tender;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -20,5 +22,7 @@ public interface selevicexmn {
     List<Map> integralList();//查询出积分兑换信息
     void updategetbiBid(int bidStatus,int id);//根据id修改投标状态
     float selectBidmoney(int bidType);//根据标种查询出标的总金额
-    int selectgetByid();//查询出用户投了哪些标
+    List<String> selectgetByid();//查询出用户投了哪些标
+    List<String> selectgetBytenid(int id);//根据标id查询出哪些用户
+    List<Tender> slecttendermoney(int bid,int uid);//根据标和用户id查询金额
 }
