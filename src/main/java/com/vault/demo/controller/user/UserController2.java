@@ -184,4 +184,21 @@ public class UserController2 {
 
         return true;
     }
+    @RequestMapping("/bindReferee")
+    @ResponseBody
+    public Boolean bindReferee(String referee,HttpSession session){
+        if (null==referee || "".equals(referee)){
+            return false;
+        }
+        Userimf refereer = new Userimf();
+        refereer.setAccount(referee);
+        Userimf user = (Userimf) session.getAttribute("user");
+        user.setRefereer(referee);
+        if (service.bindReferee(refereer,user)){
+            session.setAttribute("user",user);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

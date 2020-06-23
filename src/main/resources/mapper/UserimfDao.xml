@@ -96,4 +96,12 @@
           update bounty set boType=#{type} where boId = #{id}
         ]]>
     </update>
+    <select id="selectForReferee" resultType="Userimf">
+        <![CDATA[
+          select * from userimf where refereer = #{refereer}
+        ]]>
+        <if test="type != null and type != 0">
+            and boType = #{type}
+        </if>
+    </select>
 </mapper>
