@@ -2,7 +2,6 @@ package com.vault.demo.controller.main;
 
 
 import com.vault.demo.bean.*;
-import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Tender;
@@ -25,7 +24,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+//
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -33,12 +32,19 @@ public class MainControl{
     BidSer bidSer;
     @RequestMapping("/first")
     public String toMain(HttpServletRequest request){
-        List<Bid> nList = bidSer.allList();
+        List<Bid> nList = bidSer.allList(0,1);
+        List<Bid> pList = bidSer.allList(0,2);
         List ncList = nList.subList(0, 3);
-        List<PerBid> perList = bidSer.selectPerB(0);
-        System.out.println("==================" + perList.size());
+       // List pcList = pList.subList(0,3);
+        List<PerBid> per = bidSer.selectPerB(0);
+        List perList = per.subList(0, 3);
+        float countM = bidSer.countTenMoney();
+        int countU = bidSer.countUser();
+        request.setAttribute("countM",countM);
+        request.setAttribute("countU",countU);
         request.setAttribute("ncList", ncList);
         request.setAttribute("perList", perList);
+        request.setAttribute("pcList", pList);
         return "firstPage/first";
     }
 
@@ -75,62 +81,39 @@ public class MainControl{
     }
 
     @RequestMapping("/perImf")
-    public String perImf(int id, HttpServletRequest request){
+    public String perImf(int id, HttpServletRequest request,HttpSession session){
         PerBid p = bidSer.selectByPid(id);
         List<Map> userimf = bidSer.selectUser(p.getBorrower());
         Map u = userimf.get(0);
-        List<Map> tenders = bidSer.selectTandU(id,  3);
+        Userimf userimf1 =  (Userimf) session.getAttribute("user");
+        List<Map> tenders = bidSer.selectTandU(id,3);
         int countU = bidSer.countTenByBid(id, 3);
         Date lastTime = bidSer.lastTenTime(id);
         request.setAttribute("p", p);
         request.setAttribute("u", u);
         request.setAttribute("t", tenders);
         request.setAttribute("countU", countU);
+        request.setAttribute("ylist",bidSer.getHonBao(userimf1.getuId()));
         request.setAttribute("lastTime",lastTime);
         return "firstPage/perBidImf";
     }
 
     @RequestMapping("/getbid")
-    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException { //用户购买标
+    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException{ //用户购买标
         Userimf userimf = (Userimf)session.getAttribute("user");
         String userMon = userimf.getAvaBalance()+"";
         System.out.println(uhId + "|" +yhHmon);
         if(pwd.equals(userimf.getDealPsw())){
-            BigDecimal zhichu = new BigDecimal(tender.getTenMoney()+"");
-            BigDecimal wan = new BigDecimal("10000");
-
-            BigDecimal zcMoney = zhichu.multiply(wan);
-            if(uhId != 0){
-                System.out.println("优惠前："+zcMoney);
-                BigDecimal yuhui = new BigDecimal(""+yhHmon);
-                zcMoney = zcMoney.subtract(yuhui);
-                bidSer.updYuHui(uhId,0);
-                System.out.println("优惠后："+zcMoney);
-            }
-            BigDecimal useMoney = new BigDecimal(userMon);
-
-            if(useMoney.compareTo(zcMoney) == 1) {
-               //余额充足
-                BigDecimal cha = useMoney.subtract(zcMoney);
-                float jieguo = cha.floatValue();
-                System.out.println("差"+jieguo);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date utilDate = sdf.parse(daoqi+" 00:00:00");
-                tender.setTenTime(new Date());
-                tender.setTenCicle(utilDate);
-
-                if(bidSer.setTender(tender) == 1) System.out.println("购买成功");
-                if(bidSer.gouMai(jieguo,userimf.getuId()) == 1) System.out.println("支付成功");
-
-                return "redirect:first";
-            }else {
-                System.out.println("余额不足");
-                String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
+            String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
+            if("yebz".equals(fh)){
+                String url = "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
                 return url;
+            }else {//购买成功
+                return  "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
             }
         }else {
             System.out.println("密码错误");
-            String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
+            String url = "firstPage/prose?t="+tender.getbType()+"&id="+tender.getbId();
             return url;
         }
     }
@@ -139,7 +122,7 @@ public class MainControl{
     @ResponseBody
     public Map getBList(){
         Map map = new HashMap();
-        List<Bid> blist = bidSer.allList();
+        List<Bid> blist = bidSer.allList(0,0);
         BigDecimal zon = new BigDecimal("0");
         for(int i = 0;i < blist.size(); i++){
             Bid bid = blist.get(i);
@@ -151,7 +134,6 @@ public class MainControl{
         map.put("list",blist);
         map.put("moneyMax",zon+"");
         map.put("size",blist.size()+"");
-
         return map;
     }
 
@@ -170,5 +152,24 @@ public class MainControl{
             map.put("pad",0);
             return map;
         }
+    }
+
+    @RequestMapping("perPay")
+    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi) throws ParseException{
+        Userimf userimf = (Userimf)session.getAttribute("user");
+        if(pwd.equals(userimf.getDealPsw())){
+            String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
+            if("cg".equals(fh)){
+                //购买成功
+                return  "redirect:perImf?id="+tender.getbId();
+            }else {
+                //余额不足
+                return "redirect:perImf?id="+tender.getbId();
+            }
+        }else {
+            //支付密码错误
+           return  "redirect:perImf?id="+tender.getbId();
+        }
+
     }
 }

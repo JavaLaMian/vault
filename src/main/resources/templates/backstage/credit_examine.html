@@ -73,13 +73,18 @@
                                     </li>
                                     <li class="list-group-item" style="height:60px">
                                         <div class="col-md-4" style="float: left">
+                                            <label class="control-label">期望借款金额:</label>
+                                            <span class="control-span" th:text="${loan.loanWantMoney}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
                                             <label class="control-label">联系电话:</label>
                                             <span class="control-span" th:text="${user.phe}"></span>
                                         </div>
                                     </li>
                                 </ul>
                                 <form class="form-horizontal" th:action="@{/back_loan/}" method="post">
-                                    <input name="uId" th:value="${user.uId}" hidden/>
+                                    <input id="uId" name="uId" th:value="${user.uId}" hidden/>
+                                    <input id="lId" name="lId" th:value="${loan.lId}" hidden/>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label" for="maxLimit">最大借款金额(万)</label>
                                         <div class="col-md-7">
@@ -112,8 +117,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-9 col-md-offset-3">
-                                            <button class="btn btn-label btn-primary" onclick=""><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>通过</button>
-                                            <button class="btn btn-label btn-danger"><label><i class="mdi mdi-close"></i></label>不通过</button>
+                                            <button class="btn btn-label btn-primary" id="success"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>通过</button>
+                                            <button class="btn btn-label btn-danger" id="fail"><label><i class="mdi mdi-close"></i></label>不通过</button>
                                         </div>
                                     </div>
                                 </form>
@@ -128,9 +133,26 @@
 <div th:replace="/backstage/Brepetition::javascript"></div>
 <script type="text/javascript">
     $(function () {
-        function () {
-            
-        }
+        $('#basic_button').click(function () {
+            var maxLimit = $('#maxLimit').val();
+            var minLimit = $('#minLimit').val();
+            var interest = $('#interest').val();
+            var lowLimit = $('#lowLimit').val();
+            var topLimit = $('#topLimit').val();
+            var uId = $("#uId").val();
+            $.ajax({
+                url:'/back_loan/',
+                data: {
+                    account: account,
+                    pwd: pwd
+                },
+                cache: false,//false是不缓存，true为缓存
+                async: true,//true为异步，false为同步
+                beforeSend: function () {
+                    //请求前
+                },
+            })
+        })
     })
 </script>
 </body>

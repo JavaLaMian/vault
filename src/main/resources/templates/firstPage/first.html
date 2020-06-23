@@ -58,29 +58,26 @@
 	<i class="icon-common icon-common-close"></i>
 </div>
 
-
 <header class="header">
 	<div class="container">
-
 		<div class="hotline">全国服务热线：4006-0755-70</div>
 		<ul class="info" id="ulLoginStatus">
-			<li class="user">
-				<a href="/user/login" id="head-login-btn">登录</a>
-				<a href="/user/register">注册</a>
+			<li class="user" th:if="${session.user!=null}">
+				<a href="/user/toAO" th:text="${session.user.uName}"></a>
+				<a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
+			</li>
+			<li class="user" th:if="${session.user==null}">
+				<a href="/user/tologin" id="head-login-btn">登录</a>
+				<a href="/user/tologin?zc=zc">注册</a>
 			</li>
 			<li class="line">|</li>
-			<li><a target="_blank" th:href="@{/integral/main}">积分商城</a></li>
-			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
-			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
-			<li class="line">|</li>
-			<li><a target="_blank" href="/cms/about/service">客服团队</a></li>
+			<li><a target="_blank" th:href="@{/integral/main(q=0)}">积分商城</a></li>
 			<li class="line">|</li>
 			<li class="app-area">
 				<a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
 				<div class="panel">
-					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px" height="88px" alt="专业P2P网贷平台-小牛在线APP" />
+					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/app_code-d694bd529c.png" width="88px"
+						 height="88px" alt="专业P2P网贷平台-小牛在线APP" />
 					<span>小牛在线APP</span>
 				</div>
 			</li>
@@ -88,7 +85,8 @@
 			<li class="code-area wx-area">
 				<div class="img-code"><i class="icon-common icon-common-weixin"></i></div>
 				<div class="panel">
-					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px" height="88px" alt="小牛在线互联网金融平台官方微信" />
+					<img src="//image.xiaoniu88.com/static/WebXn/dist/images/head/wx_code-8a1de64ae8.png" width="88px"
+						 height="88px" alt="小牛在线互联网金融平台官方微信" />
 					<span>官方微信</span>
 				</div>
 			</li>
@@ -122,7 +120,7 @@
 		</h1>
 		<nav class="info">
 			<div class="nav nav-index" data-type="index">
-				<a href="/">首页</a>
+				<a href="/main/first">首页</a>
 			</div>
 			<ul class="nav nav-financial" data-type="financial">
 				<li class="first">
@@ -132,10 +130,10 @@
 					<a href="/product/portal/index">投标工具</a>
 				</li>
 				<li>
-					<a href="/product/list?type=common">散标</a>
+					<a th:href="@{/main/perList}">散标</a>
 				</li>
 				<li>
-					<a href="/product/list?type=transfer">转让专区</a>
+					<a href="/product/portal/index">转让专区</a>
 				</li>
 			</ul>
 			<ul class="nav nav-information" data-type="security">
@@ -148,9 +146,6 @@
 			</ul>
 		</nav>
 		<div class="user">
-
-
-
 					<span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
 						<div class="img-box"></div>
 						<span>我的账户</span>
@@ -166,14 +161,9 @@
 				<li><a href="javascript:gotoLogin('/user/login', 0, '/bonus/index');">红包优惠券</a></li>
 				<li><a href="javascript:gotoLogin('/user/login', 0, '/financier/relationship');">邀请好友</a></li>
 			</ul>
-
-
 		</div>
 	</div>
 </div>
-
-
-
 <div class="streamer" id="streamerModel">
 	<div class="slider">
 		<!--<ul class="banner" id="banner" style="width: 30448px; position: absolute; left: 0px;">-->
@@ -182,41 +172,28 @@
 		<div class="but"><a href="javascript:;" onfocus="this.blur()" class="s">1</a><a href="javascript:;" onfocus="this.blur()">2</a><a href="javascript:;" onfocus="this.blur()">3</a><a href="javascript:;" onfocus="this.blur()">4</a><a href="javascript:;" onfocus="this.blur()">5</a><a href="javascript:;" onfocus="this.blur()">6</a><a href="javascript:;" onfocus="this.blur()">7</a><a href="javascript:;" onfocus="this.blur()">8</a></div>
 	</div>
 	<div class="container">
-
 	</div>
 	<div class="activity-christmas-line"></div>
 </div>
 
-
 <div class="statistical" id="statisticalModel">
 	<div class="container">
-
 		<dl class="item">
-
-
-
 			<dt class="count" data-time="500" data-value="117173740968.64">
 				<label data-multiple="" data-radix="100000000" data-from="0" data-to="">0</label><span>亿</span>
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 			</dt>
-
-
 			<dd>累计成交（元）</dd>
 		</dl>
 		<dl class="item">
-
-
-
 			<dt class="count" data-time="800" data-value="6079229">
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 				<label data-multiple="10000" data-radix="1" data-from="0" data-to="">0</label>
 			</dt>
-
-
 			<dd>累计注册人数（人）</dd>
 		</dl>
 		<dl class="item">
-			<dt class="count" data-time="1000" data-value="2550">
+			<dt class="count" data-time="1000" data-value="">
 				<label data-multiple="" data-radix="1" data-from="0" data-to="">0</label><span>&nbsp;</span>
 			</dt>
 			<dd>运营时间（天）</dd>
@@ -224,7 +201,6 @@
 		<div class="mask"></div>
 	</div>
 </div>
-
 
 <div class="notice" id="noticeModel">
 	<div class="container">
@@ -236,7 +212,6 @@
 			<i class="icon icon-horn"></i>
 			<div class="ticker">
 				<ul>
-
 				</ul>
 			</div>
 		</div>
@@ -340,11 +315,11 @@
 			<div class="detail"><a href="/product/list?type=common" target="_blank">查看详情</a></div>
 		</div>
 		<div class="content">
-			<div class="items" data-type="2" >
-				<a th:each="per:${perList}" th:href="@{/main/prose(t=3,id=${per.perBid})}"  target="_blank" style="text-decoration: none;">
+			<div class="items" data-type="2">
+				<a th:href="@{/main/perImf(id=${per.perBid})}"  style="text-decoration: none;" th:each="per:${perList}">
 				<div class="item " style="width:263px">
 					<div class="panel">
-						<div class="rate" th:text="${per.inRate}+'%'"><span></span></div>
+						<div class="rate" th:text="${#numbers.formatDecimal(per.inRate,1,'COMMA',2,'POINT')}+'%'"><span></span></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所
 						有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 						<div class="about">
@@ -357,7 +332,7 @@
 						</div>
 						<div class="extend">
 							<a href="javascript:" class="btn" th:if="${per.bidStatus==1}">预售</a>
-							<a href="javascript:" class="btn" th:if="${per.bidStatus==2}">可购</a>
+							<a href="javascript:" class="btn" th:if="${per.bidStatus==0}">可购</a>
 							<a href="javascript:" class="btn disabled-btn" th:if="${per.bidStatus==3}">售罄</a>
 						</div>
 					</div>
@@ -386,25 +361,25 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<a th:each="nc:${ncList}" th:href="@{/main/prose(t=${nc.bidType},id=${nc.bId})}"  target="_blank" style="text-decoration: none;">
+					<a th:each="pc:${pcList}" th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}"  target="_blank" style="text-decoration: none;">
 					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">
-								<span class="max" th:text="${nc.rate}+'%'"></span>
+								<span class="max" th:text="${pc.rate}+'%'"></span>
 							</div>
 							<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 							<div class="about">
 								<div class="name">优质资产，收益稳健</div>
 								<div class="info">
-									<div class="yield" th:text="'锁定期：'+${nc.clockLine}+'个月'">
-										<span>|</span><span th:if="${nc.transfer==1}">持满可自动转让</span>
+									<div class="yield" th:text="'锁定期：'+${pc.clockLine}+'个月'">
+										<span>|</span><span th:if="${pc.transfer==1}">持满可自动转让</span>
 									</div>
 								</div>
 							</div>
 							<div class="extend">
-								<a href="javascript:" class="btn" th:if="${nc.bidStatus==1}">预售</a>
-								<a href="javascript:" class="btn" th:if="${nc.bidStatus==2}">可购</a>
-								<a href="javascript:" class="btn disabled-btn" th:if="${nc.bidStatus==3}">售罄</a>
+								<a href="javascript:" class="btn" th:if="${pc.bidStatus==1}">预售</a>
+								<a href="javascript:" class="btn" th:if="${pc.bidStatus==0}">可购</a>
+								<a href="javascript:" class="btn disabled-btn" th:if="${pc.bidStatus==3}">售罄</a>
 							</div>
 						</div>
 					</div>

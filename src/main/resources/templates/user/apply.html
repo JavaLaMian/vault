@@ -75,7 +75,7 @@
                     <span class="name">绑定网贷银行卡</span>
                 </div>
                 <div class="bindcard-form" id="bindcardForm">
-                    <img class="xn-logo" src="//image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
+                    <img class="xn-logo" src="http://image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
                     <div>
                         <label>真实姓名：</label>
                         <input type="text" class="bindcard-input" name="uName" id="uName" value=""onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
@@ -366,7 +366,7 @@
                 bankName: bankName
             }, function (data) {
                 if(data.msg === 'cg'){
-                    location.reload();
+                    window.location.href="/user/toAS";
                 }else {
                     alert("发生未知错误 请刷新重试");
                 }

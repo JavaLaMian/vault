@@ -72,21 +72,24 @@
     </update>
     <select id="selectUserZhijin" parameterType="int" resultType="Map">
         <![CDATA[
-        select * from (SELECT *,(1) as t FROM  recharge  UNION  SELECT *,(-1) as t FROM  withdraw  UNION
-            select tid ,uid,tenMoney,tenTime,(0)as bankId , p.perBidName as bankName ,(-2) as t from tender as tt left join perBid as p on tt.bid = p.perBid where bType = 3
-            UNION
-            select tid ,uid,tenMoney*10000,tenTime,(0)as bankId ,bidName as bankName ,(-3) as t from tender left join bid using (bId) where bType = 2
-            UNION
-             select tid ,uid,tenMoney*10000,tenTime,(0)as bankId ,bidName as bankName ,(-4) as t from tender left join bid using (bId) where bType = 1
-            UNION
-            select aId,uId,acMoney,actime,(0)as bankId ,(0)as bankName ,(2) as t from action ) as aaaa
+       select * from (SELECT *,(1) as t FROM  recharge  UNION  SELECT *,(-1) as t FROM  withdraw  UNION
+        select tid ,uid,tenMoney*1*10000 ,tenTime,(0)as bankId , p.perBidName as bankName ,(-2) as t from tender as tt left join perBid as p on tt.bid = p.perBid where bType = 3
+        UNION
+        select tid ,uid,tenMoney,tenTime,(0)as bankId ,bidName as bankName ,(-3) as t from tender left join bid using (bId) where bType = 2
+        UNION
+        select tid ,uid,tenMoney*10000,tenTime,(0)as bankId ,bidName as bankName ,(-4) as t from tender left join bid using (bId) where bType = 1
+        UNION
+        select aId,uId,acMoney,actime,(0)as bankId ,(0)as bankName ,(2) as t from action ) as aaaa
             where uid = #{uId} ORDER BY reTime  desc
         ]]>
     </select>
     <select id="selectBounty" resultType="com.vault.demo.bean.Bounty">
         <![CDATA[
-          select * from bounty where uId = #{uId} and boType = #{type}
+          select * from bounty where uId = #{uId}
         ]]>
+        <if test="type != null and type != 0">
+            and boType = #{type}
+        </if>
     </select>
     <update id="updateBounty">
         <![CDATA[

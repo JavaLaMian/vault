@@ -53,4 +53,8 @@
     <select id="selectSignTime" resultType="com.vault.demo.bean.Sign">
           select *  from sign where uId = #{id}   ORDER BY Id desc limit 1
     </select>
+
+    <select id="selectSignCount" resultType="int">
+          select  count(*) from sign  where signTime like #{time}
+    </select>
 </mapper>
