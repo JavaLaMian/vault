@@ -188,7 +188,11 @@ public class loanController {
 
             loanService.insertLoan(loan);//把贷款申请信息存到数据库
 
+            action.setlId(loan.getlId());
+            action.setAcMoney(0);
+
             System.out.println("action"+action);
+
             loanService.insertAction(action);//把贷款记录信息存到数据库
 
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
