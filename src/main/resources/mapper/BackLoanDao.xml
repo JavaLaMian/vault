@@ -5,7 +5,7 @@
 <mapper namespace="com.vault.demo.dao.backstage.BackLoanDao">
     <select id="selLoan" resultType="map">
         <![CDATA[
-          select l.lId,c.name,l.loanType,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on ( l.uId = c.uId and c.creditLV='1') and l.loanStatue not in(3,4)
+          select l.lId,c.name,l.loanType,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on ( l.uId = c.uId and c.creditLV='1') and l.loanStatue= 0
         ]]>
     </select>
     <select id="selLoanByUid" resultType="Loan">
@@ -33,9 +33,18 @@
           select * from userimf where uId=#{uId}
         ]]>
     </select>
+    <update id="updLoan" parameterType="Loan">
+        update loan set maxLimit=#{loan.maxLimit},minLimit=#{loan.minLimit},applicationEnd=#{loan.applicationEnd},interest=#{loan.interest},lowLimit=#{lowLimit},topLimit=#{topLimit},loanStatue=#{loan.loanStatue},bidType=#{loan.bidType},bidId=#{loan.bidId} where lId=#{loan.lId}
+    </update>
     <select id="selLoanByLid">
         <![CDATA[
           select * from loan where lId=#{lId}
         ]]>
     </select>
+    <insert id="addPerBid" parameterType="PerBid">
+        <selectKey keyProperty="perBid" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT into perBid VALUES(null,#{perBid.borrowTime},#{perBid.borrower},#{perBid.perBidName},#{perBid.rate},#{perBid.addRate},#{perBid.inRate},#{perBid.combination},#{perBid.transLine},#{perBid.clockLine},#{transfer},#{perBid.bidStatus},#{perBid.startTime})
+    </insert>
 </mapper>

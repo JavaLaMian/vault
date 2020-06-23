@@ -44,13 +44,18 @@ public class BackLoanServiceImpl implements BackLoanService{
         return backLoanDao.selUserByUid(uId);
     }
 
-    /*@Override
+    @Override
     public void updLoan(Loan loan) {
         backLoanDao.updLoan(loan);
-    }*/
+    }
 
     @Override
     public Loan selLoanByLid(int lId) {
         return backLoanDao.selLoanByLid(lId);
+    }
+
+    @Override
+    public int addPerBid(PerBid perBid) {
+        return backLoanDao.addPerBid(perBid);
     }
 }
