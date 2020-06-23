@@ -63,7 +63,7 @@
 		<div class="hotline">全国服务热线：4006-0755-70</div>
 		<ul class="info" id="ulLoginStatus">
 			<li class="user" th:if="${session.user!=null}">
-				<a href="/user/toAO" th:text="${session.user.uName}"></a>
+				<a href="/user/toAO" th:text="${session.user.account}"></a>
 				<a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
 			</li>
 			<li class="user" th:if="${session.user==null}">
@@ -136,30 +136,20 @@
 					<a href="/product/portal/index">转让专区</a>
 				</li>
 			</ul>
-			<ul class="nav nav-information" data-type="security">
-				<li class="first"><a href="/cms/about/index">信息披露</a></li>
-				<li><a href="/cms/about/index">关于小牛</a></li>
-				<li><a href="/cms/compliance/filingInfo">合规备案</a></li>
-				<li><a href="/cms/business/consumer">业务介绍</a></li>
-				<li><a href="/portal/platform/index">运营信息</a></li>
-				<li><a href="/portal/platform/riskmanagement">保障体系</a></li>
-			</ul>
 		</nav>
 		<div class="user">
-					<span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
+					<span onclick="gotoLogin('/user/toAO')" class="title">
 						<div class="img-box"></div>
 						<span>我的账户</span>
 						<i class="icon-common icon-common-to-bottom"></i>
 					</span>
 			<ul>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/payment/recharge/index');">充值</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/payment/withdraw/index');">提现</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/invest/index');">我的网贷</a></li>
-
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/user/uasec');">账户安全</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/message');">我的消息</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/bonus/index');">红包优惠券</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/financier/relationship');">邀请好友</a></li>
+				<li><a href="javascript:gotoLogin('/user/toAO');">充值</a></li>
+				<li><a href="javascript:gotoLogin('/user/toAO');">提现</a></li>
+				<li><a href="javascript:gotoLogin('/loan/main');">我的网贷</a></li>
+				<li><a href="javascript:gotoLogin('/user/toAS');">账户安全</a></li>
+				<li><a href="#">我的消息</a></li>
+				<li><a href="javascript:gotoLogin('/user/toYuhui');">红包优惠券</a></li>
 			</ul>
 		</div>
 	</div>
@@ -175,7 +165,7 @@
 	</div>
 	<div class="activity-christmas-line"></div>
 </div>
-
+<!--注册人数成交金额-->
 <div class="statistical" id="statisticalModel">
 	<div class="container">
 		<dl class="item">
@@ -252,15 +242,15 @@
 				<dd>单笔限额</dd>
 			</dl>
 			<dl class="col-4">
-				<dt>0元</dt>
+				<dt>100元</dt>
 				<dd>可加入</dd>
 			</dl>
 			<dl class="col-5">
 				<dd class="item" th:if="${nc.bidStatus==1}">
 					<em class="btn-primary">预售</em>
 				</dd>
-				<dd class="item" th:if="${nc.bidStatus==2}">
-					<em class="btn-primary">可投</em>
+				<dd class="item" th:if="${nc.bidStatus==0}">
+					<em class="btn-primary">在售</em>
 				</dd>
 				<dd class="item" th:if="${nc.bidStatus==3}">
 					<em class="btn-primary disabled">售罄</em>
@@ -272,7 +262,7 @@
 	<div class="novice-ft">
 		<dl class="icon-before icon-after f1">
 			<dt>注册</dt>
-			<dd>即送<span>518</span>元红包</dd>
+			<dd>即送<span>100</span>元红包</dd>
 		</dl>
 		<dl class="icon-before icon-after f2">
 			<dt>实名</dt>
@@ -670,6 +660,9 @@
 
 </script>
 <script>
+	function gotoLogin(url) {
+		window.location.href=url;
+    }
     $(function(){
         seajs.use('portal/index2016/js/init');
     });

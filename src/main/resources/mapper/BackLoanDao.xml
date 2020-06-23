@@ -34,17 +34,22 @@
         ]]>
     </select>
     <update id="updLoan" parameterType="Loan">
-        update loan set maxLimit=#{loan.maxLimit},minLimit=#{loan.minLimit},applicationEnd=#{loan.applicationEnd},interest=#{loan.interest},lowLimit=#{lowLimit},topLimit=#{topLimit},loanStatue=#{loan.loanStatue},bidType=#{loan.bidType},bidId=#{loan.bidId} where lId=#{loan.lId}
+        update loan set maxLimit=#{loan.maxLimit},minLimit=#{loan.minLimit},applicationEnd=#{loan.applicationEnd},interest=#{loan.interest},lowLimit=#{loan.lowLimit},topLimit=#{loan.topLimit},loanStatue=#{loan.loanStatue},bidType=#{loan.bidType},bidId=#{loan.bidId} where lId=#{loan.lId}
     </update>
-    <select id="selLoanByLid">
+    <select id="selLoanByLid" resultType="loan">
         <![CDATA[
           select * from loan where lId=#{lId}
         ]]>
     </select>
-    <insert id="addPerBid" parameterType="PerBid">
-        <selectKey keyProperty="perBid" resultType="java.lang.Integer">
+
+    <insert id="addPerBid" parameterType="PerBid" useGeneratedKeys="true">
+        <selectKey keyColumn="perBid.perBid" keyProperty="perBid.perBid" resultType="integer" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT into perBid VALUES(null,#{perBid.borrowTime},#{perBid.borrower},#{perBid.perBidName},#{perBid.rate},#{perBid.addRate},#{perBid.inRate},#{perBid.combination},#{perBid.transLine},#{perBid.clockLine},#{transfer},#{perBid.bidStatus},#{perBid.startTime})
+        INSERT into perBid(perBid,borrowTime,borrower,perBidName,rate,addRate,combination,transLine,clockLine,transfer,bidStatus,startTime) VALUES(null,#{perBid.borrowTime},#{perBid.borrower},#{perBid.perBidName},#{perBid.rate},#{perBid.addRate},#{perBid.combination},#{perBid.transLine},#{perBid.clockLine},#{perBid.transfer},#{perBid.bidStatus},#{perBid.startTime})
     </insert>
+
+    <update id="updPerBidStatus">
+        update perBid set combination = #{action.acMoney},bidStatus=0 where perBid=#{loan.bidId}
+    </update>
 </mapper>

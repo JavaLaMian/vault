@@ -4,6 +4,7 @@ import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
+import com.vault.demo.dao.backstage.BackLoanDao;
 import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.loan.LoanService;
 import org.apache.ibatis.annotations.Param;
@@ -40,6 +41,9 @@ public class loanController {
 
     @Resource
     FileUpload fileUpload;
+
+    @Resource
+    BackLoanDao backLoanDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -131,6 +135,8 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
+        session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
         if ("".equals(loanTypeStr)) {
 
         }else if ("xinyong".equals(loanTypeStr)){ //如果是信用贷款类型
@@ -188,7 +194,11 @@ public class loanController {
 
             loanService.insertLoan(loan);//把贷款申请信息存到数据库
 
+            action.setlId(loan.getlId());
+            action.setAcMoney(0);
+
             System.out.println("action"+action);
+
             loanService.insertAction(action);//把贷款记录信息存到数据库
 
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
@@ -242,6 +252,10 @@ public class loanController {
 
     @RequestMapping("/toSubmitAcMoney")
     public String toSubmitAcMoney(Action action,HttpSession session,Loan loan){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         loan = (Loan) session.getAttribute("userLoan");
 
         System.out.println("loan:" + loan);
@@ -306,6 +320,10 @@ public class loanController {
     @RequestMapping("/checkAcMoney")
     @ResponseBody
     public String checkAcMoney(HttpSession session, float acMoney){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         Loan loan = (Loan) session.getAttribute("userLoan");
         float minLimit = loan.getMinLimit();
         float maxLimit = loan.getMaxLimit();
@@ -327,6 +345,10 @@ public class loanController {
 
     @RequestMapping("/toLoanEnd")
     public String toLoanEnd(HttpSession session){
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
         Loan loan = (Loan) session.getAttribute("userLoan");
         loan.setLoanStatue(1);
         Action action = loanService.selectActionByLId(loan);
@@ -337,6 +359,8 @@ public class loanController {
         loanService.updateLoanStatus(loan);
 
         session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
+        backLoanDao.updPerBidStatus(loan,action);
 
         return "redirect:/loan/toloanJie";
     }
