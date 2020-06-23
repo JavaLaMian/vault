@@ -188,29 +188,18 @@
 
 <div class="statistical" id="statisticalModel">
 	<div class="container">
-
 		<dl class="item">
-
-
-
 			<dt class="count" data-time="500" data-value="117173740968.64">
 				<label data-multiple="" data-radix="100000000" data-from="0" data-to="">0</label><span>亿</span>
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 			</dt>
-
-
 			<dd>累计成交（元）</dd>
 		</dl>
 		<dl class="item">
-
-
-
 			<dt class="count" data-time="800" data-value="6079229">
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 				<label data-multiple="10000" data-radix="1" data-from="0" data-to="">0</label>
 			</dt>
-
-
 			<dd>累计注册人数（人）</dd>
 		</dl>
 		<dl class="item">
@@ -400,9 +389,9 @@
 								</div>
 							</div>
 							<div class="extend">
-								<a href="javascript:" class="btn" th:if="${nc.bidStatus==1}">预售</a>
-								<a href="javascript:" class="btn" th:if="${nc.bidStatus==2}">可购</a>
-								<a href="javascript:" class="btn disabled-btn" th:if="${nc.bidStatus==3}">售罄</a>
+								<a th:href="@{/main/prose(t=${nc.bidType},id=${nc.bId})}" class="btn" th:if="${nc.bidStatus==1}">预售</a>
+								<a th:href="@{/main/prose(t=${nc.bidType},id=${nc.bId})}" class="btn" th:if="${nc.bidStatus==2}">可购</a>
+								<a href="#" class="btn disabled-btn" th:if="${nc.bidStatus==3}">售罄</a>
 							</div>
 						</div>
 					</div>

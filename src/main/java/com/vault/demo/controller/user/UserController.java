@@ -171,7 +171,6 @@ public class UserController {
         Userimf user = (Userimf) session.getAttribute("user");
         Map map = new HashMap();
         List<Bounty> mlist = service.yhList(user.getuId());
-        System.out.println(mlist.toString());
         map.put("list",mlist);
         map.put("size",mlist.size());
         return map;

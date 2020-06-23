@@ -91,7 +91,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
+                        <a href="/user/viewApply">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -189,22 +189,18 @@
 
                         <div class="security_level">
                             <span class="inline_block">您的账户安全等级：</span>
-                            <span class="inline_block level_level_num">
-                                低
-                            </span>
+                            <span id="textlv"></span>
                             <span class="inline_block">
-									<div class='level_100'>
-										<div style="width:30%"></div>
+                                <div class='level_100'>
+										<div id="fxzhi" style="width:30%"></div>
 									</div>
-								</span>
-                            <a id="resetAccountLevel" class="inline_block">重新检验</a>
+                            </span>
                         </div>
                     </div>
                     <!-- 账户安全设置列表 -->
                     <div class="account_list">
                         <!-- 实名认证 -->
                         <div myid='realName' class="column">
-
                             <div class="column_name not_seted" th:if="null eq ${credit}">
                                 实名认证
                             </div>
@@ -216,7 +212,7 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${credit}">
+                            <div class="column_name seted lv15" th:if="null ne ${credit}">
                                 实名认证
                             </div>
                             <div class="column_msg" th:if="null ne ${credit}">
@@ -234,7 +230,7 @@
                             <div class="column_name not_seted" th:if="null eq ${session.user.dealPsw}">
                                 交易密码
                             </div>
-                            <div class="column_name seted" th:if="null ne ${session.user.dealPsw}">
+                            <div class="column_name seted lv15" th:if="null ne ${session.user.dealPsw}">
                                 交易密码
                             </div>
                             <div class="column_msg" th:if="null eq ${session.user.dealPsw}">
@@ -341,7 +337,7 @@
                             <div class="column_name not_seted" th:if="null eq ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_name seted" th:if="null ne ${userBank}">
+                            <div class="column_name seted lv15" th:if="null ne ${userBank}">
                                 银行卡认证
                             </div>
                             <div class="column_msg" th:if="null eq ${userBank}">
@@ -713,7 +709,7 @@
                             <div class="column_name not_seted" th:if="null eq ${worryCall}">
                                 紧急联系人
                             </div>
-                            <div class="column_name seted" th:if="null ne ${worryCall}">
+                            <div class="column_name seted lv10" th:if="null ne ${worryCall}">
                                 紧急联系人
                             </div>
                             <div class="column_msg">
@@ -883,11 +879,30 @@
 <script type="text/javascript">
     $(window).bind("load", function () {
         $("#safe").addClass("cur");
-    })
+    });
 
-    $("#add").click(function () {
-
-    })
+    function fengXiang() {
+        var lv15 = $(".account_list").find(".column").children(".lv15").length*15;
+        var lv10 = $(".account_list").find(".column").children(".lv10").length*10
+        lv15 = lv15 + 30 + lv10;//登陆密码与邮箱绑定
+        var color = '';
+        var text = '';
+        if(lv15 <= 30){
+            color = "#fd7500";
+            text = "低";
+        }else if(lv15 <= 80){
+            text = "中";
+            color = "rgb(255,200,67)";
+        }else {
+            text = "高";
+            color = "rgb(68,189,74)";
+        }
+        $("#textlv").text(text);
+        $("#textlv").css("color",color);
+        $("#fxzhi").css("width",lv15+"%");
+        $("#fxzhi").css("background",color)
+    }
+    fengXiang();
 
     var jishi = 59;
     var jishuTishi;

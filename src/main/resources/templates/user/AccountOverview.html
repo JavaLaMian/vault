@@ -202,7 +202,7 @@
 							<dl class="total">
 								<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p>&#10;<p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p>&#10;<p>待收本金：含体验金本金及投资冻结金额</p>&#10;<p>待收利息及奖励= 待收利息+待收奖励</p>&#10;<p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
 								<dd>
-									<big th:text="${session.user.avaBalance}"></big>
+									<big th:text="${#numbers.formatDecimal(session.user.avaBalance,0,'COMMA',2,'POINT')}"></big>
 									<small>元</small>
 									<span>含0.00元体验金 </span>
 								</dd>
@@ -210,7 +210,7 @@
 							<div class="detail">
 								<dl class="due-principal">
 									<dt>待收本金(元)</dt>
-									<dd th:text="${map.money}"></dd>
+									<dd th:text="${#numbers.formatDecimal(map.money,0,'COMMA',2,'POINT')}"></dd>
 								</dl>
 								<dl class="due-interest">
 									<dt>待收利息及奖励(元)<i class="icon-question" title="<p>待收利息及奖励是指持有中/转让中的待收利息及待收平台奖励，待收平台奖励包括新手奖励、增利券奖励、限时奖励、续期奖励、返现红包和平台其他奖励</p><p>*转让标待收利息包括待收垫付利息</p>"></i></dt>
@@ -224,7 +224,7 @@
 							<div class="balance">
 								<dl>
 									<dt>可用余额(元)</dt>
-									<dd th:text="${session.user.avaBalance}"></dd>
+									<dd th:text="${#numbers.formatDecimal(session.user.avaBalance,0,'COMMA',2,'POINT')}"></dd>
 								</dl>
 								<a th:if="${bank != null}" class="withdrawal-btn" onclick="chuFaBut('tx')">提现</a>
 								<a th:if="${bank != null}" class="recharge-btn" onclick="chuFaBut('cz')">充值</a>
@@ -263,8 +263,8 @@
 								</svg>
 							</div>
 							<div style="font-size: 14px;color: #999;padding-bottom: 37px;">
-								<span th:text="累计充值：+${map.rmax}+元"></span>
-								<span th:text="累计提现：+${map.wmax}+元" style="margin-left: 30px;"></span>
+								<span th:text="累计充值：+${#numbers.formatDecimal(map.rmax,0,'COMMA',2,'POINT')}+元"></span>
+								<span th:text="累计提现：+${#numbers.formatDecimal(map.wmax,0,'COMMA',2,'POINT')}+元" style="margin-left: 30px;"></span>
 							</div>
 						</div>
 						<div class="assets-right">

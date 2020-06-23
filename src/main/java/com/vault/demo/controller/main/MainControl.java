@@ -97,14 +97,14 @@ public class MainControl{
         if(pwd.equals(userimf.getDealPsw())){
             String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
             if("yebz".equals(fh)){
-                String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
+                String url = "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
                 return url;
-            }else {
-                return "redirect:first";
+            }else {//购买成功
+                return  "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
             }
         }else {
             System.out.println("密码错误");
-            String url = "firstPage/prose?t="+tender.getbType()+"&id="+userimf.getuId();
+            String url = "firstPage/prose?t="+tender.getbType()+"&id="+tender.getbId();
             return url;
         }
     }
