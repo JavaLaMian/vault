@@ -27,25 +27,6 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService service;
-    @Resource
-    BidSer bidSer;
-    @RequestMapping("/first")
-    public String toMain(HttpServletRequest request){
-        List<Bid> nList = bidSer.allList(0,1);
-        List<Bid> pList = bidSer.allList(0,2);
-        List ncList = nList.subList(0, 3);
-        // List pcList = pList.subList(0,3);
-        List<PerBid> per = bidSer.selectPerB(0);
-        List perList = per.subList(0, 3);
-        float countM = bidSer.countTenMoney();
-        int countU = bidSer.countUser();
-        request.setAttribute("countM",countM);
-        request.setAttribute("countU",countU);
-        request.setAttribute("ncList", ncList);
-        request.setAttribute("perList", perList);
-        request.setAttribute("pcList", pList);
-        return "firstPage/first";
-    }
 
     @RequestMapping("/tologin")
     public String toUserLogin(String zc){
@@ -101,7 +82,7 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:first";
+                return "redirect:/main/first";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";
