@@ -64,8 +64,8 @@ public class BackLoanController {
         perBid.setBorrower(uId);
         perBid.setRate(loan.getInterest());
         perBid.setBorrowTime(loan.getLowLimit());
-        bls.addPerBid(perBid);
-        int perid = perBid.getPerBid();
+        int perid = bls.addPerBid(perBid);
+        System.out.println(perid);
         loan.setBidType(1);//设置贷款集资类型为散标类型
         loan.setBidId(perid);
         bls.updLoan(loan);

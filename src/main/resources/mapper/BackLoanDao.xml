@@ -41,8 +41,8 @@
           select * from loan where lId=#{lId}
         ]]>
     </select>
-    <insert id="addPerBid" parameterType="PerBid" useGeneratedKeys="true" keyProperty="perBid" keyColumn="perBid">
-        <selectKey keyProperty="perBid" resultType="int">
+    <insert id="addPerBid" parameterType="PerBid" useGeneratedKeys="true">
+        <selectKey keyProperty="perBid" keyColumn="perBid" resultType="integer" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT into perBid(perBid,borrowTime,borrower,perBidName,rate,addRate,combination,transLine,clockLine,transfer,bidStatus,startTime) VALUES(null,#{perBid.borrowTime},#{perBid.borrower},#{perBid.perBidName},#{perBid.rate},#{perBid.addRate},#{perBid.combination},#{perBid.transLine},#{perBid.clockLine},#{perBid.transfer},#{perBid.bidStatus},#{perBid.startTime})
