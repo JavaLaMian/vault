@@ -340,7 +340,6 @@ public class loanController {
         Action action = loanService.selectActionByLId(loan);
         action.setAcStatus(1);
         action.setActime(new Date());
-        action.setAcMoney((float) (action.getAcMoney() * 0.0001));
 
         loanService.updateAction(action);
         loanService.updateLoanStatus(loan);
