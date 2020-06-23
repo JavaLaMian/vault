@@ -5,7 +5,7 @@
 <mapper namespace="com.vault.demo.dao.loan.ActionDao">
     <select id="selectActionByLId" resultType="com.vault.demo.bean.Action" parameterType="com.vault.demo.bean.Loan">
         <![CDATA[
-          select * from admin where lId=#{lId}
+          select * from action where lId=#{lId}
         ]]>
     </select>
     <insert id="insertAction" parameterType="com.vault.demo.bean.Action">
@@ -13,4 +13,9 @@
           insert into action(aId,lId,uId,acMoney,minRepayTime,maxRepayTime,actime,acStatus,tobePay) values(null,#{lId},#{uId},#{acMoney},#{minRepayTime},#{maxRepayTime},#{actime},#{acStatus},#{tobePay})
         ]]>
     </insert>
+    <update id="updateAction" parameterType="com.vault.demo.bean.Action">
+        <![CDATA[
+          update action set acMoney = #{acMoney},minRepayTime = #{minRepayTime},maxRepayTime = #{maxRepayTime},actime = #{actime},acStatus = #{acStatus},tobePay = #{tobePay} where lId = #{lId} and uId = #{uId}
+        ]]>
+    </update>
 </mapper>

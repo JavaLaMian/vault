@@ -12,7 +12,7 @@ public class PerBid {
         private int bidStatus;
        private int borrower;
        private String  perBidName;
-       private  String  inRate ;//投资利率
+       private  float  inRate ;//投资利率
        private float rate;
        private float addRate;
        private float  combination;
@@ -24,29 +24,6 @@ public class PerBid {
        private float schedul;//进度
        private Date expire;//到期时间
        private int borrowTime;
-
-
-    @Override
-    public String toString() {
-        return "PerBid{" +
-                "perBid=" + perBid +
-                ", bidStatus=" + bidStatus +
-                ", borrower=" + borrower +
-                ", perBidName='" + perBidName + '\'' +
-                ", inRate='" + inRate + '\'' +
-                ", rate=" + rate +
-                ", addRate=" + addRate +
-                ", combination=" + combination +
-                ", transLine='" + transLine + '\'' +
-                ", clockLine='" + clockLine + '\'' +
-                ", transfer=" + transfer +
-                ", startTime=" + startTime +
-                ", enquiry=" + enquiry +
-                ", schedul=" + schedul +
-                ", expire=" + expire +
-                ", borrowTime=" + borrowTime +
-                '}';
-    }
 
     public int getPerBid() {
         return perBid;
@@ -80,13 +57,7 @@ public class PerBid {
         this.perBidName = perBidName;
     }
 
-    public String getInRate() {
-        return inRate;
-    }
 
-    public void setInRate(String inRate) {
-        this.inRate = inRate;
-    }
 
     public float getRate() {
         return rate;
@@ -127,8 +98,6 @@ public class PerBid {
     public void setClockLine(String clockLine) {
         this.clockLine = clockLine;
     }
-
-
 
     public int getTransfer() {
         return transfer;

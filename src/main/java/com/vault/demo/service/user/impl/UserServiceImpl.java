@@ -279,6 +279,15 @@ public class UserServiceImpl implements UserService {
         return dao.selectBounty(uId,0);
     }
 
+    @Override
+    public Boolean bindReferee(Userimf refereerUser,Userimf curr) {
+        if (dao.selectByUserimf(refereerUser)!=null){
+            dao.upUser(curr);
+            return true;
+        }
+        return false;
+    }
+
     private static String getNowDate(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(date);
