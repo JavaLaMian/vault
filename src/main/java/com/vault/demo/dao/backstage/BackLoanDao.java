@@ -1,6 +1,7 @@
 package com.vault.demo.dao.backstage;
 
 import com.vault.demo.bean.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,4 +17,7 @@ public interface BackLoanDao {
     House selHouseByHid(int hId);
     Car selCarByCid(int cId);
     Userimf selUserByUid(int uId);
+    void updLoan(Loan loan);
+    Loan selLoanByLid(int lId);
+    int addPerBid(PerBid perBid);
 }
