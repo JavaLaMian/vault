@@ -72,6 +72,7 @@ public class loanController {
         Userimf userimfEX = userimfDao.selectOneByLogin(userimf);
 
         session.setAttribute("user",userimfEX);
+        session.setAttribute("userLoan",loanService.LoanNow(userimfEX));//获取用户的贷款信息
 
         return "redirect:/loan/main2";
     }
@@ -114,15 +115,10 @@ public class loanController {
 
     //借贷中心
     @RequestMapping("/main2")
-    public String main2(HttpSession session, Model model) {
+    public String main2(HttpSession session) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
-
-        Loan loan = loanService.LoanNow((Userimf)session.getAttribute("user"));
-
-        session.setAttribute("userLoan",loan);//获取用户的贷款信息
-        model.addAttribute("action",loanService.selectActionByLId(loan));//获取用户贷款成功后的记录表
 
         return "loan/loanJie";
     }
@@ -140,7 +136,7 @@ public class loanController {
             Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
             UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
             Userimf userimf = (Userimf)session.getAttribute("user");
-            List worryCallList = worryCallDao.selectWorryByUId(userimf);
+            WorryCall worryCall = worryCallDao.selectWorryByUId(userimf);
 
             if (credit == null
                     || credit.getName() == null || "".equals(credit.getName())
@@ -148,8 +144,8 @@ public class loanController {
                     || userBank == null
                     || credit.getDepart() == null || "".equals(credit.getDepart())
                     || credit.getWages() == null || "".equals(credit.getWages())
-                    ||  worryCallList.size() <= 0
                     || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCall == null
                     || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
                     ){
                 model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");

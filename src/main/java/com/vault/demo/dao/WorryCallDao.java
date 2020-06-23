@@ -11,5 +11,6 @@ import java.util.List;
 @Transactional
 public interface WorryCallDao {
     void saveWorryCall(WorryCall worryCall);
-    List<WorryCall> selectWorryByUId(Userimf userimf);//根据用户id查紧急联系人
+    WorryCall selectWorryByUId(Userimf userimf);//根据用户id查紧急联系人
+    void  upWorryCall(WorryCall worryCall);
 }

@@ -20,7 +20,8 @@ public interface UserService {
     Map daiShou(int uid);//查询用户代收本金
 
     void bindWorryCall(WorryCall worryCall);
-    List getWorryCall(Userimf userimf);
+    void upWorryCall(WorryCall worryCall);
+    WorryCall getWorryCall(Userimf userimf);
 
 
     int userChongTi(String type,String money,Userimf userimf);

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+//
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -32,12 +32,19 @@ public class MainControl{
     BidSer bidSer;
     @RequestMapping("/first")
     public String toMain(HttpServletRequest request){
-        List<Bid> nList = bidSer.allList();
+        List<Bid> nList = bidSer.allList(0,1);
+        List<Bid> pList = bidSer.allList(0,2);
         List ncList = nList.subList(0, 3);
-        List<PerBid> perList = bidSer.selectPerB(0);
-        System.out.println("==================" + perList.size());
+       // List pcList = pList.subList(0,3);
+        List<PerBid> per = bidSer.selectPerB(0);
+        List perList = per.subList(0, 3);
+        float countM = bidSer.countTenMoney();
+        int countU = bidSer.countUser();
+        request.setAttribute("countM",countM);
+        request.setAttribute("countU",countU);
         request.setAttribute("ncList", ncList);
         request.setAttribute("perList", perList);
+        request.setAttribute("pcList", pList);
         return "firstPage/first";
     }
 
@@ -74,17 +81,19 @@ public class MainControl{
     }
 
     @RequestMapping("/perImf")
-    public String perImf(int id, HttpServletRequest request){
+    public String perImf(int id, HttpServletRequest request,HttpSession session){
         PerBid p = bidSer.selectByPid(id);
         List<Map> userimf = bidSer.selectUser(p.getBorrower());
         Map u = userimf.get(0);
-        List<Map> tenders = bidSer.selectTandU(id,  3);
+        Userimf userimf1 =  (Userimf) session.getAttribute("user");
+        List<Map> tenders = bidSer.selectTandU(id,3);
         int countU = bidSer.countTenByBid(id, 3);
         Date lastTime = bidSer.lastTenTime(id);
         request.setAttribute("p", p);
         request.setAttribute("u", u);
         request.setAttribute("t", tenders);
         request.setAttribute("countU", countU);
+        request.setAttribute("ylist",bidSer.getHonBao(userimf1.getuId()));
         request.setAttribute("lastTime",lastTime);
         return "firstPage/perBidImf";
     }
@@ -113,7 +122,7 @@ public class MainControl{
     @ResponseBody
     public Map getBList(){
         Map map = new HashMap();
-        List<Bid> blist = bidSer.allList();
+        List<Bid> blist = bidSer.allList(0,0);
         BigDecimal zon = new BigDecimal("0");
         for(int i = 0;i < blist.size(); i++){
             Bid bid = blist.get(i);

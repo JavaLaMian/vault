@@ -169,7 +169,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List getWorryCall(Userimf userimf) {
+    public void upWorryCall(WorryCall worryCall) {
+        wcDao.upWorryCall(worryCall);
+    }
+
+    @Override
+    public WorryCall getWorryCall(Userimf userimf) {
         return wcDao.selectWorryByUId(userimf);
     }
 
