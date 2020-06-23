@@ -120,10 +120,15 @@ public class loanController {
 
     //借贷中心
     @RequestMapping("/main2")
-    public String main2(HttpSession session) {
+    public String main2(HttpSession session,Model model) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
+
+        session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+        model.addAttribute("action",loanService.selectActionByLId((Loan) session.getAttribute("userLoan")));
+        model.addAttribute("loanBankHistory",loanService.selectByLId((Loan) session.getAttribute("userLoan")));
+        model.addAttribute("credit",loanService.selectCredit((Userimf) session.getAttribute("user")));
 
         return "loan/loanJie";
     }
@@ -243,6 +248,10 @@ public class loanController {
                 action = loanService.selectActionByLId(loanEX);
                 model.addAttribute("credit",credit);
                 model.addAttribute("action",action);
+                UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+                model.addAttribute("weihao",userBank.getCardId().substring(userBank.getCardId().length() - 4,userBank.getCardId().length()));
+                model.addAttribute("bank",userBank);
+                model.addAttribute("loanBankHistory",loanService.selectByLId(loanEX));
             }
         }
 
@@ -359,6 +368,10 @@ public class loanController {
         loanService.updateLoanStatus(loan);
 
         session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
+        UserBank userBank = loanService.selectByUId((Userimf) session.getAttribute("user"));
+
+        loanService.insertLoanBankHistory(loan,userBank,action);
 
         backLoanDao.updPerBidStatus(loan,action);
 

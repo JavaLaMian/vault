@@ -248,8 +248,8 @@
                                     </div>
                                 </div>
 
-                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1}">
-                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1 && loanBankHistory.getStatus() == 0}">
+                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在等待打款中</h3>
                                     <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
                                     <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
                                     <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
@@ -257,6 +257,45 @@
                                             <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
                                         </a>
                                     </div>
+                                </div>
+
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1 && loanBankHistory.getStatus() == 1}">
+                                    <h3 style="margin-top:104px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
+                                    <div>
+                                        <table style="border: 1px solid #ccc" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                            <tr>
+                                                <th>借款金额</th>
+                                                <td th:text="${action.acMoney} + '万'"></td>
+                                                <th>借款时长</th>
+                                                <td th:text="${session.userLoan.lowLimit}"></td>
+                                                <th>最近还款日期</th>
+                                                <td th:text="${#dates.format(action.minRepayTime,'yyyy-MM-dd')}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>利率</th>
+                                                <td th:text="${session.userLoan.interest} + '%'"></td>
+                                                <th>应还金额</th>
+                                                <td th:text="${action.tobePay}"></td>
+                                                <th>收款小母牛账号</th>
+                                                <td th:text="${session.user.getAccount()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>收款人</th>
+                                                <td th:text="${credit.name}"></td>
+                                                <th>申请日期</th>
+                                                <td th:text="${#dates.format(session.userLoan.applicationTime,'yyyy-MM-dd')}"></td>
+                                                <th>打款日期</th>
+                                                <td th:text="${#dates.format(loanBankHistory.inTime,'yyyy-MM-dd')}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>贷款原因</th>
+                                                <td th:text="${session.userLoan.loanPurpose}" colspan="3"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
 
                                 <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 2}">
@@ -265,7 +304,7 @@
                                     <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
                                     <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
                                         <a  class="ajk" th:href="@{/loan/toloanJie}">
-                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
+                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >还款</button>
                                         </a>
                                     </div>
                                 </div>
@@ -273,15 +312,15 @@
 
 
                             <noscript data-reactid=".0.2.1.1:2.0.1.1"></noscript>
-                            <div class="rightTop margTop10" data-reactid=".0.2.1.1:2.0.1.2">
-                                <span class="ant-checkbox ant-checkbox-checked ant-checkbox-checked-1" data-reactid=".0.2.1.1:2.0.1.2.0">
-                                    <span class="ant-checkbox-inner" data-reactid=".0.2.1.1:2.0.1.2.0.0"></span>
-                                    <input type="checkbox" class="ant-checkbox-input" data-reactid=".0.2.1.1:2.0.1.2.0.1">
-                                </span>
-                                <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.2.1">我已阅读并同意
-                                    <a href="#" target="_blank">信息授权协议</a>
-                                </span>
-                            </div>
+<!--                            <div class="rightTop margTop10" data-reactid=".0.2.1.1:2.0.1.2">-->
+<!--                                <span class="ant-checkbox ant-checkbox-checked ant-checkbox-checked-1" data-reactid=".0.2.1.1:2.0.1.2.0">-->
+<!--                                    <span class="ant-checkbox-inner" data-reactid=".0.2.1.1:2.0.1.2.0.0"></span>-->
+<!--                                    <input type="checkbox" class="ant-checkbox-input" data-reactid=".0.2.1.1:2.0.1.2.0.1">-->
+<!--                                </span>-->
+<!--                                <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.2.1">我已阅读并同意-->
+<!--                                    <a href="#" target="_blank">信息授权协议</a>-->
+<!--                                </span>-->
+<!--                            </div>-->
                             <div class="rightBottom" data-reactid=".0.2.1.1:2.0.1.3">
                                 <ul data-reactid=".0.2.1.1:2.0.1.3.0">
                                     <li data-reactid=".0.2.1.1:2.0.1.3.0.0">
