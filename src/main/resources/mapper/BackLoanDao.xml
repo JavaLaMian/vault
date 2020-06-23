@@ -33,4 +33,9 @@
           select * from userimf where uId=#{uId}
         ]]>
     </select>
+    <select id="selLoanByLid">
+        <![CDATA[
+          select * from loan where lId=#{lId}
+        ]]>
+    </select>
 </mapper>

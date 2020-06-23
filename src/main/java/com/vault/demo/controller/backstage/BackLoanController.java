@@ -48,4 +48,18 @@ public class BackLoanController {
             return "backstage/mortgage_examine";
         }
     }
+    @RequestMapping("/examine")
+    public String examine(int lId,float maxLimit,float minLimit,float interest,int lowLimit,int topLimit,int uId,PerBid perBid){
+        Loan loan = bls.selLoanByLid(lId);
+        loan.setMaxLimit(maxLimit);
+        loan.setMinLimit(minLimit);
+        loan.setInterest(interest);
+        loan.setLowLimit(lowLimit);
+        loan.setTopLimit(topLimit);
+        return "";
+    }
+    @RequestMapping("/examine_fail")
+    public String examineFail(){
+        return "";
+    }
 }

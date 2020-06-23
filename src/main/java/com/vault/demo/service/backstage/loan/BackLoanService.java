@@ -12,4 +12,6 @@ public interface BackLoanService {
     House selHouseByHid(int hId);
     Car selCarByCid(int cId);
     Userimf selUserByUid(int uId);
+    //void updLoan(Loan loan);
+    Loan selLoanByLid(int lId);
 }
