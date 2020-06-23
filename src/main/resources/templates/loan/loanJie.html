@@ -237,6 +237,17 @@
                                     </div>
                                 </div>
 
+                                <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 5}">
+                                    <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有一笔贷款通过了申请，请前往确认吧！</h3>
+                                    <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
+                                    <span class="innerHtml" data-reactid=".0.2.1.1:2.0.1.0.3"></span>
+                                    <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
+                                        <a  class="ajk" th:href="@{/loan/toloanJie}">
+                                            <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >查看详情</button>
+                                        </a>
+                                    </div>
+                                </div>
+
                                 <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1}">
                                     <h3 style="margin-top:74px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
                                     <div class="amountBox" data-reactid=".0.2.1.1:2.0.1.0.2" style="height: 50px;line-height: 50px;font-size: 48px"> </div>
@@ -342,37 +353,24 @@
                 <div class="repayPlan clearfix" data-reactid=".0.2.1.1:3.0.1">
                     <div class="listDate" data-reactid=".0.2.1.1:3.0.1.0">
                         <h3 data-reactid=".0.2.1.1:3.0.1.0.0">还款日期</h3>
-                        <ul data-reactid=".0.2.1.1:3.0.1.0.1">
-                            <li class="dateEven dateFirst" data-reactid=".0.2.1.1:3.0.1.0.1.$0">
-                                <p data-reactid=".0.2.1.1:3.0.1.0.1.$0.0">
-                                    <span data-reactid=".0.2.1.1:3.0.1.0.1.$0.0.1">6.20</span>
-                                </p>
-                                <div class="timeLine" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1">
-                                    <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.0"></div>
-                                    <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.1"></div>
-                                </div>
-                            </li>
-                            <li class="dateOdd" data-reactid=".0.2.1.1:3.0.1.0.1.$1">
-                                <p data-reactid=".0.2.1.1:3.0.1.0.1.$1.0">
-                                    <span data-reactid=".0.2.1.1:3.0.1.0.1.$1.0.1">7.20</span>
-                                </p>
-                                <div class="timeLine" data-reactid=".0.2.1.1:3.0.1.0.1.$1.1">
-                                    <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$1.1.0"></div>
-                                    <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$1.1.1"></div>
-                                </div>
-                            </li>
-                            <li class="dateEven dateLast" data-reactid=".0.2.1.1:3.0.1.0.1.$2">
-                                <p data-reactid=".0.2.1.1:3.0.1.0.1.$2.0">
-                                    <span data-reactid=".0.2.1.1:3.0.1.0.1.$2.0.1">8.20</span>
-                                </p>
-                                <div class="timeLine" data-reactid=".0.2.1.1:3.0.1.0.1.$2.1">
-                                    <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$2.1.0"></div>
-                                    <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$2.1.1"></div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div th:if="${action != null}">
+                            <ul th:if="${action.acStatus == 1 || action.acStatus == 2}" data-reactid=".0.2.1.1:3.0.1.0.1">
+                                <li class="dateEven dateFirst" data-reactid=".0.2.1.1:3.0.1.0.1.$0">
+                                    <p data-reactid=".0.2.1.1:3.0.1.0.1.$0.0">
+                                        <span data-reactid=".0.2.1.1:3.0.1.0.1.$0.0.1" th:text="${#dates.format(action.minRepayTime, 'yyyy-MM-dd')}">6.20</span>
+                                    </p>
+                                    <div class="timeLine" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1">
+                                        <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.0"></div>
+                                        <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.1"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="listMain" data-reactid=".0.2.1.1:3.0.1.1">
+                        <div th:if="${action != null}">
+                            <h1 th:if="${action.acStatus == null || action.acStatus == 0}" style="text-align: center">暂无信息</h1>
+                        </div>
                         <div th:if="${action == null}">
                             <h1 style="text-align: center">暂无信息</h1>
                         </div>

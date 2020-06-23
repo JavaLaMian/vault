@@ -253,7 +253,6 @@ public class UserServiceImpl implements UserService {
             maxList.add(map);
         }*/
         List<Map> mlist = dao.selectUserZhijin(uId);
-        //System.out.println(mlist.toString());
         return mlist;
     }
 

@@ -1,7 +1,6 @@
 package com.vault.demo.service.loan;
 
 import com.vault.demo.bean.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +22,7 @@ public interface LoanService {
     void insertCar(Car car);
     void insertHouse(House house);
     Action selectActionByLId(Loan loan);
+    void insertAction(Action action);//存储用户贷款记录，一般在用户提交贷款申请时就初始新增
+    void updateAction(Action action);
+    void updateLoanStatus(Loan loan);
 }

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service//
+@Service
 public class BidSerImpl implements BidSer{
     @Resource
     UserimfDao useDao;
@@ -25,8 +25,8 @@ public class BidSerImpl implements BidSer{
     BidDao bidDao;
 
     @Override
-    public List<Bid> allList() {
-        return bidDao.allList(0);
+    public List<Bid> allList(int bId,int bType) {
+        return bidDao.allList(bId,bType);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class BidSerImpl implements BidSer{
 
     @Override
     public Bid selectByBid(int bid) {
-        List<Bid> bids = bidDao.allList(bid);
+        List<Bid> bids = bidDao.allList(bid,0);
         return bids.get(0);
     }
 
@@ -95,6 +95,22 @@ public class BidSerImpl implements BidSer{
     @Override
     public List<Map> selectTandU(int bid, int bType){
         return bidDao.selectTandU(bid,bType);
+    }
+
+    @Override
+    public int countUser() {
+        return bidDao.countUser();
+    }
+
+    @Override
+    public float countTenMoney() {
+        return bidDao.countTenMoney();
+    }
+
+    @Override
+    public List<Bounty> getHonBao(int uId) {
+        List<Bounty> blist = useDao.selectBounty(uId,4); //4理财红包
+        return blist;
     }
 
     @Override
@@ -122,7 +138,7 @@ public class BidSerImpl implements BidSer{
     @Override
     public Map padTouBiao(HttpSession session,int id,int t) {
         Map map = new HashMap();
-        Bid bid = bidDao.allList(id).get(0);
+        Bid bid = bidDao.allList(id,0).get(0);
         Userimf userimf = (Userimf) session.getAttribute("user");
         //判断该用户是否投过此标 用户id 标id 标类
         List<Tender> tenders = bidDao.selectTouId(userimf.getuId(), id, t);

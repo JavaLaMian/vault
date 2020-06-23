@@ -150,6 +150,8 @@
                 return '已偿还';
             }else if(value==4){
                 return '申请失败';
+            }else if(value==5){
+                return '通过等待确认'
             }
         };
         function formatTime(value, row, index) {
@@ -173,10 +175,10 @@
 
         function formatDateTime(date) {
             var time = new Date(date);
-            time.setTime(time.setHours(time.getHours() + 11));
+            //time.setTime(time.setHours(time.getHours()));
             var Y = time.getFullYear() + '-';
             var  M = addZero(time.getMonth() + 1) + '-';
-            var D =addZero(time.getDate() - 1) + ' ';
+            var D =addZero(time.getDate()) + ' ';
             var h = addZero(time.getHours()) + ':';
             var m = addZero(time.getMinutes()) + ':';
             var  s = addZero(time.getSeconds());

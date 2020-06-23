@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-//
+
 @Repository
 @Transactional
 public interface BidDao{
-    List<Bid> allList(@Param("bId")int bId);
+    List<Bid> allList(@Param("bId")int bId,@Param("bType") int bType);
     void deleteById(int id);
     void updateById(int id);
     void insert(Bid bid);
@@ -32,4 +32,6 @@ public interface BidDao{
     List<Map> selectUser(@Param("uId") int uId);
     int countTenByBid(@Param("bId") int bid,@Param("bType") int bType);
     Date lastTenTime(int bid);
+    int countUser();
+    float countTenMoney();
 }

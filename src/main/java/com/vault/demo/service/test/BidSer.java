@@ -1,9 +1,6 @@
 package com.vault.demo.service.test;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.PerBid;
-import com.vault.demo.bean.Tender;
-import com.vault.demo.bean.Userimf;
+import com.vault.demo.bean.*;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-//
+
 public interface BidSer{
     public static final int TYPE_NEWCOMER = 1;//新手标
     public static final int TYPE_NORM = 2;//散标
@@ -27,7 +24,7 @@ public interface BidSer{
     int countPerList();
     int countPerPage (float inRate, float enquiry);
     List<PerBid> selectPerB(int perBid);
-    List<Bid> allList();
+    List<Bid> allList(int bId,int bType);
     void deleteById(int bid);
     void updateById(int bid);
     void insert(Bid bid);
@@ -46,4 +43,7 @@ public interface BidSer{
     String biaoPay(Tender tender, Userimf userimf, int uhId, float yhHmon, String daoqi) throws ParseException;
     int countTenByBid(int bid, int bType);
     List<Map> selectTandU(int bId,int bType);
+    int countUser();
+    float countTenMoney();
+    List<Bounty> getHonBao(int uId);
 }

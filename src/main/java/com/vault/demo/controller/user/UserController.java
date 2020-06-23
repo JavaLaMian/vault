@@ -21,23 +21,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Resource
     private UserService service;
-    @Resource
-    BidSer bidSer;
-    @RequestMapping("/first")
-    public String toMain(HttpServletRequest request){
-        List<Bid> nList =  bidSer.allList();
-        List ncList = nList.subList(0,3);
-        List<PerBid> perList = bidSer.selectPerB();
-        request.setAttribute("ncList",ncList);
-        request.setAttribute("perList",perList);
-        return "firstPage/first";
-    }
 
     @RequestMapping("/tologin")
     public String toUserLogin(String zc){
@@ -93,7 +82,7 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:first";
+                return "redirect:/main/first";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";
@@ -171,9 +160,15 @@ public class UserController {
         Userimf user = (Userimf) session.getAttribute("user");
         Map map = new HashMap();
         List<Bounty> mlist = service.yhList(user.getuId());
-        System.out.println(mlist.toString());
         map.put("list",mlist);
         map.put("size",mlist.size());
         return map;
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/main/first";
+    }
+
 }
