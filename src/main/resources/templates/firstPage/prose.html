@@ -199,6 +199,33 @@
             border-radius: 3px;
             cursor: pointer;
         }
+        .msgS{
+            position: fixed;
+            z-index: 999;
+            top: 40%;
+            right: 10%;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            background-color: rgb(255,241,230);
+        }
+        .msgTitle{
+            text-align: center;
+            font-size: 24px;
+            padding: 10px 0;
+            background-color: #ec794d;
+            border-radius: 10px 10px 0 0;
+        }
+        .msgText{
+            font-size: 18px;
+            padding: 0 20px;
+            margin-top: 24px;
+        }
+        .msgTis{
+            text-align: right;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
@@ -306,14 +333,12 @@
                 <i class="icon-common icon-common-to-bottom"></i>
             </span>
             <ul>
-                <li><a href="javascript:gotoLogin();">充值</a></li>
-                <li><a href="javascript:gotoLogin();">提现</a></li>
-                <li><a href="javascript:gotoLogin();">我的网贷</a></li>
-
-                <li><a href="javascript:gotoLogin();">账户安全</a></li>
-                <li><a href="javascript:gotoLogin();">我的消息</a></li>
-                <li><a href="javascript:gotoLogin();">红包优惠券</a></li>
-                <li><a href="javascript:gotoLogin();">邀请好友</a></li>
+                <li><a href="javascript:gotoLogin('/user/toAO');">充值</a></li>
+                <li><a href="javascript:gotoLogin('/user/toAO');">提现</a></li>
+                <li><a href="javascript:gotoLogin('/loan/main');">我的网贷</a></li>
+                <li><a href="javascript:gotoLogin('/user/toAS');">账户安全</a></li>
+                <li><a href="#">我的消息</a></li>
+                <li><a href="javascript:gotoLogin('/user/toYuhui');">红包优惠券</a></li>
             </ul>
         </div>
     </div>
@@ -324,19 +349,20 @@
 <div class="product-menu-contanier" id="productMenu">
     <ul class="product-menu clearfix">
         <li>
-            <a href="/product/portal/index" id="menu_optimize">投标工具 (<em id="optimizeCount">0</em>)</a>
+            <a href="#" id="menu_optimize">投标工具 (<em id="optimizeCount">0</em>)</a>
         </li>
         <li>
-            <a href="/product/list?type=common" id="menu_common">散标 (<em id="commonCount">0</em>)</a>
-        </li>
-        <li>
-            <a href="/product/list?type=transfer" id="menu_transfer">转让专区 (<em id="transferCount">0</em>)</a>
+            <a href="/main/perList" id="menu_common">散标 (<em id="commonCount">0</em>)</a>
         </li>
     </ul>
 </div>
-
 <!-- body内容 -->
 <div class="container detail-container" id="contanier">
+    <div class="msgS" th:if="${msg!=null}">
+        <h2 class="msgTitle">提示</h2>
+        <p class="msgText" th:text="${msg}"></p>
+        <p class="msgTis">鼠标悬停1S对话框关闭</p>
+    </div>
     <div class="shoulder" id="shoulderModel">
         <div class="neck">
             <h2 th:if="${bx.bId != null}" th:text="${bx.bidName}+'-'+${bx.transLine}+'月可转'" class="title"></h2>
@@ -366,10 +392,13 @@
                         <dd>锁定期 | 持满自动转让</dd>
                     </dl>
                     <dl class="lock-day">
-                        <dt th:if="${bx.bId != null}" >
-                            <span class="f-rate" id="ketous" th:text="${ketou}"></span> 万
+                        <dt>
+                            <span class="f-rate" th:if="${ketou == null}" th:text="${bx.sumLimit}"></span>
+                            <span class="f-rate" id="ketous" th:if="${ketou != null}" th:text="${ketou}"></span> 万
                         </dt>
-                        <dd>可加入最低额度<span id="kai" th:text="${kai}"></span>元</dd>
+                        <dd>可加入最低额度
+                            <span th:if="${ketou == null}" th:text="${bx.startLimit}"></span>
+                            <span id="kai" th:if="${kai != null}" th:text="${kai}"></span>元</dd>
                     </dl>
                 </div>
                 <ul class="sub-left-mid"></ul>
@@ -411,17 +440,17 @@
 
                                 <div class="input-group">
                                     <span class="input-group-addon">投资金额</span>
-                                    <input type="text" name="tenMoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
+                                    <input type="text" name="tenMoney" id="tmoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
                                     <span class="input-group-addon" style="width: 27px">万</span>
                                 </div>
                                 <div class="input-group" style="margin: 10px 0">
                                     <span class="input-group-addon">交易密码</span>
-                                    <input type="password" name="pwd" class="form-control">
+                                    <input type="password" name="pwd" id="pwd" class="form-control">
                                     <span class="input-group-addon">必填</span>
                                 </div>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-danger" onclick="zhifuKuan()">取消</button>
-                                    <button class="btn btn-primary">确认</button>
+                                    <button class="btn btn-primary" onclick="return tiJiaoPad()">确认</button>
                                 </div>
                             </form>
                         </div>
@@ -558,6 +587,34 @@
             </div>
         </div>
     </div>
+    <script>
+        var times = 0;
+        var yans = 230;
+        var jishiqi;
+        $(".msgS").mouseover(function(){
+            jishiqi = setInterval("addTime()", "10");
+        });
+        $(".msgS").mouseout(function(){
+            times = 0;
+            yans = 230;
+            clearInterval(jishiqi);
+            $(".msgS").css("background-color","rgb(255,241,230)")
+        });
+        
+        function addTime() {
+            times += 10;
+            yans -= 1;
+            if(yans !== 0){
+                $(".msgS").css("background-color","rgb(255,"+yans+","+yans+")");
+            }
+            if(times === 1000){
+                times = 0;
+                clearInterval(jishiqi);
+                $(".msgS").css("display","none");
+            }
+        }
+
+    </script>
 </div>
 <!--start 尾部-->
 <div class="foot-bt">
@@ -604,6 +661,16 @@
     var weizi = 1;
     var jishuTishi;
 
+    function tiJiaoPad() {
+        var pwd = $("#pwd").val();
+        var money = $("#tmoney").val();
+        if(pwd === '' || money === ''){
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
     function tishiFun() {
         if (tis <= 255) {
             tis += 1;

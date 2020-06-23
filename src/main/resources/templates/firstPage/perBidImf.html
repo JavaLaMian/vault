@@ -337,6 +337,33 @@
                 border-radius: 3px;
                 cursor: pointer;
             }
+            .msgS{
+                position: fixed;
+                z-index: 999;
+                top: 40%;
+                right: 10%;
+                width: 300px;
+                height: 200px;
+                border-radius: 10px;
+                background-color: rgb(255,241,230);
+            }
+            .msgTitle{
+                text-align: center;
+                font-size: 24px;
+                padding: 10px 0;
+                background-color: #ec794d;
+                border-radius: 10px 10px 0 0;
+            }
+            .msgText{
+                font-size: 18px;
+                padding: 0 20px;
+                margin-top: 24px;
+            }
+            .msgTis{
+                text-align: right;
+                padding: 0 20px;
+                margin-top: 50px;
+            }
         </style>
     </head>
     <body>
@@ -475,26 +502,20 @@
                     <li> <a href="/product/list?type=common">散标</a> </li>
                     <li> <a href="/product/list?type=transfer">转让专区</a> </li>
                 </ul>
-                <ul class="nav nav-information" data-type="security">
-                    <li class="first"><a href="/cms/about/index">信息披露</a></li>
-                    <li><a href="/cms/about/index">关于小牛</a></li>
-                    <li><a href="/cms/compliance/filingInfo">合规备案</a></li>
-                    <li><a href="/cms/business/consumer">业务介绍</a></li>
-                    <li><a href="/portal/platform/index">运营信息</a></li>
-                    <li><a href="/portal/platform/riskmanagement">保障体系</a></li>
-                </ul>
             </nav>
-            <div class="user">
-                <a href="/MyAccount/index" class="title">
-                    <div class="img-box"></div> <span>我的账户</span> <i class="icon-common icon-common-to-bottom"></i> </a>
+            <div th:if="${session.user!=null}" class="user">
+            <span style="cursor: pointer;" onclick="gotoLogin('http://localhost:8080/user/toAO')" class="title">
+                <div class="img-box"></div>
+                <span>我的账户</span>
+                <i class="icon-common icon-common-to-bottom"></i>
+            </span>
                 <ul>
-                    <li><a href="/payment/recharge/index">充值</a></li>
-                    <li><a href="/payment/withdraw/index">提现</a></li>
-                    <li><a href="/MyAccount/invest/index">我的网贷</a></li>
-                    <li><a href="/user/uasec">账户安全</a></li>
-                    <li> <a href="/MyAccount/message">我的消息</a> </li>
-                    <li> <a href="/bonus/index">红包优惠券</a> </li>
-                    <li><a href="/financier/relationship">邀请好友</a></li>
+                    <li><a href="javascript:gotoLogin('/user/toAO');">充值</a></li>
+                    <li><a href="javascript:gotoLogin('/user/toAO');">提现</a></li>
+                    <li><a href="javascript:gotoLogin('/loan/main');">我的网贷</a></li>
+                    <li><a href="javascript:gotoLogin('/user/toAS');">账户安全</a></li>
+                    <li><a href="#">我的消息</a></li>
+                    <li><a href="javascript:gotoLogin('/user/toYuhui');">红包优惠券</a></li>
                 </ul>
             </div>
         </div>
@@ -527,6 +548,11 @@
     </script>
     <!-- body内容 -->
     <div class="container detail-container" id="contanier">
+        <div class="msgS" th:if="${msg!=null}">
+            <h2 class="msgTitle">提示</h2>
+            <p class="msgText" th:text="${msg}"></p>
+            <p class="msgTis">鼠标悬停1S对话框关闭</p>
+        </div>
         <div class="shoulder" id="shoulderModel">
             <div class="neck">
                 <h2 class="title" th:text="${p.perBidName}"></h2>
@@ -651,16 +677,16 @@
                                     <input id="yhHmon" value="0" type="hidden" name="yhHmon">
                                     <div class="input-group">
                                         <span class="input-group-addon">投资金额</span>
-                                        <input type="text" name="tenMoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
+                                        <input type="text" name="tenMoney" id="tmoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
                                         <span class="input-group-addon">100元起投</span>
                                     </div>
                                     <div class="input-group" style="margin: 10px 0">
                                         <span class="input-group-addon">交易密码</span>
-                                        <input type="password" name="pwd" class="form-control">
+                                        <input type="password" id="pwd" name="pwd" class="form-control">
                                     </div>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-danger" onclick="zhifuKuan()">取消</button>
-                                        <button class="btn btn-primary">确认</button>
+                                        <button class="btn btn-primary" onclick="return tiJiaoPad()">确认</button>
                                     </div>
                                 </form>
                             </div>
@@ -820,8 +846,6 @@
         </div>
     </div>
 
-
-
     <div id="token">
         <input type="hidden" id="ooh.token.name" name="ooh.token.name" value="a605da2933844b6788304d0dbbc62f73" />
         <input type="hidden" id="ooh.token.value" name="ooh.token.value" value="U0MIT1KTAYMDN7EYQDUGGOE3VRQ7YA0" />
@@ -872,7 +896,41 @@
         $(function(){
             seajs.use('page/product/detail/sanbiao/js/detail');
         });
+        var times = 0;
+        var yans = 230;
+        var jishiqi;
+        $(".msgS").mouseover(function(){
+            jishiqi = setInterval("addTime()", "10");
+        });
+        $(".msgS").mouseout(function(){
+            times = 0;
+            yans = 230;
+            clearInterval(jishiqi);
+            $(".msgS").css("background-color","rgb(255,241,230)")
+        });
 
+        function tiJiaoPad() {
+            var pwd = $("#pwd").val();
+            var money = $("#tmoney").val();
+            if(pwd === '' || money === ''){
+                return false;
+            }else {
+                return true;
+            }
+        }
+
+        function addTime() {
+            times += 10;
+            yans -= 1;
+            if(yans !== 0){
+                $(".msgS").css("background-color","rgb(255,"+yans+","+yans+")");
+            }
+            if(times === 1000){
+                times = 0;
+                clearInterval(jishiqi);
+                $(".msgS").css("display","none");
+            }
+        }
 
         function padXiao(id) {
             var suru = $(id).val();

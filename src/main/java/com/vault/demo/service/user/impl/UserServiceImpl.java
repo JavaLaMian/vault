@@ -6,6 +6,7 @@ import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.dao.test.BidDao;
+import com.vault.demo.service.integral.integralService;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -28,11 +29,28 @@ public class UserServiceImpl implements UserService {
     private BidDao bidDao;
     @Resource
     private WorryCallDao wcDao;
+    @Resource
+    private integralService iDao;
 
     @Override
     public int addUserImf(Userimf user) {
         int lie = dao.addUser(user);
         dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
+
+        MyIntegral myIntegral = new MyIntegral();
+        myIntegral.setuId(user.getuId());
+        myIntegral.setTotal(10);
+        myIntegral.setChange(10);
+        myIntegral.setChangeType("新人注册奖励");
+        myIntegral.setConversionTime(new Date());
+        iDao.conversionAdd(myIntegral);
+
+        Bounty bounty = new Bounty();
+        bounty.setBoMoney(100);
+        bounty.setuId(user.getuId());
+        bounty.setBoTime(new Date());
+        bounty.setBoType(4);
+        iDao.bountyAdd(bounty);
         return lie;
     }
 

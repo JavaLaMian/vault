@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,7 @@ public class MainControl{
     }
 
     @RequestMapping("/prose")
-    public String toProse(int t, int id, Model model, HttpSession session){
+    public String toProse(int t, int id, Model model, HttpSession session,HttpServletRequest request){
         //t == 1 新手标 2   3散标
         if(t == 1 || t == 2){
             Bid bid = bidSer.selectByBid(id);
@@ -75,7 +76,12 @@ public class MainControl{
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
             model.addAttribute("ylist",max.get("yuhui"));//优惠券
+        }else {
+            model.addAttribute("kai",null);
+            model.addAttribute("ketou",null);
         }
+        String msg = request.getParameter("msg");//获取上个方法添加的参数
+        model.addAttribute("msg",msg);//设置到requset中页面提醒用户
         return "firstPage/prose";
 
     }
@@ -95,25 +101,27 @@ public class MainControl{
         request.setAttribute("countU", countU);
         request.setAttribute("ylist",bidSer.getHonBao(userimf1.getuId()));
         request.setAttribute("lastTime",lastTime);
+        String msg = request.getParameter("msg");//获取上个方法添加的参数
+        request.setAttribute("msg",msg);//设置到requset中页面提醒用户
         return "firstPage/perBidImf";
     }
 
     @RequestMapping("/getbid")
-    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon) throws ParseException{ //用户购买标
+    public String touZhi(Tender tender,String daoqi,String pwd,HttpSession session,int uhId,float yhHmon,RedirectAttributes m) throws ParseException{ //用户购买标
         Userimf userimf = (Userimf)session.getAttribute("user");
-        String userMon = userimf.getAvaBalance()+"";
-        System.out.println(uhId + "|" +yhHmon);
         if(pwd.equals(userimf.getDealPsw())){
             String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
             if("yebz".equals(fh)){
+                m.addAttribute("msg","余额不足 请先充值");
                 String url = "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
                 return url;
             }else {//购买成功
+                m.addAttribute("msg","购买成功");
                 return  "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
             }
         }else {
-            System.out.println("密码错误");
-            String url = "firstPage/prose?t="+tender.getbType()+"&id="+tender.getbId();
+            m.addAttribute("msg","密码错误");
+            String url = "redirect:prose?t="+tender.getbType()+"&id="+tender.getbId();
             return url;
         }
     }
@@ -155,20 +163,20 @@ public class MainControl{
     }
 
     @RequestMapping("perPay")
-    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi) throws ParseException{
+    public String perBidPay(Tender tender,HttpSession session,String pwd,int uhId,float yhHmon,String daoqi,RedirectAttributes m) throws ParseException{
         Userimf userimf = (Userimf)session.getAttribute("user");
         if(pwd.equals(userimf.getDealPsw())){
             String fh = bidSer.biaoPay(tender,userimf,uhId,yhHmon,daoqi);
             if("cg".equals(fh)){
-                //购买成功
+                m.addAttribute("msg","购买成功");
                 return  "redirect:perImf?id="+tender.getbId();
             }else {
-                //余额不足
+                m.addAttribute("msg","余额不足 请先充值");
                 return "redirect:perImf?id="+tender.getbId();
             }
         }else {
-            //支付密码错误
-           return  "redirect:perImf?id="+tender.getbId();
+            m.addAttribute("msg","密码错误！");
+            return  "redirect:perImf?id="+tender.getbId();
         }
 
     }
