@@ -1,6 +1,7 @@
 package com.vault.demo.quartz;
 
 import com.vault.demo.bean.Bid;
+import com.vault.demo.bean.Recharge;
 import com.vault.demo.bean.Tender;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.quartz.Job;
@@ -44,7 +45,8 @@ public class QuartzTask implements Job {
                        if((time == -1 && time1 == -1)){//售罄标
                            is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                        }
-                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getEMPTY()){//定期售罄标
+                   }
+                   else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getEMPTY()){//定期售罄标
                        Calendar cal = Calendar.getInstance();//创建时间相加
                        cal.setTime(date);
                        cal.add(Calendar.HOUR,1);//需要加上的时间
@@ -53,7 +55,8 @@ public class QuartzTask implements Job {
                        if(ti == -1){//将标改为锁定期
                            is.updategetbiBid(Bid.getLockup(),bid.getbId());
                        }
-                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getLockup()){//定期锁定期标
+                   }
+                   else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getLockup()){//定期锁定期标
                        if(bid.getClockLine().equals("1")) {//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
@@ -85,7 +88,8 @@ public class QuartzTask implements Job {
 
                            }
                        }
-                   }else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getTransferss()){//定期转让期
+                   }
+                   else if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getTransferss()){//定期转让期
                        if(bid.getClockLine().equals("1")) {//定期为3个月的
                            Calendar cal = Calendar.getInstance();//创建时间相加
                            cal.setTime(date);
@@ -117,7 +121,6 @@ public class QuartzTask implements Job {
                            }
                        }
                    }
-
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -134,25 +137,50 @@ public class QuartzTask implements Job {
                     }
                 }
             }
-        }
-        for(int k=0;k<tenderid.size();k++){
             if(bid.getDeposit() == 1 && bid.getBidStatus() == Bid.getTransferss()){//定期转让期
                 if(bid.getClockLine().equals("1")) {//定期为3个月的
-                    List<String> lis=is.selectgetBytenid(Integer.valueOf(bid.getbId()));//查询出这个标有多少个人投了
-                    for(int p =0;p<lis.size();p++){//人数
-                        List<Tender> moneylist = is.slecttendermoney(bid.getbId(),Integer.valueOf(lis.get(p)));
-                       for(int q=0;q<moneylist.size();q++){//投了多少笔
-                           Tender qq = moneylist.get(q);
-                           try {
-                               Date jieshu = simpleDateFormat.parse( simpleDateFormat.format(qq.getTenTime()));//获取到他的投标时间
-                               Date kais = simpleDateFormat.parse(simpleDateFormat.format(bid.getBidTime()));//标开始时间
-                               long arraytime =jieshu.getTime()-kais.getTime();
-
-                           } catch (ParseException e) {
-                               e.printStackTrace();
-                           }
-                       }
+                    //获取转让期时间 加上一个小时 小于当前就
+                    String exprie = simpleDateFormat.format(bid.getExprie());//封标期时间
+                    try {
+                        Date date = simpleDateFormat.parse(exprie);//封标期时间
+                        Calendar cal = Calendar.getInstance();//创建时间相加
+                        cal.setTime(bid.getExprie());
+                        cal.add(Calendar.HOUR,(1*24*30*3)+1);//需要加上的时间
+                        Date date3 = cal.getTime();//转让期时间
+                        int ti = date3.compareTo(new Date());
+                        if(ti != -1){
+                            List<String> lis=is.selectgetBytenid(Integer.valueOf(bid.getbId()));//查询出这个标有多少个人投了
+                            for(int p =0;p<lis.size();p++){//人数
+                                List<Tender> moneylist = is.slecttendermoney(bid.getbId(),Integer.valueOf(lis.get(p)));
+                                for(int q=0;q<moneylist.size();q++){//投了多少笔
+                                    Tender qq = moneylist.get(q);
+                                    try {
+                                        Date jieshu = simpleDateFormat.parse( simpleDateFormat.format(qq.getTenTime()));//获取到他的投标时间
+                                        Date kais = simpleDateFormat.parse(simpleDateFormat.format(bid.getBidTime()));//标开始时间
+                                        int days = (int)((jieshu.getTime()-kais.getTime()) / (1000*3600*24));//求出时间
+                                        Float mymoney = ((bid.getRate()+bid.getRewardRate())/100/12)*qq.getTenMoney()*(3+days/30);
+                                        //查询出用户的余额然后相加
+                                        Float usermoney = is.seleUsermoney(Integer.valueOf(lis.get(p)));
+                                        is.updateuserMoney((usermoney+mymoney),Integer.valueOf(lis.get(p)));
+                                        System.out.println("金钱"+(usermoney+mymoney)+"id"+Integer.valueOf(lis.get(p)));
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(lis.get(p)));//用户id
+                                        recharge.setReMoney(usermoney);
+                                        recharge.setReTime(new Date());
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        System.out.println(usermoney);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
+
                 }
             }
         }
