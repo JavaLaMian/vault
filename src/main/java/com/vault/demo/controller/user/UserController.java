@@ -28,15 +28,15 @@ public class UserController {
     private UserService service;
     @Resource
     BidSer bidSer;
-    @RequestMapping("/first")
-    public String toMain(HttpServletRequest request){
-        List<Bid> nList =  bidSer.allList();
-        List ncList = nList.subList(0,3);
-        List<PerBid> perList = bidSer.selectPerB();
-        request.setAttribute("ncList",ncList);
-        request.setAttribute("perList",perList);
-        return "firstPage/first";
-    }
+//    @RequestMapping("/first")
+//    public String toMain(HttpServletRequest request){
+//        List<Bid> nList =  bidSer.allList();
+//        List ncList = nList.subList(0,3);
+//        List<PerBid> perList = bidSer.selectPerB(0);
+//        request.setAttribute("ncList",ncList);
+//        request.setAttribute("perList", perList);
+//        return "firstPage/first";
+//    }
 
     @RequestMapping("/tologin")
     public String toUserLogin(String zc){
@@ -92,7 +92,7 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:first";
+                return "redirect:/main/first";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";
@@ -152,6 +152,13 @@ public class UserController {
     @ResponseBody
     public int updPwd(String email,String pwd){
         return service.updetaPwd(email,pwd);
+    }
+
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/main/first";
     }
 
 }
