@@ -55,7 +55,7 @@ public class BackLoanServiceImpl implements BackLoanService{
     }
 
     @Override
-    public int addPerBid(PerBid perBid) {
-        return backLoanDao.addPerBid(perBid);
+    public void addPerBid(PerBid perBid) {
+        backLoanDao.addPerBid(perBid);
     }
 }

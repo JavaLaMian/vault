@@ -17,7 +17,8 @@ public interface BackLoanDao {
     House selHouseByHid(int hId);
     Car selCarByCid(int cId);
     Userimf selUserByUid(int uId);
-    void updLoan(Loan loan);
+    void updLoan(@Param("loan") Loan loan);
     Loan selLoanByLid(int lId);
-    int addPerBid(PerBid perBid);
+    void addPerBid(@Param("perBid") PerBid perBid);
+    void updPerBidStatus(@Param("loan")Loan loan,@Param("action") Action action);
 }

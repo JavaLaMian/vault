@@ -76,6 +76,18 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
+                                    <li class="list-group-item" style="height:50px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">用户选择贷款年化利率:</label>
+                                            <span class="control-span" th:text="${loan.interest}"></span>
+                                            <span class="control-span" style="color: #00c2c2">%</span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">用户选择贷款时限:</label>
+                                            <span class="control-span" th:text="${loan.lowLimit}"></span>
+                                            <span class="control-span" style="color: #00c2c2">月</span>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <form class="guide-box form-horizontal" id="demo" th:action="@{/back_loan/examine}" method="post" data-navigateable="true">
                                     <ul class="nav-step step-dots">
@@ -133,33 +145,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-3 control-label" for="borrowTime">借款期限</label>
-                                                <div class="col-md-7">
-                                                    <input class="form-control" type="number" id="borrowTime" name="borrowTime" placeholder="请输入借款期限">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label" for="rate">借款人还款利息</label>
-                                                <div class="col-md-7">
-                                                    <input class="form-control" type="number" id="rate" name="rate" placeholder="请输入借款人还款利息">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-md-3 control-label" for="addRate">平台追加利率</label>
                                                 <div class="col-md-7">
                                                     <input class="form-control" type="number" id="addRate" name="addRate" placeholder="请输入平台追加利率">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label" for="inRate">投资收益利率</label>
-                                                <div class="col-md-7">
-                                                    <input class="form-control" type="number" id="inRate" name="inRate" placeholder="请输入投资收益利率">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label" for="combination">总标额</label>
-                                                <div class="col-md-7">
-                                                    <input class="form-control" type="number" id="combination" name="combination" placeholder="请输入总标额">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -230,13 +218,6 @@
                         }
                     }
                 },
-                interest: {
-                    validators: {
-                        notEmpty: {
-                            message: '贷款利率不能为空'
-                        }
-                    }
-                },
                 lowLimit: {
                     validators: {
                         notEmpty: {
@@ -258,25 +239,6 @@
                         }
                     }
                 },
-                borrowTime: {
-                    validators: {
-                        notEmpty: {
-                            message: '借款期限不能为空'
-                        },
-                        between:{
-                            max:$('#topLimit').val(),
-                            min:$('#lowLimit').val(),
-                            message: '借款期限必须在'+$('#lowLimit').val()+'~'+$('#topLimit').val()+'之间'
-                        }
-                    }
-                },
-                rate: {
-                    validators: {
-                        notEmpty: {
-                            message: '借款人还款利息不能为空'
-                        }
-                    }
-                },
                 addRate: {
                     validators: {
                         notEmpty: {
@@ -288,18 +250,6 @@
                     validators: {
                         notEmpty: {
                             message: '最长借款期限不能为空'
-                        }
-                    }
-                },
-                combination: {
-                    validators: {
-                        notEmpty: {
-                            message: '总标额不能为空'
-                        },
-                        between:{
-                            max:$('#maxLimit').val(),
-                            min:$('#minLimit').val(),
-                            message: '总标额必须在'+$('#minLimit').val()+'~'+$('#maxLimit').val()+'之间'
                         }
                     }
                 },

@@ -4,6 +4,7 @@ import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
+import com.vault.demo.dao.backstage.BackLoanDao;
 import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.loan.LoanService;
 import org.apache.ibatis.annotations.Param;
@@ -40,6 +41,9 @@ public class loanController {
 
     @Resource
     FileUpload fileUpload;
+
+    @Resource
+    BackLoanDao backLoanDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -341,6 +345,8 @@ public class loanController {
         loanService.updateLoanStatus(loan);
 
         session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
+        backLoanDao.updPerBidStatus(loan,action);
 
         return "redirect:/loan/toloanJie";
     }

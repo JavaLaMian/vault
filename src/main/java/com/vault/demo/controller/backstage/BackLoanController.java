@@ -62,7 +62,10 @@ public class BackLoanController {
         perBid.setBidStatus(1);//设置散标为预售状态
         perBid.setStartTime(new Date());
         perBid.setBorrower(uId);
-        int perid = bls.addPerBid(perBid);
+        perBid.setRate(loan.getInterest());
+        perBid.setBorrowTime(loan.getLowLimit());
+        bls.addPerBid(perBid);
+        int perid = perBid.getPerBid();
         loan.setBidType(1);//设置贷款集资类型为散标类型
         loan.setBidId(perid);
         bls.updLoan(loan);

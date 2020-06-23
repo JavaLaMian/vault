@@ -14,5 +14,5 @@ public interface BackLoanService {
     Userimf selUserByUid(int uId);
     void updLoan(Loan loan);
     Loan selLoanByLid(int lId);
-    int addPerBid(PerBid perBid);
+    void addPerBid(PerBid perBid);
 }
