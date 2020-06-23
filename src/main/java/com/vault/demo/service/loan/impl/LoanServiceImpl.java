@@ -88,4 +88,19 @@ public class LoanServiceImpl implements LoanService {
         return actionDao.selectActionByLId(loan);
     }
 
+    @Override
+    public void insertAction(Action action) {
+        actionDao.insertAction(action);
+    }
+
+    @Override
+    public void updateAction(Action action) {
+        actionDao.updateAction(action);
+    }
+
+    @Override
+    public void updateLoanStatus(Loan loan) {
+        loanDao.updateLoanStatus(loan);
+    }
+
 }

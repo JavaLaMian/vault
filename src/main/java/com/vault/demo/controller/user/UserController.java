@@ -27,9 +27,6 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService service;
-    @Resource
-    BidSer bidSer;
-
 
     @RequestMapping("/tologin")
     public String toUserLogin(String zc){
@@ -85,7 +82,7 @@ public class UserController {
             if(user != null){
                 //System.out.println("账号密码正确");
                 session.setAttribute("user",user);
-                return "redirect:first";
+                return "redirect:/main/first";
             }else {
                 session.setAttribute("msg","账号或密码错误");
                 return "redirect:tologin";

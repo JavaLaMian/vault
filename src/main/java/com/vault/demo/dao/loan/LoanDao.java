@@ -18,4 +18,6 @@ public interface LoanDao {
     void deleteById(Loan loan);//根据id删除对象
 
     Loan loanNow(@Param("u") Userimf userimf);
+
+    void updateLoanStatus(Loan loan);
 }
