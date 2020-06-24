@@ -25,4 +25,7 @@ public interface LoanService {
     void insertAction(Action action);//存储用户贷款记录，一般在用户提交贷款申请时就初始新增
     void updateAction(Action action);
     void updateLoanStatus(Loan loan);
+    LoanBankHistory selectByLId(Loan loan);
+    UserBank selectByUId(Userimf user);
+    LoanBankHistory insertLoanBankHistory(Loan loan,UserBank userBank,Action action);
 }

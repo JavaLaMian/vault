@@ -1,9 +1,6 @@
 package com.vault.demo.service.backstage.adxmn;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
-import com.vault.demo.bean.Tender;
+import com.vault.demo.bean.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,4 +22,7 @@ public interface selevicexmn {
     List<String> selectgetByid();//查询出用户投了哪些标
     List<String> selectgetBytenid(int id);//根据标id查询出哪些用户
     List<Tender> slecttendermoney(int bid,int uid);//根据标和用户id查询金额
+    Float seleUsermoney(int id);//根据id查询出用户余额
+    void updateuserMoney(Float money,int id);//根据用户id相加余额
+    void addusermoney(Recharge recharge);//新增用户余额增加记录
 }

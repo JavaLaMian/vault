@@ -86,7 +86,6 @@ public class PerBid {
     }
 
 
-
     public float getRate() {
         return rate;
     }
@@ -174,4 +173,5 @@ public class PerBid {
     public void setBorrowTime(int borrowTime) {
         this.borrowTime = borrowTime;
     }
+
 }
