@@ -174,25 +174,4 @@ public class PerBid {
         this.borrowTime = borrowTime;
     }
 
-    @Override
-    public String toString() {
-        return "PerBid{" +
-                "perBid=" + perBid +
-                ", bidStatus=" + bidStatus +
-                ", borrower=" + borrower +
-                ", perBidName='" + perBidName + '\'' +
-                ", inRate=" + inRate +
-                ", rate=" + rate +
-                ", addRate=" + addRate +
-                ", combination=" + combination +
-                ", transLine='" + transLine + '\'' +
-                ", clockLine='" + clockLine + '\'' +
-                ", transfer=" + transfer +
-                ", startTime=" + startTime +
-                ", enquiry=" + enquiry +
-                ", schedul=" + schedul +
-                ", expire=" + expire +
-                ", borrowTime=" + borrowTime +
-                '}';
-    }
 }
