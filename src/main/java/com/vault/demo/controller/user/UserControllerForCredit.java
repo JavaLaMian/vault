@@ -1,6 +1,7 @@
 package com.vault.demo.controller.user;
 
 import com.vault.demo.bean.Car;
+import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.House;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.dao.file.FileUpload;
@@ -132,8 +133,10 @@ public class UserControllerForCredit {
 //        Resource resource = new ClassPathResource("");
 //        System.out.println(resource.getFile().getAbsolutePath());
 
-
-
         return "redirect:toCreditRegisterPage";
+    }
+
+    public boolean insertJob(Credit credit){
+        return false;
     }
 }

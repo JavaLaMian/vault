@@ -13,7 +13,7 @@ public class PerBid {
        private int borrower;
        private String  perBidName;
        private  float  inRate ;//投资利率
-       private float rate;
+         private float rate;
        private float addRate;
        private float  combination;
        private String  transLine;

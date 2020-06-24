@@ -86,6 +86,22 @@ public class UserController2 {
             return "loan/login";
         }
     }
+    @RequestMapping("/updateApply")
+    public String updateApply(HttpSession session, Model model){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("applyType","update");
+            return "user/apply";
+        }else {
+            return "loan/login";
+        }
+    }
+//    @RequestMapping("/updateApply")
+//    public Boolean updateApply(UserBank userBank,HttpSession session, Model model){
+//        Userimf user = (Userimf) session.getAttribute("user");
+//        service.u(userBank);
+//        return false;
+//    }
 
     @RequestMapping("/checkold")
     @ResponseBody
@@ -200,5 +216,11 @@ public class UserController2 {
         }else {
             return false;
         }
+    }
+    @RequestMapping("/unbindCard")
+    @ResponseBody
+    public Boolean unbindCard(UserBank bank,HttpSession session){
+        Userimf refereer = new Userimf();
+        return false;
     }
 }
