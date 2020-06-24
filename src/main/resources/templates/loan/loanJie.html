@@ -262,7 +262,7 @@
                                 <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1 && loanBankHistory.getStatus() == 1}">
                                     <h3 style="margin-top:104px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
                                     <div>
-                                        <table style="border: 1px solid #ccc" cellspacing="0" cellpadding="0">
+                                        <table style="border: 1px solid #ccc;width: 480px;height: 150px" cellspacing="0" cellpadding="0" border="1px solid #ccc">
                                             <tbody>
                                             <tr>
                                                 <th>借款金额</th>
@@ -276,7 +276,7 @@
                                                 <th>利率</th>
                                                 <td th:text="${session.userLoan.interest} + '%'"></td>
                                                 <th>应还金额</th>
-                                                <td th:text="${action.tobePay}"></td>
+                                                <td th:text="${action.tobePay} + '万'"></td>
                                                 <th>收款小母牛账号</th>
                                                 <td th:text="${session.user.getAccount()}"></td>
                                             </tr>
@@ -290,7 +290,7 @@
                                             </tr>
                                             <tr>
                                                 <th>贷款原因</th>
-                                                <td th:text="${session.userLoan.loanPurpose}" colspan="3"></td>
+                                                <td th:text="${session.userLoan.loanPurpose}" colspan="5"></td>
                                             </tr>
                                             </tbody>
                                         </table>

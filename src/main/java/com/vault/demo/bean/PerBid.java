@@ -86,14 +86,6 @@ public class PerBid {
     }
 
 
-    public float getInRate() {
-        return inRate;
-    }
-
-    public void setInRate(float inRate) {
-        this.inRate = inRate;
-    }
-
     public float getRate() {
         return rate;
     }
