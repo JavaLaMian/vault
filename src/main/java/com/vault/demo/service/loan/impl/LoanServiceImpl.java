@@ -1,7 +1,9 @@
 package com.vault.demo.service.loan.impl;
 
 import com.vault.demo.bean.*;
+import com.vault.demo.dao.BankDao;
 import com.vault.demo.dao.CarDao;
+import com.vault.demo.dao.LoanBankHistoryDao;
 import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.loan.ActionDao;
@@ -29,6 +31,12 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     ActionDao actionDao;
+
+    @Resource
+    BankDao bankDao;
+
+    @Resource
+    LoanBankHistoryDao loanBankHistoryDao;
 
     @Override
     public void TestInsertLoan() {
@@ -102,5 +110,29 @@ public class LoanServiceImpl implements LoanService {
     public void updateLoanStatus(Loan loan) {
         loanDao.updateLoanStatus(loan);
     }
+
+    @Override
+    public LoanBankHistory selectByLId(Loan loan) {
+        return loanBankHistoryDao.selectByLId(loan);
+    }
+
+    @Override
+    public UserBank selectByUId(Userimf user) {
+        return bankDao.getBC(user.getuId());
+    }
+
+    @Override
+    public LoanBankHistory insertLoanBankHistory(Loan loan, UserBank userBank,Action action) {
+        LoanBankHistory loanBankHistory = new LoanBankHistory();
+        loanBankHistory.setAcMoney(action.getAcMoney());
+        loanBankHistory.setBankId(userBank.getBankId());
+        loanBankHistory.setlId(loan.getlId());
+        loanBankHistory.setStatus(0);
+
+        loanBankHistoryDao.insertLBH(loanBankHistory);
+
+        return loanBankHistory;
+    }
+
 
 }

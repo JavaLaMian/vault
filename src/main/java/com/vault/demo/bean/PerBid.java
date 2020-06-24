@@ -1,8 +1,6 @@
 package com.vault.demo.bean;
 
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
 //
@@ -24,6 +22,36 @@ public class PerBid {
        private float schedul;//进度
        private Date expire;//到期时间
        private int borrowTime;
+
+    @Override
+    public String toString() {
+        return "PerBid{" +
+                "perBid=" + perBid +
+                ", bidStatus=" + bidStatus +
+                ", borrower=" + borrower +
+                ", perBidName='" + perBidName + '\'' +
+                ", inRate=" + inRate +
+                ", rate=" + rate +
+                ", addRate=" + addRate +
+                ", combination=" + combination +
+                ", transLine='" + transLine + '\'' +
+                ", clockLine='" + clockLine + '\'' +
+                ", transfer=" + transfer +
+                ", startTime=" + startTime +
+                ", enquiry=" + enquiry +
+                ", schedul=" + schedul +
+                ", expire=" + expire +
+                ", borrowTime=" + borrowTime +
+                '}';
+    }
+
+    public float getInRate() {
+        return inRate;
+    }
+
+    public void setInRate(float inRate) {
+        this.inRate = inRate;
+    }
 
     public int getPerBid() {
         return perBid;
@@ -56,7 +84,6 @@ public class PerBid {
     public void setPerBidName(String perBidName) {
         this.perBidName = perBidName;
     }
-
 
 
     public float getRate() {
@@ -146,4 +173,5 @@ public class PerBid {
     public void setBorrowTime(int borrowTime) {
         this.borrowTime = borrowTime;
     }
+
 }

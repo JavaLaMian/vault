@@ -63,7 +63,7 @@
 		<div class="hotline">全国服务热线：4006-0755-70</div>
 		<ul class="info" id="ulLoginStatus">
 			<li class="user" th:if="${session.user!=null}">
-				<a href="/user/toAO" th:text="${session.user.uName}"></a>
+				<a href="/user/toAO" th:text="${session.user.account}"></a>
 				<a class="ext" href="/user/logout">[&nbsp;安全退出&nbsp;]</a>
 			</li>
 			<li class="user" th:if="${session.user==null}">
@@ -136,46 +136,39 @@
 					<a href="/product/portal/index">转让专区</a>
 				</li>
 			</ul>
-			<ul class="nav nav-information" data-type="security">
-				<li class="first"><a href="/cms/about/index">信息披露</a></li>
-				<li><a href="/cms/about/index">关于小牛</a></li>
-				<li><a href="/cms/compliance/filingInfo">合规备案</a></li>
-				<li><a href="/cms/business/consumer">业务介绍</a></li>
-				<li><a href="/portal/platform/index">运营信息</a></li>
-				<li><a href="/portal/platform/riskmanagement">保障体系</a></li>
-			</ul>
 		</nav>
-		<div class="user">
-					<span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
+		<div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" class="title">
+                <div class="img-box"></div>
+                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
+            </span>
+		</div>
+		<div th:if="${session.user!=null}"  class="user">
+					<span class="title">
 						<div class="img-box"></div>
-						<span>我的账户</span>
+						<span><a style="color: black" href="/user/toAO">我的账户</a></span>
 						<i class="icon-common icon-common-to-bottom"></i>
 					</span>
 			<ul>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/payment/recharge/index');">充值</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/payment/withdraw/index');">提现</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/invest/index');">我的网贷</a></li>
-
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/user/uasec');">账户安全</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/message');">我的消息</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/bonus/index');">红包优惠券</a></li>
-				<li><a href="javascript:gotoLogin('/user/login', 0, '/financier/relationship');">邀请好友</a></li>
+				<li><a href="/user/toAO">充值</a></li>
+				<li><a href="/user/toAO">提现</a></li>
+				<li><a href="/loan/main">我的网贷</a></li>
+				<li><a href="/user/toAS">账户安全</a></li>
+				<li><a href="#">我的消息</a></li>
+				<li><a href="/user/toYuhui">红包优惠券</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
 <div class="streamer" id="streamerModel">
 	<div class="slider">
-		<!--<ul class="banner" id="banner" style="width: 30448px; position: absolute; left: 0px;">-->
-			<!--<li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-img: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;)center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-img: url(//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li>-->
-		<!--</ul>-->
-		<div class="but"><a href="javascript:;" onfocus="this.blur()" class="s">1</a><a href="javascript:;" onfocus="this.blur()">2</a><a href="javascript:;" onfocus="this.blur()">3</a><a href="javascript:;" onfocus="this.blur()">4</a><a href="javascript:;" onfocus="this.blur()">5</a><a href="javascript:;" onfocus="this.blur()">6</a><a href="javascript:;" onfocus="this.blur()">7</a><a href="javascript:;" onfocus="this.blur()">8</a></div>
+
 	</div>
 	<div class="container">
 	</div>
 	<div class="activity-christmas-line"></div>
 </div>
-
+<!--注册人数成交金额-->
 <div class="statistical" id="statisticalModel">
 	<div class="container">
 		<dl class="item">
@@ -252,15 +245,15 @@
 				<dd>单笔限额</dd>
 			</dl>
 			<dl class="col-4">
-				<dt>0元</dt>
+				<dt>100元</dt>
 				<dd>可加入</dd>
 			</dl>
 			<dl class="col-5">
 				<dd class="item" th:if="${nc.bidStatus==1}">
 					<em class="btn-primary">预售</em>
 				</dd>
-				<dd class="item" th:if="${nc.bidStatus==2}">
-					<em class="btn-primary">可投</em>
+				<dd class="item" th:if="${nc.bidStatus==0}">
+					<em class="btn-primary">在售</em>
 				</dd>
 				<dd class="item" th:if="${nc.bidStatus==3}">
 					<em class="btn-primary disabled">售罄</em>
@@ -272,7 +265,7 @@
 	<div class="novice-ft">
 		<dl class="icon-before icon-after f1">
 			<dt>注册</dt>
-			<dd>即送<span>518</span>元红包</dd>
+			<dd>即送<span>100</span>元红包</dd>
 		</dl>
 		<dl class="icon-before icon-after f2">
 			<dt>实名</dt>
@@ -319,7 +312,7 @@
 				<a th:href="@{/main/perImf(id=${per.perBid})}"  style="text-decoration: none;" th:each="per:${perList}">
 				<div class="item " style="width:263px">
 					<div class="panel">
-						<div class="rate" th:text="${#numbers.formatDecimal(per.inRate,1,'COMMA',2,'POINT')}+'%'"><span></span></div>
+						<div class="rate" th:text="${per.inRate}+'%'"></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所
 						有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 						<div class="about">

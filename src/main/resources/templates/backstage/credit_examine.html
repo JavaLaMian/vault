@@ -180,7 +180,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12 nav-step-button">
                                             <button class="btn btn-secondary disabled" data-wizard="prev" type="button">上一步</button>
-                                            <button class="btn btn-label btn-danger" id="fail"><label><i class="mdi mdi-close"></i></label> 不通过</button>
+                                            <button class="btn btn-label btn-danger" id="fail" ><label><i class="mdi mdi-close"></i></label> 不通过</button>
                                             <button class="btn btn-secondary" data-wizard="next" id="next" type="button">下一步</button>
                                             <button class="btn btn-primary hidden" data-wizard="finish" type="submit"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label> 完成</button>
                                         </div>
@@ -271,10 +271,26 @@
         });
         $('#fail').click(function () {
             //不通过
-            $.ajax({
-                url:'',
+            $.confirm({
+                title: '成功',
+                content: '登录成功',
+                type: 'green',
+                keyboardEnabled:true,
+                buttons: {
+                    omg: {
+                        text: '确定',
+                        btnClass: 'btn-green',
+                        confirm:function () {
+                            $.ajax({
 
-            })
+                            })
+                        }
+                    },
+                    close: {
+                        text: '关闭',
+                    }
+                }
+            });
         })
         $('.guide-box').bootstrapWizard({
             'tabClass': 'nav-step',

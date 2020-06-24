@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vault.demo.dao.LoanBankHistoryDao">
+    <select id="selectByLId" resultType="com.vault.demo.bean.LoanBankHistory" parameterType="com.vault.demo.bean.Loan">
+        select * from loanBankHistory where lId = #{lId}
+    </select>
+
+    <insert id="insertLBH" parameterType="com.vault.demo.bean.LoanBankHistory" useGeneratedKeys="true">
+        <selectKey keyColumn="Id" resultType="integer" keyProperty="Id" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into loanBankHistory(Id,lId,acMoney,bankId,inTime,status) values(null,#{lId},#{acMoney},#{bankId},#{inTime},#{status})
+    </insert>
+
+    <update id="updateLBH" parameterType="com.vault.demo.bean.LoanBankHistory">
+        update loanBankHistory set acMoney = #{acMoney},bankId = #{bankId},inTime = #{inTime},status = #{status} where Id = #{Id}
+    </update>
+</mapper>
