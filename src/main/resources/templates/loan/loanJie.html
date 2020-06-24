@@ -93,7 +93,7 @@
         </h1>
             <ul data-reactid=".0.2.1.0.0.1">
                 <li data-reactid=".0.2.1.0.0.1.0">
-                    <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                    <a th:href="@{/user/toAO}" data-reactid=".0.2.1.0.0.1.0.0">
                         <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
                         <span data-reactid=".0.2.1.0.0.1.0.0.1" th:text="${session.user.uName}">284***@qq.com</span>
                     </a>
@@ -262,17 +262,17 @@
                                 <div class="rightTop" data-reactid=".0.2.1.1:2.0.1.0" th:if="${session.userLoan.loanStatue == 1 && loanBankHistory.getStatus() == 1}">
                                     <h3 style="margin-top:104px;font-size: 30px" data-reactid=".0.2.1.1:2.0.1.0.0">您有1笔贷款正在使用中</h3>
                                     <div>
-                                        <table style="border: 1px solid #ccc;width: 480px;height: 150px" cellspacing="0" cellpadding="0" border="1px solid #ccc">
+                                        <table style="border: 1px solid #ccc;width: 500px;height: 212px" cellspacing="0" cellpadding="0" border="1px solid #ccc">
                                             <tbody>
                                             <tr>
                                                 <th>借款金额</th>
                                                 <td th:text="${action.acMoney} + '万'"></td>
                                                 <th>借款时长</th>
-                                                <td th:text="${session.userLoan.lowLimit}"></td>
+                                                <td th:text="${session.userLoan.lowLimit} + '个月'"></td>
                                                 <th>最近还款日期</th>
                                                 <td th:text="${#dates.format(action.minRepayTime,'yyyy-MM-dd')}"></td>
                                             </tr>
-                                            <tr>
+                                            <tr style="background-color: rgba(10,10,10,0.1)">
                                                 <th>利率</th>
                                                 <td th:text="${session.userLoan.interest} + '%'"></td>
                                                 <th>应还金额</th>
@@ -288,7 +288,7 @@
                                                 <th>打款日期</th>
                                                 <td th:text="${#dates.format(loanBankHistory.inTime,'yyyy-MM-dd')}"></td>
                                             </tr>
-                                            <tr>
+                                            <tr style="background-color: rgba(10,10,10,0.1)">
                                                 <th>贷款原因</th>
                                                 <td th:text="${session.userLoan.loanPurpose}" colspan="5"></td>
                                             </tr>
@@ -387,6 +387,9 @@
                     <p data-reactid=".0.2.1.1:3.0.0.1">
                         <span data-reactid=".0.2.1.1:3.0.0.1.0">还款日当天中午12点自动扣款，请确保相应的小母牛账户余额充足</span>
                         <a target="_blank" data-aspm-click="d19201" href="#" data-reactid=".0.2.1.1:3.0.0.1.1">去充值</a>
+                        <span th:if="${action != null}" style="float: right">
+                            <a th:href="@{/loan/toloanHuan}" th:if="${action.acStatus == 1}">想提前还款？点击这里</a>
+                        </span>
                     </p>
                 </div>
                 <div class="repayPlan clearfix" data-reactid=".0.2.1.1:3.0.1">
@@ -399,8 +402,8 @@
                                         <span data-reactid=".0.2.1.1:3.0.1.0.1.$0.0.1" th:text="${#dates.format(action.minRepayTime, 'yyyy-MM-dd')}">6.20</span>
                                     </p>
                                     <div class="timeLine" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1">
-                                        <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.0"></div>
-                                        <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.1"></div>
+<!--                                        <div class="line" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.0"></div>-->
+<!--                                        <div class="dot" data-reactid=".0.2.1.1:3.0.1.0.1.$0.1.1"></div>-->
                                     </div>
                                 </li>
                             </ul>
@@ -413,7 +416,7 @@
                         <div th:if="${action == null}">
                             <h1 style="text-align: center">暂无信息</h1>
                         </div>
-                        <table th:if="${session.userLoan != null && session.userLoan.loanStatue == 2 && action != null}" data-reactid=".0.2.1.1:3.0.1.1.0">
+                        <table th:if="${session.userLoan != null && action != null && action.getAcStatus() != 0 && action.getAcStatus() != 5 && action.getAcStatus() != 3 && action.getAcStatus() != 4 }" data-reactid=".0.2.1.1:3.0.1.1.0">
                             <thead data-reactid=".0.2.1.1:3.0.1.1.0.0">
                                 <tr data-reactid=".0.2.1.1:3.0.1.1.0.0.0">
                                     <td style="width:140px;" class="td0" data-reactid=".0.2.1.1:3.0.1.1.0.0.0.$0">
@@ -436,13 +439,13 @@
 
                             <tr class="listEven" data-reactid=".0.2.1.1:3.0.1.1.0.1.$0">
                                 <td class="td0" data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$0">
-                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$0.0" th:text="${action.acMoney + (action.acMoney * session.userLoan.interest)}">98.76</div>
+                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$0.0" th:text="${action.acMoney + (action.acMoney * session.userLoan.interest * 0.01)} + '万'">98.76</div>
                                 </td>
                                 <td class="td1" data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$1">
-                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$1.0" th:text="${action.acMoney}">84.45</div>
+                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$1.0" th:text="${action.acMoney} + '万'">84.45</div>
                                 </td>
                                 <td class="td2" data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$2">
-                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$2.0" th:text="${action.acMoney * session.userLoan.interest}">14.31</div>
+                                    <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$2.0" th:text="${action.acMoney * session.userLoan.interest * 0.01} + '万'">14.31</div>
                                 </td>
                                 <td class="td3" data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$3">
                                     <div data-reactid=".0.2.1.1:3.0.1.1.0.1.$0.$3.0">

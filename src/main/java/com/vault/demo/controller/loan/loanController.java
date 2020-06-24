@@ -424,10 +424,20 @@ public class loanController {
     }
 
     @RequestMapping("/toloanHuan")
-    public String toloanHuan(HttpSession session) {
+    public String toloanHuan(HttpSession session, Model model) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
+
+        session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+
+        Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+        Action action = loanService.selectActionByLId((Loan) session.getAttribute("userLoan"));
+        model.addAttribute("credit",credit);
+        model.addAttribute("action",action);
+        UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+        model.addAttribute("bank",userBank);
+        model.addAttribute("loanBankHistory",loanService.selectByLId((Loan) session.getAttribute("userLoan")));
 
         return "loan/loanHuan";
     }
