@@ -104,7 +104,7 @@
             </h1>
                 <ul data-reactid=".0.2.1.0.0.1">
                     <li data-reactid=".0.2.1.0.0.1.0">
-                        <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                        <a th:href="@{/user/toAO}" data-reactid=".0.2.1.0.0.1.0.0">
                             <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
                             <span data-reactid=".0.2.1.0.0.1.0.0.1" th:text="${session.user.uName}">284***@qq.com</span>
                         </a>
@@ -197,7 +197,6 @@
                 </ul>
             </div>
             <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
-                <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
                 <div id="loanForm" style="width: 100%;height: 100%">
                     <form class="" th:action="@{/loan/toloanJie}" method="post" style="margin: 10px 20px 0 20px" onsubmit="return checkStep1Form()">
                         <input type="hidden" name="uId" th:value="${session.user.uId}">
@@ -352,7 +351,6 @@
                     </ul>
                 </div>
                 <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
-                    <div class="waterMark" data-reactid=".0.2.1.1:2.1.1.0"></div>
 <!--                    未设置具体借贷金额-->
                     <div th:if="${action != null && action.acMoney == 0}" class="processSecond" data-reactid=".0.2.1.1:2.1.1.1:0">
                         <div class="stepRippleBox" data-reactid=".0.2.1.1:2.1.1.1:0.0">
@@ -827,7 +825,7 @@
                     </ul>
                 </div>
                 <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
-                    <div class="processThird" data-reactid=".0.2.1.1:2.1.1.1:0">
+                    <div th:if="${loanBankHistory.getStatus() == 0}" class="processThird" data-reactid=".0.2.1.1:2.1.1.1:0">
                         <div class="poster" data-reactid=".0.2.1.1:2.1.1.1:0.0"></div>
                         <h3 data-reactid=".0.2.1.1:2.1.1.1:0.1">成功提交，等着收钱吧</h3>
                         <p data-reactid=".0.2.1.1:2.1.1.1:0.2">
@@ -838,19 +836,12 @@
                         <ul data-reactid=".0.2.1.1:2.1.1.1:0.2.3">
                             <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0">
                                 <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0.0">贷款金额</span>
-                                <span class="rightSpan" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0.1">1000.00</span>
-                                <span class="rightSpan" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1">
-                                    <strong class="accountWithIcon" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0">
-                                        <span class="bank accountIcon" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.0">
-                                            <img src="https://pic.alipayobjects.com/e/201305/PoNx9ndzb.png" data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.0.0">
-                                        </span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.1.0.1">中国农业银行（尾号1675）</span>
-                                    </strong>
-                                </span>
+                                <span class="rightSpan" th:text="${action.acMoney} + '万'" style="float: right">1000.00</span>
+
                             </li>
                             <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1">
                                 <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.0">收款账户</span>
-
+                                <span class="rightSpan" th:text="${bank.getBankName()} + '（尾号' + ${weihao} + '）'" style="float:right;"></span>
                             </li>
                         </ul>
                         <p></p>
@@ -862,6 +853,38 @@
                                 <noscript data-reactid=".0.2.1.1:2.1.1.1:0.4.0.0"></noscript>
                             </div>
                         </div>
+                    </div>
+
+<!--                    <div th:if="${loanBankHistory.getStatus() == 1}" class="processThird" data-reactid=".0.2.1.1:2.1.1.1:0">-->
+<!--                        <div style="margin: 0 auto;width: 320px;height: 188px;background-size: 100%;background-repeat: no-repeat"><img th:src="@{img/loan/LBHYES.png}"></div>-->
+<!--                        <h3 data-reactid=".0.2.1.1:2.1.1.1:0.1">钱已到账</h3>-->
+<!--                        <p data-reactid=".0.2.1.1:2.1.1.1:0.2">-->
+<!--                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.0">请</span>-->
+<!--                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.1">查看</span>-->
+<!--                            <span data-reactid=".0.2.1.1:2.1.1.1:0.2.2">您的银行卡吧！</span>-->
+<!--                        </p>-->
+<!--                        <ul data-reactid=".0.2.1.1:2.1.1.1:0.2.3">-->
+<!--                            <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0">-->
+<!--                                <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.0.0">贷款金额</span>-->
+<!--                                <span class="rightSpan" th:text="${action.acMoney} + '万'" style="float: right">1000.00</span>-->
+
+<!--                            </li>-->
+<!--                            <li data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1">-->
+<!--                                <span data-reactid=".0.2.1.1:2.1.1.1:0.2.3.1.0">收款账户</span>-->
+<!--                                <span class="rightSpan" th:text="${bank.getBankName()} + '（尾号' + ${weihao} + '）'" style="float:right;"></span>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        <p></p>-->
+<!--                        <div class="buttonBox" data-reactid=".0.2.1.1:2.1.1.1:0.3">-->
+<!--                            <button class="" style="width:320px;" data-reactid=".0.2.1.1:2.1.1.1:0.3.0">回到首页</button>-->
+<!--                        </div>-->
+<!--                        <div class="lendImatchBanner" data-reactid=".0.2.1.1:2.1.1.1:0.4">-->
+<!--                            <div id="qc-launchMarketing-52" style="width:100%;" data-reactid=".0.2.1.1:2.1.1.1:0.4.0">-->
+<!--                                <noscript data-reactid=".0.2.1.1:2.1.1.1:0.4.0.0"></noscript>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                     </div>
                 </div>
             </div>

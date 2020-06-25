@@ -112,6 +112,10 @@
                 field:'applicationTime',
                 formatter: formatTime
             },{
+                title:'征信等级',
+                field:'creditLV',
+                formatter: creditLV
+            },{
                 title:'状态',
                 field:'loanStatue',
                 formatter: szstatue
@@ -129,6 +133,19 @@
             var htm = "";
             htm +='<button class="btn btn-success m-r-5" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
             return htm;
+        }
+        function creditLV(value, row, index) {
+            if(value==1){
+                return '正常';
+            }else if(value==2){
+                return '关注';
+            }else if(value==3){
+                return '次级';
+            }else if(value==4){
+                return '可疑';
+            }else if(value==5){
+                return '损失';
+            }
         }
         function szloanType(value, row, index) {
             if(value==1){
