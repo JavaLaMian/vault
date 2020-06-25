@@ -26,11 +26,15 @@ public class UserController2 {
     public String toAO(HttpSession session,Model model){
         Userimf userimf = (Userimf) session.getAttribute("user");
         if(userimf != null){
-            Map map = service.daiShou(userimf.getuId());
+            Map map = service.daiShou(userimf);
             userimf.setEmail(null);
             Userimf user = service.logPadUser(userimf);
             UserBank userBank = service.getBC(user.getuId());
-
+            Credit credit = service.getCredit(user.getuId());
+            Map ren = new HashMap();
+            ren.put("bank",userBank);
+            ren.put("cred",credit);
+            session.setAttribute("ren",ren); //将用户认证信息存入session以判断
             session.setAttribute("user",user);
             model.addAttribute("map",map);
             model.addAttribute("bank",userBank);

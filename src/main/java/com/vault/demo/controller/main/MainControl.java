@@ -45,7 +45,6 @@ public class MainControl{
         request.setAttribute("countU",countU);
         request.setAttribute("ncList", ncList);
         request.setAttribute("perList", perList);
-        System.out.println(perList.size()+"---------------"+perList.get(0).toString());
         request.setAttribute("pcList", pList);
         return "firstPage/first";
     }

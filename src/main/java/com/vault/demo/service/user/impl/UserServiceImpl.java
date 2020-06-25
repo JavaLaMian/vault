@@ -143,7 +143,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map daiShou(int uid) {
+    public Map daiShou(Userimf user) {
+        int uid = user.getuId();
         Map map = new HashMap();
         List<Map> mlist = bidDao.comUserList(uid);
 
@@ -155,24 +156,26 @@ public class UserServiceImpl implements UserService {
                 zon = zon.add(tou);
             }
             BigDecimal wan = new BigDecimal("10000");
-            BigDecimal zcMoney = zon.multiply(wan);
-            map.put("money",""+zcMoney);
+            zon = zon.multiply(wan);//定标转换万
+            map.put("money",""+zon);
             map.put("list",mlist);
         }else {
             map.put("money",""+zon);
             map.put("list",null);
         }
+        BigDecimal yu = new BigDecimal(""+user.getAvaBalance()); //当前用户余额
+        map.put("zonMon",""+zon.add(yu));//计算总资产
 
         List<Map> rlist = cdao.getRechargeMax(uid);
         List<Map> wlist = cdao.getWithdrawMax(uid);
-        Map map1 = rlist.get(0);
+        Map map1 = rlist.get(0);//累计充值与提现
         if(map1 == null){
             map.put("rmax","0.0");
         }else {
             map.put("rmax",map1.get("rmon")+"");
         }
 
-        Map map2 = wlist.get(0);
+        Map map2 = wlist.get(0);//累计充值与提现
         if(map2 == null){
             map.put("wmax","0.0");
         }else {

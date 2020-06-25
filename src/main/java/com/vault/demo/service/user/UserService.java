@@ -17,7 +17,7 @@ public interface UserService {
     void bindBank(UserBank userBank);
     UserBank getBC(int uId);
     Credit getCredit(int uId);
-    Map daiShou(int uid);//查询用户代收本金
+    Map daiShou(Userimf user);//查询用户代收本金
 
     void bindWorryCall(WorryCall worryCall);
     void upWorryCall(WorryCall worryCall);

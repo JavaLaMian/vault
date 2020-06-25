@@ -85,15 +85,6 @@ public class PerBid {
         this.perBidName = perBidName;
     }
 
-
-    public float getInRate() {
-        return inRate;
-    }
-
-    public void setInRate(float inRate) {
-        this.inRate = inRate;
-    }
-
     public float getRate() {
         return rate;
     }
@@ -180,27 +171,5 @@ public class PerBid {
 
     public void setBorrowTime(int borrowTime) {
         this.borrowTime = borrowTime;
-    }
-
-    @Override
-    public String toString() {
-        return "PerBid{" +
-                "perBid=" + perBid +
-                ", bidStatus=" + bidStatus +
-                ", borrower=" + borrower +
-                ", perBidName='" + perBidName + '\'' +
-                ", inRate=" + inRate +
-                ", rate=" + rate +
-                ", addRate=" + addRate +
-                ", combination=" + combination +
-                ", transLine='" + transLine + '\'' +
-                ", clockLine='" + clockLine + '\'' +
-                ", transfer=" + transfer +
-                ", startTime=" + startTime +
-                ", enquiry=" + enquiry +
-                ", schedul=" + schedul +
-                ", expire=" + expire +
-                ", borrowTime=" + borrowTime +
-                '}';
     }
 }
