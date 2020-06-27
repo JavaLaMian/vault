@@ -215,7 +215,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="loanWantMoney" id="loanWantMoneyLabel">期望贷款金额</label>
+                            <label for="loanWantMoney" id="loanWantMoneyLabel">期望贷款金额(5000~100000间)</label>
                             <input id="loanWantMoney" name="loanWantMoney" type="number" class="form-control" placeholder="money">
                         </div>
 
@@ -420,7 +420,7 @@
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0">
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.0">借款期限</span>
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.1">：</span>
-                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.2" th:text="${loan.getMinLimit()} + '个月'">12个月</span>
+                                        <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$0.2" th:text="${loan.lowLimit} + '个月'">12个月</span>
                                     </li>
                                     <li class="" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2">
                                         <span data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1.$2.0">年化利率</span>
@@ -846,7 +846,9 @@
                         </ul>
                         <p></p>
                         <div class="buttonBox" data-reactid=".0.2.1.1:2.1.1.1:0.3">
-                            <button class="" style="width:320px;" data-reactid=".0.2.1.1:2.1.1.1:0.3.0">回到首页</button>
+                            <a th:href="@{/loan/main2}">
+                                <button class="" style="width:320px;" data-reactid=".0.2.1.1:2.1.1.1:0.3.0">回到首页</button>
+                            </a>
                         </div>
                         <div class="lendImatchBanner" data-reactid=".0.2.1.1:2.1.1.1:0.4">
                             <div id="qc-launchMarketing-52" style="width:100%;" data-reactid=".0.2.1.1:2.1.1.1:0.4.0">
@@ -950,10 +952,21 @@
             document.getElementById("loanWantMoneyLabel").style.color = "red";
 
             check = 0;
+        }else if (loanWantMoney > 100000){
+            document.getElementById("loanWantMoneyLabel").innerHTML = '金额过大，金额只能为5000至100000之间';
+            document.getElementById("loanWantMoneyLabel").style.color = "red";
+
+            check = 0;
+        }else if (loanWantMoney < 5000){
+            document.getElementById("loanWantMoneyLabel").innerHTML = '金额过小，金额只能为5000至100000之间';
+            document.getElementById("loanWantMoneyLabel").style.color = "red";
+
+            check = 0;
         }else {
-            document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额';
+            document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额（5000~100000间）';
             document.getElementById("loanWantMoneyLabel").style.color = "black";
         }
+
         if (loanPurpose == '' || loanPurpose == null){
             document.getElementById("loanPurposeLabel").innerHTML = '请输入贷款用途';
             document.getElementById("loanPurposeLabel").style.color = "red";
