@@ -30,4 +30,5 @@ public interface UserService {
 
 
     Boolean bindReferee(Userimf refereerUser,Userimf curr);
+    Map getChuJie(Userimf user);//出借图
 }

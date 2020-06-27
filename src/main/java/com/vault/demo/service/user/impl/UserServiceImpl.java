@@ -291,8 +291,33 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public Map getChuJie(Userimf user) {
+        List<String> slist = new ArrayList<>();
+        List mlist = new ArrayList();
+
+        List<Tender> tlist = bidDao.selTenderByTD(user.getuId());
+        Map map = new HashMap();
+        int s = tlist.size();
+        for(int i = 0;i < 7;i++){
+            if(i < s){
+                slist.add(i,getNowDate(tlist.get(i).getTenTime()));
+                BigDecimal bian = new BigDecimal(""+tlist.get(i).getTenMoney());
+                BigDecimal wan = new BigDecimal("10000");
+                bian = bian.multiply(wan);
+                mlist.add(i,bian.floatValue());
+            }else {
+                slist.add(i,"----");
+                mlist.add(i,0.0);
+            }
+        }
+        map.put("time",slist);
+        map.put("value",mlist);
+        return map;
+    }
+
     private static String getNowDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
         return dateString;
     }

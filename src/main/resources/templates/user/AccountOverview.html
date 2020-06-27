@@ -299,11 +299,10 @@
 						</div>
 					</div>
 				<div class="lend">
-					<input type="hidden" value='[{"investTime":"2020-06","investAmount":0},{"investTime":"2020-05","investAmount":0},{"investTime":"2020-04","investAmount":0},{"investTime":"2020-03","investAmount":0},{"investTime":"2020-02","investAmount":0},{"investTime":"2020-01","investAmount":0}]' id="sixData" />
 					<div class="charts">
-						<h2>出借走势</h2>
-						<div class="inner">
-							<div id="chartsData"></div>
+						<h2 style="text-align: center">出借走势</h2>
+						<div class="inner" style="width: 770px;padding: 25px">
+							<div id="chartsData" style="width: 100%"></div>
 						</div>
 					</div>
 					<div class="calendar">
@@ -467,14 +466,41 @@
         location.reload();
     }
 </script>
-
+<script th:src="@{/js/echarts.min.js}" type="text/javascript"></script>
 <script>
-	//百度统计
-	var _hmt = _hmt || [];
-	var hm = document.createElement("script");
-	hm.src = "http://hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
-	var s = document.getElementsByTagName("script")[0];
-	s.parentNode.insertBefore(hm, s);
+	// //百度统计
+	// var _hmt = _hmt || [];
+	// var hm = document.createElement("script");
+	// hm.src = "http://hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
+	// var s = document.getElementsByTagName("script")[0];
+	// s.parentNode.insertBefore(hm, s);
+    var chat = echarts.init(document.getElementById("chartsData"));
+    $.post("/user/zhexian",{},function(data){
+        chat.setOption({
+            title: {
+                text: '近期出借图'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                data:['出借金额']
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: data.time
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'出借金额',
+                data: data.value,
+                type: 'line'
+            }]
+        });
+    },"json");
 </script>
 
 
