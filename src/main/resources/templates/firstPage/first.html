@@ -137,29 +137,54 @@
 				</li>
 			</ul>
 		</nav>
-		<div class="user">
-					<span onclick="gotoLogin('/user/toAO')" class="title">
+		<div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" class="title">
+                <div class="img-box"></div>
+                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
+            </span>
+		</div>
+		<div th:if="${session.user!=null}"  class="user">
+					<span class="title">
 						<div class="img-box"></div>
-						<span>我的账户</span>
+						<span><a style="color: black" href="/user/toAO">我的账户</a></span>
 						<i class="icon-common icon-common-to-bottom"></i>
 					</span>
 			<ul>
-				<li><a href="javascript:gotoLogin('/user/toAO');">充值</a></li>
-				<li><a href="javascript:gotoLogin('/user/toAO');">提现</a></li>
-				<li><a href="javascript:gotoLogin('/loan/main');">我的网贷</a></li>
-				<li><a href="javascript:gotoLogin('/user/toAS');">账户安全</a></li>
+				<li><a href="/user/toAO">充值</a></li>
+				<li><a href="/user/toAO">提现</a></li>
+				<li><a href="/loan/main">我的网贷</a></li>
+				<li><a href="/user/toAS">账户安全</a></li>
 				<li><a href="#">我的消息</a></li>
-				<li><a href="javascript:gotoLogin('/user/toYuhui');">红包优惠券</a></li>
+				<li><a href="/user/toYuhui">红包优惠券</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
-<div class="streamer" id="streamerModel">
+<div class="streamer">
 	<div class="slider">
-		<!--<ul class="banner" id="banner" style="width: 30448px; position: absolute; left: 0px;">-->
-			<!--<li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/4667e5e2-9a0b-4182-8dcf-2ad5a3354975.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1444" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/8e3731dc-75b8-4d00-a8b7-6ca516da1c67.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1443" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/530e9633-76f3-407c-b2c3-e6b941b654eb.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1430" target="_blank"></a></li><li style="background-img: url(&quot;//image.xiaoniu88.com/image/image_upload/932a0bbe-9922-4ad5-829a-60be4c0819d3.png&quot;)center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1440" target="_blank"></a></li><li style="background-img: url(//image.xiaoniu88.com/image/image_upload/e5828f7a-fcc8-4ba2-9ecb-ae923db2e030.png) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1442" target="_blank"></a></li><li style="background-image: url(//image.xiaoniu88.com/image/image_upload/89a0b32d-80a6-4e3a-b803-61fc1f357158.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1431" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/b755af68-9e07-420a-9bee-aeec3fee5e36.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1423" target="_blank"></a></li><li style="background-image: url(&quot;//image.xiaoniu88.com/image/image_upload/c2f3f445-d47e-4f47-a1bd-652f4bdbfb1d.png&quot;) center center / cover no-repeat; width: 1903px; float: left;"><a href="https://www.xiaoniu88.com/cms/article/detail/1424" target="_blank"></a></li>-->
-		<!--</ul>-->
-		<div class="but"><a href="javascript:;" onfocus="this.blur()" class="s">1</a><a href="javascript:;" onfocus="this.blur()">2</a><a href="javascript:;" onfocus="this.blur()">3</a><a href="javascript:;" onfocus="this.blur()">4</a><a href="javascript:;" onfocus="this.blur()">5</a><a href="javascript:;" onfocus="this.blur()">6</a><a href="javascript:;" onfocus="this.blur()">7</a><a href="javascript:;" onfocus="this.blur()">8</a></div>
+		<ul class="banner" id="lunBo" style="width: 9515px; position: absolute; left: 0px;">
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+		</ul>
+		<div class="but">
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">1</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">2</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">3</a>
+		</div>
 	</div>
 	<div class="container">
 	</div>
@@ -309,7 +334,7 @@
 				<a th:href="@{/main/perImf(id=${per.perBid})}"  style="text-decoration: none;" th:each="per:${perList}">
 				<div class="item " style="width:263px">
 					<div class="panel">
-						<div class="rate" th:text="${#numbers.formatDecimal(per.inRate,1,'COMMA',2,'POINT')}+'%'"><span></span></div>
+						<div class="rate" th:text="${per.inRate}+'%'"></div>
 						<div class="rate-label">参考利率<i class="icon-question risk-tips" title="小牛在线P2P互联网金融平台所
 						有项目参考利率是在参考同类型工具历史数据得出，<br>并不代表实际收益，市场有风险，出借需谨慎。"></i></div>
 						<div class="about">
@@ -629,20 +654,62 @@
     </span>
 </div>
 
-<!--end 尾部-->
-
-<!--引入统计代码-->
-
 <div style="display:none">
 	<script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		var jishiLun;
+		var imgLen = $("#lunBo li").length;
+		var curIndex = 0;
+        var autoChange = setInterval("zhiXin()","3000");
 
-        ga('create', 'UA-104712537-1', 'auto');
-        ga('send', 'pageview');
 
+        //右箭头滑入滑出事件处理
+        /*$(".but a").hover(function(){
+            //滑入清除定时器
+            clearInterval(autoChange);
+        }, function(){
+            //滑出则重置定时器
+            autoChangeAgain();
+        });*/
+        function yiRuLun(id) {
+			var xun = $(id).text();
+            clearInterval(autoChange);
+            changeTo(xun)
+        }
+
+        function zhiXin() {
+            if(curIndex < imgLen-1){
+                curIndex ++;
+                //调用变换处理函数
+                changeTo(curIndex);
+            }else{
+                $("#lunBo").css("left","0");
+                curIndex = 0;
+                zhiXin();
+            }
+        }
+
+        //清除定时器时候的重置定时器--封装
+        function autoChangeAgain(){
+            autoChange = setInterval("zhiXin()","3000");
+        }
+
+        function changeTo(num){
+            var goLeft = num * 1903;
+            $("#lunBo").animate({left: "-" + goLeft + "px"},500);
+        }
+       /* function lunBouFun() {
+            jishiLun = setInterval("jiShi()", "10");
+        }
+        function jiShi() {
+			times += 10;
+			if(times === 3000){
+                times = 0;
+			    weizhi += 1;
+			    if(weizhi === 4) weizhi = 0;
+			    $("#lunBo").css("left",weizhi*-1903+"px");
+			}
+        }
+        lunBouFun();*/
 	</script>
 </div>
 
@@ -660,9 +727,6 @@
 
 </script>
 <script>
-	function gotoLogin(url) {
-		window.location.href=url;
-    }
     $(function(){
         seajs.use('portal/index2016/js/init');
     });

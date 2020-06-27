@@ -99,7 +99,9 @@ public class MainControl{
         request.setAttribute("u", u);
         request.setAttribute("t", tenders);
         request.setAttribute("countU", countU);
-        request.setAttribute("ylist",bidSer.getHonBao(userimf1.getuId()));
+        if(userimf1 != null){
+            request.setAttribute("ylist",bidSer.getHonBao(userimf1.getuId()));
+        }
         request.setAttribute("lastTime",lastTime);
         String msg = request.getParameter("msg");//获取上个方法添加的参数
         request.setAttribute("msg",msg);//设置到requset中页面提醒用户

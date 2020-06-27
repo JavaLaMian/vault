@@ -49,6 +49,27 @@
             float: left;
             text-align: center;
         }
+        /*::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(240, 240, 240, 1);
+        }
+        /*定义滚动条轨道 内阴影+圆角
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
+            border-radius: 10px;
+            background-color: rgba(240, 240, 240, .5);
+        }*/
+        /*定义滑块 内阴影+圆角
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
+            background-color:rgb(255,113,54);
+        }*/
+        .gunDon{
+            overflow-y: scroll;
+            height: 1250px;
+        }
     </style>
 </head>
 <body>
@@ -76,8 +97,10 @@
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info" id="riskLevel-info">
                         风险评估：***
@@ -223,8 +246,8 @@
         $.post("/user/zhijin", {}, function (data) {
             var html = "";
             if(data.size != 0){
-                html = "<ul style='overflow: hidden;padding:15px;'><li class='titles'><p>类型</p><p style='width: 34%;'>" +
-                    "时间</p><p>相关名称</p><p>所花金额</p></li>";
+                html = "<section class='gunDon'><ul style='overflow: hidden;padding:15px;'>" +
+                    "<li class='titles'><p>类型</p><p style='width: 34%;'>时间</p><p>相关名称</p><p>所花金额</p></li>";
                 var lists = data.list;
 
                 for(var i = 0;i<lists.length;i++){  //循环LIST
@@ -237,7 +260,7 @@
                     html += "<li class='lie'><p>"+type+"</p><p style='width: 34%;'>"
                         +dates+"</p><p>"+name+"</p><p>"+money+"元</p></li>";
                 }
-                html += "</ul>";
+                html += "</ul></section>";
             }else {
                 html += "<h1 style='text-align: center;font-size: 24px'>您尚未产生资金记录，赶快去投个标吧</h1>"
             }

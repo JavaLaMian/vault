@@ -26,11 +26,15 @@ public class UserController2 {
     public String toAO(HttpSession session,Model model){
         Userimf userimf = (Userimf) session.getAttribute("user");
         if(userimf != null){
-            Map map = service.daiShou(userimf.getuId());
+            Map map = service.daiShou(userimf);
             userimf.setEmail(null);
             Userimf user = service.logPadUser(userimf);
             UserBank userBank = service.getBC(user.getuId());
-
+            Credit credit = service.getCredit(user.getuId());
+            Map ren = new HashMap();
+            ren.put("bank",userBank);
+            ren.put("cred",credit);
+            session.setAttribute("ren",ren); //将用户认证信息存入session以判断
             session.setAttribute("user",user);
             model.addAttribute("map",map);
             model.addAttribute("bank",userBank);
@@ -86,6 +90,22 @@ public class UserController2 {
             return "loan/login";
         }
     }
+    @RequestMapping("/updateApply")
+    public String updateApply(HttpSession session, Model model){
+        Userimf user = (Userimf) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("applyType","update");
+            return "user/apply";
+        }else {
+            return "loan/login";
+        }
+    }
+//    @RequestMapping("/updateApply")
+//    public Boolean updateApply(UserBank userBank,HttpSession session, Model model){
+//        Userimf user = (Userimf) session.getAttribute("user");
+//        service.u(userBank);
+//        return false;
+//    }
 
     @RequestMapping("/checkold")
     @ResponseBody
@@ -200,5 +220,11 @@ public class UserController2 {
         }else {
             return false;
         }
+    }
+    @RequestMapping("/unbindCard")
+    @ResponseBody
+    public Boolean unbindCard(UserBank bank,HttpSession session){
+        Userimf refereer = new Userimf();
+        return false;
     }
 }

@@ -85,8 +85,6 @@ public class PerBid {
         this.perBidName = perBidName;
     }
 
-
-
     public float getRate() {
         return rate;
     }

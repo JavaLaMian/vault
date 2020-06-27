@@ -28,6 +28,7 @@
         })
     </script>
     <style type="text/css">
+
         .zhezhao{
             position: fixed;
             left: 0px;
@@ -108,8 +109,10 @@
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info" id="riskLevel-info">
                         风险评估：***
@@ -130,13 +133,13 @@
                         <a href="#">我的网贷</a>
                     </li>
                     <li data-type="record">
-                        <a href="#">资金记录</a>
+                        <a href="/user/tozj">资金记录</a>
                     </li>
                     <li data-type="datum" id="safe">
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="/user/viewApply">银行卡管理</a>
+                        <a href="#">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
@@ -247,6 +250,7 @@
                     <div class="account_list">
                         <!-- 实名认证 -->
                         <div myid='realName' class="column">
+
                             <div class="column_name not_seted" th:if="null eq ${credit}">
                                 实名认证
                             </div>
@@ -258,12 +262,12 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted lv15" th:if="null ne ${credit}">
+                            <div class="column_name seted" th:if="null ne ${credit}">
                                 实名认证
                             </div>
                             <div class="column_msg" th:if="null ne ${credit}">
                                 <span class="setting" th:if="${credit.identity} ne null">
-                                    <a myTarget="smdj_rz" href="/user/viewApply">查看</a>
+                                    <!--<a myTarget="smdj_rz" href="/user/viewApply">查看</a>-->
                                 </span>
                                 <span class="column_info">合同有效性、资金提现的有力保障，成功提交后不可更改</span>
                                 <span class="info_con"></span>
@@ -393,7 +397,10 @@
                                 <span class="info_con"></span>
                             </div>
                             <div class="column_msg" th:if="null ne ${userBank}">
-                                <span class="setting"><a myTarget="yykrz_xg" class="showSetting">修改</a></span>
+                                <span class="setting">
+                                    <!--<a myTarget="yykrz_xg" class="showSetting">修改</a>-->
+                                    <a myTarget="yykrz_xg" href="/user/viewApply">查看</a>
+                                </span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
