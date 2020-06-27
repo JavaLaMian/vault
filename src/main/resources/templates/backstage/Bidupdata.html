@@ -82,12 +82,12 @@
                                             <label class="col-form-label col-lg-3">定期锁期时间</label>
                                             <div class="form-controls col-lg-8" style="margin-left: -400px;margin-top: 20px">
                                                 <select name="clockLine" class="form-control" id="clockLine">
-                                                    <option value="1" selected th:if="${p.clockLine eq 1}">3个月</option>
-                                                    <option value="1" th:if="${p.clockLine != 1}">3个月</option>
-                                                    <option value="2" selected th:if="${p.clockLine eq 2}">6个月</option>
-                                                    <option value="2" th:if="${p.clockLine != 2}">6个月</option>
-                                                    <option value="3" selected th:if="${p.clockLine eq 3}">12个月</option>
-                                                    <option value="3" th:if="${p.clockLine != 3}">12个月</option>
+                                                    <option value="3" selected th:if="${p.clockLine eq 3}">3个月</option>
+                                                    <option value="3" th:if="${p.clockLine != 3}">3个月</option>
+                                                    <option value="6" selected th:if="${p.clockLine eq 6}">6个月</option>
+                                                    <option value="6" th:if="${p.clockLine != 6}">6个月</option>
+                                                    <option value="12" selected th:if="${p.clockLine eq 12}">12个月</option>
+                                                    <option value="12" th:if="${p.clockLine != 12}">12个月</option>
                                                 </select>
                                             </div>
                                         </div>

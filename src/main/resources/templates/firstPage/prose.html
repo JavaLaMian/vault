@@ -463,9 +463,6 @@
                 <div class="sellout abs" th:case="2" th:if="${session.user!=null}">
                     <div class="info">该标已关闭交易</div>
                 </div>
-                <div class="sellout abs" th:case="4" th:if="${session.user!=null}">
-                    <div class="info">该标已锁定</div>
-                </div>
                 <div class="sellout abs" th:case="*" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                     <div class="info">请先登陆您的账号</div>
                 </div>

@@ -69,8 +69,10 @@
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info" id="riskLevel-info">
                         风险评估：***
@@ -338,24 +340,134 @@
                                         </span>
                                     </span>
 
-                                <div id="insertHouse" style="width: 70%;margin: 0 auto;display: none">
-                                    <form th:if="${house == null}" th:action="@{/user/toUploadHouse}" onsubmit="return houseSubmit()" method="post" enctype="multipart/form-data">
+                                    <div id="insertHouse" style="width: 70%;margin: 0 auto;display: none">
+                                        <form th:if="${house == null}" th:action="@{/user/toUploadHouse}" onsubmit="return jobSubmit()" method="post" enctype="multipart/form-data">
+                                            <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">请上传房产登记证书</td>
+                                                    <td><input type="file" name="photoFile"></td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">预估价值</td>
+                                                    <td><input type="number" name="money"></td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td style="text-align: right;padding-right: 12px">说明</td>
+                                                    <td>
+                                                        <textarea type="text" name="remark" style="width: 223px;height: 57px;margin: 17.9972px 0px 11.9886px;"></textarea>
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                    <td colspan="2" style="text-align: center">
+                                                        <button type="submit" style="width: 100px;height: 30px;border-radius: 3px;border: 1px solid #ccc;background: #5189c3;color: #fff;font-size: 13px;font-weight: bold;">
+                                                            提交
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+
+                                        <table th:if="${house != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                            <tbody>
+                                            <tr style="height: 80px;line-height: 80px">
+                                                <th style="width: 130px">编号</th>
+                                                <td th:text="${house.hId}" style="width: 180px">编号</td>
+                                                <th style="width: 130px">照片</th>
+                                                <td style="width: 180px"><img th:src="@{${house.photo}}" style="width: 100px;height: 80px"></td>
+                                            </tr>
+                                            <tr style="height: 80px;line-height: 80px">
+                                                <th style="width: 130px">价值</th>
+                                                <td th:text="${house.money} + '万'" style="width: 180px">价值</td>
+                                                <th style="width: 130px">说明</th>
+                                                <td th:text="${house.remark}" style="width: 180px">说明</td>
+                                            </tr>
+                                            <tr style="height: 80px;line-height: 80px">
+                                                <th style="width: 130px">状态</th>
+                                                <td style="width: 180px">
+                                                    <span style="color: red" th:if="${house.status == 4}">审核</span>
+                                                    <span style="color: red" th:if="${house.status == 0}">不可用</span>
+                                                    <span style="color: red" th:if="${house.status == 1}">可用</span>
+                                                    <span style="color: red" th:if="${house.status == 2}">已抵</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        var show = true;
+
+                                        function insertHouseShow() {
+
+                                            if (show){
+                                                $(".insertHouseA").text("收起");
+                                                $("#insertHouse").css("display","block");
+                                                // document.getElementsByClassName("insertCarA").innerText = "收起";
+                                                // document.getElementsByClassName("insertCar").style.display = 'block';
+                                                show = false;
+                                            }else {
+                                                $(".insertHouseA").text("查看");
+                                                $("#insertHouse").css("display","none");
+                                                // document.getElementById("insertCarA").innerText = "查看";
+                                                // document.getElementsByClassName("insertCar").css.display("none");
+                                                show = true;
+                                            }
+                                        }
+
+                                        function houseSubmit() {
+                                            return true;
+                                        }
+                                    </script>
+                                </p>
+
+
+
+                                <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
+
+
+                                    <!--                 如果工作单位为空                   -->
+                                    <span th:if="${credit == null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
+                                            工作信息
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">信用贷款时可以做为评估条件</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertJobShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <!--                 如果工作单位不为空                   -->
+                                    <span th:if="${credit != null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
+                                            工作信息
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">信用贷款时可以做为评估条件</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertHouseShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                <div id="insertJob" style="width: 70%;margin: 0 auto;display: none">
+                                    <form th:if="${credit == null}" th:action="@{/user/toUploadHouse}" onsubmit="return houseSubmit()" method="post" enctype="multipart/form-data">
                                         <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                                <td style="text-align: right;padding-right: 12px">请上传房产登记证书</td>
-                                                <td><input type="file" name="photoFile"></td>
+                                                <td style="text-align: right;padding-right: 12px">工作单位</td>
+                                                <td><input type="text" name="dept"></td>
                                             </tr>
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                                <td style="text-align: right;padding-right: 12px">预估价值</td>
+                                                <td style="text-align: right;padding-right: 12px">月薪水平</td>
                                                 <td><input type="number" name="money"></td>
                                             </tr>
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                                <td style="text-align: right;padding-right: 12px">说明</td>
-                                                <td>
-                                                    <textarea type="text" name="remark" style="width: 223px;height: 57px;margin: 17.9972px 0px 11.9886px;"></textarea>
-                                                </td>
+                                                <td style="text-align: right;padding-right: 12px">单位热线</td>
+                                                <td><input name="phe"></td>
                                             </tr>
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
@@ -368,54 +480,46 @@
                                         </table>
                                     </form>
 
-                                    <table th:if="${house != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
-                                        <tbody>
-                                        <tr style="height: 80px;line-height: 80px">
-                                            <th style="width: 130px">编号</th>
-                                            <td th:text="${house.hId}" style="width: 180px">编号</td>
-                                            <th style="width: 130px">照片</th>
-                                            <td style="width: 180px"><img th:src="@{${house.photo}}" style="width: 100px;height: 80px"></td>
+                                    <table th:if="${credit != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+
+                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                            <td style="text-align: right;padding-right: 12px">工作单位</td>
+                                            <td><input type="text" disabled></td>
                                         </tr>
-                                        <tr style="height: 80px;line-height: 80px">
-                                            <th style="width: 130px">价值</th>
-                                            <td th:text="${house.money} + '万'" style="width: 180px">价值</td>
-                                            <th style="width: 130px">说明</th>
-                                            <td th:text="${house.remark}" style="width: 180px">说明</td>
+
+                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                            <td style="text-align: right;padding-right: 12px">月薪水平</td>
+                                            <td><input type="number" disabled></td>
                                         </tr>
-                                        <tr style="height: 80px;line-height: 80px">
-                                            <th style="width: 130px">状态</th>
-                                            <td style="width: 180px">
-                                                <span style="color: red" th:if="${house.status == 4}">审核</span>
-                                                <span style="color: red" th:if="${house.status == 0}">不可用</span>
-                                                <span style="color: red" th:if="${house.status == 1}">可用</span>
-                                                <span style="color: red" th:if="${house.status == 2}">已抵</span>
-                                            </td>
+
+                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                            <td style="text-align: right;padding-right: 12px">单位热线</td>
+                                            <td><input type="number" disabled></td>
                                         </tr>
-                                        </tbody>
                                     </table>
                                 </div>
 
                                 <script type="text/javascript">
                                     var show = true;
 
-                                    function insertHouseShow() {
+                                    function insertJobShow() {
 
                                         if (show){
-                                            $(".insertHouseA").text("收起");
-                                            $("#insertHouse").css("display","block");
+                                            $(".insertJob").text("收起");
+                                            $("#insertJob").css("display","block");
                                             // document.getElementsByClassName("insertCarA").innerText = "收起";
                                             // document.getElementsByClassName("insertCar").style.display = 'block';
                                             show = false;
                                         }else {
-                                            $(".insertHouseA").text("查看");
-                                            $("#insertHouse").css("display","none");
+                                            $(".insertJob").text("查看");
+                                            $("#insertJob").css("display","none");
                                             // document.getElementById("insertCarA").innerText = "查看";
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;
                                         }
                                     }
 
-                                    function houseSubmit() {
+                                    function jobSubmit() {
                                         return true;
                                     }
                                 </script>

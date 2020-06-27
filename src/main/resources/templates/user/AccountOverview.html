@@ -129,13 +129,15 @@
 						</div>
 						<div class="badge-info">
 							<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-							<i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-							<i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+							<i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
+							<i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
+							<i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
+							<i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
 						</div>
-						<div class="point-info" id="riskLevel-info">
-							风险评估：***
-							<a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
-						</div>
+						<!--<div class="point-info" id="riskLevel-info">-->
+							<!--风险评估：***-->
+							<!--<a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>-->
+						<!--</div>-->
 						<div class="point-info">
 							我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
 							<a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
@@ -202,7 +204,7 @@
 							<dl class="total">
 								<dt>总资产<i class="icon-question" title="<p style='color:red;'>*投标中状态的待收利息及奖励不计入总资产。</p>&#10;<p>总资产=待收本金+待收利息及奖励+提现冻结+可用余额</p>&#10;<p>待收本金：含体验金本金及投资冻结金额</p>&#10;<p>待收利息及奖励= 待收利息+待收奖励</p>&#10;<p>待收奖励=待收新手奖励+待收增利券奖励+待收限时奖励+待收续期奖励+待收其他奖励</p>"></i></dt>
 								<dd>
-									<big th:text="${#numbers.formatDecimal(session.user.avaBalance,1,'COMMA',2,'POINT')}"></big>
+									<big th:text="${#numbers.formatDecimal(map.zonMon,1,'COMMA',2,'POINT')}"></big>
 									<small>元</small>
 									<span>含0.00元体验金</span>
 								</dd>
@@ -297,11 +299,10 @@
 						</div>
 					</div>
 				<div class="lend">
-					<input type="hidden" value='[{"investTime":"2020-06","investAmount":0},{"investTime":"2020-05","investAmount":0},{"investTime":"2020-04","investAmount":0},{"investTime":"2020-03","investAmount":0},{"investTime":"2020-02","investAmount":0},{"investTime":"2020-01","investAmount":0}]' id="sixData" />
 					<div class="charts">
-						<h2>出借走势</h2>
-						<div class="inner">
-							<div id="chartsData"></div>
+						<h2 style="text-align: center">出借走势</h2>
+						<div class="inner" style="width: 770px;padding: 25px">
+							<div id="chartsData" style="width: 100%"></div>
 						</div>
 					</div>
 					<div class="calendar">
@@ -465,14 +466,41 @@
         location.reload();
     }
 </script>
-
+<script th:src="@{/js/echarts.min.js}" type="text/javascript"></script>
 <script>
-	//百度统计
-	var _hmt = _hmt || [];
-	var hm = document.createElement("script");
-	hm.src = "http://hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
-	var s = document.getElementsByTagName("script")[0];
-	s.parentNode.insertBefore(hm, s);
+	// //百度统计
+	// var _hmt = _hmt || [];
+	// var hm = document.createElement("script");
+	// hm.src = "http://hm.baidu.com/hm.js?7226b8c48cd07619c7a9ebd471d9d589";
+	// var s = document.getElementsByTagName("script")[0];
+	// s.parentNode.insertBefore(hm, s);
+    var chat = echarts.init(document.getElementById("chartsData"));
+    $.post("/user/zhexian",{},function(data){
+        chat.setOption({
+            title: {
+                text: '近期出借图'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                data:['出借金额']
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: data.time
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'出借金额',
+                data: data.value,
+                type: 'line'
+            }]
+        });
+    },"json");
 </script>
 
 

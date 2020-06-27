@@ -111,11 +111,9 @@
         select b.bidName,t.tenTime,b.clockLine,t.tenMoney from tender t,bid b where t.bId = b.bId and t.uId = #{uId}
     </select>
 
-
     <select id="lastTenTime" resultType="Date" parameterType="int">
         select  tenTime from tender where bid  = #{bid} and bType = 3 ORDER BY tenTime desc limit  0,1
     </select>
-
 
     <select id="countUser" resultType="int">
         select COUNT(*)from userimf
@@ -123,5 +121,9 @@
 
     <select id="countTenMoney" resultType="float">
         select COUNT(tenMoney) from tender
+    </select>
+
+    <select id="selTenderByTD" resultType="com.vault.demo.bean.Tender">
+        select * from tender where uId = #{uId} and bType = 3 order by tenTime desc
     </select>
 </mapper>
