@@ -74,8 +74,12 @@ public class BackLoanController {
         bls.updLoan(loan);
         return "redirect:/XMN/Loan_List";
     }
+    @ResponseBody
     @RequestMapping("/examine_fail")
-    public String examineFail(){
-        return "";
+    public String examineFail(int lId){
+        Loan loan = bls.selLoanByLid(lId);
+        loan.setLoanStatue(4);//申请失败
+        bls.updLoan(loan);
+        return "success";
     }
 }

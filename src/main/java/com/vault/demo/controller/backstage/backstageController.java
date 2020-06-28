@@ -71,7 +71,7 @@ public class backstageController {
         mv.setViewName("backstage/BidList");
         return mv;
     }
-
+    //去往贷款审核页面
     @RequestMapping("/Loan_List")
     public ModelAndView toLoanList(ModelAndView mv,HttpSession session){
         Admin admin = (Admin)session.getAttribute("admin");

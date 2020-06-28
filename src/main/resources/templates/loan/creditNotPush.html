@@ -160,13 +160,21 @@
         <p style="margin: 50px 0;text-align: center" th:text="${loanNotPushType}">您的xx信息未填写</p>
 
         <div class="discountFlag" data-reactid=".0.2.1.1:2.0.1.0.4">
-            <a  class="ajk" th:href="@{/user/toAS}" target="_blank">
+            <a th:if="${loanTypeStr == 1}"  class="ajk" th:href="@{/user/toAS}" target="_blank">
                 <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >去绑定信用信息</button>
+            </a>
+
+            <a th:if="${loanTypeStr == 2}"  class="ajk" th:href="@{/user/toCreditRegisterPage}" target="_blank">
+                <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >去绑定用户高级信息</button>
+            </a>
+
+            <a th:if="${loanTypeStr == 3}"  class="ajk" th:href="@{/user/toAO}" target="_blank">
+                <button class=""  data-reactid=".0.2.1.1:2.0.1.0.4.1" >去绑定用户信息</button>
             </a>
         </div>
     </div>
 </div>
-<div id="myft" class="mybank-foot-wrap">
+<div id="myft" class="mybank-foot-wrap" style="margin-top: 480px">
     <div class="mybank-foot-content">
         <div class="mybank-foot-left">
             <img width="209" th:src="@{/img/loan/log6.png}" class="mybank-foot-logo">

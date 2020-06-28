@@ -93,7 +93,7 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public void updateuserMoney(Float money,int id) {
+    public void updateuserMoney(double money,int id) {
         dao.updateuserMoney(money,id);
     }
 
