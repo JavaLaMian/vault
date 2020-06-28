@@ -160,9 +160,31 @@
 		</div>
 	</div>
 </div>
-<div class="streamer" id="streamerModel">
+<div class="streamer">
 	<div class="slider">
-
+		<ul class="banner" id="lunBo" style="width: 9515px; position: absolute; left: 0px;">
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
+				<a href="#" target="_blank"></a>
+			</li>
+		</ul>
+		<div class="but">
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">1</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">2</a>
+			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">3</a>
+		</div>
 	</div>
 	<div class="container">
 	</div>
@@ -309,7 +331,7 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2">
-				<a th:href="@{/main/perImf(id=${per.perBid})}"  style="text-decoration: none;" th:each="per:${perList}">
+				<a th:href="@{/main/perImf(id=${per.perBid})}" target="_blank" style="text-decoration: none;" th:each="per:${perList}">
 				<div class="item " style="width:263px">
 					<div class="panel">
 						<div class="rate" th:text="${per.inRate}+'%'"></div>
@@ -354,7 +376,7 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<a th:each="pc:${pcList}" th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}"  target="_blank" style="text-decoration: none;">
+					<a th:each="pc:${pcList}" th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" target="_blank" style="text-decoration: none;">
 					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">
@@ -632,20 +654,62 @@
     </span>
 </div>
 
-<!--end 尾部-->
-
-<!--引入统计代码-->
-
 <div style="display:none">
 	<script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		var jishiLun;
+		var imgLen = $("#lunBo li").length;
+		var curIndex = 0;
+        var autoChange = setInterval("zhiXin()","3000");
 
-        ga('create', 'UA-104712537-1', 'auto');
-        ga('send', 'pageview');
 
+        //右箭头滑入滑出事件处理
+        /*$(".but a").hover(function(){
+            //滑入清除定时器
+            clearInterval(autoChange);
+        }, function(){
+            //滑出则重置定时器
+            autoChangeAgain();
+        });*/
+        function yiRuLun(id) {
+			var xun = $(id).text();
+            clearInterval(autoChange);
+            changeTo(xun)
+        }
+
+        function zhiXin() {
+            if(curIndex < imgLen-1){
+                curIndex ++;
+                //调用变换处理函数
+                changeTo(curIndex);
+            }else{
+                $("#lunBo").css("left","0");
+                curIndex = 0;
+                zhiXin();
+            }
+        }
+
+        //清除定时器时候的重置定时器--封装
+        function autoChangeAgain(){
+            autoChange = setInterval("zhiXin()","3000");
+        }
+
+        function changeTo(num){
+            var goLeft = num * 1903;
+            $("#lunBo").animate({left: "-" + goLeft + "px"},500);
+        }
+       /* function lunBouFun() {
+            jishiLun = setInterval("jiShi()", "10");
+        }
+        function jiShi() {
+			times += 10;
+			if(times === 3000){
+                times = 0;
+			    weizhi += 1;
+			    if(weizhi === 4) weizhi = 0;
+			    $("#lunBo").css("left",weizhi*-1903+"px");
+			}
+        }
+        lunBouFun();*/
 	</script>
 </div>
 

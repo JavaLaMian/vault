@@ -8,8 +8,10 @@ import com.vault.demo.service.test.BidSer;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +19,8 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 //
 @Controller
 @RequestMapping("/user")
@@ -29,7 +29,10 @@ public class UserController {
     private UserService service;
 
     @RequestMapping("/tologin")
-    public String toUserLogin(String zc){
+    public String toUserLogin(String zc, HttpServletRequest request, Model model){
+        String msg = request.getParameter("msg");//获取上个方法添加的参数
+        model.addAttribute("msg",msg);//设置到requset中页面提醒用户
+
         if("zc".equals(zc)) return "loan/login?zc";
         else return "loan/login";
     }
@@ -40,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping("/add")
-    public String addUser(Userimf user,HttpSession session){
+    public String addUser(Userimf user,RedirectAttributes m){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dates = df.format(new Date());// new Date()为获取当前系统时间
         try {
@@ -51,19 +54,19 @@ public class UserController {
         }
         System.out.println(user.toString());
         if(service.addUserImf(user)==1){
-            session.setAttribute("msg","注册成功！");
+            m.addAttribute("msg","注册成功！");
         }else {
-            session.setAttribute("msg","注册失败，请稍后再试");
+            m.addAttribute("msg","注册失败，请稍后再试");
         }
         return "redirect:tologin";
     }
 
     @RequestMapping("/login")
-    public String loginUser(String email, String pwd, String account, String logtype, HttpSession session){
+    public String loginUser(String email, String pwd, String account, String logtype, HttpSession session,RedirectAttributes m){
         //logtype 1 邮箱登陆  0 密码登陆
         Userimf user;
         if("1".equals(logtype)){
-            user = service.pandEmail(email);
+            user = service.pandEmail(email,"e");
             session.setAttribute("user",user);
             //System.out.println("邮箱登陆"+user+toString());
             return "redirect:tologin";
@@ -84,7 +87,7 @@ public class UserController {
                 session.setAttribute("user",user);
                 return "redirect:/main/first";
             }else {
-                session.setAttribute("msg","账号或密码错误");
+                m.addAttribute("msg","账号或密码错误");
                 return "redirect:tologin";
             }
         }
@@ -96,12 +99,7 @@ public class UserController {
     }
     @RequestMapping("/tozj")
     public String toZhiJinPage(HttpSession session) {
-        Userimf user = (Userimf) session.getAttribute("user");
-        if(user != null){
-            return "user/zhiJin";
-        }else {
-            return "redirect:tologin";
-        }
+        return "user/zhiJin";
     }
     @RequestMapping("/zhijin")
     @ResponseBody
@@ -124,18 +122,11 @@ public class UserController {
     @RequestMapping("/padEmail")
     @ResponseBody
     public boolean padEmail(String email){
-        if(service.pandEmail(email) != null){
+        if(service.pandEmail(email,"e") != null){
             return true;
         }else {
             return false;
         }
-    }
-
-    @RequestMapping("/delmsg")
-    @ResponseBody
-    public String DelMsg(HttpSession session){
-        session.removeAttribute("msg");
-        return "";
     }
 
     @RequestMapping("/updpwd")
@@ -145,13 +136,8 @@ public class UserController {
     }
 
     @RequestMapping("/toYuhui")
-    public String toYouHui(HttpSession session){
-        Userimf user = (Userimf)session.getAttribute("user");
-        if(user != null){
-            return "user/youHui";
-        }else {
-            return "redirect:tologin";
-        }
+    public String toYouHui(){
+        return "user/youHui";
     }
 
     @RequestMapping("/yuhui")
@@ -171,4 +157,21 @@ public class UserController {
         return "redirect:/main/first";
     }
 
+    @RequestMapping("/zhexian")
+    @ResponseBody
+    public Map getShu(HttpSession session){
+        Userimf userimf = (Userimf)session.getAttribute("user");
+        Map max = service.getChuJie(userimf);
+        return max;
+    }
+
+    @RequestMapping("/padAct")
+    @ResponseBody
+    public boolean padAccount(String act){
+        if(service.pandEmail(act,"a") != null){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -25,42 +25,38 @@ public class UserController2 {
     @RequestMapping("/toAO")
     public String toAO(HttpSession session,Model model){
         Userimf userimf = (Userimf) session.getAttribute("user");
-        if(userimf != null){
-            Map map = service.daiShou(userimf.getuId());
-            userimf.setEmail(null);
-            Userimf user = service.logPadUser(userimf);
-            UserBank userBank = service.getBC(user.getuId());
+        Map map = service.daiShou(userimf);
+        userimf.setEmail(null);
+        Userimf user = service.logPadUser(userimf);
+        UserBank userBank = service.getBC(user.getuId());
+        Credit credit = service.getCredit(user.getuId());
+        Map ren = new HashMap();
+        ren.put("bank",userBank);
+        ren.put("cred",credit);
+        session.setAttribute("ren",ren); //将用户认证信息存入session以判断
+        session.setAttribute("user",user);
+        model.addAttribute("map",map);
+        model.addAttribute("bank",userBank);
 
-            session.setAttribute("user",user);
-            model.addAttribute("map",map);
-            model.addAttribute("bank",userBank);
-
-            return "user/AccountOverview";
-        }else {
-            return "loan/login";
-        }
+        return "user/AccountOverview";
     }
 
     @RequestMapping("/toAS")
     public String toAS(HttpSession session,Model model){
         Userimf user = (Userimf) session.getAttribute("user");
-        if(user != null){
-            try {
-                Credit credit = service.getCredit(user.getuId());
-                UserBank userBank = service.getBC(user.getuId());
-                model.addAttribute("credit",credit);
-                model.addAttribute("userBank",userBank);
-                WorryCall worryCall = service.getWorryCall(user);
-                model.addAttribute("worryCall",worryCall);
-            }catch (Exception e){
-                model.addAttribute("credit",null);
-                model.addAttribute("userBank",null);
-                model.addAttribute("worryCall",null);
-            }
-            return "user/AccountSafe";
-        }else {
-            return "loan/login";
+        try {
+            Credit credit = service.getCredit(user.getuId());
+            UserBank userBank = service.getBC(user.getuId());
+            model.addAttribute("credit",credit);
+            model.addAttribute("userBank",userBank);
+            WorryCall worryCall = service.getWorryCall(user);
+            model.addAttribute("worryCall",worryCall);
+        }catch (Exception e){
+            model.addAttribute("credit",null);
+            model.addAttribute("userBank",null);
+            model.addAttribute("worryCall",null);
         }
+        return "user/AccountSafe";
     }
     @RequestMapping("/toApply")
     public String toApply(Model model){
@@ -71,30 +67,21 @@ public class UserController2 {
     @RequestMapping("/viewApply")
     public String viewApply(HttpSession session, Model model){
         Userimf user = (Userimf) session.getAttribute("user");
-        if(user != null){
-            Credit credit = service.getCredit(user.getuId());
-            UserBank userBank = service.getBC(user.getuId());
-            if(credit == null && userBank == null){
-                model.addAttribute("applyType","apply");
-            }else {
-                model.addAttribute("applyType","view");
-            }
-            model.addAttribute("credit",credit);
-            model.addAttribute("userBank",userBank);
-            return "user/apply";
+        Credit credit = service.getCredit(user.getuId());
+        UserBank userBank = service.getBC(user.getuId());
+        if(credit == null && userBank == null){
+            model.addAttribute("applyType","apply");
         }else {
-            return "loan/login";
+            model.addAttribute("applyType","view");
         }
+        model.addAttribute("credit",credit);
+        model.addAttribute("userBank",userBank);
+        return "user/apply";
     }
     @RequestMapping("/updateApply")
-    public String updateApply(HttpSession session, Model model){
-        Userimf user = (Userimf) session.getAttribute("user");
-        if(user != null){
-            model.addAttribute("applyType","update");
-            return "user/apply";
-        }else {
-            return "loan/login";
-        }
+    public String updateApply(Model model){
+        model.addAttribute("applyType","update");
+        return "user/apply";
     }
     @RequestMapping("/upcard")
     @ResponseBody

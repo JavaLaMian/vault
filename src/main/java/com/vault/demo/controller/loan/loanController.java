@@ -150,6 +150,8 @@ public class loanController {
             Userimf userimf = (Userimf)session.getAttribute("user");
             WorryCall worryCall = worryCallDao.selectWorryByUId(userimf);
 
+            model.addAttribute("loanTypeStr",1);
+
             if (credit == null
                     || credit.getName() == null || "".equals(credit.getName())
                     || credit.getIdentity() == null || "".equals(credit.getIdentity())
@@ -178,6 +180,71 @@ public class loanController {
                 return "loan/creditNotPush";
             }
 
+        }else if ("diya".equals(loanTypeStr)){      //如果是抵押贷款类型
+
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+            UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+            Userimf userimf = (Userimf)session.getAttribute("user");
+            WorryCall worryCall = worryCallDao.selectWorryByUId(userimf);
+
+            model.addAttribute("loanTypeStr",2);
+
+            if (credit == null
+                    || credit.getName() == null || "".equals(credit.getName())
+                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
+                    || userBank == null
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
+                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCall == null
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+            ){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+
+                return "loan/creditNotPush";
+            }
+
+            if (credit.getType() != 2){
+
+                model.addAttribute("loanNotPushType","请耐心等待您的个人详细信息审核通过");
+
+                return "loan/creditNotPush";
+            }
+
+            Car car = loanService.selectCarByUId(userimf);
+            House house = loanService.selectHouseByUId(userimf);
+
+            System.out.println(car + "\n" + house);
+
+            if (car == null && house == null){
+                model.addAttribute("loanNotPushType","您当前没有可抵押的资产，快去上传吧！");
+
+                return "loan/creditNotPush";
+            }
+
+            if (car.getStatus() == 4 && house.getStatus() == 4){
+                model.addAttribute("loanNotPushType","请耐心等待您的资产信息审核完毕！");
+
+                return "loan/creditNotPush";
+            }
+
+            if (car.getStatus() != 1 && house.getStatus() != 1){
+                model.addAttribute("loanNotPushType","当前用户资产无法使用，详细信息请咨询客服！");
+
+                return "loan/creditNotPush";
+            }
+
+            model.addAttribute("car",car);
+            model.addAttribute("house",house);
+        }else if ("danbao".equals(loanTypeStr)){
+
+            model.addAttribute("loanTypeStr",3);
         }
 
         System.out.println("step："+step);

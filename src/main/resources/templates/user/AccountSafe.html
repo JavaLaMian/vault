@@ -109,8 +109,10 @@
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" id="badge-realname"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" id="badge-bindcard"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
+                        <i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
+                        <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info" id="riskLevel-info">
                         风险评估：***
@@ -137,7 +139,7 @@
                         <a href="/user/toAS">账户安全</a>
                     </li>
                     <li data-type="bankCard" class="last">
-                        <a href="#">银行卡管理</a>
+                        <a href="/user/viewApply">银行卡管理</a>
                     </li>
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>

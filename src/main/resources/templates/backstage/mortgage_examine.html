@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>信用贷款</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+
+
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+    <div th:replace="/backstage/Brepetition::javascript"></div>
+</head>
+
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+        <!--页面主要内容-->
+        <main class="layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h4>用户信息</h4></div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item" style="height:50px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">姓名:</label>
+                                            <span class="control-span" th:text="${credit.name}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">工作单位:</label>
+                                            <span class="control-span" th:text="${credit.depart}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">工资情况:</label>
+                                            <span class="control-span" th:text="${credit.wages}"></span>
+                                            <span class="control-span" style="color: #00c2c2">元/月</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="height:50px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">身份证:</label>
+                                            <span class="control-span" th:text="${credit.identity}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">联系电话:</label>
+                                            <span class="control-span" th:text="${user.phe}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">信用评估等级:</label>
+                                            <span class="control-span" th:if="${user.creditLv eq 1}">无</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 2}">差</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 3}">良</span>
+                                            <span class="control-span" th:if="${user.creditLv eq 4}">优</span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item" style="height:50px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">年龄:</label>
+                                            <span class="control-span" th:text="${user.age}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">性别:</label>
+                                            <span class="control-span" th:text="${user.sex}"></span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">期望借款金额:</label>
+                                            <span class="control-span" th:text="${loan.loanWantMoney}"></span>
+                                            <span class="control-span" style="color: #00c2c2">万元</span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item" style="height:50px">
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">用户选择贷款年化利率:</label>
+                                            <span class="control-span" th:text="${loan.interest}"></span>
+                                            <span class="control-span" style="color: #00c2c2">%</span>
+                                        </div>
+                                        <div class="col-md-4" style="float: left">
+                                            <label class="control-label">用户选择贷款时限:</label>
+                                            <span class="control-span" th:text="${loan.lowLimit}"></span>
+                                            <span class="control-span" style="color: #00c2c2">月</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="guide-box form-horizontal" id="demo" th:action="@{/back_loan/examine}" method="post" data-navigateable="true">
+                                    <ul class="nav-step step-dots">
+                                        <li class="nav-step-item active">
+                                            <span>贷款确认项</span>
+                                            <a class="active" data-toggle="tab" href="#step-1"></a>
+                                        </li>
+
+                                        <li class="nav-step-item">
+                                            <span>生成投资散标</span>
+                                            <a data-toggle="tab" href="#step-2"></a>
+                                        </li>
+                                    </ul>
+                                    <div class="nav-step-content">
+                                        <div class="col-md-12 nav-step-pane hidden active" id="step-1">
+                                            <input id="uId" name="uId" th:value="${user.uId}" hidden/>
+                                            <input id="lId" name="lId" th:value="${loan.lId}" hidden/>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="maxLimit">最大借款金额(万)</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="maxLimit" name="maxLimit" placeholder="请输入最大借款金额">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="minLimit">最低借款金额（万）</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="minLimit" name="minLimit" placeholder="请输入最低借款金额">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="interest">贷款利息</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="interest" name="interest" placeholder="请输入贷款利息">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="lowLimit">最短借款期限（月）</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="lowLimit" name="lowLimit" placeholder="请输入最短借款期限">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="topLimit">最长借款期限（月）</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="topLimit" name="topLimit" placeholder="请输入最长借款期限">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12 nav-step-pane hidden" id="step-2">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="perBidName">标名</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="text" id="perBidName" name="perBidName" placeholder="请输入生成标的标名">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="addRate">平台追加利率</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="addRate" name="addRate" placeholder="请输入平台追加利率">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="transLine">投标转让期</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="transLine" name="transLine" placeholder="请输入投资转让期">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="clockLine">投标锁定期</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="number" id="clockLine" name="clockLine" placeholder="请输入投标锁定期">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label" for="topLimit">是否可自动转让</label>
+                                                <div class="col-md-7 example-box" id="transfer">
+                                                    <label class="radio radio-inline radio-primary">
+                                                        <input type="radio" name="transfer" value="1" checked><span>是</span>
+                                                    </label>
+                                                    <label class="radio radio-inline radio-primary">
+                                                        <input type="radio" name="transfer" value="2"><span>否</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <div class="col-md-12 nav-step-button">
+                                            <button class="btn btn-secondary disabled" data-wizard="prev" type="button">上一步</button>
+                                            <button class="btn btn-label btn-danger" id="fail" ><label><i class="mdi mdi-close"></i></label> 不通过</button>
+                                            <button class="btn btn-secondary" data-wizard="next" id="next" type="button">下一步</button>
+                                            <button class="btn btn-primary hidden" data-wizard="finish" type="submit"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label> 完成</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#demo').bootstrapValidator({
+            live : 'enabled',
+            feedbackIcons: {  //显示表单验证结果的图标
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                maxLimit: {
+                    validators: {
+                        notEmpty: {
+                            message: '最大借款金额不能为空'
+                        }
+                    }
+                },
+                minLimit: {
+                    validators: {
+                        notEmpty: {
+                            message: '最小借款金额不能为空'
+                        }
+                    }
+                },
+                lowLimit: {
+                    validators: {
+                        notEmpty: {
+                            message: '最短借款期限不能为空'
+                        }
+                    }
+                },
+                topLimit: {
+                    validators: {
+                        notEmpty: {
+                            message: '最长借款期限不能为空'
+                        }
+                    }
+                },
+                perBidName: {
+                    validators: {
+                        notEmpty: {
+                            message: '标名不能为空'
+                        }
+                    }
+                },
+                addRate: {
+                    validators: {
+                        notEmpty: {
+                            message: '平台追加利息不能为空'
+                        }
+                    }
+                },
+                inRate: {
+                    validators: {
+                        notEmpty: {
+                            message: '最长借款期限不能为空'
+                        }
+                    }
+                },
+                transLine: {
+                    validators: {
+                        notEmpty: {
+                            message: '投标转让期不能为空'
+                        }
+                    }
+                },
+                clockLine: {
+                    validators: {
+                        notEmpty: {
+                            message: '锁定期不能为空'
+                        }
+                    }
+                },
+            }
+        });
+        $('#fail').click(function () {
+            //不通过
+            $.confirm({
+                title: '成功',
+                content: '登录成功',
+                type: 'green',
+                keyboardEnabled:true,
+                buttons: {
+                    omg: {
+                        text: '确定',
+                        btnClass: 'btn-green',
+                        confirm:function () {
+                            $.ajax({
+
+                            })
+                        }
+                    },
+                    close: {
+                        text: '关闭',
+                    }
+                }
+            });
+        })
+        $('.guide-box').bootstrapWizard({
+            'tabClass': 'nav-step',
+            'nextSelector': '[data-wizard="next"]',
+            'previousSelector': '[data-wizard="prev"]',
+            'finishSelector': '[data-wizard="finish"]',
+            'onTabClick': function(e, t, i) {
+                if (!$('.guide-box').is('[data-navigateable="true"]')) return ! 1
+            },
+            'onTabShow': function(e, t, i) {
+                t.children(":gt(" + i + ").complete").removeClass("complete");
+                t.children(":lt(" + i + "):not(.complete)").addClass("complete");
+            },
+            'onFinish': function(e, t, i) {
+
+            }
+        });
+    })
+</script>
+</body>
+</html>

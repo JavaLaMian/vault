@@ -106,9 +106,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Userimf pandEmail(String email) {
+    public Userimf pandEmail(String email,String type) {
         Userimf user = new Userimf();
-        user.setEmail(email);
+        if("e".equals(type)){
+            user.setEmail(email);//根据邮箱判断
+        }
+        else if("a".equals(type)){
+            user.setAccount(email);//根据账号判断
+        }
         return dao.selectByUserimf(user);
     }
 
@@ -155,7 +160,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map daiShou(int uid) {
+    public Map daiShou(Userimf user) {
+        int uid = user.getuId();
         Map map = new HashMap();
         List<Map> mlist = bidDao.comUserList(uid);
 
@@ -167,24 +173,26 @@ public class UserServiceImpl implements UserService {
                 zon = zon.add(tou);
             }
             BigDecimal wan = new BigDecimal("10000");
-            BigDecimal zcMoney = zon.multiply(wan);
-            map.put("money",""+zcMoney);
+            zon = zon.multiply(wan);//定标转换万
+            map.put("money",""+zon);
             map.put("list",mlist);
         }else {
             map.put("money",""+zon);
             map.put("list",null);
         }
+        BigDecimal yu = new BigDecimal(""+user.getAvaBalance()); //当前用户余额
+        map.put("zonMon",""+zon.add(yu));//计算总资产
 
         List<Map> rlist = cdao.getRechargeMax(uid);
         List<Map> wlist = cdao.getWithdrawMax(uid);
-        Map map1 = rlist.get(0);
+        Map map1 = rlist.get(0);//累计充值与提现
         if(map1 == null){
             map.put("rmax","0.0");
         }else {
             map.put("rmax",map1.get("rmon")+"");
         }
 
-        Map map2 = wlist.get(0);
+        Map map2 = wlist.get(0);//累计充值与提现
         if(map2 == null){
             map.put("wmax","0.0");
         }else {
@@ -226,7 +234,7 @@ public class UserServiceImpl implements UserService {
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {
-            if(user.compareTo(bian)== 1){//用户余额大于提现额
+            if(!(user.compareTo(bian)== -1)){//用户余额大于提现额
                 user = user.subtract(bian);
                 float bh = user.floatValue();
                 bidDao.moneyUserId(bh,userimf.getuId());
@@ -247,41 +255,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Map> useZhiJinList(int uId) {
-        /*List<Withdraw> wlist = cdao.getWithdrawById(uId);
-        List<Recharge> rlist = cdao.getRechargeById(uId);
-        List<Map> mlist = bidDao.comUserList(uId);
-
-        List<Map> maxList = new ArrayList<>();
-        if(wlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < wlist.size();i++){
-                map.put("type","提现");
-                map.put("money",wlist.get(i).getWithMoney()+"");
-                map.put("name",wlist.get(i).getBankName());
-                map.put("time",wlist.get(i).getWithTime());
-            }
-            maxList.add(map);
-        }
-        if(rlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < rlist.size();i++){
-                map.put("type","充值");
-                map.put("money",rlist.get(i).getReMoney()+"");
-                map.put("name",rlist.get(i).getBankName());
-                map.put("time",rlist.get(i).getReTime());
-            }
-            maxList.add(map);
-        }
-        if(mlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < mlist.size();i++){
-                map.put("type","投标");
-                map.put("money",mlist.get(i).get("tenMoney")+"万");
-                map.put("name",mlist.get(i).get("bidName"));
-                map.put("time",(Date)mlist.get(i).get("tenTime"));
-            }
-            maxList.add(map);
-        }*/
         List<Map> mlist = dao.selectUserZhijin(uId);
         return mlist;
     }
@@ -300,8 +273,33 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public Map getChuJie(Userimf user) {
+        List<String> slist = new ArrayList<>();
+        List mlist = new ArrayList();
+
+        List<Tender> tlist = bidDao.selTenderByTD(user.getuId());
+        Map map = new HashMap();
+        int s = tlist.size();
+        for(int i = 0;i < 7;i++){
+            if(i < s){
+                slist.add(i,getNowDate(tlist.get(i).getTenTime()));
+                BigDecimal bian = new BigDecimal(""+tlist.get(i).getTenMoney());
+                BigDecimal wan = new BigDecimal("10000");
+                bian = bian.multiply(wan);
+                mlist.add(i,bian.floatValue());
+            }else {
+                slist.add(i,"----");
+                mlist.add(i,0.0);
+            }
+        }
+        map.put("time",slist);
+        map.put("value",mlist);
+        return map;
+    }
+
     private static String getNowDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
         return dateString;
     }

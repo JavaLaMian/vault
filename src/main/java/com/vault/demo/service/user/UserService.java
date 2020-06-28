@@ -10,12 +10,12 @@ public interface UserService {
     int addUserImf(Userimf user);
     void upUser(Userimf userimf);
     String getEmailMa(String shou,String type) throws EmailException;
-    Userimf pandEmail(String email);
+    Userimf pandEmail(String email,String type);
     Userimf logPadUser(Userimf userimf);
     int updetaPwd(String email,String pwd);
     UserBank getBC(int uId);
     Credit getCredit(int uId);
-    Map daiShou(int uid);//查询用户代收本金
+    Map daiShou(Userimf user);//查询用户代收本金
 
     void bindWorryCall(WorryCall worryCall);
     void upWorryCall(WorryCall worryCall);
@@ -34,4 +34,5 @@ public interface UserService {
 
 
     Boolean bindReferee(Userimf refereerUser,Userimf curr);
+    Map getChuJie(Userimf user);//出借图
 }
