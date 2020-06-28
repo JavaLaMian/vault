@@ -12,7 +12,7 @@ import java.util.List;
 public interface BankDao {
     int bindBank(UserBank userBank);
     UserBank getBC(int uId);
+    void unBank(UserBank userBank);
     void upBank(UserBank userBank);
-    void ubBank(UserBank userBank);
 
 }

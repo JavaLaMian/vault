@@ -25,13 +25,8 @@ public class backstageController {
     selevicexmn is;
     //首页
     @RequestMapping("/backstage")
-    public ModelAndView backstage(ModelAndView mv, HttpSession session){
-        Admin admin = (Admin)session.getAttribute("admin");
-        if(admin == null){
-            mv.setViewName("backstage/admin_login");
-        }else{
-            mv.setViewName("backstage/Bindex");
-        }
+    public ModelAndView backstage(ModelAndView mv){
+        mv.setViewName("backstage/Bindex");
         return mv;
     }
     @RequestMapping("/text")
@@ -73,13 +68,8 @@ public class backstageController {
     }
     //去往贷款审核页面
     @RequestMapping("/Loan_List")
-    public ModelAndView toLoanList(ModelAndView mv,HttpSession session){
-        Admin admin = (Admin)session.getAttribute("admin");
-        if(admin == null){
-            mv.setViewName("backstage/admin_login");
-        }else{
-            mv.setViewName("backstage/loan_list");
-        }
+    public ModelAndView toLoanList(ModelAndView mv){
+        mv.setViewName("backstage/loan_list");
         return mv;
     }
     //去往投标新增页面

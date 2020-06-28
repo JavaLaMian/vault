@@ -219,46 +219,7 @@
                             <input th:if="${loanTypeStr == 3}" name="loanType" type="hidden" value="3">
                         </div>
 
-                        <div class="form-group" th:if="${loanTypeStr == 2}">
-                            <label for="guarantees">抵押类型</label>
-                            <select name="guarantees" id="guarantees" class="form-control" onload="showCarOrHouse(value)" onchange="changCarOrHouse(value)">
-                                <option th:if="${house != null}" value="2">
-                                    抵押房产
-                                </option>
-                                <option th:if="${car != null}" value="1">
-                                    抵押车辆
-                                </option>
-                            </select>
-                        </div>
-
-                        <div th:if="${car != null}" class="form-group" class="carClass" style="display: none">
-                            <label for="carMoney" id="carMoneyLabel">预估价值</label>
-                            <input id="carMoney" type="text" class="form-control" th:value="${car.getMoney()}" readonly>
-                        </div>
-
-                        <div th:if="${car != null}" class="form-group" class="carClass" style="display: none">
-                            <label for="carRemark" id="carRemarkLabel">说明</label>
-                            <input id="carRemark" type="text" class="form-control" th:value="${car.getRemark()}" readonly>
-                        </div>
-
-                        <div th:if="${house != null}" class="form-group" class="houseClass" style="display: none">
-                            <label for="houseMoney" id="houseMoneyLabel">预估价值</label>
-                            <input id="houseMoney" type="text" class="form-control" th:value="${house.getMoney()}" readonly>
-                        </div>
-
-                        <div th:if="${house != null}" class="form-group" class="houseClass" style="display: none">
-                            <label for="houseRemark" id="houseRemarkLabel">说明</label>
-                            <input id="houseRemark" type="text" class="form-control" th:value="${house.getRemark()}" readonly>
-                        </div>
-                        
                         <script type="text/javascript">
-                            function showCarOrHouse(value) {
-                                if (value == 2){
-                                    $(".houseClass").css("display","block");
-                                }else if (value == 1){
-                                    $(".carClass").css("display","block");
-                                }
-                            }
 
                             function changCarOrHouse(value) {
                                 if (value == 2){
@@ -270,6 +231,43 @@
                                 }
                             }
                         </script>
+
+                        <div class="form-group" th:if="${loanTypeStr == 2}">
+                            <label for="guarantees" id="guaranteesLabel">抵押类型</label>
+                            <select name="guarantees" id="guarantees" class="form-control" onchange="changCarOrHouse(value)">
+                                <option value="0">
+                                    ----请选择一个质押物----
+                                </option>
+                                <option th:if="${house != null && house.getStatus() == 1}" value="2">
+                                    抵押房产
+                                </option>
+                                <option th:if="${car != null && car.getStatus() == 1}" value="1">
+                                    抵押车辆
+                                </option>
+                            </select>
+                        </div>
+
+                        <div th:if="${car != null}" class="form-group carClass" style="display: none">
+                            <label for="carMoney" id="carMoneyLabel">预估价值（万）</label>
+                            <input id="carMoney" type="text" class="form-control" th:value="${car.getMoney()}" readonly>
+                        </div>
+
+                        <div th:if="${car != null}" class="form-group carClass" style="display: none">
+                            <label for="carRemark" id="carRemarkLabel">说明</label>
+                            <input id="carRemark" type="text" class="form-control" th:value="${car.getRemark()}" readonly>
+                        </div>
+
+                        <div th:if="${house != null}" class="form-group houseClass" style="display: none">
+                            <label for="houseMoney" id="houseMoneyLabel">预估价值（万）</label>
+                            <input id="houseMoney" type="text" class="form-control" th:value="${house.getMoney()}" readonly>
+                        </div>
+
+                        <div th:if="${house != null}" class="form-group houseClass" style="display: none">
+                            <label for="houseRemark" id="houseRemarkLabel">说明</label>
+                            <input id="houseRemark" type="text" class="form-control" th:value="${house.getRemark()}" readonly>
+                        </div>
+                        
+
 
                         <div class="form-group">
                             <label for="loanName" id="loanNameLabel">贷款名</label>
@@ -997,6 +995,7 @@
         var loanName = document.getElementById("loanName").value;
         var loanWantMoney = document.getElementById("loanWantMoney").value;
         var loanPurpose = document.getElementById("loanPurpose").value;
+        var guarantees = document.getElementById("guarantees").value;
 
         var check = 1;
 
@@ -1017,6 +1016,14 @@
         }else {
             document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额';
             document.getElementById("loanWantMoneyLabel").style.color = "black";
+        }
+
+        if (guarantees == 0){
+            document.getElementById("guaranteesLabel").innerHTML = '请选择质押物';
+            document.getElementById("guaranteesLabel").style.color = 'red';
+        }else {
+            document.getElementById("guaranteesLabel").innerHTML = '抵押类型';
+            document.getElementById("guaranteesLabel").style.color = 'black';
         }
 
         if (loanPurpose == '' || loanPurpose == null){
