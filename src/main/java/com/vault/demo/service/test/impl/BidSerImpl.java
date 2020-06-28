@@ -60,6 +60,16 @@ public class BidSerImpl implements BidSer{
     }
 
     @Override
+    public int countRateByBid() {
+        return bidDao.countRateByBid();
+    }
+
+    @Override
+    public List<Bid> rateByBid(int startT, int tSize) {
+        return bidDao.rateByBid(startT,tSize);
+    }
+
+    @Override
     public List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry) {
         return bidDao.pagePerB(startT,tSize,inRate,enquiry);
     }

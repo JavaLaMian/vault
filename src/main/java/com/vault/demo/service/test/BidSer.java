@@ -2,6 +2,7 @@ package com.vault.demo.service.test;
 
 import com.vault.demo.bean.*;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -20,6 +21,8 @@ public interface BidSer{
     public static final int DEPOSIT_CURRENT =1;
     public static final int DEPOSIT_FIX=2;
 
+    int countRateByBid();
+    List<Bid>rateByBid(int startT, int tSize);
     List<PerBid> pagePerB(int startT, int tSize, float inRate, float enquiry);
     int countPerList();
     int countPerPage (float inRate, float enquiry);
