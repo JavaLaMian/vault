@@ -90,6 +90,8 @@ public class UserServiceImpl implements UserService {
             text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
         }else if("eamil_bind".equals(type)){
             text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("upcard".equals(type)){
+            text = "您正在更改绑定银行卡，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com
@@ -128,6 +130,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void bindBank(UserBank userBank) {
         bdao.bindBank(userBank);
+    }
+
+    @Override
+    public void unbindBank(UserBank userBank) {
+        bdao.unBank(userBank);
+    }
+
+    @Override
+    public void upbindBank(UserBank userBank) {
+        bdao.upBank(userBank);
     }
 
     @Override
