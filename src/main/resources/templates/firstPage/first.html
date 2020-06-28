@@ -331,7 +331,7 @@
 		</div>
 		<div class="content">
 			<div class="items" data-type="2">
-				<a th:href="@{/main/perImf(id=${per.perBid})}"  style="text-decoration: none;" th:each="per:${perList}">
+				<a th:href="@{/main/perImf(id=${per.perBid})}" target="_blank" style="text-decoration: none;" th:each="per:${perList}">
 				<div class="item " style="width:263px">
 					<div class="panel">
 						<div class="rate" th:text="${per.inRate}+'%'"></div>
@@ -376,7 +376,7 @@
 
 		<div class="content border" style="width:945px">
 				<div class="items" data-type="1">
-					<a th:each="pc:${pcList}" th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}"  target="_blank" style="text-decoration: none;">
+					<a th:each="pc:${pcList}" th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" target="_blank" style="text-decoration: none;">
 					<div class="item item-new">
 						<div class="panel">
 							<div class="rate">

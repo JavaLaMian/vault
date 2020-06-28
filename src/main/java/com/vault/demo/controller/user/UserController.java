@@ -99,12 +99,7 @@ public class UserController {
     }
     @RequestMapping("/tozj")
     public String toZhiJinPage(HttpSession session) {
-        Userimf user = (Userimf) session.getAttribute("user");
-        if(user != null){
-            return "user/zhiJin";
-        }else {
-            return "redirect:tologin";
-        }
+        return "user/zhiJin";
     }
     @RequestMapping("/zhijin")
     @ResponseBody
@@ -134,13 +129,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/delmsg")
-    @ResponseBody
-    public String DelMsg(HttpSession session){
-        session.removeAttribute("msg");
-        return "";
-    }
-
     @RequestMapping("/updpwd")
     @ResponseBody
     public int updPwd(String email,String pwd){
@@ -148,13 +136,8 @@ public class UserController {
     }
 
     @RequestMapping("/toYuhui")
-    public String toYouHui(HttpSession session){
-        Userimf user = (Userimf)session.getAttribute("user");
-        if(user != null){
-            return "user/youHui";
-        }else {
-            return "redirect:tologin";
-        }
+    public String toYouHui(){
+        return "user/youHui";
     }
 
     @RequestMapping("/yuhui")
