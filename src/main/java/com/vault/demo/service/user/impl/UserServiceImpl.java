@@ -217,7 +217,7 @@ public class UserServiceImpl implements UserService {
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {
-            if(user.compareTo(bian)== 1){//用户余额大于提现额
+            if(!(user.compareTo(bian)== -1)){//用户余额大于提现额
                 user = user.subtract(bian);
                 float bh = user.floatValue();
                 bidDao.moneyUserId(bh,userimf.getuId());
@@ -238,41 +238,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Map> useZhiJinList(int uId) {
-        /*List<Withdraw> wlist = cdao.getWithdrawById(uId);
-        List<Recharge> rlist = cdao.getRechargeById(uId);
-        List<Map> mlist = bidDao.comUserList(uId);
-
-        List<Map> maxList = new ArrayList<>();
-        if(wlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < wlist.size();i++){
-                map.put("type","提现");
-                map.put("money",wlist.get(i).getWithMoney()+"");
-                map.put("name",wlist.get(i).getBankName());
-                map.put("time",wlist.get(i).getWithTime());
-            }
-            maxList.add(map);
-        }
-        if(rlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < rlist.size();i++){
-                map.put("type","充值");
-                map.put("money",rlist.get(i).getReMoney()+"");
-                map.put("name",rlist.get(i).getBankName());
-                map.put("time",rlist.get(i).getReTime());
-            }
-            maxList.add(map);
-        }
-        if(mlist.size() != 0){
-            Map map = new HashMap();
-            for(int i =0;i < mlist.size();i++){
-                map.put("type","投标");
-                map.put("money",mlist.get(i).get("tenMoney")+"万");
-                map.put("name",mlist.get(i).get("bidName"));
-                map.put("time",(Date)mlist.get(i).get("tenTime"));
-            }
-            maxList.add(map);
-        }*/
         List<Map> mlist = dao.selectUserZhijin(uId);
         return mlist;
     }

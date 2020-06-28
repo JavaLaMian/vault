@@ -137,7 +137,20 @@ public class QuartzTask implements Job {
                                         //总金额
                                         BigDecimal sum = usermoney1.add(summoney);
 //                                        is.updateuserMoney(sum,Integer.valueOf(lis.get(p)));//将收益加上去
-                                        System.out.println(sum);
+                                        System.out.println("总金额"+sum);
+                                    }else {
+                                        //利率
+                                        BigDecimal rate = new BigDecimal(String.valueOf((bid.getRate()+bid.getRewardRate())/100/12/30));
+                                        //用户金额
+                                        BigDecimal usermoney = new BigDecimal(qq.getTenMoney());
+                                        //三个月
+                                        BigDecimal threedaytime = new BigDecimal("90");
+                                        //一天产生的金额
+                                        BigDecimal onedaymoney = rate.multiply(usermoney);
+                                        //总金额
+                                        BigDecimal usermon = threedaytime.multiply(onedaymoney);
+                                        is.updateuserMoney(usermon.floatValue(),Integer.valueOf(lis.get(p)));//将收益加上去
+                                        System.out.println("总金额"+usermon);
                                     }
                                 } catch (ParseException e) {
                                     e.printStackTrace();
