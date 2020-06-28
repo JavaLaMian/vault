@@ -204,10 +204,72 @@
 <!--                        为了去提交贷款信息设置step=2-->
                         <input type="hidden" name="step" value="2">
 
-                        <input type="hidden" name="loanType" value="1">
-
 <!--                        贷款记录表的状态，0为在审核-->
                         <input type="hidden" name="acStatus" value="0">
+
+                        <div class="form-group">
+                            <label th:if="${loanTypeStr == 1}" for="loanType1">贷款类型</label>
+                            <input th:if="${loanTypeStr == 1}" id="loanType1" name="loanTypeShow" type="text" class="form-control" value="信用贷款" readonly >
+                            <input th:if="${loanTypeStr == 1}" name="loanType" type="hidden" value="1">
+                            <label th:if="${loanTypeStr == 2}" for="loanType2">贷款类型</label>
+                            <input th:if="${loanTypeStr == 2}" id="loanType2" name="loanTypeShow" type="text" class="form-control" value="抵押贷款" readonly >
+                            <input th:if="${loanTypeStr == 2}" name="loanType" type="hidden" value="2">
+                            <label th:if="${loanTypeStr == 3}" for="loanType3">贷款类型</label>
+                            <input th:if="${loanTypeStr == 3}" id="loanType3" name="loanTypeShow" type="text" class="form-control" value="担保贷款" readonly >
+                            <input th:if="${loanTypeStr == 3}" name="loanType" type="hidden" value="3">
+                        </div>
+
+                        <div class="form-group" th:if="${loanTypeStr == 2}">
+                            <label for="guarantees">抵押类型</label>
+                            <select name="guarantees" id="guarantees" class="form-control" onload="showCarOrHouse(value)" onchange="changCarOrHouse(value)">
+                                <option th:if="${house != null}" value="2">
+                                    抵押房产
+                                </option>
+                                <option th:if="${car != null}" value="1">
+                                    抵押车辆
+                                </option>
+                            </select>
+                        </div>
+
+                        <div th:if="${car != null}" class="form-group" class="carClass" style="display: none">
+                            <label for="carMoney" id="carMoneyLabel">预估价值</label>
+                            <input id="carMoney" type="text" class="form-control" th:value="${car.getMoney()}" readonly>
+                        </div>
+
+                        <div th:if="${car != null}" class="form-group" class="carClass" style="display: none">
+                            <label for="carRemark" id="carRemarkLabel">说明</label>
+                            <input id="carRemark" type="text" class="form-control" th:value="${car.getRemark()}" readonly>
+                        </div>
+
+                        <div th:if="${house != null}" class="form-group" class="houseClass" style="display: none">
+                            <label for="houseMoney" id="houseMoneyLabel">预估价值</label>
+                            <input id="houseMoney" type="text" class="form-control" th:value="${house.getMoney()}" readonly>
+                        </div>
+
+                        <div th:if="${house != null}" class="form-group" class="houseClass" style="display: none">
+                            <label for="houseRemark" id="houseRemarkLabel">说明</label>
+                            <input id="houseRemark" type="text" class="form-control" th:value="${house.getRemark()}" readonly>
+                        </div>
+                        
+                        <script type="text/javascript">
+                            function showCarOrHouse(value) {
+                                if (value == 2){
+                                    $(".houseClass").css("display","block");
+                                }else if (value == 1){
+                                    $(".carClass").css("display","block");
+                                }
+                            }
+
+                            function changCarOrHouse(value) {
+                                if (value == 2){
+                                    $(".houseClass").css("display","block");
+                                    $(".carClass").css("display","none");
+                                }else if (value == 1){
+                                    $(".carClass").css("display","block");
+                                    $(".houseClass").css("display","none");
+                                }
+                            }
+                        </script>
 
                         <div class="form-group">
                             <label for="loanName" id="loanNameLabel">贷款名</label>
@@ -215,7 +277,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="loanWantMoney" id="loanWantMoneyLabel">期望贷款金额(5000~100000间)</label>
+                            <label for="loanWantMoney" id="loanWantMoneyLabel">期望贷款金额</label>
                             <input id="loanWantMoney" name="loanWantMoney" type="number" class="form-control" placeholder="money">
                         </div>
 
@@ -952,18 +1014,8 @@
             document.getElementById("loanWantMoneyLabel").style.color = "red";
 
             check = 0;
-        }else if (loanWantMoney > 100000){
-            document.getElementById("loanWantMoneyLabel").innerHTML = '金额过大，金额只能为5000至100000之间';
-            document.getElementById("loanWantMoneyLabel").style.color = "red";
-
-            check = 0;
-        }else if (loanWantMoney < 5000){
-            document.getElementById("loanWantMoneyLabel").innerHTML = '金额过小，金额只能为5000至100000之间';
-            document.getElementById("loanWantMoneyLabel").style.color = "red";
-
-            check = 0;
         }else {
-            document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额（5000~100000间）';
+            document.getElementById("loanWantMoneyLabel").innerHTML = '期望贷款金额';
             document.getElementById("loanWantMoneyLabel").style.color = "black";
         }
 

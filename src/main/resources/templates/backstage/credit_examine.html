@@ -272,17 +272,45 @@
         $('#fail').click(function () {
             //不通过
             $.confirm({
-                title: '成功',
-                content: '登录成功',
+                title: '审核',
+                content: '是否确认不通过',
                 type: 'green',
                 keyboardEnabled:true,
+                autoClose: '400',
                 buttons: {
                     omg: {
                         text: '确定',
                         btnClass: 'btn-green',
                         confirm:function () {
                             $.ajax({
-
+                                url:'/back_loan/examine_fail',
+                                cache: false,//false是不缓存，true为缓存
+                                async: true,//true为异步，false为同步
+                                data:{
+                                    lId:$('#lId').val()
+                                },
+                                success:function (obj) {
+                                    if(obj=="success"){
+                                        window.location.href='/XMN/Loan_List'
+                                    }
+                                },
+                                error:function () {
+                                    $.confirm({
+                                        title: '提示',
+                                        content: '请求失败',
+                                        type: 'red',
+                                        keyboardEnabled:true,
+                                        buttons: {
+                                            omg: {
+                                                text: '重试',
+                                                btnClass: 'btn-green',
+                                            },
+                                            close: {
+                                                text: '关闭',
+                                            }
+                                        }
+                                    })
+                                }
                             })
                         }
                     },

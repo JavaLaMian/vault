@@ -388,6 +388,7 @@
         OFf = true;
         setTimeout("yanCiType('oncz')","500");
     }
+    var suo = true;
     function quXiaoZf(type) {
 	    if(type === 'qx'){
             OFf = false;
@@ -400,22 +401,26 @@
             $("#tixian").css("display","none");
             $("#zfYanz").css("display","none");
 		}else {
-	        var pwd = $("#userPwd").val();
-            var money;
-            if(types === 'cz') money = $("#moneyCz").val();
-            else money = $("#moneyTX").val();
+	        if(suo){
+	            suo = false;
+                var pwd = $("#userPwd").val();
+                var money;
+                if(types === 'cz') money = $("#moneyCz").val();
+                else money = $("#moneyTX").val();
 
-            $.post("/user/czTx",{money: money,type:types,pwd:pwd},
-                function (data) {
-                    if(data.msg === 'cg'){
-                        $("#chufa").attr("checked", "true");
-                        setTimeout("shuaXing()","1000");
-                    }else if(data.msg === "mmcw"){
-                        $("#userPwd").css("border-color","red");
-                    }else {
-                        alert(data.msg);
-					}
-            }, "json");
+                $.post("/user/czTx",{money: money,type:types,pwd:pwd},
+                    function (data) {
+                        if(data.msg === 'cg'){
+                            $("#chufa").attr("checked", "true");
+                            setTimeout("shuaXing()","1000");
+                        }else if(data.msg === "mmcw"){
+                            $("#userPwd").css("border-color","red");
+                        }else {
+                            alert(data.msg);
+                        }
+                        suo = true;
+                    }, "json");
+			}
 		}
     }
     function padMoney(id) {
