@@ -26,6 +26,6 @@ public interface AdxmnDao {
     List<String> selectgetBytenid(@Param("id") String id);//根据标id查询出哪些用户
     List<Tender> slecttendermoney(@Param("bid") String bid,@Param("uid") String uid);//根据标和用户id查询金额
     Float seleUsermoney(int id);//根据id查询出用户余额
-    void updateuserMoney(@Param("money") Float money,@Param("id") int id);//根据用户id相加余额
+    void updateuserMoney(@Param("money") double money,@Param("id") int id);//根据用户id相加余额
     void addusermoney(Recharge recharge);//新增用户余额增加记录
 }
