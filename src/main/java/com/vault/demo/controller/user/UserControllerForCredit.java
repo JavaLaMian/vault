@@ -136,7 +136,7 @@ public class UserControllerForCredit {
         return "redirect:toCreditRegisterPage";
     }
 
-    public boolean insertJob(String dept,double wages){
+    public boolean insertJob(String dept,Double wages){
         return false;
     }
 }
