@@ -10,6 +10,7 @@ import org.quartz.JobExecutionException;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,6 +45,7 @@ public class QuartzTask implements Job {
                         }
                     }else if(bid.getBidStatus() == Bid.getNO()){//在售标
                        if((time == -1 && time1 == -1)){//售罄标
+                           System.out.println("喀什的肌肤上的JFK");
                            is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                        }
                    }else if (bid.getBidStatus() == Bid.getEMPTY()){//售罄标
@@ -93,6 +95,9 @@ public class QuartzTask implements Job {
                 if(bid.getBidType() == Bid.getNEWHAND() || bid.getBidType() == Bid.getNORM()) {//新手标和优享标
                     if(bid.getBidStatus() == Bid.getNO()) {//在售标
                         if ((time == -1 && time1 == -1) || (moeny >= summoeny)) {//售罄标
+                            System.out.println(summoeny+"总体金额");
+                            System.out.println(Integer.valueOf(tenderid.get(j))+"标id");
+                            System.out.println(moeny+"标金额");
                             is.updategetbiBid(Bid.getEMPTY(), bid.getbId());
                         }
                     }
@@ -101,9 +106,10 @@ public class QuartzTask implements Job {
                 if(bid.getClockLine().equals("3")){
                     Calendar cal = Calendar.getInstance();//创建时间相加
                     cal.setTime(date);
-                    cal.add(Calendar.HOUR,(1*24*30*3)+24);//需要加上的时间
+                    cal.add(Calendar.HOUR,(1*24*30*3)+2);//需要加上的时间
                     Date date3 = cal.getTime();//转让期时间
                     int ti = date3.compareTo(new Date());
+                    System.out.println(ti+"时间");
                     if(ti != -1){
                         List<String> lis=is.selectgetBytenid(Integer.valueOf(bid.getbId()));//查询出这个标有多少个人投了
                         for(int p =0;p<lis.size();p++){//人数
@@ -111,46 +117,36 @@ public class QuartzTask implements Job {
                             for(int q=0;q<moneylist.size();q++){//投了多少笔
                                 Tender qq = moneylist.get(q);
                                 try {
-                                    System.out.println("进来了");
                                     Date jieshu = simpleDateFormat.parse( simpleDateFormat.format(qq.getTenTime()));//获取到他的投标时间
                                     Date kais = simpleDateFormat.parse(simpleDateFormat.format(bid.getBidTime()));//标开始时间
-                                    int days = (int)((jieshu.getTime()-kais.getTime()) / (1000*3600*24));//求出时间
+                                    double days = (int)((jieshu.getTime()-kais.getTime()) / (1000*3600*24));//求出时间
+                                    System.out.println("时间"+days);
                                     if(days<=29){//判断这个人投了多久 小于29天按照天来算
-                                        //利率
-                                        BigDecimal rate = new BigDecimal(String.valueOf((bid.getRate()+bid.getRewardRate())/100/12/30));
-                                        //用户金额
-                                        BigDecimal usermoney = new BigDecimal(qq.getTenMoney());
-                                        //时间
-                                        BigDecimal daytime = new BigDecimal(days);
-                                        //三个月
-                                        BigDecimal threedaytime = new BigDecimal("90");
-                                        //一天产生的金额
-                                        BigDecimal onedaymoney = rate.multiply(usermoney);
-                                        //一个月内产生的金额
-                                        BigDecimal monthmoney = onedaymoney.multiply(daytime);
-                                        //三个月来产生的金额
-                                        BigDecimal threemonehmoney = onedaymoney.multiply(threedaytime);
-                                        //全部时间的总金额
-                                        BigDecimal summoney = monthmoney.add(threemonehmoney);
-                                        //个人总金额
-                                        BigDecimal usermoney1 = new BigDecimal(is.seleUsermoney(Integer.valueOf(lis.get(p))));
-                                        //总金额
-                                        BigDecimal sum = usermoney1.add(summoney);
+                                        System.out.println("进来了天数小于29，标id"+bid.getbId());
+                                        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                                        double rate = bid.getRate()+bid.getRewardRate();//总利率
+                                        double b = 100.00;//将12转换为0.12
+                                        double c = 365.00;//一年
+                                        double usertenmoney = (qq.getTenMoney()*10000);//用户投的金额
+                                        String d = decimalFormat.format(rate/b/c*usertenmoney);//将一天的钱转换成string
+                                        double onedaymoney = Double.parseDouble(d);//一天的钱
+                                        //计算用户先投的时间的钱
+                                        String e = decimalFormat.format(onedaymoney*days);
+                                        double daysmoney = Double.parseDouble(e);
+                                        //计算定期三个月的钱
+                                        double t = 12.00;//12月
+                                        String tt = decimalFormat.format(rate/b/t*usertenmoney);
+                                        double Marchmoney = Double.parseDouble(tt);
+                                        //将全部金钱加起来
+                                        double summoney = Marchmoney+daysmoney;
+                                        //获取到这个用户有多少钱然后加上收益
+                                        Float ss = is.seleUsermoney(Integer.valueOf(lis.get(p)));
+                                        String ppts = decimalFormat.format(ss+summoney);
+                                        double sum = Double.parseDouble(ppts);
+                                        System.out.println("总金额"+sum+"赚的受益"+summoney);
 //                                        is.updateuserMoney(sum,Integer.valueOf(lis.get(p)));//将收益加上去
-                                        System.out.println("总金额"+sum);
                                     }else {
-                                        //利率
-                                        BigDecimal rate = new BigDecimal(String.valueOf((bid.getRate()+bid.getRewardRate())/100/12/30));
-                                        //用户金额
-                                        BigDecimal usermoney = new BigDecimal(qq.getTenMoney());
-                                        //三个月
-                                        BigDecimal threedaytime = new BigDecimal("90");
-                                        //一天产生的金额
-                                        BigDecimal onedaymoney = rate.multiply(usermoney);
-                                        //总金额
-                                        BigDecimal usermon = threedaytime.multiply(onedaymoney);
-                                        is.updateuserMoney(usermon.floatValue(),Integer.valueOf(lis.get(p)));//将收益加上去
-                                        System.out.println("总金额"+usermon);
+
                                     }
                                 } catch (ParseException e) {
                                     e.printStackTrace();

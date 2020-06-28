@@ -136,9 +136,7 @@
     }
 
     function getParam() {
-
         var url = location.search; //获取url中"?"符后的字串
-
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
             if(str === 'zc'){
@@ -188,6 +186,24 @@
             errorShuru($("#pwd"));
         }
     }
+
+    var yaoQingAct = false;//判断邀请人账号是否存在
+    $("#yaoqing").blur(function () {
+       var value = $("#yaoqing").val();
+       if(value !== ''){
+           $.post("/user/padAct",{act:value},function (data) {
+               if(!data){
+                   $("#yaoqing").css('background-color','red');
+                   yaoQingAct = false;
+               }else {
+                   yaoQingAct = true;
+               }
+           },"json");
+       }
+    });
+    $("#yaoqing").click(function () {
+        $("#yaoqing").css('background-color','white');
+    });
 
     function abc_123(id){
         var value = $(id).val();
@@ -418,6 +434,7 @@
             $("#zcYam").css("background-color","red");
             return false;
         }else {
+            if(!yaoQingAct) $("#yaoqing").val('');//输入不存在的账号时清空
             return true;
         }
     }
