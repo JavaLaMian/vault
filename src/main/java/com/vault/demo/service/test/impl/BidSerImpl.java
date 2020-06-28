@@ -227,7 +227,7 @@ public class BidSerImpl implements BidSer{
         }
         BigDecimal useMoney = new BigDecimal(userMon);
 
-        if(useMoney.compareTo(zcMoney) == 1) {
+        if(!(useMoney.compareTo(zcMoney) == -1)) {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date utilDate;

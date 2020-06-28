@@ -16,4 +16,14 @@
           select * from userBank where uId=#{uid}
         ]]>
     </select>
+    <update id="upBank" parameterType="UserBank">
+        <![CDATA[
+          update userBank set bcUserName=#{bcUserName},bcUserPhe=#{bcUserPhe},bankName=#{bankName},cardId=#{cardId} where uId=#{uId}
+        ]]>
+    </update>
+    <delete id="unBank" parameterType="UserBank">
+        <![CDATA[
+          delete from userBank where cardId=,#{cardId}
+        ]]>
+    </delete>
 </mapper>

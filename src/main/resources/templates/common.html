@@ -17,10 +17,10 @@
             <div class="hotline">全国服务热线：4006-0755-70</div>
             <ul class="info" id="ulLoginStatus">
                 <li class="user logon" th:if="${session.user} ne null">
-                    <a href="/loan/tologin" th:text="${session.user.account}">
+                    <a href="/loan/tologin" style="color:#ff7136" th:text="${session.user.account}">
                         用户名
                     </a>
-                    <a class="ext" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
+                    <a class="ext" style="color:#ff7136" href="/user/loginout">[&nbsp;安全退出&nbsp;]</a>
                 </li>
                 <li class="user logon" th:if="${session.user} eq null">
                     <a href="/user/tologin" id="head-login-btn">登录</a>
@@ -28,12 +28,6 @@
                 </li>
                 <li class="line">|</li>
                 <li><a target="_blank" th:href="@{/integral/main(q=0)}">积分商城</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/help/index">帮助中心</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/hr/index">加入我们</a></li>
-                <li class="line">|</li>
-                <li><a target="_blank" href="/cms/about/service">客服团队</a></li>
                 <li class="line">|</li>
                 <li class="app-area">
                     <a target="_blank" href="/portal/promotion/app/introduce">手机客户端</a>
@@ -79,7 +73,7 @@
             </h1>
             <nav class="info">
                 <div class="nav nav-index" data-type="index">
-                    <a href="/">首页</a>
+                    <a href="/main/first">首页</a>
                 </div>
                 <ul class="nav nav-financial" data-type="financial">
                     <li class="first">
@@ -96,22 +90,25 @@
                     </li>
                 </ul>
             </nav>
-            <div class="user">
-                <a href="/MyAccount/index" class="title">
-                    <div class="img-box"></div>
-                    <span>我的账户</span>
-                    <i class="icon-common icon-common-to-bottom"></i>
-
-                </a>
+            <div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" class="title">
+                <div class="img-box"></div>
+                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
+            </span>
+            </div>
+            <div th:if="${session.user!=null}"  class="user">
+					<span class="title">
+						<div class="img-box"></div>
+						<span><a style="color: black" href="/user/toAO">我的账户</a></span>
+						<i class="icon-common icon-common-to-bottom"></i>
+					</span>
                 <ul>
-                    <li><a href="#">充值</a></li>
-                    <li><a href="#">提现</a></li>
-                    <li><a href="#">我的网贷</a></li>
-                    <li><a href="/user/uasec">账户安全</a></li>
-                    <li>
-                        <a href="/user/toYuhui">我的优惠</a>
-                    </li>
-                    <li><a href="#">邀请好友</a></li>
+                    <li><a href="/user/toAO">充值</a></li>
+                    <li><a href="/user/toAO">提现</a></li>
+                    <li><a href="/loan/main">我的网贷</a></li>
+                    <li><a href="/user/toAS">账户安全</a></li>
+                    <li><a href="#">我的消息</a></li>
+                    <li><a href="/user/toYuhui">红包优惠券</a></li>
                 </ul>
             </div>
         </div>

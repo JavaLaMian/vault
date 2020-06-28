@@ -1,7 +1,6 @@
 package com.vault.demo.controller.backstage;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.*;
 import com.vault.demo.service.backstage.loan.BackLoanService;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +47,39 @@ public class BackLoanController {
             m.addAttribute("car",car);
             return "backstage/mortgage_examine";
         }
+    }
+    @RequestMapping("/examine")
+    public String examine(int lId,float maxLimit,float minLimit,float interest,int lowLimit,int topLimit,int uId,PerBid perBid){
+        Loan loan = bls.selLoanByLid(lId);
+        loan.setMaxLimit(maxLimit);
+        loan.setMinLimit(minLimit);
+        loan.setInterest(interest);
+        loan.setLowLimit(lowLimit);
+        loan.setTopLimit(topLimit);
+        loan.setApplicationEnd(new Date());
+        loan.setLoanStatue(5);//审核通过等待确认
+
+        perBid.setBidStatus(1);//设置散标为预售状态
+        perBid.setStartTime(new Date());
+        perBid.setBorrower(uId);
+        perBid.setRate(loan.getInterest());
+        perBid.setBorrowTime(loan.getLowLimit());
+
+        bls.addPerBid(perBid);
+        System.out.println(perBid);
+        int perid = perBid.getPerBid();
+        System.out.println(perid);
+        loan.setBidType(1);//设置贷款集资类型为散标类型
+        loan.setBidId(perid);
+        bls.updLoan(loan);
+        return "redirect:/XMN/Loan_List";
+    }
+    @ResponseBody
+    @RequestMapping("/examine_fail")
+    public String examineFail(int lId){
+        Loan loan = bls.selLoanByLid(lId);
+        loan.setLoanStatue(4);//申请失败
+        bls.updLoan(loan);
+        return "success";
     }
 }

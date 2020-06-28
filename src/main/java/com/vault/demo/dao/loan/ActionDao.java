@@ -10,4 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ActionDao {
     Action selectActionByLId(Loan loan);         //根据loan表的LId查action对象
     void insertAction(Action action);   //新增action对象
+    void updateAction(Action action);
 }

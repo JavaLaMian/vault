@@ -26,6 +26,7 @@
                         <div class="card">
                             <div class="card-toolbar clearfix">
                                 <form class="pull-right search-bar" method="get" action="#!" role="form">
+
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <input type="hidden" name="search_field" id="search-field" value="title">
@@ -112,6 +113,10 @@
                 field:'applicationTime',
                 formatter: formatTime
             },{
+                title:'征信等级',
+                field:'creditLV',
+                formatter: creditLV
+            },{
                 title:'状态',
                 field:'loanStatue',
                 formatter: szstatue
@@ -129,6 +134,19 @@
             var htm = "";
             htm +='<button class="btn btn-success m-r-5" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
             return htm;
+        }
+        function creditLV(value, row, index) {
+            if(value==1){
+                return '正常';
+            }else if(value==2){
+                return '关注';
+            }else if(value==3){
+                return '次级';
+            }else if(value==4){
+                return '可疑';
+            }else if(value==5){
+                return '损失';
+            }
         }
         function szloanType(value, row, index) {
             if(value==1){
@@ -150,6 +168,8 @@
                 return '已偿还';
             }else if(value==4){
                 return '申请失败';
+            }else if(value==5){
+                return '通过等待确认'
             }
         };
         function formatTime(value, row, index) {
@@ -173,10 +193,10 @@
 
         function formatDateTime(date) {
             var time = new Date(date);
-            time.setTime(time.setHours(time.getHours() + 11));
+            //time.setTime(time.setHours(time.getHours()));
             var Y = time.getFullYear() + '-';
             var  M = addZero(time.getMonth() + 1) + '-';
-            var D =addZero(time.getDate() - 1) + ' ';
+            var D =addZero(time.getDate()) + ' ';
             var h = addZero(time.getHours()) + ':';
             var m = addZero(time.getMinutes()) + ':';
             var  s = addZero(time.getSeconds());

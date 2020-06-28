@@ -139,18 +139,18 @@
             </div>
             <div class="account-cont" id="contanier" th:if="${applyType} eq view">
                 <div class="at-til">
-                    <span class="name">绑定网贷银行卡</span>
+                    <span class="name">绑定银行卡信息</span>
                 </div>
                 <div class="bindcard-form" id="bindcardForm">
                     <img class="xn-logo" src="//image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
-                    <div>
-                        <label>真实姓名：</label>
-                        <input type="text" class="bindcard-input" th:value="${session.user.uName}" disabled>
-                    </div>
-                    <div>
-                        <label>身份证号码：</label>
-                        <input type="text" class="bindcard-input" th:value="${credit.identity}" disabled>
-                    </div>
+                    <!--<div>-->
+                        <!--<label>真实姓名：</label>-->
+                        <!--<input type="text" class="bindcard-input" th:value="${session.user.uName}" disabled>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<label>身份证号码：</label>-->
+                        <!--<input type="text" class="bindcard-input" th:value="${credit.identity}" disabled>-->
+                    <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
                         <input type="text" class="bindcard-input" th:value="${userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
@@ -159,6 +159,83 @@
                         <label>开户银行：</label>
                         <input  class="bindcard-input" th:value="${userBank.bankName}" disabled/>
                     </div>
+                    <div>
+                        <button class="bind-btn" type="button" value="解绑" style="width: 60px;float: left;" onclick="unBind()">解绑</button>
+                        <a href="/user/updateApply" class="bind-btn" value="更换" style="width: 60px;margin-left: 50px;float: left;">更换</a>
+                    </div>
+                </div>
+                <dl class="bindcard-tips"> <dt>温馨提示</dt>
+                    <dd>
+                        1、银行卡的开户名必须与实名登记的姓名一致； <br>
+                        2、为了您的资金安全，仅限绑定一张银行卡；仅支持储蓄卡，不可用信用卡；<br>
+                        3、更改绑定银行卡，需要提交个人证明材料进行人工审核；如有其它问题咨询，请联系客服。
+                    </dd>
+                </dl>
+            </div>
+            <div class="account-cont" id="contanier" th:if="${applyType} eq update" >
+                <div class="at-til">
+                    <span class="name">更改绑定银行卡</span>
+                </div>
+                <div class="bindcard-form" id="bindcardForm">
+                    <img class="xn-logo" src="http://image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
+                    <div>
+                        <label>真实姓名：</label>
+                        <input type="text" class="bindcard-input" name="uName" id="uName" value=""onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+                               onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" onblur="checkUN()">
+                        <span class="bindcard-tip" id="unameMsg">真实姓名必须与您的银行卡开户名一致</span>
+                    </div>
+                    <!--<div>-->
+                        <!--<label>身份证号码：</label>-->
+                        <!--<input type="text" class="bindcard-input" name="identity" id="identity" maxlength="18" value="" onblur="checkIden()">-->
+                        <!--<span class="bindcard-tip" id="iden" data-tip="请输入身份证号码">请输入身份证号码</span>-->
+                    <!--</div>-->
+                    <div class="bk_cardnum">
+                        <label>银行卡号：</label>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="23" value=""onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')" onblur="checkCid()"/>
+                        <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
+                    </div>
+                    <div>
+                        <label>开户银行：</label>
+                        <select name="bankName" id="bankName" class="bindcard-input selected" onblur="checkBn()">
+                            <option value="">请选择开户银行</option>
+                            <option value="农业银行">农业银行</option>
+                            <option value="中国银行">中国银行</option>
+                            <option value="建设银行">建设银行</option>
+                            <option value="光大银行">光大银行</option>
+                            <option value="广发银行">广发银行</option>
+                            <option value="兴业银行">兴业银行</option>
+                            <option value="中信银行">中信银行</option>
+                            <option value="招商银行">招商银行</option>
+                            <option value="交通银行">交通银行</option>
+                            <option value="工商银行">工商银行</option>
+                            <option value="平安银行">平安银行</option>
+                            <option value="邮政储蓄银行">邮政储蓄银行</option>
+                            <option value="浦发银行">浦发银行</option>
+                        </select>
+                        <span class="bindcard-tip" id="bn"></span>
+                    </div>
+                    <div>
+                        <label>验证邮箱：</label>
+                        <input class="bindcard-input" id="email" th:value="${session.user.email}" onblur="em_check()">
+                        <!--<span class="bindcard-tip" data-tip="若您在银行预留的手机号码发生变更，请<a href='/user/uasec/mobile' target='_blank'>更新手机号</a>"> 该手机号不是银行预留手机号？请先<a href="/user/uasec/mobile" target="_blank">修改认证手机号</a>-->
+                        <span class="bindcard-tip" id="emmsg">获取银行验证码</span>
+                    </div>
+                    <div class="js_code">
+                        <label>邮箱验证码：</label>
+                        <input name="code" id="code" class="bk_ipt bk_code" type="text" onblur="up_checkMa()">
+                        <input class="btn-getcode" type="button" value="获取" id="getcodeBtn" onclick="getMa('upcard',this)"/>
+                        <span class="bindcard-tip" data-tip="" id="codeMsg"></span>
+                    </div>
+                    <div class="code_msg js_code">
+                        <span id="code_msg">验证码已发送到您的邮箱 <i th:text="${session.user.email}">178****7767</i></span>
+                    </div>
+                    <div class="bk_arge_line">
+                        <input type="checkbox" name="arge" class="arge" id="arge" checked="checked">
+                        <span class="bk_arge">我已阅读并同意 <a class="bindcard-info" href="http://image.xiaoniu88.com/static/WebXn/dist/payment/agreement/fundManagement.html">《资金管理服务协议》</a> </span>
+                        <span class="bindcard-tip" id="xyMsg"></span>
+                    </div>
+                    <div class="bindcard-msg" id="submitMsg"></div>
+                    <button class="bind-btn" type="button" value="立即绑定" onclick="upbind()">确认修改</button>
                 </div>
                 <dl class="bindcard-tips"> <dt>温馨提示</dt>
                     <dd>
@@ -243,7 +320,7 @@
 
 <!--end 尾部-->
 <script type="text/javascript">
-    var couldsub = false;
+    var couldsub = true;
     var jishi = 59;
     var jishuTishi;
     var yhMa;
@@ -374,6 +451,95 @@
             }, "json");
         }
         console.log("结束");
+    }
+    function unBind() {
+        if (confirm("确定解除绑定吗？")) {
+            txt = "您按了确定";
+        }
+    }
+
+    function em_check() {
+        var email = $("#email").val();
+        var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
+        if (!emailReg.test(email)){
+            emailUp_key=false;
+            $("#emmsg").replaceWith("<div id=\"emmsg\" class=\"bindcard-tip errTip\">邮箱格式不正确</div>");
+        }
+    }
+
+
+    var upMa;
+    function getMa(type,id){
+        var email = $("#em").val();
+        if($(id).val() === "获取"){
+            $(id).val('获取(59)');
+            $(id).css("background-color","white");
+            $(id).css("color","#ccc");
+            $(id).css("border","1px solid #ccc");
+            jishuTishi  = setInterval("daojishi()", "1000");
+
+            $.post("/user/getMa",{email:email,type:type},function (data) {
+                if(data === "" || data == null){
+                    alert("请检查邮箱格式是否正确");
+                    $("#emcode").replaceWith("<span class=\"bindcard-tip errTip\">发送验证码失败</span>");
+                }else {
+                    upMa = data;
+                    alert(upMa)
+                }
+            },"json");
+        }else{
+            //已经在获取验证码
+            $(".bindcard-msg").attr("disaply","block");
+        }
+    }
+    function up_checkMa() {
+        if ($("#code").val()!=null||$("#code").val()!=""){
+            if(upMa!=$("#code").val()){
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
+            }else {
+                couldsub=true;
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+            }
+        }else if($("#code").val()==null||$("#code").val()==""){
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+        }
+    }
+    function upbind() {
+        couldsub = true;
+        em_check();
+        checkCid();
+        up_checkMa();
+        var uName = $("#uName").val();
+        var email = $("#email").val();
+        var cardId = $("#cid").val();
+        var bankName = $("#bankName").val();
+        //var arge = $("#arge").val();
+
+        if (uName == null || uName == "") {
+            couldsub = false;
+            $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
+        }else if (cardId == null || cardId == "") {
+            couldsub = false;
+            $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
+        }else if (bankName == null || bankName == "") {
+            couldsub = false;
+            $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
+        }else if (!$("#arge").get(0).checked) {
+            couldsub = false;
+            $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
+        }else if ($("#arge").get(0).checked) {
+            couldsub = true;
+        }
+        if (couldsub == true) {
+            $.post("/user/upcard", {
+                uName: uName,
+                cardId: cardId,
+                bankName: bankName
+            }, function (data) {
+                window.location.href="/user/toAS";
+            }, "json");
+        }
+        console.log("结束，在抖音鬼畜区呆久了，听到这略带悲伤的前奏我竟然笑了");
     }
 </script>
 </body>

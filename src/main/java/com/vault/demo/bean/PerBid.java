@@ -1,8 +1,6 @@
 package com.vault.demo.bean;
 
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
 //
@@ -12,7 +10,7 @@ public class PerBid {
         private int bidStatus;
        private int borrower;
        private String  perBidName;
-       private  String  inRate ;//投资利率
+       private  float  inRate ;//投资利率
        private float rate;
        private float addRate;
        private float  combination;
@@ -25,7 +23,6 @@ public class PerBid {
        private Date expire;//到期时间
        private int borrowTime;
 
-
     @Override
     public String toString() {
         return "PerBid{" +
@@ -33,7 +30,7 @@ public class PerBid {
                 ", bidStatus=" + bidStatus +
                 ", borrower=" + borrower +
                 ", perBidName='" + perBidName + '\'' +
-                ", inRate='" + inRate + '\'' +
+                ", inRate=" + inRate +
                 ", rate=" + rate +
                 ", addRate=" + addRate +
                 ", combination=" + combination +
@@ -46,6 +43,14 @@ public class PerBid {
                 ", expire=" + expire +
                 ", borrowTime=" + borrowTime +
                 '}';
+    }
+
+    public float getInRate() {
+        return inRate;
+    }
+
+    public void setInRate(float inRate) {
+        this.inRate = inRate;
     }
 
     public int getPerBid() {
@@ -78,14 +83,6 @@ public class PerBid {
 
     public void setPerBidName(String perBidName) {
         this.perBidName = perBidName;
-    }
-
-    public String getInRate() {
-        return inRate;
-    }
-
-    public void setInRate(String inRate) {
-        this.inRate = inRate;
     }
 
     public float getRate() {
@@ -127,8 +124,6 @@ public class PerBid {
     public void setClockLine(String clockLine) {
         this.clockLine = clockLine;
     }
-
-
 
     public int getTransfer() {
         return transfer;

@@ -1,8 +1,6 @@
 package com.vault.demo.service.backstage.adxmn.adxmnImpl;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
+import com.vault.demo.bean.*;
 import com.vault.demo.dao.backstage.AdxmnDao;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.springframework.stereotype.Service;
@@ -75,8 +73,34 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public int selectgetByid() {
+    public List<String> selectgetByid() {
         return dao.selectgetByid();
     }
+
+    @Override
+    public List<String> selectgetBytenid(int id) {
+        return dao.selectgetBytenid(String.valueOf(id));
+    }
+
+    @Override
+    public List<Tender> slecttendermoney(int bid, int uid) {
+        return dao.slecttendermoney(String.valueOf(bid),String.valueOf(uid));
+    }
+
+    @Override
+    public Float seleUsermoney(int id) {
+        return dao.seleUsermoney(id);
+    }
+
+    @Override
+    public void updateuserMoney(double money,int id) {
+        dao.updateuserMoney(money,id);
+    }
+
+    @Override
+    public void addusermoney(Recharge recharge) {
+        dao.addusermoney(recharge);
+    }
+
 
 }

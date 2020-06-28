@@ -59,14 +59,40 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
             update bid set bidStatus = #{bidStatus} where bId=#{id}
          ]]>
     </update>
-    <select id="selectgetByid" resultType="int">
-         <![CDATA[
-           select distinct bid from tender
-         ]]>
-    </select>
     <select id="selectBidmoney" resultType="float">
          <![CDATA[
            select Sum(tenMoney) from tender where bid = #{bidType}
          ]]>
     </select>
+    <select id="selectgetByid" parameterType="java.lang.String"  resultType="java.lang.String">
+         <![CDATA[
+           select distinct bid from tender
+         ]]>
+    </select>
+    <select id="selectgetBytenid" parameterType="java.lang.String"  resultType="java.lang.String">
+         <![CDATA[
+          select distinct uid from tender where bid = #{id}
+         ]]>
+    </select>
+    <select id="slecttendermoney" resultType="tender">
+         <![CDATA[
+          select tenMoney,tenTime from tender where bid = #{bid} and uid = #{uid}
+         ]]>
+    </select>
+    <select id="seleUsermoney" resultType="Float">
+         <![CDATA[
+         select avaBalance from userimf where uid = #{id}
+         ]]>
+    </select>
+    <update id="updateuserMoney">
+        <![CDATA[
+            update userimf set avaBalance = #{money} where uid=#{id}
+         ]]>
+    </update>
+    <insert id="addusermoney">
+        <![CDATA[
+            insert into recharge values (null,#{uId},#{reMoney},#{reTime},#{bankId},#{bankName})
+         ]]>
+    </insert>
+
 </mapper>

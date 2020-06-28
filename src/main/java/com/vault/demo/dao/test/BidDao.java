@@ -37,4 +37,5 @@ public interface BidDao{
     Date lastTenTime(int bid);
     int countUser();
     float countTenMoney();
+    List<Tender> selTenderByTD(@Param("uId")int uId);
 }
