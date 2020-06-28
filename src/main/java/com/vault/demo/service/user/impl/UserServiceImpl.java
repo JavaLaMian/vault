@@ -104,9 +104,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Userimf pandEmail(String email) {
+    public Userimf pandEmail(String email,String type) {
         Userimf user = new Userimf();
-        user.setEmail(email);
+        if("e".equals(type)){
+            user.setEmail(email);//根据邮箱判断
+        }
+        else if("a".equals(type)){
+            user.setAccount(email);//根据账号判断
+        }
         return dao.selectByUserimf(user);
     }
 

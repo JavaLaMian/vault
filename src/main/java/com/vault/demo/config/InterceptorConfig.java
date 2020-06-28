@@ -19,15 +19,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(actInterceptor);
         //添加拦截路径
         interceptorRegistration.addPathPatterns("/user/*");
-        System.out.println("进入拦截器");
         //剔除要拦截的路径
         interceptorRegistration.excludePathPatterns("/user/tologin");
         interceptorRegistration.excludePathPatterns("/user/tozhao");
         interceptorRegistration.excludePathPatterns("/user/login");
         interceptorRegistration.excludePathPatterns("/user/add");
         interceptorRegistration.excludePathPatterns("/user/logout");
-        interceptorRegistration.excludePathPatterns("/user/padEmail",
-                "/user/getMa",
-                "/user/updpwd");
+        interceptorRegistration.excludePathPatterns("/user/padEmail",//判断注册时该邮箱是否存在
+                "/user/getMa",//登陆时选择验证码登陆的获取验证码操作
+                "/user/updpwd",
+                "/user/padAct");
     }
 }

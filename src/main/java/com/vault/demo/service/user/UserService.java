@@ -10,7 +10,7 @@ public interface UserService {
     int addUserImf(Userimf user);
     void upUser(Userimf userimf);
     String getEmailMa(String shou,String type) throws EmailException;
-    Userimf pandEmail(String email);
+    Userimf pandEmail(String email,String type);
     Userimf logPadUser(Userimf userimf);
     int updetaPwd(String email,String pwd);
     void bindCredit(Credit credit);

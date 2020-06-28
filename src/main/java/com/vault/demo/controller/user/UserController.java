@@ -66,7 +66,7 @@ public class UserController {
         //logtype 1 邮箱登陆  0 密码登陆
         Userimf user;
         if("1".equals(logtype)){
-            user = service.pandEmail(email);
+            user = service.pandEmail(email,"e");
             session.setAttribute("user",user);
             //System.out.println("邮箱登陆"+user+toString());
             return "redirect:tologin";
@@ -122,7 +122,7 @@ public class UserController {
     @RequestMapping("/padEmail")
     @ResponseBody
     public boolean padEmail(String email){
-        if(service.pandEmail(email) != null){
+        if(service.pandEmail(email,"e") != null){
             return true;
         }else {
             return false;
@@ -163,5 +163,15 @@ public class UserController {
         Userimf userimf = (Userimf)session.getAttribute("user");
         Map max = service.getChuJie(userimf);
         return max;
+    }
+
+    @RequestMapping("/padAct")
+    @ResponseBody
+    public boolean padAccount(String act){
+        if(service.pandEmail(act,"a") != null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
