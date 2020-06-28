@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>贷款审核表</title>
+    <title>投标表</title>
     <link rel="icon" href="favicon.ico" type="image/ico">
 
 
@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="loan">
+                                    <table class="table table-bordered" id="payment">
 
                                     </table>
                                 </div>
@@ -54,7 +54,7 @@
         });
         $('#loan').bootstrapTable({
             method:'post',
-            url:'/back_loan/loanData',//请求数据路径
+            url:'/back_loan/payment_data',//请求数据路径
             dataType: "json",
             pagination: true, // 是否分页
             sidePagination: 'server', // server:服务器端分页|client：前端分页
