@@ -1,11 +1,8 @@
 package com.vault.demo.service.loan.impl;
 
 import com.vault.demo.bean.*;
-import com.vault.demo.dao.BankDao;
-import com.vault.demo.dao.CarDao;
-import com.vault.demo.dao.LoanBankHistoryDao;
+import com.vault.demo.dao.*;
 import com.vault.demo.dao.loan.CreditDao;
-import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.loan.ActionDao;
 import com.vault.demo.dao.loan.LoanDao;
 import com.vault.demo.service.loan.LoanService;
@@ -89,6 +86,11 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void insertHouse(House house) {
         houseDao.insertHouse(house);
+    }
+
+    @Override
+    public void insertJob(Credit credit) {
+        creditDao.insertJob(credit);
     }
 
     @Override

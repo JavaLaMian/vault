@@ -139,7 +139,7 @@
             </div>
             <div class="account-cont" id="contanier" th:if="${applyType} eq view">
                 <div class="at-til">
-                    <span class="name">绑定银行卡信息</span>
+                    <span class="name">查看银行卡信息</span>
                 </div>
                 <div class="bindcard-form" id="bindcardForm">
                     <img class="xn-logo" src="//image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
@@ -153,11 +153,11 @@
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" th:value="${userBank.cardId}" disabled onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"/>
+                        <input type="text" class="bindcard-input" th:value="${userBank.cardId}" disabled id="cardId"/>
                     </div>
                     <div>
                         <label>开户银行：</label>
-                        <input  class="bindcard-input" th:value="${userBank.bankName}" disabled/>
+                        <input  class="bindcard-input" th:value="${userBank.bankName}" disabled id="bankName"/>
                     </div>
                     <div>
                         <button class="bind-btn" type="button" value="解绑" style="width: 60px;float: left;" onclick="unBind()">解绑</button>
@@ -432,8 +432,6 @@
         }else if (!$("#arge").get(0).checked) {
             couldsub = false;
             $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
-        }else if ($("#arge").get(0).checked) {
-            couldsub = true;
         }
         if (couldsub == true) {
             $.post("/user/smrz", {
@@ -453,8 +451,15 @@
         console.log("结束");
     }
     function unBind() {
+        var bankName = $("#bankName").val();
+        var cardId = $("#cardId").val();
         if (confirm("确定解除绑定吗？")) {
-            txt = "您按了确定";
+            $.post("/user/unbindcard",{
+                cardId:cardId,
+                bankName:bankName
+            },function (data) {
+                window.location.href="/user/toAS";
+            },"json");
         }
     }
 
@@ -467,8 +472,8 @@
         }
     }
 
-
     var upMa;
+    var couldUp=true;
     function getMa(type,id){
         var email = $("#em").val();
         if($(id).val() === "获取"){
@@ -497,15 +502,16 @@
             if(upMa!=$("#code").val()){
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
-                couldsub=true;
+                couldUp = false;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
             }
         }else if($("#code").val()==null||$("#code").val()==""){
+            couldUp = false;
             $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
         }
     }
     function upbind() {
-        couldsub = true;
+        couldUp = true;
         em_check();
         checkCid();
         up_checkMa();
@@ -516,21 +522,19 @@
         //var arge = $("#arge").val();
 
         if (uName == null || uName == "") {
-            couldsub = false;
+            couldUp = false;
             $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
         }else if (cardId == null || cardId == "") {
-            couldsub = false;
+            couldUp = false;
             $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
         }else if (bankName == null || bankName == "") {
-            couldsub = false;
+            couldUp = false;
             $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
         }else if (!$("#arge").get(0).checked) {
-            couldsub = false;
+            couldUp = false;
             $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
-        }else if ($("#arge").get(0).checked) {
-            couldsub = true;
         }
-        if (couldsub == true) {
+        if (couldUp == true) {
             $.post("/user/upcard", {
                 uName: uName,
                 cardId: cardId,

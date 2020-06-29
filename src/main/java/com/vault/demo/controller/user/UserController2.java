@@ -1,9 +1,7 @@
 package com.vault.demo.controller.user;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.WorryCall;
+import com.vault.demo.bean.*;
+import com.vault.demo.service.integral.integralService;
 import com.vault.demo.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,8 @@ import java.util.Map;
 public class UserController2 {
     @Resource
     private UserService service;
+    @Resource
+    private integralService integralService;
 
     @RequestMapping("/toAO")
     public String toAO(HttpSession session,Model model){
@@ -91,7 +92,26 @@ public class UserController2 {
         userBank.setBcUserName(user.getuName());
 //        System.out.println(user.toString());
 //        System.out.println(userBank.toString());
-        service.upbindBank(userBank);
+        System.out.println(service.getBC(user.getuId()));
+
+        if (null!=service.getBC(user.getuId())){
+            service.upbindBank(userBank);
+        }else {
+            service.bindBank(userBank);
+        }
+        session.setAttribute("user",user);
+
+        return false;
+    }
+    @RequestMapping("/unbindcard")
+    @ResponseBody
+    public Boolean unbindcard(UserBank userBank, HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        userBank.setuId(user.getuId());
+        userBank.setBcUserName(user.getuName());
+//        System.out.println(user.toString());
+        System.out.println(userBank.toString());
+        service.unbindBank(userBank);
         session.setAttribute("user",user);
 
         return false;
@@ -125,6 +145,13 @@ public class UserController2 {
 
         Map map = new HashMap();
         map.put("msg","cg");
+
+        Bounty bounty = new Bounty();
+        bounty.setuId(user.getuId());
+        bounty.setBoMoney(13888);
+        bounty.setBoTime(new Date());
+        bounty.setBoType(1);
+        integralService.bountyAdd(bounty);
 
         return map;
     }
