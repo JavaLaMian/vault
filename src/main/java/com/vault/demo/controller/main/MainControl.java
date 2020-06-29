@@ -7,9 +7,11 @@ import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Tender;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +27,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-//
+
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -35,17 +37,33 @@ public class MainControl{
     public String toMain(HttpServletRequest request){
         List<Bid> nList = bidSer.allList(0,1);
         List<Bid> pList = bidSer.allList(0,2);
-        List ncList = nList.subList(0, 3);
-       // List pcList = pList.subList(0,3);
         List<PerBid> per = bidSer.selectPerB(0);
-        List perList = per.subList(0, 3);
+        List ncList;
+        List pcList;
+        List perList;
+        if(nList.size()>3){
+            ncList = nList.subList(0, 3);
+        }else{
+            ncList = nList;
+        }
+        if(pList.size()>3){
+            pcList = pList.subList(0,3);
+        }else{
+            pcList = pList;
+        }
+        if(per.size()>3){
+            perList = per.subList(0, 3);
+        }else{
+            perList=per;
+        }
+
         float countM = bidSer.countTenMoney();
         int countU = bidSer.countUser();
         request.setAttribute("countM",countM);
         request.setAttribute("countU",countU);
         request.setAttribute("ncList", ncList);
+        request.setAttribute("pcList", pcList);
         request.setAttribute("perList", perList);
-        request.setAttribute("pcList", pList);
         return "firstPage/first";
     }
 
@@ -83,7 +101,6 @@ public class MainControl{
         String msg = request.getParameter("msg");//获取上个方法添加的参数
         model.addAttribute("msg",msg);//设置到requset中页面提醒用户
         return "firstPage/prose";
-
     }
 
     @RequestMapping("/perImf")
@@ -181,5 +198,16 @@ public class MainControl{
             return  "redirect:perImf?id="+tender.getbId();
         }
 
+    }
+
+    @RequestMapping("/bidList")
+    public String bidList(HttpServletRequest request, Pager pager){
+        List<Bid> bids=bidSer.rateByBid(0,3);
+        System.out.println("================="+bids.size());
+        request.setAttribute("bids",bids);
+        pager.page(bidSer.countRateByBid());
+        List<Bid> list = bidSer.rateByBid((pager.thisPage - 1) * pager.titleSize, pager.titleSize);
+        request.setAttribute("list",list);
+        return "firstPage/bidList";
     }
 }

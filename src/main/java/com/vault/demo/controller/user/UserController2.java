@@ -83,12 +83,19 @@ public class UserController2 {
         model.addAttribute("applyType","update");
         return "user/apply";
     }
-//    @RequestMapping("/updateApply")
-//    public Boolean updateApply(UserBank userBank,HttpSession session, Model model){
-//        Userimf user = (Userimf) session.getAttribute("user");
-//        service.u(userBank);
-//        return false;
-//    }
+    @RequestMapping("/upcard")
+    @ResponseBody
+    public Boolean upcard(UserBank userBank, HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        userBank.setuId(user.getuId());
+        userBank.setBcUserName(user.getuName());
+//        System.out.println(user.toString());
+//        System.out.println(userBank.toString());
+        service.upbindBank(userBank);
+        session.setAttribute("user",user);
+
+        return false;
+    }
 
     @RequestMapping("/checkold")
     @ResponseBody
@@ -161,6 +168,12 @@ public class UserController2 {
         }
         return map;
     }
+    @RequestMapping("/unbindCard")
+    @ResponseBody
+    public Boolean unbindCard(UserBank bank,HttpSession session){
+        Userimf refereer = new Userimf();
+        return false;
+    }
     @RequestMapping("/emailUp")
     @ResponseBody
     public Boolean emailUp(String newEmail,HttpSession session){
@@ -203,11 +216,5 @@ public class UserController2 {
         }else {
             return false;
         }
-    }
-    @RequestMapping("/unbindCard")
-    @ResponseBody
-    public Boolean unbindCard(UserBank bank,HttpSession session){
-        Userimf refereer = new Userimf();
-        return false;
     }
 }

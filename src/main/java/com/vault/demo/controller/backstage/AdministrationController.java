@@ -16,12 +16,16 @@ public class AdministrationController {
     @Resource
     private AdminService adminService;
 
+    @RequestMapping("/toLogin")
+    public String toLogin(){
+        return "backstage/admin_login";
+    }
+
     @ResponseBody
     @RequestMapping("/login")
-    public String login(String account, String pwd,HttpSession session){
+    public String login(String account,String pwd,HttpSession session){
         System.out.println(account+" "+pwd);
         Admin admin = adminService.checkLogin(account,pwd);
-        System.out.println(admin.toString());
         if(admin!=null){
             session.setAttribute("admin",admin);
             return "success";

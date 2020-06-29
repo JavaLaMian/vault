@@ -34,6 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int addUserImf(Userimf user) {
+        if(user.getRefereer() == null || "".equals(user.getRefereer())){
+            user.setRefereer("无");
+        }else {
+            Userimf yao = new Userimf();
+            yao.setAccount(user.getRefereer());
+            yao = dao.selectByUserimf(yao);
+            Bounty bounty = new Bounty();
+            bounty.setBoMoney(10);
+            bounty.setuId(yao.getuId());
+            bounty.setBoTime(new Date());
+            bounty.setBoType(3);
+            iDao.bountyAdd(bounty);
+        }
         int lie = dao.addUser(user);
         dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
 
@@ -90,6 +103,8 @@ public class UserServiceImpl implements UserService {
             text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
         }else if("eamil_bind".equals(type)){
             text = "您正在重设关联邮箱，验证码为 "+ma+",若非本人操作请忽略";
+        }else if("upcard".equals(type)){
+            text = "您正在更改绑定银行卡，验证码为 "+ma+",若非本人操作请忽略";
         }
 
         email.setHostName("smtp.163.com");//邮箱的SMTP服务器，一般123邮箱的是smtp.123.com,qq邮箱为smtp.qq.com
@@ -104,9 +119,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Userimf pandEmail(String email) {
+    public Userimf pandEmail(String email,String type) {
         Userimf user = new Userimf();
-        user.setEmail(email);
+        if("e".equals(type)){
+            user.setEmail(email);//根据邮箱判断
+        }
+        else if("a".equals(type)){
+            user.setAccount(email);//根据账号判断
+        }
         return dao.selectByUserimf(user);
     }
 
@@ -128,6 +148,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void bindBank(UserBank userBank) {
         bdao.bindBank(userBank);
+    }
+
+    @Override
+    public void unbindBank(UserBank userBank) {
+        bdao.unBank(userBank);
+    }
+
+    @Override
+    public void upbindBank(UserBank userBank) {
+        bdao.upBank(userBank);
     }
 
     @Override

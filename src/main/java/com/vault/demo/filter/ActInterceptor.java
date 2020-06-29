@@ -28,12 +28,14 @@ public class ActInterceptor implements HandlerInterceptor {
         if(obj==null){//没有登录
             //跳到登录界面
             response.sendRedirect(request.getContextPath()+"/user/tologin");
+            System.out.println("拦截url："+path);
             return false;
         }else {
             if("/user/toAO".equals(path)) return true;
 
             if(ren == null){
                 response.sendRedirect(request.getContextPath()+"/user/toAO");
+                System.out.println("拦截url："+path);
                 return false;
             }else {
                 return true;
