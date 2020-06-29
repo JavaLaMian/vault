@@ -94,5 +94,24 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
             insert into recharge values (null,#{uId},#{reMoney},#{reTime},#{bankId},#{bankName})
          ]]>
     </insert>
-
+    <select id="selecttendertenMoney" resultType="Float">
+         <![CDATA[
+             select tenMoney from tender where bid = #{bid} and uid = #{uid}
+         ]]>
+    </select>
+    <update id="updatetenderMoney">
+        <![CDATA[
+           update tender set tenMoney = #{money} where bid = #{bid} and uid = #{uid}
+         ]]>
+    </update>
+    <select id="tenderlist" resultType="Tender">
+         <![CDATA[
+            select *  from tender
+         ]]>
+    </select>
+    <update id="updateTender">
+        <![CDATA[
+           update tender set tenType = #{tentype} where tid = #{tid}
+         ]]>
+    </update>
 </mapper>

@@ -38,4 +38,5 @@ public interface BidDao{
     int countUser();
     float countTenMoney();
     List<Tender> selTenderByTD(@Param("uId")int uId);
+    List<Tender> selTenderByUser(@Param("uId")int uId);
 }

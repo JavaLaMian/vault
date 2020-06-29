@@ -133,4 +133,7 @@
     <select id="selTenderByTD" resultType="com.vault.demo.bean.Tender">
         select * from tender where uId = #{uId} and bType = 3 order by tenTime desc
     </select>
+    <select id="selTenderByUser" resultType="com.vault.demo.bean.Tender">
+        select * from tender where uId = #{uId}
+    </select>
 </mapper>
