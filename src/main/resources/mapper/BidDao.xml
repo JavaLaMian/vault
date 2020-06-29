@@ -5,6 +5,15 @@
 
 <mapper namespace="com.vault.demo.dao.test.BidDao">
 
+    <select id="rateByBid" resultType="com.vault.demo.bean.Bid" parameterType="int">
+        select * from bid order by rate desc
+            limit #{startT},#{tSize}
+    </select>
+
+    <select id="countRateByBid" resultType="int">
+        select COUNT(*) from bid
+    </select>
+
     <select id="allList" resultType="com.vault.demo.bean.Bid" parameterType="int">
         <![CDATA[
           select * from bid
@@ -26,9 +35,7 @@
     </select>
 
     <select id="countPerList" resultType="int">
-         <![CDATA[
           select COUNT(*) from perBid
-        ]]>
     </select>
 
     <select id="selectPerB" resultType="com.vault.demo.bean.PerBid">
@@ -125,5 +132,8 @@
 
     <select id="selTenderByTD" resultType="com.vault.demo.bean.Tender">
         select * from tender where uId = #{uId} and bType = 3 order by tenTime desc
+    </select>
+    <select id="selTenderByUser" resultType="com.vault.demo.bean.Tender">
+        select * from tender where uId = #{uId}
     </select>
 </mapper>

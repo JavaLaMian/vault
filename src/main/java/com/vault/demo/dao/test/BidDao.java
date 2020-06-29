@@ -14,6 +14,9 @@ import java.util.Map;
 @Repository
 @Transactional
 public interface BidDao{
+
+    int countRateByBid();
+    List<Bid>rateByBid(@Param("startT")int startT, @Param("tSize") int tSize);
     List<Bid> allList(@Param("bId")int bId,@Param("bType") int bType);
     void deleteById(int id);
     void updateById(int id);
@@ -35,4 +38,5 @@ public interface BidDao{
     int countUser();
     float countTenMoney();
     List<Tender> selTenderByTD(@Param("uId")int uId);
+    List<Tender> selTenderByUser(@Param("uId")int uId);
 }

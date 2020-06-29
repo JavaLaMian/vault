@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.backstage.BackCreditDao">
+    <select id="getCreditAll" resultType="map">
+        select u.account,u.phe,u.email,c.* from credit c left join userimf u on c.uId = u.uId
+    </select>
+    <select id="selCreditById" resultType="Credit">
+        select * from credit
+    </select>
+    <select id="selUserById" resultType="Userimf">
+        select * from userimf
+    </select>
+</mapper>
