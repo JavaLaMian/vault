@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信用审核</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+
+        <!--页面主要内容-->
+        <main class="layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="house">
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+<script type="text/javascript">
+    $(function(){
+        $('.search-bar .dropdown-menu a').click(function() {
+            var field = $(this).data('field') || '';
+            $('#search-field').val(field);
+            $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+        });
+        $('#house').bootstrapTable({
+            method:'post',
+            url:'/XMN/getHouseData',//请求数据路径
+            dataType: "json",
+            pagination: true, // 是否分页
+            sidePagination: 'server', // server:服务器端分页|client：前端分页
+            pageNumber: 1,//这默认页码
+            clickToSelect: true, // 单击行即可以选中
+            sortOrder: 'desc', // 设置排序为反序 desc
+            pageSize: 10, // 单页记录数
+            pageList: [10, 20, 30],
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: $("#sname").val(),
+                    viewReason: $("#viewReason").val(),
+                };
+                return temp;
+            },
+            onLoadSuccess:function () {
+                setDisable(disabledIndex);
+                setDisable2(shIndex);
+            },
+            columns: [{
+                checkbox: true,
+            },{
+                title:'账号',
+                field:'account',
+            },{
+                title:'真实姓名',
+                field:'name',
+                formatter: checkNUll
+            },{
+                title:'联系电话',
+                field:'phe',
+                formatter: checkNUll
+            },{
+                title:'邮箱地址',
+                field:'email',
+                formatter: checkNUll
+            },{
+                title:'身份证号码',
+                field:'identity',
+                formatter: checkNUll
+            },{
+                title:'工作单位',
+                field:'depart',
+                formatter: checktext
+            },{
+                title:'工资情况',
+                field:'wages',
+                formatter: checktext
+            },{
+                title:'审核状态',
+                field:'type',
+                formatter: checkType
+            },{
+                title:'操作',
+                field:'creId',
+                formatter: option
+            }]
+        });
+
+        var disabledIndex = new Array();
+        var indexNum = 0;
+
+        var shIndex = new Array();
+        var indexn = 0;
+
+        function option(value, row, index) {
+            var htm = "";
+            htm+='<button class="btn btn-success m-r-5" id="'+index+'" onclick="toocreditexmine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
+
+            console.log(htm);
+            return htm;
+        }
+        function checkNUll(value, row, index) {
+            var htm="";
+            if(value==null || value==''){
+
+                disabledIndex[indexNum] = index;
+                indexNum += 1;
+
+                // setDisable(index);
+                htm+='<span style="color: red">未填写</span>';
+                return htm
+            }else{
+                return value
+            }
+        }
+        function checktext(value, row, index) {
+            var htm="";
+            if(value==null || value==''){
+                htm+='<span style="color: red">未填写</span>';
+                return htm
+            }else{
+                return value
+            }
+        }
+        function checkType(value, row, index) {
+            var htm = "";
+            if(value==0){
+                htm+='<span style="color: yellow">等待审核</span>';
+                return htm
+            }else if(value==1){
+                shIndex[indexn] = index;
+                indexn+=1;
+                htm+='<span style="color: blue">审核中</span>';
+                return htm
+            }else if(value==2){
+                shIndex[indexn] = index;
+                indexn+=1;
+                htm+='<span style="color: green">审核完毕</span>';
+                return htm
+            }
+        }
+        function setDisable(disabledIndex) {
+            $.each(disabledIndex,function (i,e) {
+                var iddd = document.getElementById(e);
+                iddd.disabled = true;
+            })
+        }
+        function setDisable2(shIndex) {
+            $.each(shIndex,function (i,e) {
+                var iddd = document.getElementById(e);
+                iddd.disabled = true;
+            })
+        }
+        function toocreditexmine(value) {
+            window.location.href="/XMN/updateCredit?creId="+value;
+        }
+    });
+</script>
+</body>
+</html>

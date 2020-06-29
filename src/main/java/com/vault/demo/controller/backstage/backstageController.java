@@ -2,11 +2,9 @@ package com.vault.demo.controller.backstage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.vault.demo.bean.Admin;
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
+import com.vault.demo.bean.*;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
+import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +27,8 @@ public class backstageController {
     selevicexmn is;
     @Resource
     BackCreditService bcs;
+    @Resource
+    BackCarService bcas;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv){
@@ -173,23 +173,24 @@ public class backstageController {
 
     //根据id去用户审核页面
     @RequestMapping("/updateCredit")
-    public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
-        List<Map> list = is.selectgetCredit(credit);
-        model.addAttribute("list",list);
+    public ModelAndView updateCredit(ModelAndView mv,Model model,int creId){
+        Credit credit = bcs.selCreditById(creId);
+        model.addAttribute("credit",credit);
+        model.addAttribute("user",bcs.selUserById(credit.getuId()));
         mv.setViewName("backstage/Creditupdate");
         return mv;
     }
     //审核信用信息
     @RequestMapping("/updateCreditOK")
-    public ModelAndView updateCreditOK(ModelAndView mv,String an,Credit credit){
+    public String updateCreditOK(ModelAndView mv,String an,int creId){
+        Credit credit = bcs.selCreditById(creId);
        // 0等待审核 1审核中 2审核完毕
         int ok = 2;
         credit.setCreditLV(an);//获取信用等级
         credit.setCreditUpdateTime(new Date());
         credit.setType(ok);
         is.updateCredit(credit);
-        mv.setViewName("backstage/Creditupdate");
-        return mv;
+        return "redirect:/XMN/loanlist";
     }
     //去往积分订单查询页面
     @RequestMapping("userintegral")
@@ -208,6 +209,43 @@ public class backstageController {
         mv.setViewName("backstage/");
 
         return mv;
+    }
+    @RequestMapping("/carProperty")
+    public ModelAndView toCarProperty(ModelAndView mv){
+        mv.setViewName("backstage/UserCarExamine");
+        return mv;
+    }
+    @ResponseBody
+    @RequestMapping("/getCarData")
+    public JSONObject getCarData(){
+        JSONObject object = new JSONObject();
+        List<Map> cars = bcas.selCarAll();
+        object.put("total", cars.size());
+        object.put("rows", JSON.toJSON(cars));
+        return object;
+    }
+    @RequestMapping("/toCarExamine")
+    public ModelAndView toCarExamine(ModelAndView mv,Model m,int cId){
+        Car car = bcas.selCarById(cId);
+        Credit credit = bcas.selCreditById(car.getuId());
+        m.addAttribute("credit",credit);
+        m.addAttribute("car",car);
+        mv.setViewName("backstage/Car_Examine");
+        return mv;
+    }
+    @RequestMapping("/houseProperty")
+    public ModelAndView toHouseProperty(ModelAndView mv){
+        mv.setViewName("backstage/UserCarExamine");
+        return mv;
+    }
+    @ResponseBody
+    @RequestMapping("/getHouseData")
+    public JSONObject getHouseData(){
+        JSONObject object = new JSONObject();
+        List<Map> credits = bcs.getCreditAll();
+        object.put("total", credits.size());
+        object.put("rows", JSON.toJSON(credits));
+        return object;
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期
     public void addbid1(Bid bid,Date date1,int ok){
