@@ -16,9 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 //
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @RequestMapping("/tozhao")
-    public String toZhaoPwd(String zc){
+    public String toZhaoPwd(){
         return "user/zhaohui";
     }
 
@@ -162,6 +163,14 @@ public class UserController {
     public Map getShu(HttpSession session){
         Userimf userimf = (Userimf)session.getAttribute("user");
         Map max = service.getChuJie(userimf);
+        return max;
+    }
+
+    @RequestMapping("/huikuan")
+    @ResponseBody
+    public Map huiKuan(int yue,int year,HttpSession session){
+        Userimf user = (Userimf)session.getAttribute("user");
+        Map max = service.getRiLi(user,yue,year);
         return max;
     }
 
