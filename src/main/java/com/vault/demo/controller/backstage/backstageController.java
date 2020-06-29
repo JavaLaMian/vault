@@ -1,13 +1,17 @@
 package com.vault.demo.controller.backstage;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.Admin;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.Loan;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
+import com.vault.demo.service.backstage.credit.BackCreditService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -23,15 +27,12 @@ import java.util.Map;
 public class backstageController {
     @Resource
     selevicexmn is;
+    @Resource
+    BackCreditService bcs;
     //首页
     @RequestMapping("/backstage")
-    public ModelAndView backstage(ModelAndView mv, HttpSession session){
-        Admin admin = (Admin)session.getAttribute("admin");
-        if(admin == null){
-            mv.setViewName("backstage/admin_login");
-        }else{
-            mv.setViewName("backstage/Bindex");
-        }
+    public ModelAndView backstage(ModelAndView mv){
+        mv.setViewName("backstage/Bindex");
         return mv;
     }
     @RequestMapping("/text")
@@ -73,13 +74,8 @@ public class backstageController {
     }
     //去往贷款审核页面
     @RequestMapping("/Loan_List")
-    public ModelAndView toLoanList(ModelAndView mv,HttpSession session){
-        Admin admin = (Admin)session.getAttribute("admin");
-        if(admin == null){
-            mv.setViewName("backstage/admin_login");
-        }else{
-            mv.setViewName("backstage/loan_list");
-        }
+    public ModelAndView toLoanList(ModelAndView mv){
+        mv.setViewName("backstage/loan_list");
         return mv;
     }
     //去往投标新增页面
@@ -161,12 +157,20 @@ public class backstageController {
     }
     //去往用户信用审核页面
     @RequestMapping("/loanlist")
-    public ModelAndView loanlist(ModelAndView mv,Model model){
-        List<Credit> list = is.CreditList();
-        model.addAttribute("list",list);
+    public ModelAndView loanlist(ModelAndView mv){
         mv.setViewName("backstage/CreditList");
         return mv;
     }
+    @ResponseBody
+    @RequestMapping("/creditData")
+    public JSONObject getCreditData() {
+        JSONObject object = new JSONObject();
+        List<Map> credits = bcs.getCreditAll();
+        object.put("total", credits.size());
+        object.put("rows", JSON.toJSON(credits));
+        return object;
+    }
+
     //根据id去用户审核页面
     @RequestMapping("/updateCredit")
     public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
@@ -193,6 +197,16 @@ public class backstageController {
         List<Map> list = is.integralList();
         model.addAttribute("list",list);
         mv.setViewName("backstage/integralList");
+        return mv;
+    }
+    @RequestMapping("/Admin_information")
+    public ModelAndView toAdminInformation(ModelAndView mv,Model model){
+        return mv;
+    }
+    @RequestMapping("/Payment_track")
+    public ModelAndView toPaPaymentTrack(ModelAndView mv){
+        mv.setViewName("backstage/");
+
         return mv;
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期

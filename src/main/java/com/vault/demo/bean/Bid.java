@@ -104,14 +104,6 @@ public class Bid {//6月10日15：29
                 '}';
     }
 
-    public float getPersonLimit() {
-        return personLimit;
-    }
-
-    public void setPersonLimit(float personLimit) {
-        this.personLimit = personLimit;
-    }
-
     public static int getNEWHAND() {
         return NEWHAND;
     }
@@ -202,6 +194,14 @@ public class Bid {//6月10日15：29
 
     public void setSumLimit(float sumLimit) {
         this.sumLimit = sumLimit;
+    }
+
+    public float getPersonLimit() {
+        return personLimit;
+    }
+
+    public void setPersonLimit(float personLimit) {
+        this.personLimit = personLimit;
     }
 
     public float getStartLimit() {
@@ -307,5 +307,4 @@ public class Bid {//6月10日15：29
     public void setMaxTime(int maxTime) {
         this.maxTime = maxTime;
     }
-
 }

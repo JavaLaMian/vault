@@ -34,6 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int addUserImf(Userimf user) {
+        if(user.getRefereer() == null || "".equals(user.getRefereer())){
+            user.setRefereer("无");
+        }else {
+            Userimf yao = new Userimf();
+            yao.setAccount(user.getRefereer());
+            yao = dao.selectByUserimf(yao);
+            Bounty bounty = new Bounty();
+            bounty.setBoMoney(10);
+            bounty.setuId(yao.getuId());
+            bounty.setBoTime(new Date());
+            bounty.setBoType(3);
+            iDao.bountyAdd(bounty);
+        }
         int lie = dao.addUser(user);
         dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
 

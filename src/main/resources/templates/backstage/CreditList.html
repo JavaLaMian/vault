@@ -47,73 +47,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
-
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="checkbox checkbox-primary">
-                                                    <input type="checkbox" id="check-all"><span></span>
-                                                </label>
-                                            </th>
-                                            <th>编号</th>
-                                            <th>申请人用户ID</th>
-                                            <th>单位</th>
-                                            <th>工资信息</th>
-                                            <th>姓名</th>
-                                            <th>操作时间</th>
-                                            <th>信用等级</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="p:${list}">
-                                            <td>
-                                                <label class="checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td th:text="${p.creId}">1</td>
-                                            <td th:text="${p.uId}">1</td>
-                                            <td th:if="${p.depart} eq null">无</td>
-                                            <td th:if="${p.depart} ne null"><p th:text="${p.depart}"></p></td>
-                                            <td th:if="${p.wages} eq null">无</td>
-                                            <td th:if="${p.wages} ne null"><p th:text="${p.wages}"></p></td>
-                                            <td th:if="${p.name} eq null">无</td>
-                                            <td th:if="${p.name} ne null"><p th:text="${p.name}"></p></td>
-                                            <td th:if="${p.creditUpdateTime} eq null">无</td>
-                                            <td th:if="${p.creditUpdateTime} ne null"><p th:text="${#dates.format(p.creditUpdateTime,'yyyy-MM-dd HH:mm')}"></p></td>
-                                            <td th:if="${p.creditLV eq '1'}">
-                                                 <font class="text-success">正常</font>
-                                            </td>
-                                            <td th:if="${p.creditLV eq '2'}">
-                                                <font class="text-warning">关注</font>
-                                            </td>
-                                            <td th:if="${p.creditLV eq '3'}">
-                                                <font class="text-secondary">次级</font>
-                                            </td>
-                                            <td th:if="${p.creditLV eq '4'}">
-                                                <font class="text-dark">可疑</font>
-                                            </td>
-                                            <td th:if="${p.creditLV eq '5'}">
-                                                <font class="text-dark">损失</font>
-                                            </td>
-                                            <td th:if="${p.creditLV eq null}">
-                                                <font class="text-dark">无</font>
-                                            </td>
+                                    <table class="table table-bordered" id="credit">
 
-                                            <td th:if="${p.type eq 0}">等待审核</td>
-                                            <td th:if="${p.type eq 1}">审核中</td>
-                                            <td th:if="${p.type eq 2}">审核完毕</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" th:href="@{/XMN/updateCredit/(creId=${p.creId})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
                                     </table>
                                 </div>
 
@@ -139,6 +75,80 @@
             $('#search-field').val(field);
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
+        $('#credit').bootstrapTable({
+            method:'post',
+            url:'/XMN/creditData',//请求数据路径
+            dataType: "json",
+            pagination: true, // 是否分页
+            sidePagination: 'server', // server:服务器端分页|client：前端分页
+            pageNumber: 1,//这默认页码
+            clickToSelect: true, // 单击行即可以选中
+            sortOrder: 'desc', // 设置排序为反序 desc
+            pageSize: 10, // 单页记录数
+            pageList: [10, 20, 30],
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: $("#sname").val(),
+                    viewReason: $("#viewReason").val(),
+                };
+                return temp;
+            },
+            columns: [{
+                checkbox: true,
+            },{
+                title:'账号',
+                field:'account',
+            },{
+                title:'真实姓名',
+                field:'name',
+                formatter: checkNUll
+            },{
+                title:'联系电话',
+                field:'phe',
+                formatter: checkNUll
+            },{
+                title:'邮箱地址',
+                field:'email',
+                formatter: checkNUll
+            },{
+                title:'身份证号码',
+                field:'identity',
+                formatter: checkNUll
+            },{
+                title:'工作单位',
+                field:'depart',
+                formatter: checkdepart
+            },{
+                title:'工资情况',
+                field:'wages',
+                formatter: checkwages
+            },{
+                title:'支付密码',
+                field:'dealPsw',
+                formatter: checkNUll
+            },{
+                title:'操作',
+                field:'creId',
+                formatter: option
+            }]
+        });
+        function option(value, row, index) {
+            var htm = "";
+            htm+='<button class="btn btn-success m-r-5" name="" onclick="toocreditexmine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
+
+
+
+            return htm;
+        }
+        function checkNUll(value, row, index) {
+            var htm="";
+            if(value==null || value==''){
+                htm+='<span style="color: red">未填写</span>';
+                return htm
+            }else{
+                return value
+            }
+        }
     });
 </script>
 </body>
