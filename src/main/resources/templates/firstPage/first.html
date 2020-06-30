@@ -163,24 +163,14 @@
 <div class="streamer">
 	<div class="slider">
 		<ul class="banner" id="lunBo" style="width: 9515px; position: absolute; left: 0px;">
-			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
 		</ul>
 		<div class="but">
-			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
+			<a href="#" style="background-color: #ef7a46" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">1</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">2</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">3</a>
@@ -216,7 +206,6 @@
 		<div class="mask"></div>
 	</div>
 </div>
-
 <div class="notice" id="noticeModel">
 	<div class="container">
 		<div class="direction">
@@ -357,7 +346,6 @@
 		</div>
 	</div>
 </div>
-
 <!--工具工具-->
 <div class="fixed" id="fixedModel">
 	<div class="container">
@@ -409,8 +397,6 @@
 		</div>
 	</div>
 </div>
-
-
 <div class="online" id="onlineModel">
 	<div class="container">
 		<div class="title">
@@ -503,8 +489,6 @@
 		</div>
 	</div>
 </div>
-
-
 <div class="cooperation">
 	<div class="container">
 		<div class="title">合作伙伴</div>
@@ -653,27 +637,19 @@
 		<!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
     </span>
 </div>
-
 <div style="display:none">
 	<script>
-		var jishiLun;
 		var imgLen = $("#lunBo li").length;
 		var curIndex = 0;
         var autoChange = setInterval("zhiXin()","3000");
 
-
-        //右箭头滑入滑出事件处理
-        /*$(".but a").hover(function(){
-            //滑入清除定时器
-            clearInterval(autoChange);
-        }, function(){
-            //滑出则重置定时器
-            autoChangeAgain();
-        });*/
         function yiRuLun(id) {
 			var xun = $(id).text();
+            $(".but a").css("background-color","white");
+            $(id).css("background-color","#ef7a46");
             clearInterval(autoChange);
-            changeTo(xun)
+            curIndex = xun;
+            changeTo(xun);
         }
 
         function zhiXin() {
@@ -686,6 +662,17 @@
                 curIndex = 0;
                 zhiXin();
             }
+            if(curIndex === 0){
+                $(".but a").last().css("background-color","white");
+			}else {
+                $(".but a").eq(curIndex-1).css("background-color","white");
+			}
+			if(curIndex === imgLen-1){
+                $(".but a").eq(0).css("background-color","#ef7a46");
+			}else {
+                $(".but a").eq(curIndex).css("background-color","#ef7a46");
+			}
+
         }
 
         //清除定时器时候的重置定时器--封装
