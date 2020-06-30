@@ -12,4 +12,7 @@
     <select id="selCreditById" resultType="Credit">
         select * from credit where uId=#{uId}
     </select>
+    <update id="updCarStatus" >
+        UPDATE car set status=#{status} where cId=#{cId}
+    </update>
 </mapper>

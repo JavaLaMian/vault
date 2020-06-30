@@ -14,4 +14,5 @@ public interface BackCarDao {
     List<Map> selCarAll();
     Car selCarById(int cId);
     Credit selCreditById(int uId);
+    void updCarStatus(Car car);
 }

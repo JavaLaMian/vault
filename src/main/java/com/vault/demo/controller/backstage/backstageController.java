@@ -6,6 +6,7 @@ import com.vault.demo.bean.*;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
+import com.vault.demo.service.backstage.house.BackHouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,8 @@ public class backstageController {
     BackCreditService bcs;
     @Resource
     BackCarService bcas;
+    @Resource
+    BackHouseService bhs;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv){
@@ -193,7 +196,7 @@ public class backstageController {
         return "redirect:/XMN/loanlist";
     }
     //去往积分订单查询页面
-    @RequestMapping("userintegral")
+    @RequestMapping("/userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
         List<Map> list = is.integralList();
         model.addAttribute("list",list);
@@ -204,10 +207,10 @@ public class backstageController {
     public ModelAndView toAdminInformation(ModelAndView mv,Model model){
         return mv;
     }
+    //打款追踪
     @RequestMapping("/Payment_track")
     public ModelAndView toPaPaymentTrack(ModelAndView mv){
-        mv.setViewName("backstage/");
-
+        mv.setViewName("backstage/Paymenttrack");
         return mv;
     }
     @RequestMapping("/carProperty")
@@ -224,28 +227,54 @@ public class backstageController {
         object.put("rows", JSON.toJSON(cars));
         return object;
     }
+
     @RequestMapping("/toCarExamine")
-    public ModelAndView toCarExamine(ModelAndView mv,Model m,int cId){
+    public String toCarExamine(Model m,int cId){
         Car car = bcas.selCarById(cId);
         Credit credit = bcas.selCreditById(car.getuId());
+        Userimf userimf = bcs.selUserById(car.getuId());
+        m.addAttribute("user",userimf);
         m.addAttribute("credit",credit);
         m.addAttribute("car",car);
-        mv.setViewName("backstage/Car_Examine");
-        return mv;
+        return "backstage/Car_Examine";
+    }
+    @RequestMapping("/carExamine")
+    public String carExamine(int cId,int an){
+        Car car = bcas.selCarById(cId);
+        car.setStatus(an);
+        bcas.updCarStatus(car);
+        return "redirect:/XMN/carProperty";
     }
     @RequestMapping("/houseProperty")
     public ModelAndView toHouseProperty(ModelAndView mv){
-        mv.setViewName("backstage/UserCarExamine");
+        mv.setViewName("backstage/UserHouseExamine");
         return mv;
     }
     @ResponseBody
     @RequestMapping("/getHouseData")
     public JSONObject getHouseData(){
         JSONObject object = new JSONObject();
-        List<Map> credits = bcs.getCreditAll();
-        object.put("total", credits.size());
-        object.put("rows", JSON.toJSON(credits));
+        List<Map> houses = bhs.selHosueAll();
+        object.put("total", houses.size());
+        object.put("rows", JSON.toJSON(houses));
         return object;
+    }
+    @RequestMapping("/toHouseExamine")
+    public String toHouseExamine(Model m,int hId){
+        House house = bhs.selHouseById(hId);
+        Credit credit = bcas.selCreditById(house.getuId());
+        Userimf userimf = bcs.selUserById(house.getuId());
+        m.addAttribute("house",house);
+        m.addAttribute("user",userimf);
+        m.addAttribute("credit",credit);
+        return "backstage/House_Examine";
+    }
+    @RequestMapping("/houseExamine")
+    public String houseExamine(int hId,int an){
+        House house = bhs.selHouseById(hId);
+        house.setStatus(an);
+        bhs.updHouseStatus(house);
+        return "redirect:/XMN/houseProperty";
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期
     public void addbid1(Bid bid,Date date1,int ok){

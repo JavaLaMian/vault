@@ -21,7 +21,7 @@ public interface UserService {
     void upWorryCall(WorryCall worryCall);
     WorryCall getWorryCall(Userimf userimf);
 
-
+    List<Userimf> friendList(int id);
     int userChongTi(String type,String money,Userimf userimf);
     List<Map> useZhiJinList(int uId);//用户资金记录
     List<Bounty> yhList(int uId);

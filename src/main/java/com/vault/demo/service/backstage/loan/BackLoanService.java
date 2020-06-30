@@ -15,4 +15,5 @@ public interface BackLoanService {
     void updLoan(Loan loan);
     Loan selLoanByLid(int lId);
     void addPerBid(PerBid perBid);
+    List<Map> selLoanHistoryAll();
 }

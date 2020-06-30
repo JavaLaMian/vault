@@ -10,6 +10,6 @@
         select * from credit
     </select>
     <select id="selUserById" resultType="Userimf">
-        select * from userimf
+        select * from userimf where uId=#{uId}
     </select>
 </mapper>

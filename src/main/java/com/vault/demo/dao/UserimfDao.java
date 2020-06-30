@@ -25,6 +25,6 @@ public interface UserimfDao {
 
     List<Bounty> selectBounty(@Param("uId") int uId,@Param("type") int type);
     void updateBounty(@Param("id") int id,@Param("type") int type);
-
+    List<Userimf> friendList(int id);
     List<Userimf> selectForReferee(Userimf userimf);
 }
