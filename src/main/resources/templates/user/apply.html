@@ -32,7 +32,6 @@
 </head>
 <body>
 <input type="hidden" id="em" th:value="${session.user.email}"/>
-<input type="hidden" id="emcode" />
 <input th:value="${session.applyType}" type="hidden" id="checked"/>
 
 <div class="affiche" id="afficheModel">
@@ -112,10 +111,16 @@
                         </select>
                         <span class="bindcard-tip" id="bn"></span>
                     </div>
+                    <div>
+                        <label>验证邮箱：</label>
+                        <input class="bindcard-input" id="email" th:value="${session.user.email}" onblur="checkEmail()">
+                        <!--<span class="bindcard-tip" data-tip="若您在银行预留的手机号码发生变更，请<a href='/user/uasec/mobile' target='_blank'>更新手机号</a>"> 该手机号不是银行预留手机号？请先<a href="/user/uasec/mobile" target="_blank">修改认证手机号</a>-->
+                        <span class="bindcard-tip" id="emmsg">获取银行验证码</span>
+                    </div>
                     <div class="js_code">
                         <label>邮箱验证码：</label>
-                        <input name="code" class="bk_ipt bk_code" type="text" onblur="checkMa(this)">
-                        <input class="btn-getcode" type="button" value="获取" id="getcodeBtn" onclick="getMa('smrz',this)"/>
+                        <input name="code" id="code" class="bk_ipt bk_code" type="text" onblur="checkMa()">
+                        <input class="btn-getcode" type="button" value="获取" id="getcodeBtn" onclick="getyhMa('smrz',this)"/>
                         <span class="bindcard-tip" data-tip="" id="codeMsg"></span>
                     </div>
                     <div class="code_msg js_code">
@@ -216,8 +221,7 @@
                     </div>
                     <div>
                         <label>验证邮箱：</label>
-                        <input class="bindcard-input" id="email" th:value="${session.user.email}" onblur="em_check()">
-                        <!--<span class="bindcard-tip" data-tip="若您在银行预留的手机号码发生变更，请<a href='/user/uasec/mobile' target='_blank'>更新手机号</a>"> 该手机号不是银行预留手机号？请先<a href="/user/uasec/mobile" target="_blank">修改认证手机号</a>-->
+                        <input class="bindcard-input" id="email" th:value="${session.user.email}" onblur="checkEmail()">
                         <span class="bindcard-tip" id="emmsg">获取银行验证码</span>
                     </div>
                     <div class="js_code">
@@ -250,7 +254,6 @@
     </div>
 </div>
 <!--end 内容-->
-
 
 <script src="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/js/apply-ea73681945.js"></script>
 <script>
@@ -324,9 +327,10 @@
     var jishi = 59;
     var jishuTishi;
     var yhMa;
-    function getMa(type,id){
-        var email = $("#em").val();
-        if($(id).val() === "获取"){
+    function getyhMa(type,id){
+        checkEmail();
+        var email = $("#email").val();
+        if($(id).val() === "获取" && checkEmail()=="t"){
             $(id).val('获取(59)');
             $(id).css("background-color","white");
             $(id).css("color","#ccc");
@@ -340,7 +344,6 @@
                 }else {
                     yhMa = data;
                     alert(yhMa)
-                    $("#emcode").attr("value",yhMa);
                 }
             },"json");
         }else{
@@ -360,15 +363,18 @@
             $("#getcodeBtn").val('获取('+jishi+')');
         }
     }
-    function checkMa(id) {
-        if (($("#emcode").val()!=null || $("#emcode").val()!="")&&($(id).val()!=null||$(id).val()!="")){
-            if($("#emcode").val()!=$(id).val()){
+
+    function checkMa() {
+        var code =$("#code").val();
+        if (code!=null||code.val()!=""){
+            if(code!=yhMa){
+                couldsub=false;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
-                couldsub=true;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
             }
-        }else if($(id).val()==null||$(id).val()==""){
+        }else if(code==null||code==""){
+            couldsub=false;
             $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
         }
     }
@@ -381,24 +387,46 @@
     function checkIden() {
         var identity = $("#identity").val();
         if(identity==null||identity==""){
+            couldsub=false;
             $("#iden").replaceWith("<span class=\"bindcard-tip\" id=\"iden\" data-tip=\"请输入身份证号码\">请输入身份证号码</span>");
         }else if(identity!=null||identity!=""){
             var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(!(/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(identity))){
+                couldsub=false;
                 $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">请输入正确的身份证号</span>");
+            }else{
+                $("#iden").replaceWith("<span class=\"bindcard-tip\" id=\"iden\"></span>");
             }
         }
     }
     function checkCid() {
         var cardId = $("#cid").val();
         if(cardId==null||cardId==""){
+            couldsub=false;
             $("#cidmsg").replaceWith("<span class=\"bindcard-tip\" id=\"cidmsg\">仅支持储蓄卡</span>");
         }
     }
     function checkBn() {
         var bankName = $("#bankName").val();
         if (bankName == null || bankName == "") {
+            couldsub=false;
             $("#bn").replaceWith("<span class=\"bindcard-tip\" id=\"bn\"></span>");
+        }
+    }
+    function checkEmail() {
+        var email = $("#email").val();
+        var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
+        if (email=="" ||email==null){
+            couldsub=false;
+            $("#emmsg").replaceWith("<span id=\"emmsg\" class=\"bindcard-tip errTip\">邮箱不能为空</span>");
+            return "f";
+        }else if (!emailReg.test(email)){
+            couldsub=false;
+            $("#emmsg").replaceWith("<span id=\"emmsg\" class=\"bindcard-tip errTip\">邮箱格式不正确</span>");
+            return "f";
+        }else {
+            $("#emmsg").replaceWith("<span id=\"emmsg\" class=\"bindcard-tip\"></span>");
+            return "t";
         }
     }
 
@@ -408,27 +436,32 @@
         var identity = $("#identity").val();
         var cardId = $("#cid").val();
         var bankName = $("#bankName").val();
-        //var arge = $("#arge").val();
-
-        if (identity == null || identity == "") {
-            couldsub = false;
-            $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">该选项不能为空！</span>");
-        } else {
-            var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-            if (!idCardReg.test(identity)) {
-                $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">请输入正确的身份证号</span>");
-            }
-            couldsub = false;
-        }
+        var email = $("#email").val();
+        var ma = $("#code").val();
+        checkUN();
+        checkIden();
+        checkCid();
+        checkBn();
+        checkEmail();
+        checkMa();
         if (uName == null || uName == "") {
             couldsub = false;
             $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
+        }else if (identity == null || identity == "") {
+            couldsub = false;
+            $("#iden").replaceWith("<span class=\"bindcard-tip errTip\" id=\"iden\">该选项不能为空！</span>");
         }else if (cardId == null || cardId == "") {
             couldsub = false;
             $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
         }else if (bankName == null || bankName == "") {
             couldsub = false;
             $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
+        }else if (email == null || email == "") {
+            couldsub = false;
+            $("#emmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"emmsg\">邮箱不能为空！</span>");
+        }else if (ma == null || ma == "") {
+            couldsub = false;
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">请填写验证码！</span>");
         }else if (!$("#arge").get(0).checked) {
             couldsub = false;
             $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
@@ -438,7 +471,8 @@
                 uName: uName,
                 identity: identity,
                 cardId: cardId,
-                bankName: bankName
+                bankName: bankName,
+                bcUserPhe:email
             }, function (data) {
                 if(data.msg === 'cg'){
                     window.location.href="/user/toAS";
@@ -463,20 +497,12 @@
         }
     }
 
-    function em_check() {
-        var email = $("#email").val();
-        var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
-        if (!emailReg.test(email)){
-            emailUp_key=false;
-            $("#emmsg").replaceWith("<div id=\"emmsg\" class=\"bindcard-tip errTip\">邮箱格式不正确</div>");
-        }
-    }
-
     var upMa;
     var couldUp=true;
     function getMa(type,id){
-        var email = $("#em").val();
-        if($(id).val() === "获取"){
+        checkEmail();
+        var email = $("#email").val();
+        if($(id).val() === "获取" && checkEmail()=="t"){
             $(id).val('获取(59)');
             $(id).css("background-color","white");
             $(id).css("color","#ccc");
@@ -486,7 +512,7 @@
             $.post("/user/getMa",{email:email,type:type},function (data) {
                 if(data === "" || data == null){
                     alert("请检查邮箱格式是否正确");
-                    $("#emcode").replaceWith("<span class=\"bindcard-tip errTip\">发送验证码失败</span>");
+                    $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\">发送验证码失败</span>");
                 }else {
                     upMa = data;
                     alert(upMa)
@@ -498,23 +524,23 @@
         }
     }
     function up_checkMa() {
-        if ($("#code").val()!=null||$("#code").val()!=""){
-            if(upMa!=$("#code").val()){
+        if ($("#code").val()!=null || $("#code").val()!=""){
+            if(upMa != $("#code").val()){
+                couldUp = false;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
-                couldUp = false;
-                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
             }
-        }else if($("#code").val()==null||$("#code").val()==""){
+        }else if($("#code").val()==null || $("#code").val()==""){
             couldUp = false;
-            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
         }
     }
     function upbind() {
         couldUp = true;
-        em_check();
+        checkEmail();
         checkCid();
-        up_checkMa();
+        checkMa();
         var uName = $("#uName").val();
         var email = $("#email").val();
         var cardId = $("#cid").val();
@@ -530,6 +556,9 @@
         }else if (bankName == null || bankName == "") {
             couldUp = false;
             $("#bn").replaceWith("<span class=\"bindcard-tip errTip\" id=\"bn\">该选项不能为空！</span>");
+        }else if (email == null || email == "") {
+            couldUp = false;
+            $("#emmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"emmsg\">该选项不能为空！</span>");
         }else if (!$("#arge").get(0).checked) {
             couldUp = false;
             $("#xyMsg").replaceWith("<span style=\"margin: 0px;\" class=\"bindcard-tip errTip\" id=\"xyMsg\">请勾选协议！</span>");
@@ -538,12 +567,12 @@
             $.post("/user/upcard", {
                 uName: uName,
                 cardId: cardId,
-                bankName: bankName
+                bankName: bankName,
+                bcUserPhe:email
             }, function (data) {
                 window.location.href="/user/toAS";
             }, "json");
         }
-        console.log("结束，在抖音鬼畜区呆久了，听到这略带悲伤的前奏我竟然笑了");
     }
 </script>
 </body>

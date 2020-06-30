@@ -96,6 +96,7 @@ public class UserController2 {
 
         if (null!=service.getBC(user.getuId())){
             service.upbindBank(userBank);
+            System.out.println("up");
         }else {
             service.bindBank(userBank);
         }
