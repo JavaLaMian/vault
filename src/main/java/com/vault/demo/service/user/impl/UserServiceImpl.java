@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -34,6 +36,19 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int addUserImf(Userimf user) {
+        if(user.getRefereer() == null || "".equals(user.getRefereer())){
+            user.setRefereer("无");
+        }else {
+            Userimf yao = new Userimf();
+            yao.setAccount(user.getRefereer());
+            yao = dao.selectByUserimf(yao);
+            Bounty bounty = new Bounty();
+            bounty.setBoMoney(10);
+            bounty.setuId(yao.getuId());
+            bounty.setBoTime(new Date());
+            bounty.setBoType(3);
+            iDao.bountyAdd(bounty);
+        }
         int lie = dao.addUser(user);
         dao.updateUserAccount(user.getuId(),"xiaomuniu"+user.getuId());
 
@@ -301,6 +316,81 @@ public class UserServiceImpl implements UserService{
         map.put("time",slist);
         map.put("value",mlist);
         return map;
+    }
+
+    @Override
+    public Map getRiLi(Userimf uer,int yue,int year) {
+        List<Tender> tlist = bidDao.selTenderByUser(uer.getuId());
+        List<Map> hkList = new ArrayList<>();
+        if(tlist.size() != 0){
+            for(int j = 0;j < tlist.size(); j++){
+                Tender tender = tlist.get(j);
+                Map map = new HashMap();
+                String dates = getNowDate(tender.getTenCicle());
+                String[] dateJh = dates.split("-");
+                map.put("nian",Integer.parseInt(dateJh[0]));
+                map.put("month",Integer.parseInt(dateJh[1]));
+                map.put("day",Integer.parseInt(dateJh[2]));
+                map.put("money",tender.getTenMoney());
+                hkList.add(map);
+            }
+        }
+
+        Map max = new HashMap();
+        LocalDate dates = LocalDate.now();
+        int months = dates.getMonthValue();   //获得当前月
+        int nians = dates.getYear();//今天的年份
+        int cha = (nians-year)*12;
+        LocalDate date = LocalDate.now().minusMonths(cha+months - yue);//当前月减去里面的数字
+
+        int month = date.getMonthValue();   //获得当前月 动态
+        int today = date.getDayOfMonth();   //获得当前日
+        int nian = date.getYear();   //获得当前日
+
+        date = date.minusDays(today-1);    //设置本月第一天
+        DayOfWeek week = date.getDayOfWeek();
+        int value = week.getValue();  //获得第一天星期几  星期一 == 1 ,星期二 == 2
+        max.put("thisday",value);
+        max.put("month",month);
+        max.put("year",nian);
+
+        List<Map> mlist = new ArrayList<>();
+        while(date.getMonthValue() == month){   //遍历本月每一天
+            int days = date.getDayOfMonth();
+            Map map = new HashMap();
+            String xian;
+            if(date.getDayOfMonth() == today && months == month && nian == nians){   //今天用*标记
+                xian = days+"*";
+            }else {
+                xian = days+"";
+            }
+            if(hkList.size() != 0){
+                float sums = 0;
+                String tis = "无";
+                for(int i = 0;i < hkList.size();i++){
+                    Map map1 = hkList.get(i);
+                    if(days == (int)map1.get("day") && month == (int)map1.get("month") && nian == (int)map1.get("nian")){
+                        BigDecimal wan = new BigDecimal("10000");
+                        BigDecimal sql = new BigDecimal(map1.get("money")+"");
+                        sql = sql.multiply(wan);
+                        sums += sql.floatValue();//如果有两个标在同一天回款 将叠加
+                        tis = "有回款";
+                    }else {
+                        sums += 0;
+                    }
+                }
+                map.put("sum",sums);
+                map.put("tis",tis);
+            }else {
+                map.put("sum",0);
+                map.put("tis","无");
+            }
+            map.put("day",xian);
+            mlist.add(map);
+            date = date.plusDays(1);
+        }
+        max.put("list",mlist);
+        return max;
     }
 
     private static String getNowDate(Date date) {

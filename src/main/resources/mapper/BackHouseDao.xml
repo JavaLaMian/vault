@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.backstage.BackHouseDao">
+    <select id="selHouseAll" resultType="map">
+        select  u.account,u.phe,h.* from house h inner join userimf u on h.uId = u.uId
+    </select>
+    <select id="selHouseById" resultType="House">
+        select * from house where hId=#{hId}
+    </select>
+    <update id="updHouseStatus">
+        update house set status=#{status} where hId=#{hId}
+    </update>
+</mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -41,10 +42,8 @@ public class BackLoanController {
             m.addAttribute("user",user);
             return "backstage/credit_examine";
         }else{//抵押贷
-            House house = bls.selHouseByHid(uId);
-            Car car = bls.selCarByCid(uId);
-            m.addAttribute("house",house);
-            m.addAttribute("car",car);
+            Userimf user = bls.selUserByUid(uId);
+            m.addAttribute("user",user);
             return "backstage/mortgage_examine";
         }
     }
@@ -81,5 +80,14 @@ public class BackLoanController {
         loan.setLoanStatue(4);//申请失败
         bls.updLoan(loan);
         return "success";
+    }
+    @ResponseBody
+    @RequestMapping("/payment_data")
+    public JSONObject getPaymentData(){
+        JSONObject object = new JSONObject();
+        List<Map> loan = bls.selLoan();
+        object.put("total",loan.size());
+        object.put("rows",JSON.toJSON(loan));
+        return object;
     }
 }

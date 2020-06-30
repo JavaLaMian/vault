@@ -5,7 +5,7 @@
 <mapper namespace="com.vault.demo.dao.backstage.BackTenderDao">
     <select id="selTender" resultType="map">
         <![CDATA[
-          select t.tId,u.uName,b.bidName,b.bidType,t.tenMoney,(b.rewardRate+b.rate) as lv,t.tenTime,t.tenType from tender t left join bid b on t.bId = b.bId left join userimf u on t.uId = u.uId
+          select t.tId,u.uName,b.bidName,b.bidType,t.tenMoney,(b.rewardRate+b.rate) as lv,t.tenTime,t.tenType from tender t inner join bid b on t.bId = b.bId inner join userimf u on t.uId = u.uId
         ]]>
     </select>
 </mapper>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信用审核</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+
+        <!--页面主要内容-->
+        <main class="layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="car">
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+<script type="text/javascript">
+    $(function(){
+        $('.search-bar .dropdown-menu a').click(function() {
+            var field = $(this).data('field') || '';
+            $('#search-field').val(field);
+            $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+        });
+        $('#car').bootstrapTable({
+            method:'post',
+            url:'/XMN/getCarData',//请求数据路径
+            dataType: "json",
+            pagination: true, // 是否分页
+            sidePagination: 'server', // server:服务器端分页|client：前端分页
+            pageNumber: 1,//这默认页码
+            clickToSelect: true, // 单击行即可以选中
+            sortOrder: 'desc', // 设置排序为反序 desc
+            pageSize: 10, // 单页记录数
+            pageList: [10, 20, 30],
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: $("#sname").val(),
+                    viewReason: $("#viewReason").val(),
+                };
+                return temp;
+            },
+            columns: [{
+                checkbox: true,
+            },{
+                title:'账号',
+                field:'account'
+            },{
+                title:'联系电话',
+                field:'phe'
+            },{
+                title:'车产证件照片',
+                field:'photo',
+                formatter:zsphoto
+            },{
+                title:'预估价值(万元)',
+                field:'money'
+            },{
+                title:'备注信息',
+                field:'remark'
+            },{
+                title:'证件状态',
+                field:'status',
+                formatter:checkType
+            },{
+                title:'操作',
+                field:'cId',
+                formatter: option
+            }]
+        });
+
+        function option(value, row, index) {
+            var htm = "";
+            htm+='<button class="btn btn-success m-r-5" onclick="toocarexmine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
+            return htm;
+        };
+        function zsphoto(value, row, index) {
+            var htm="";
+            htm+='<img src="'+value+'" style="height: 49px;width: 121px"/>';
+            return htm;
+        };
+        function checkType(value, row, index) {
+            var htm = "";
+            if(value==0){
+                htm+='<span style="color: red">不可用</span>';
+                return htm;
+            }else if(value==1){
+                htm+='<span style="color: green">可用</span>';
+                return htm;
+            }else if(value==2){
+                htm+='<span style="color: pink">已抵押</span>';
+                return htm;
+            }else if(value==4){
+                htm+='<span style="color: yellow">审核中</span>';
+                return htm;
+            }
+        };
+    });
+    function toocarexmine(cId) {
+        window.location.href="/XMN/toCarExamine?cId="+cId;
+    }
+</script>
+</body>
+</html>

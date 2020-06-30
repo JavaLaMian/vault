@@ -93,7 +93,7 @@
                             <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
                             <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
                         </div>
-                        <div class="security-level">账户安全：<span id="security-level">*</span></div>
+                        <div class="security-level">邀请人账号：<span id="security-level" th:text="${session.user.refereer}"></span></div>
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
@@ -102,16 +102,11 @@
                         <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
                         <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
-                    <div class="point-info" id="riskLevel-info">
-                        风险评估：***
-                        <a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>
-                    </div>
                     <div class="point-info">
                         我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
                         <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
                     </div>
                     <div id="sign-info" class="sign-info"></div>
-
                 </div>
                 <ul class="g-cf left-menu">
                     <li data-type="index">
@@ -137,9 +132,6 @@
                     </li>
                     <li data-type="redEnvelope">
                         <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
-                    </li>
-                    <li data-type="point">
-                        <a href="#">我的积分</a>
                     </li>
                     <li class="planner last" data-type="planner">
                         <a href="javascript:getFList(3)" >邀请记录<span>赚收益</span></a>
@@ -319,7 +311,7 @@
         time.setTime(time.setHours(time.getHours()));
         var Y = time.getFullYear() + '-';
         var  M = addZero(time.getMonth() + 1) + '-';
-        var D =addZero(time.getDate() - 1) + ' ';
+        var D =addZero(time.getDate()) + ' ';
         var h = addZero(time.getHours()) + ':';
         var m = addZero(time.getMinutes()) + ':';
         var  s = addZero(time.getSeconds());
