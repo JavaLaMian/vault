@@ -49,10 +49,13 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
             update credit set creditLV=#{creditLV},type=#{type},creditUpdateTime=#{creditUpdateTime} where creid =#{creId}
          ]]>
     </update>
-    <select id="integralList" resultType="map">
+    <select id="integralCoin" resultType="map">
          <![CDATA[
           select m.id,m.change,m.change,m.total,m.conversionTime,m.changeType,u.uName,i.integralName from myIntegral m LEFT JOIN userimf u on m.uId = u.uId LEFT JOIN integral i on m.iId = i.Id
         ]]>
+    </select>
+    <select id="integralList" resultType="Integral">
+        select * from integral
     </select>
     <update id="updategetbiBid">
         <![CDATA[

@@ -1,12 +1,15 @@
 package com.vault.demo.controller.integral;
 
 import com.vault.demo.bean.*;
+import com.vault.demo.common.Contants;
 import com.vault.demo.common.Pager;
+import com.vault.demo.common.commonUtil;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -19,6 +22,9 @@ import java.util.*;
 public class integralController {
     @Resource
     private integralService  service;
+    @Resource
+    private commonUtil util ;
+
     //积分商城主页面
     @RequestMapping("/main")
     public String integralMain(HttpSession session,int q,Sign sign,Model model,MyIntegral myintegral) throws ParseException {
@@ -93,6 +99,56 @@ public class integralController {
         model.addAttribute("signCount",signCount);
         return "integral/integralMain";
     }
+
+
+    //添加商品
+    @RequestMapping("/toAddIntegral")
+    public String toAddIntegral(){
+        return "backstage/addIntegral";
+    }
+
+    //添加商品
+    @RequestMapping("/addIntegral")
+    public String addIntegral(MultipartFile file,Integral integral){
+        String newFileName= util.fileUpload(file, Contants.PRO_IMG_SAVE_PATH+"integral/");
+        integral.setIntegralImg(newFileName);
+
+        service.addIntrgral(integral);
+        return "redirect:/XMN/integralList";
+    }
+
+    @RequestMapping("/toUpdate")
+    public  String toUpdate(int id,Model model){
+        Integral integral = service.selectById(id);
+        model.addAttribute("integralList",integral);
+        return "integral/update";
+    }
+    @RequestMapping("/Update")
+    public String update(Integral integral,MultipartFile file){
+
+        if(!file.isEmpty()){
+            System.out.println("file为空");
+            String newFileName =  util.fileUpload(file,Contants.PRO_IMG_SAVE_PATH);
+            integral.setIntegralImg("/img/integral/"+newFileName);
+        }
+        int i = service.Update(integral);
+        if(i == 1){
+            System.out.println("修改成功！！");
+            return "redirect:/XMN/integralList";
+        }
+        return "redirect:/integral/toUpdate?id="+integral.getId();
+    }
+
+    @RequestMapping("/delete")
+    public String delete(int id){
+        int i = service.delete(id);
+        if(i==1){
+            System.out.println("删除成功！！");
+        }
+        return "redirect:/XMN/integralList";
+    }
+
+
 
     //我的积分
     @RequestMapping("/myIntegral")

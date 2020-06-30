@@ -11,7 +11,7 @@ public class Contants {
     /**
      * 商品图片保存路径
      */
-    public static final String PRO_IMG_SAVE_PATH="D:\\temp\\img\\";
+    public static final String PRO_IMG_SAVE_PATH="static/img/";
 
     /**
      * 已下单，未支付

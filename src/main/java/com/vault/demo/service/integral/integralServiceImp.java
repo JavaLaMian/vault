@@ -92,5 +92,20 @@ public class integralServiceImp implements integralService {
         return dao.selectSignCount(time);
     }
 
+    @Override
+    public void addIntrgral(Integral integral) {
+        dao.addIntrgral(integral);
+    }
+
+    @Override
+    public int Update(Integral integral) {
+        return dao.Update(integral);
+    }
+
+    @Override
+    public int delete(int id) {
+        return dao.delete(id);
+    }
+
 
 }
