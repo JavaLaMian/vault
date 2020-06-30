@@ -196,7 +196,7 @@ public class backstageController {
         return "redirect:/XMN/loanlist";
     }
     //去往积分订单查询页面
-    @RequestMapping("userintegral")
+    @RequestMapping("/userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
         List<Map> list = is.integralList();
         model.addAttribute("list",list);
@@ -207,10 +207,10 @@ public class backstageController {
     public ModelAndView toAdminInformation(ModelAndView mv,Model model){
         return mv;
     }
+    //打款追踪
     @RequestMapping("/Payment_track")
     public ModelAndView toPaPaymentTrack(ModelAndView mv){
-        mv.setViewName("backstage/");
-
+        mv.setViewName("backstage/Paymenttrack");
         return mv;
     }
     @RequestMapping("/carProperty")
