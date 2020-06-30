@@ -517,6 +517,137 @@
                                     }
                                 </script>
                                 </p>
+
+
+                                <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
+
+
+                                    <!--                 如果担保信息为空                   -->
+                                    <span th:if="${warrant == null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
+                                            担保信息
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">担保贷款的凭证</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertWarrantA" href="javascript:insertWarrantShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <!--                 如果房产信息不为空                   -->
+                                    <span th:if="${warrant != null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
+                                            担保信息
+                                        </span>
+                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">抵押贷款的凭证</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertWarrantA" href="javascript:insertWarrantShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                <div id="insertWarrant" style="width: 70%;margin: 0 auto;display: none">
+                                    <form th:if="${warrant == null}" th:action="@{/user/toUploadWarrant}" onsubmit="return warrantSubmit()" method="post" enctype="multipart/form-data">
+                                        <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
+                                            <input type="hidden" name="uId" th:value="${session.user.uId}">
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">担保人姓名</td>
+                                                <td><input type="text" name="wName"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">担保人身份证</td>
+                                                <td><input type="text" name="wCardId"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传担保人身份证正面</td>
+                                                <td><input type="file" name="wPositiveIDPhotoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传担保人身份证反面</td>
+                                                <td><input type="file" name="wNegativeIDPhotoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传担保合同</td>
+                                                <td><input type="file" name="wContractPhotoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">说明</td>
+                                                <td>
+                                                    <textarea type="text" name="remark" style="width: 223px;height: 57px;margin: 17.9972px 0px 11.9886px;"></textarea>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td colspan="2" style="text-align: center">
+                                                    <button type="submit" style="width: 100px;height: 30px;border-radius: 3px;border: 1px solid #ccc;background: #5189c3;color: #fff;font-size: 13px;font-weight: bold;">
+                                                        提交
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                    <table th:if="${warrant != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                        <tbody>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">编号</th>
+                                            <td th:text="${warrant.wId}" style="width: 180px">编号</td>
+                                            <th style="width: 130px">担保人身份证正面</th>
+                                            <td style="width: 180px"><img th:src="@{${warrant.wPositiveIDPhoto}}" style="width: 100px;height: 80px"></td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">担保人身份证反面</th>
+                                            <td style="width: 180px"><img th:src="@{${warrant.wNegativeIDPhoto}}" style="width: 100px;height: 80px"></td>
+                                            <th style="width: 130px">担保合同</th>
+                                            <td style="width: 180px"><img th:src="@{${warrant.wContractPhoto}}" style="width: 100px;height: 80px"></td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">说明</th>
+                                            <td th:text="${warrant.remark}" style="width: 180px">说明</td>
+                                            <th style="width: 130px">状态</th>
+                                            <td style="width: 180px">
+                                                <span style="color: red" th:if="${warrant.status == 0}">等待审核</span>
+                                                <span style="color: red" th:if="${warrant.status == 1}">审核通过可使用</span>
+                                                <span style="color: red" th:if="${warrant.status == 2}">正在使用</span>
+                                                <span style="color: red" th:if="${warrant.status == 3}">使用过的担保信息</span>
+                                                <span style="color: red" th:if="${warrant.status == 4}">不可用</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <script type="text/javascript">
+                                    var show = true;
+
+                                    function insertWarrantShow() {
+
+                                        if (show){
+                                            $(".insertWarrantA").text("收起");
+                                            $("#insertWarrant").css("display","block");
+                                            // document.getElementsByClassName("insertCarA").innerText = "收起";
+                                            // document.getElementsByClassName("insertCar").style.display = 'block';
+                                            show = false;
+                                        }else {
+                                            $(".insertWarrantA").text("查看");
+                                            $("#insertWarrant").css("display","none");
+                                            // document.getElementById("insertCarA").innerText = "查看";
+                                            // document.getElementsByClassName("insertCar").css.display("none");
+                                            show = true;
+                                        }
+                                    }
+
+                                    function warrantSubmit() {
+                                        return true;
+                                    }
+                                </script>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -102,5 +102,24 @@ public class selevicexmnImpl implements selevicexmn {
         dao.addusermoney(recharge);
     }
 
+    @Override
+    public Float selecttendertenMoney(int uid, int bid) {
+        return dao.selecttendertenMoney(uid,bid);
+    }
+
+    @Override
+    public void updatetenderMoney(Float money, int uid, int bid) {
+        dao.updatetenderMoney(money,uid,bid);
+    }
+
+    @Override
+    public List<Tender> tenderlist() {
+        return dao.tenderlist();
+    }
+
+    @Override
+    public void updateTender(int tid, int tentype) {
+        dao.updateTender(tid,tentype);
+    }
 
 }

@@ -30,4 +30,6 @@ public interface LoanService {
     LoanBankHistory selectByLId(Loan loan);
     UserBank selectByUId(Userimf user);
     LoanBankHistory insertLoanBankHistory(Loan loan,UserBank userBank,Action action);
+    Warrant selectWarrantByUId(Userimf userimf);
+    void insertWarrant(Warrant warrant);
 }

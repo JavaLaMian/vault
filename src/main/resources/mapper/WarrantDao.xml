@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vault.demo.dao.WarrantDao">
+    <select id="selectWarrantByUId" resultType="com.vault.demo.bean.Warrant" parameterType="com.vault.demo.bean.Userimf">
+        select * from warrant where uId = #{uId}
+    </select>
+
+    <insert id="insertWarrant" parameterType="com.vault.demo.bean.Warrant" useGeneratedKeys="true">
+        <selectKey keyColumn="wId" resultType="integer" keyProperty="wId" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into warrant(wId,uId,wName,wCardId,wPositiveIDPhoto,wNegativeIDPhoto,wContractPhoto,remark,registerTime,status) values(null,#{uId},#{wName},#{wCardId},#{wPositiveIDPhoto},#{wNegativeIDPhoto},#{wContractPhoto},#{remark},#{registerTime},#{status})
+    </insert>
+</mapper>

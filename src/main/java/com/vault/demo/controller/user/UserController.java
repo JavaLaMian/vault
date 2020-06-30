@@ -1,5 +1,6 @@
 package com.vault.demo.controller.user;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.PerBid;
@@ -7,18 +8,22 @@ import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 //
@@ -38,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping("/tozhao")
-    public String toZhaoPwd(String zc){
+    public String toZhaoPwd(){
         return "user/zhaohui";
     }
 
@@ -101,6 +106,8 @@ public class UserController {
     public String toZhiJinPage(HttpSession session) {
         return "user/zhiJin";
     }
+
+
     @RequestMapping("/zhijin")
     @ResponseBody
     public Map getUseZhiJIn(HttpSession session){
@@ -110,6 +117,18 @@ public class UserController {
         map.put("list",mlist);
         map.put("size",mlist.size());
         return map;
+    }
+
+
+    @RequestMapping("fList")
+    @ResponseBody
+    public Map getFList(HttpSession session){
+        Userimf u = (Userimf) session.getAttribute("user");
+        List<Userimf> list = service.friendList(u.getuId());
+        System.out.println("==================="+list.toString());
+        Map m = new HashMap();
+        m.put("list",list);
+        return m;
     }
 
     @RequestMapping("/getMa")
@@ -162,6 +181,14 @@ public class UserController {
     public Map getShu(HttpSession session){
         Userimf userimf = (Userimf)session.getAttribute("user");
         Map max = service.getChuJie(userimf);
+        return max;
+    }
+
+    @RequestMapping("/huikuan")
+    @ResponseBody
+    public Map huiKuan(int yue,int year,HttpSession session){
+        Userimf user = (Userimf)session.getAttribute("user");
+        Map max = service.getRiLi(user,yue,year);
         return max;
     }
 

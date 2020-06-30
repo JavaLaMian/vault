@@ -185,6 +185,8 @@ public class UserController2 {
         if(uPwd.equals(pwd)){
             int pd = service.userChongTi(type,money,userimf);
             if(pd == 1){
+                Userimf user = service.pandEmail(userimf.getEmail(),"e");
+                session.setAttribute("user",user);
                 map.put("msg","cg");
             }else if(pd == 2){
                 map.put("msg","余额不足");

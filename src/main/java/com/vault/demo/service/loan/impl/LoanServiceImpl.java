@@ -35,6 +35,9 @@ public class LoanServiceImpl implements LoanService {
     @Resource
     LoanBankHistoryDao loanBankHistoryDao;
 
+    @Resource
+    WarrantDao warrantDao;
+
     @Override
     public void TestInsertLoan() {
         Loan loan = new Loan();
@@ -134,6 +137,16 @@ public class LoanServiceImpl implements LoanService {
         loanBankHistoryDao.insertLBH(loanBankHistory);
 
         return loanBankHistory;
+    }
+
+    @Override
+    public Warrant selectWarrantByUId(Userimf userimf) {
+        return warrantDao.selectWarrantByUId(userimf);
+    }
+
+    @Override
+    public void insertWarrant(Warrant warrant) {
+        warrantDao.insertWarrant(warrant);
     }
 
 

@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vault.demo.dao.backstage.BackCreditDao">
     <select id="getCreditAll" resultType="map">
-        select u.account,u.phe,u.email,u.dealPsw,c.* from credit c left join userimf u on c.uId = u.uId
+        select u.account,u.phe,u.email,c.* from credit c left join userimf u on c.uId = u.uId
+    </select>
+    <select id="selCreditById" resultType="Credit">
+        select * from credit
+    </select>
+    <select id="selUserById" resultType="Userimf">
+        select * from userimf where uId=#{uId}
     </select>
 </mapper>
