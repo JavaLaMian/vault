@@ -523,12 +523,21 @@
 
     <!--产品列表导航-->
     <div class="product-menu-contanier" id="productMenu">
-        <ul class="product-menu clearfix">
-            <li> <a href="/product/portal/index" id="menu_optimize">投标工具 (<em id="optimizeCount" data-count="0">售罄</em>)</a> </li>
-            <li> <a href="/product/list?type=common" id="menu_common" class=" active">散标 (<em id="commonCount">售罄</em>)</a> </li>
-            <li> <a href="/product/list?type=transfer" id="menu_transfer">转让专区 (<em id="transferCount">99+</em>)</a> </li>
+        <ul class="nav nav-financial" data-type="financial">
+            <li class="first">
+                <a th:href="@{/loan/main2}">网贷</a>
+            </li>
+            <li>
+                <a th:href="@{/main/bidList}">投标工具</a>
+            </li>
+            <li>
+                <a th:href="@{/main/perList}">散标</a>
+            </li>
         </ul>
     </div>
+
+
+
     <script>
         $(function() {
             var doc = document;

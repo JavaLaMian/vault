@@ -124,16 +124,13 @@
 			</div>
 			<ul class="nav nav-financial" data-type="financial">
 				<li class="first">
-					<a href="/product/portal/index">网贷</a>
+					<a th:href="@{/loan/main2}">网贷</a>
 				</li>
 				<li>
-					<a href="/product/portal/index">投标工具</a>
+					<a th:href="@{/main/bidList}">投标工具</a>
 				</li>
 				<li>
 					<a th:href="@{/main/perList}">散标</a>
-				</li>
-				<li>
-					<a href="/product/portal/index">转让专区</a>
 				</li>
 			</ul>
 		</nav>
@@ -160,27 +157,18 @@
 		</div>
 	</div>
 </div>
+
 <div class="streamer">
 	<div class="slider">
 		<ul class="banner" id="lunBo" style="width: 9515px; position: absolute; left: 0px;">
-			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
-			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;">
-				<a href="#" target="_blank"></a>
-			</li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main2.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main3.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main4.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
+			<li style="background: url(/images/main/main1.png) center center / cover no-repeat; width: 1903px; float: left;"></li>
 		</ul>
 		<div class="but">
-			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
+			<a href="#" style="background-color: #ef7a46" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">0</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">1</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">2</a>
 			<a href="#" onmouseover="yiRuLun(this)" onmouseout="autoChangeAgain()">3</a>
@@ -194,29 +182,28 @@
 <div class="statistical" id="statisticalModel">
 	<div class="container">
 		<dl class="item">
-			<dt class="count" data-time="500" data-value="117173740968.64">
+			<dt class="count" data-time="500" th:data-value="${countM}">
 				<label data-multiple="" data-radix="100000000" data-from="0" data-to="">0</label><span>亿</span>
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 			</dt>
 			<dd>累计成交（元）</dd>
 		</dl>
 		<dl class="item">
-			<dt class="count" data-time="800" data-value="6079229">
+			<dt class="count" data-time="800" th:data-value="${countU}">
 				<label data-multiple="100000000" data-radix="10000" data-from="0" data-to="">0</label><span>万</span>
 				<label data-multiple="10000" data-radix="1" data-from="0" data-to="">0</label>
 			</dt>
 			<dd>累计注册人数（人）</dd>
 		</dl>
 		<dl class="item">
-			<dt class="count" data-time="1000" data-value="">
+			<dt class="count" data-time="1000" th:data-value="${time}">
 				<label data-multiple="" data-radix="1" data-from="0" data-to="">0</label><span>&nbsp;</span>
 			</dt>
-			<dd>运营时间（天）</dd>
+			<dd>运营时间（秒）</dd>
 		</dl>
 		<div class="mask"></div>
 	</div>
 </div>
-
 <div class="notice" id="noticeModel">
 	<div class="container">
 		<div class="direction">
@@ -348,7 +335,7 @@
 						<div class="extend">
 							<a href="javascript:" class="btn" th:if="${per.bidStatus==1}">预售</a>
 							<a href="javascript:" class="btn" th:if="${per.bidStatus==0}">可购</a>
-							<a href="javascript:" class="btn disabled-btn" th:if="${per.bidStatus==3}">售罄</a>
+							<a href="javascript:" class="btn disabled-btn" th:if="${per.bidStatus==3}||${per.enquiry==0}">售罄</a>
 						</div>
 					</div>
 				</div>
@@ -357,7 +344,6 @@
 		</div>
 	</div>
 </div>
-
 <!--工具工具-->
 <div class="fixed" id="fixedModel">
 	<div class="container">
@@ -409,8 +395,6 @@
 		</div>
 	</div>
 </div>
-
-
 <div class="online" id="onlineModel">
 	<div class="container">
 		<div class="title">
@@ -503,8 +487,6 @@
 		</div>
 	</div>
 </div>
-
-
 <div class="cooperation">
 	<div class="container">
 		<div class="title">合作伙伴</div>
@@ -653,27 +635,19 @@
 		<!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
     </span>
 </div>
-
 <div style="display:none">
 	<script>
-		var jishiLun;
 		var imgLen = $("#lunBo li").length;
 		var curIndex = 0;
         var autoChange = setInterval("zhiXin()","3000");
 
-
-        //右箭头滑入滑出事件处理
-        /*$(".but a").hover(function(){
-            //滑入清除定时器
-            clearInterval(autoChange);
-        }, function(){
-            //滑出则重置定时器
-            autoChangeAgain();
-        });*/
         function yiRuLun(id) {
 			var xun = $(id).text();
+            $(".but a").css("background-color","white");
+            $(id).css("background-color","#ef7a46");
             clearInterval(autoChange);
-            changeTo(xun)
+            curIndex = xun;
+            changeTo(xun);
         }
 
         function zhiXin() {
@@ -686,6 +660,17 @@
                 curIndex = 0;
                 zhiXin();
             }
+            if(curIndex === 0){
+                $(".but a").last().css("background-color","white");
+			}else {
+                $(".but a").eq(curIndex-1).css("background-color","white");
+			}
+			if(curIndex === imgLen-1){
+                $(".but a").eq(0).css("background-color","#ef7a46");
+			}else {
+                $(".but a").eq(curIndex).css("background-color","#ef7a46");
+			}
+
         }
 
         //清除定时器时候的重置定时器--封装
