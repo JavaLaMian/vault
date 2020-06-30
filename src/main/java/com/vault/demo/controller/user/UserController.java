@@ -1,5 +1,6 @@
 package com.vault.demo.controller.user;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.vault.demo.bean.Bid;
 import com.vault.demo.bean.Bounty;
 import com.vault.demo.bean.PerBid;
@@ -7,9 +8,12 @@ import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
 import com.vault.demo.service.user.UserService;
 import org.apache.commons.mail.EmailException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -102,6 +106,8 @@ public class UserController {
     public String toZhiJinPage(HttpSession session) {
         return "user/zhiJin";
     }
+
+
     @RequestMapping("/zhijin")
     @ResponseBody
     public Map getUseZhiJIn(HttpSession session){
@@ -111,6 +117,18 @@ public class UserController {
         map.put("list",mlist);
         map.put("size",mlist.size());
         return map;
+    }
+
+
+    @RequestMapping("fList")
+    @ResponseBody
+    public Map getFList(HttpSession session){
+        Userimf u = (Userimf) session.getAttribute("user");
+        List<Userimf> list = service.friendList(u.getuId());
+        System.out.println("==================="+list.toString());
+        Map m = new HashMap();
+        m.put("list",list);
+        return m;
     }
 
     @RequestMapping("/getMa")

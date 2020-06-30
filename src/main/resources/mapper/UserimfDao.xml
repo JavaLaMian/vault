@@ -107,4 +107,8 @@
             and boType = #{type}
         </if>
     </select>
+
+    <select id="friendList" resultType="Userimf" parameterType="int">
+        select  uName,regTime,account from userimf where refereerId = #{id}
+    </select>
 </mapper>

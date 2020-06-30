@@ -70,119 +70,65 @@
                 };
                 return temp;
             },
-            onLoadSuccess:function () {
-                setDisable(disabledIndex);
-                setDisable2(shIndex);
-            },
             columns: [{
                 checkbox: true,
             },{
                 title:'账号',
-                field:'account',
-            },{
-                title:'真实姓名',
-                field:'name',
-                formatter: checkNUll
+                field:'account'
             },{
                 title:'联系电话',
-                field:'phe',
-                formatter: checkNUll
+                field:'phe'
             },{
-                title:'邮箱地址',
-                field:'email',
-                formatter: checkNUll
+                title:'房产证件照片',
+                field:'photo',
+                formatter:zsphoto
             },{
-                title:'身份证号码',
-                field:'identity',
-                formatter: checkNUll
+                title:'预估价值(万元)',
+                field:'money'
             },{
-                title:'工作单位',
-                field:'depart',
-                formatter: checktext
+                title:'备注信息',
+                field:'remark'
             },{
-                title:'工资情况',
-                field:'wages',
-                formatter: checktext
-            },{
-                title:'审核状态',
-                field:'type',
-                formatter: checkType
+                title:'证件状态',
+                field:'status',
+                formatter:checkType
             },{
                 title:'操作',
-                field:'creId',
+                field:'hId',
                 formatter: option
             }]
         });
 
-        var disabledIndex = new Array();
-        var indexNum = 0;
-
-        var shIndex = new Array();
-        var indexn = 0;
-
         function option(value, row, index) {
             var htm = "";
-            htm+='<button class="btn btn-success m-r-5" id="'+index+'" onclick="toocreditexmine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
-
-            console.log(htm);
+            htm+='<button class="btn btn-success m-r-5" onclick="toohouseexmine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
             return htm;
-        }
-        function checkNUll(value, row, index) {
+        };
+        function zsphoto(value, row, index) {
             var htm="";
-            if(value==null || value==''){
-
-                disabledIndex[indexNum] = index;
-                indexNum += 1;
-
-                // setDisable(index);
-                htm+='<span style="color: red">未填写</span>';
-                return htm
-            }else{
-                return value
-            }
-        }
-        function checktext(value, row, index) {
-            var htm="";
-            if(value==null || value==''){
-                htm+='<span style="color: red">未填写</span>';
-                return htm
-            }else{
-                return value
-            }
-        }
+            htm+='<img src="'+value+'" style="height: 49px;width: 121px"/>';
+            return htm;
+        };
         function checkType(value, row, index) {
             var htm = "";
             if(value==0){
-                htm+='<span style="color: yellow">等待审核</span>';
-                return htm
+                htm+='<span style="color: red">不可用</span>';
+                return htm;
             }else if(value==1){
-                shIndex[indexn] = index;
-                indexn+=1;
-                htm+='<span style="color: blue">审核中</span>';
-                return htm
+                htm+='<span style="color: green">可用</span>';
+                return htm;
             }else if(value==2){
-                shIndex[indexn] = index;
-                indexn+=1;
-                htm+='<span style="color: green">审核完毕</span>';
-                return htm
+                htm+='<span style="color: pink">已抵押</span>';
+                return htm;
+            }else if(value==4){
+                htm+='<span style="color: yellow">审核中</span>';
+                return htm;
             }
-        }
-        function setDisable(disabledIndex) {
-            $.each(disabledIndex,function (i,e) {
-                var iddd = document.getElementById(e);
-                iddd.disabled = true;
-            })
-        }
-        function setDisable2(shIndex) {
-            $.each(shIndex,function (i,e) {
-                var iddd = document.getElementById(e);
-                iddd.disabled = true;
-            })
-        }
-        function toocreditexmine(value) {
-            window.location.href="/XMN/updateCredit?creId="+value;
-        }
+        };
     });
+    function toohouseexmine(hId) {
+        window.location.href="/XMN/toHouseExamine?hId="+hId;
+    }
 </script>
 </body>
 </html>
