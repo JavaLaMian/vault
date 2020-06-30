@@ -21,6 +21,12 @@
         ]]>
     </select>
 
+    <select id="selectUserimfByUId" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf where uId = #{uId}
+        ]]>
+    </select>
+
     <delete id="deleteById" parameterType="com.vault.demo.bean.Userimf">
         delete from userimf where uId = #{uId}
     </delete>
