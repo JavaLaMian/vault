@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     @Resource
     private UserimfDao dao;
     @Resource
@@ -214,6 +214,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public WorryCall getWorryCall(Userimf userimf) {
         return wcDao.selectWorryByUId(userimf);
+    }
+
+    @Override
+    public List<Userimf> friendList(int id) {
+        return dao.friendList(id);
     }
 
     @Override

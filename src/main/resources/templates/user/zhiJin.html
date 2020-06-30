@@ -142,7 +142,7 @@
                         <a href="#">我的积分</a>
                     </li>
                     <li class="planner last" data-type="planner">
-                        <a href="#">邀请好友<span>赚收益</span></a>
+                        <a href="javascript:getFList(3)" >邀请记录<span>赚收益</span></a>
                     </li>
                 </ul>
                 <div class="qqun">
@@ -168,7 +168,7 @@
             </div>
             <!-- 左侧当前选中菜单 -->
             <div id="bodys" class="account-cont">
-                <div class="g-tc" style="padding-top: 100px;">
+                <div class="g-tc"  style="padding-top: 100px;">
                     <img src="//image.xiaoniu88.com/static/WebXn/dist/images/loading-44bbc291bc.gif" alt="加载中..." />
                 </div>
             </div>
@@ -242,14 +242,13 @@
 
 <!--end 尾部-->
 <script type="text/javascript">
-    function getJilu() {
+    function getJilu(){
         $.post("/user/zhijin", {}, function (data) {
             var html = "";
             if(data.size != 0){
                 html = "<section class='gunDon'><ul style='overflow: hidden;padding:15px;'>" +
                     "<li class='titles'><p>类型</p><p style='width: 34%;'>时间</p><p>相关名称</p><p>所花金额</p></li>";
                 var lists = data.list;
-
                 for(var i = 0;i<lists.length;i++){  //循环LIST
                     var veh = lists[i];
                     var money = veh.reMoney;
@@ -269,6 +268,37 @@
         }, "json");
     }
     getJilu();
+
+    function getFList(){
+        $.post("/user/fList",{
+        }, function (data){
+            var html = "";
+            if(data.size != 0){
+                html = '<section class="gunDon"><ul style="overflow: hidden;padding:15px;">' +
+                    '<li class="titles"><p>用户名</p><p style="width: 34%;">账号</p><p>注册时间</p><p>奖励金</p></li>';
+                var lists = data.list;
+                console.log(lists.toString());
+                for(var i = 0;i<lists.length;i++){  //循环LIST
+                    var veh = lists[i];
+                    var ac = veh.account;
+                    var name = veh.uName;
+                    var dates = formatDateTime(veh.regTime);
+                    console.log(veh);
+                    html += '<li class="lie"><p>'+name+'</p><p style="width: 34%;">'
+                        +ac+'</p><p>'+dates+'</p><p>10元</p></li>';
+                }
+                html += '</ul></section>';
+            }else {
+                html += '<h1 style="text-align: center;font-size: 24px">您尚未产生邀请记录，赶快去找好友吧</h1>'
+            }
+            $("#bodys").empty();
+
+            $("#bodys").append(html);
+        }, "json");
+    }
+
+
+
 
     function typeName(type) {
         var name = '';
