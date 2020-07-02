@@ -112,13 +112,6 @@
                         <td th:if="${p.bidStatus eq 2}">
                           <font class="text-dark">关闭</font>
                         </td>
-                        <td th:if="${p.bidStatus eq 4}">
-                          <font class="text-dark">锁定</font>
-                        </td>
-                        <td th:if="${p.bidStatus eq 5}">
-                          <font class="text-dark">转让</font>
-                        </td>
-
                         <td>
                           <div class="btn-group">
                             <a class="btn btn-xs btn-default" th:href="@{/XMN/updataBid/(bId=${p.bId})}" title="修改" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

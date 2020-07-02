@@ -250,7 +250,7 @@ public class UserServiceImpl implements UserService{
             recharge.setuId(userimf.getuId());
             recharge.setReTime(new Date());
             recharge.setBankId(bank.getBankId());
-            recharge.setBankName(bank.getBankName());
+            recharge.setBankName("支付宝充值");
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {
@@ -391,6 +391,11 @@ public class UserServiceImpl implements UserService{
         }
         max.put("list",mlist);
         return max;
+    }
+
+    @Override
+    public MyIntegral selectMyIntegral2(int id) {
+        return iDao.selectMyIntegral2(id);
     }
 
     private static String getNowDate(Date date) {

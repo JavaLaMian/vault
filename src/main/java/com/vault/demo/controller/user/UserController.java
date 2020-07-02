@@ -103,10 +103,13 @@ public class UserController {
         return "redirect:tologin";
     }
     @RequestMapping("/tozj")
-    public String toZhiJinPage(HttpSession session) {
+    public String toZhiJinPage() {
         return "user/zhiJin";
     }
-
+    @RequestMapping("/toYq")
+    public String toYaoQing() {
+        return "user/yaoQing";
+    }
 
     @RequestMapping("/zhijin")
     @ResponseBody
