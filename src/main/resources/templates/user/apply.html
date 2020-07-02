@@ -88,7 +88,7 @@
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" id="cid" maxlength="23" value=""onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')" onblur="checkCid()"/>
+                        <input type="number" class="bindcard-input" id="cid" maxlength="23" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -183,12 +183,12 @@
                 </div>
                 <div class="bindcard-form" id="bindcardForm">
                     <img class="xn-logo" src="http://image.xiaoniu88.com/static/WebXn/dist/images/logo/xn-8ee532502d.png">
-                    <div>
-                        <label>真实姓名：</label>
-                        <input type="text" class="bindcard-input" name="uName" id="uName" value=""onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
-                               onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" onblur="checkUN()">
-                        <span class="bindcard-tip" id="unameMsg">真实姓名必须与您的银行卡开户名一致</span>
-                    </div>
+                    <!--<div>-->
+                        <!--<label>真实姓名：</label>-->
+                        <!--<input type="text" class="bindcard-input" name="uName" id="uName" value=""onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"-->
+                               <!--onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" onblur="checkUN()">-->
+                        <!--<span class="bindcard-tip" id="unameMsg">真实姓名必须与您的银行卡开户名一致</span>-->
+                    <!--</div>-->
                     <!--<div>-->
                         <!--<label>身份证号码：</label>-->
                         <!--<input type="text" class="bindcard-input" name="identity" id="identity" maxlength="18" value="" onblur="checkIden()">-->
@@ -196,7 +196,7 @@
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" id="cid" maxlength="23" value=""onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="23" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -540,17 +540,13 @@
         couldUp = true;
         checkEmail();
         checkCid();
-        checkMa();
-        var uName = $("#uName").val();
+        up_checkMa();
         var email = $("#email").val();
         var cardId = $("#cid").val();
         var bankName = $("#bankName").val();
         //var arge = $("#arge").val();
 
-        if (uName == null || uName == "") {
-            couldUp = false;
-            $("#unameMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"unameMsg\">该选项不能为空！</span>");
-        }else if (cardId == null || cardId == "") {
+        if (cardId == null || cardId == "") {
             couldUp = false;
             $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">该选项不能为空！</span>");
         }else if (bankName == null || bankName == "") {
@@ -565,7 +561,6 @@
         }
         if (couldUp == true) {
             $.post("/user/upcard", {
-                uName: uName,
                 cardId: cardId,
                 bankName: bankName,
                 bcUserPhe:email

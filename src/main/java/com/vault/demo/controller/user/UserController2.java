@@ -70,6 +70,7 @@ public class UserController2 {
         Userimf user = (Userimf) session.getAttribute("user");
         Credit credit = service.getCredit(user.getuId());
         UserBank userBank = service.getBC(user.getuId());
+        System.out.println(userBank.getCardId());
         if(credit == null && userBank == null){
             model.addAttribute("applyType","apply");
         }else {
@@ -92,7 +93,7 @@ public class UserController2 {
         userBank.setBcUserName(user.getuName());
 //        System.out.println(user.toString());
 //        System.out.println(userBank.toString());
-        System.out.println(service.getBC(user.getuId()));
+//        System.out.println(service.getBC(user.getuId()));
 
         if (null!=service.getBC(user.getuId())){
             service.upbindBank(userBank);
