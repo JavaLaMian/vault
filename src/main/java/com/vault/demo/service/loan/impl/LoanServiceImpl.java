@@ -110,6 +110,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public void insertJob(Credit credit) {
+        creditDao.insertJob(credit);
+    }
+
+    @Override
     public Action selectActionByLId(Loan loan) {
         return actionDao.selectActionByLId(loan);
     }

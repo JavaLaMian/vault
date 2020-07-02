@@ -17,6 +17,12 @@
         ]]>
     </select>
 
+    <update id="insertJob" parameterType="Credit">
+         <![CDATA[
+          update credit set depart = #{depart},wages = #{wages} where uId = #{uId}
+        ]]>
+    </update>
+
     <insert id="addRecharge" parameterType="com.vault.demo.bean.Recharge">
         <![CDATA[
           insert into recharge(rId,uId,reMoney,reTime,bankId,bankName) values(null,#{uId},#{reMoney},#{reTime},#{bankId},#{bankName})

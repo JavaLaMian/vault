@@ -380,8 +380,18 @@
                             <div class="column_name seted lv15" th:if="null ne ${userBank}">
                                 银行卡认证
                             </div>
-                            <div class="column_msg" th:if="null eq ${userBank}">
-                                <span class="setting"><a myTarget="yykrz_xg" class="showSetting">请设置</a></span>
+                            <div class="column_msg" th:if="null eq ${userBank} and null eq ${credit}">
+                                <span class="setting">
+                                    <a myTarget="yykrz_xg" class="showSetting">请设置</a>
+                                </span>
+                                <span class="cancel_setting"><a class="cancel_action">取消</a></span>
+                                <span class="column_info">提现时资金转入的银行卡账户</span>
+                                <span class="info_con"></span>
+                            </div>
+                            <div class="column_msg" th:if="null eq ${userBank} and null ne ${credit}">
+                                <span class="setting">
+                                    <a myTarget="yykrz_xg" href="/user/updateApply">请设置</a>
+                                </span>
                                 <span class="cancel_setting"><a class="cancel_action">取消</a></span>
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
@@ -395,7 +405,7 @@
                                 <span class="column_info">提现时资金转入的银行卡账户</span>
                                 <span class="info_con"></span>
                             </div>
-                            <form class="column_form" th:if="null eq ${userBank}">
+                            <form class="column_form" th:if="null eq ${userBank} and null eq ${credit}">
                                 <table class="form_type yykrz_xg setting_other marginAuto">
                                     <tr>
                                         <td class="align_center"><span class="size_16">请先设置实名登记，<a class="link" href="/user/toApply">马上设置</a></span></td>
@@ -532,7 +542,7 @@
                                             <tr>
                                                 <td class="align_right">当前邮箱：</td>
                                                 <td>
-                                                    <span class="display_form">178****7767</span>
+                                                    <span class="display_form" th:text="${session.user.email}">****</span>
                                                 </td>
                                             </tr>
                                             <tr>

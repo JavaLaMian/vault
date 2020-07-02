@@ -1,5 +1,6 @@
 package com.vault.demo.service.loan;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.vault.demo.bean.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public interface LoanService {
     Car selectCarByUId(Userimf userimf);
     void insertCar(Car car);
     void insertHouse(House house);
+    void insertJob(Credit credit);
     Action selectActionByLId(Loan loan);
     void insertAction(Action action);//存储用户贷款记录，一般在用户提交贷款申请时就初始新增
     void updateAction(Action action);
