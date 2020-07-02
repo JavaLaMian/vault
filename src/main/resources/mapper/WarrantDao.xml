@@ -14,4 +14,8 @@
         </selectKey>
         insert into warrant(wId,uId,wName,wCardId,wPositiveIDPhoto,wNegativeIDPhoto,wContractPhoto,remark,registerTime,status) values(null,#{uId},#{wName},#{wCardId},#{wPositiveIDPhoto},#{wNegativeIDPhoto},#{wContractPhoto},#{remark},#{registerTime},#{status})
     </insert>
+
+    <update id="updateWarrantStatusByWId" parameterType="com.vault.demo.bean.Warrant">
+        update warrant set status = #{status} where wId = #{wId}
+    </update>
 </mapper>

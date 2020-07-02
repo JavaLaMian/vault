@@ -16,4 +16,7 @@
           select * from car where uId=#{uId}
         ]]>
     </select>
+    <update id="updateCarStatus" parameterType="com.vault.demo.bean.Car">
+        update car set status = #{status} where uId = #{uId}
+    </update>
 </mapper>

@@ -10,4 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface WarrantDao {
     Warrant selectWarrantByUId(Userimf userimf);
     void insertWarrant(Warrant warrant);
+    void updateWarrantStatusByWId(Warrant warrant);
 }

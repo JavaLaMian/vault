@@ -15,6 +15,7 @@ public interface LoanService {
     Userimf selectUserimfByUId(Userimf userimf);
     void TestInsertLoan();//测试loan的插入
     List<Loan> TestAllLoan();
+    List<Loan> allLoanByUId(Userimf userimf);
     Loan LoanNow( Userimf userimf);
     Credit selectCredit(Userimf userimf);
     void insertLoan(Loan loan);//提交贷款申请
@@ -31,4 +32,10 @@ public interface LoanService {
     LoanBankHistory insertLoanBankHistory(Loan loan,UserBank userBank,Action action);
     Warrant selectWarrantByUId(Userimf userimf);
     void insertWarrant(Warrant warrant);
+    void updateHouseByUId(House house);
+    void updateCarByUId(Car car);
+    void updateWarrantStatusByWId(Warrant warrant);
+    void updateAvanBanlanceByUId(Userimf userimf);//修改用户余额
+    void updateActionStatusByAId(Action action);//修改action表的状态根据aId
+    void insertRepaymen(Repaymen repaymen);
 }
