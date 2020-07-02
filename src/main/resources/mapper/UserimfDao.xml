@@ -94,7 +94,7 @@
           select * from bounty where uId = #{uId}
         ]]>
         <if test="type != null and type != 0">
-            and boType = #{type}
+            and boType not in #{type}
         </if>
         <![CDATA[
           ORDER BY boType desc
