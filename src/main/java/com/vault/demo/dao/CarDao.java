@@ -15,4 +15,5 @@ public interface CarDao {
 
     void insertCar(Car car);
     Car selectCarByUId(Userimf userimf);//根据用户uId查car
+    void updateCarStatus(Car car);
 }

@@ -181,13 +181,9 @@
 							<i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
 							<i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
 						</div>
-						<!--<div class="point-info" id="riskLevel-info">-->
-							<!--风险评估：***-->
-							<!--<a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>-->
-						<!--</div>-->
 						<div class="point-info">
-							我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-							<a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+							我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
+							<a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
 						</div>
 						<div id="sign-info" class="sign-info"></div>
 					</div>
@@ -195,8 +191,8 @@
 						<li id="ov">
 							<a class="h2" href="/user/toAO"><b>账户总览</b></a>
 						</li>
-						<li >
-							<a href="#">我的网贷</a>
+						<li>
+							<a target="_blank" th:href="@{/loan/main2}">我的网贷</a>
 						</li>
 						<li >
 							<a href="/user/tozj">资金记录</a>
@@ -272,34 +268,41 @@
 									<dt>可用余额(元)</dt>
 									<dd th:text="${#numbers.formatDecimal(session.user.avaBalance,1,'COMMA',2,'POINT')}"></dd>
 								</dl>
-								<a th:if="${bank != null}" class="withdrawal-btn" onclick="chuFaBut('tx')">提现</a>
-								<a th:if="${bank != null}" class="recharge-btn" onclick="chuFaBut('cz')">充值</a>
+								<a th:if="${bank != null}" class="withdrawal-btn" style="cursor: pointer" onclick="chuFaBut('tx')">提现</a>
+								<a th:if="${bank != null}" class="recharge-btn" style="cursor: pointer" onclick="chuFaBut('cz')">充值</a>
 								<dl th:if="${bank == null}" style="width: 120px;line-height: 124px;position: absolute;">
 									<dt>您还未绑定银行卡</dt>
 								</dl>
 							</div>
 							<div id="chongZhiK">
-								<div id="conzhi" style="display: none">
-									<p class="zfp">
-										充值金额:<input class="zfk" id="moneyCz" oninput="padMoney(this)" type="text">元
-									</p>
-								</div>
-								<div id="tixian" style="display: none">
-									<p class="zfp">
-										提现金额:<input class="zfk" id="moneyTX" oninput="padMoney(this)" type="text">元
-									</p>
-								</div>
-								<div id="zfYanz" style="display: none">
-									<p class="zfp">
-										支付密码:<input class="zfk" style="width: 120px;" id="userPwd" type="password">
-									</p>
-									<p class="zfp">
-										<input type="button" class="zfbut" onclick="quXiaoZf('qx')"
-											   style="background-color:#fff;color:#ff7136;" value="取消">
-										<input type="button" class="zfbut" onclick="quXiaoZf('zf')"
-											   style="background-color: #ff7136;color: #fff" value="确认">
-									</p>
-								</div>
+								<form th:action="@{/user/czTx}" method="post">
+									<div id="conzhi" style="display: none">
+										<p class="zfp">
+											充值金额:
+											<input class="zfk" name="money" id="moneyCz" oninput="padMoney(this)" type="text">元
+										</p>
+									</div>
+									<div id="tixian" style="display: none">
+										<p class="zfp">
+											提现金额:
+											<input class="zfk" id="moneyTX" oninput="padMoney(this)" type="text">元
+										</p>
+									</div>
+									<div id="zfYanz" style="display: none">
+										<p class="zfp" id="yaoPwd" style="display: none">
+											支付密码:<input class="zfk" style="width: 120px;" id="userPwd" type="password">
+										</p>
+										<p class="zfp" id="noPwd" style="display: none">
+											无需支付密码
+										</p>
+										<p class="zfp">
+											<input type="button" class="zfbut" onclick="quXiaoZf('qx')"
+												   style="background-color:#fff;color:#ff7136;" value="取消">
+											<input type="submit" class="zfbut" onclick="return quXiaoZf('zf')"
+												   style="background-color: #ff7136;color: #fff" value="确认">
+										</p>
+									</div>
+								</form>
 							</div>
 							<div id="yes" style="width: 100px;height: 100px;position: absolute;left: 46.5%;background-color: transparent;pointer-events: none;">
 								<input type="checkbox" id="chufa" style="width: 0;height:0;" />
@@ -437,14 +440,20 @@
             if(OFf){
                 $("#conzhi").css("display","block");
                 $("#tixian").css("display","none");
+                $("#noPwd").css("display","block");
+                $("#yaoPwd").css("display","none");
 			}else {
+                $("#noPwd").css("display","block");
                 setTimeout("yanCiType('ofcz')","300");
 			}
         }else {
             if(OFf){
                 $("#conzhi").css("display","none");
                 $("#tixian").css("display","block");
+                $("#yaoPwd").css("display","block");
+                $("#noPwd").css("display","none");
             }else {
+                $("#yaoPwd").css("display","block");
                 setTimeout("yanCiType('oftx')","300");
             }
         }
@@ -466,23 +475,26 @@
 		}else {
 	        if(suo){
 	            suo = false;
-                var pwd = $("#userPwd").val();
-                var money;
-                if(types === 'cz') money = $("#moneyCz").val();
-                else money = $("#moneyTX").val();
+                if(types === 'cz'){
+                    return true;
+				}else {
+                    var pwd = $("#userPwd").val();
+                    var money = $("#moneyTX").val();
 
-                $.post("/user/czTx",{money: money,type:types,pwd:pwd},
-                    function (data) {
-                        if(data.msg === 'cg'){
-                            $("#chufa").attr("checked", "true");
-                            setTimeout("shuaXing()","1000");
-                        }else if(data.msg === "mmcw"){
-                            $("#userPwd").css("border-color","red");
-                        }else {
-                            alert(data.msg);
-                        }
-                        suo = true;
-                    }, "json");
+                    $.post("/user/tiXian",{money: money,type:types,pwd:pwd},
+                        function (data) {
+                            if(data.msg === 'cg'){
+                                $("#chufa").attr("checked", "true");
+                                setTimeout("shuaXing()","1000");
+                            }else if(data.msg === "mmcw"){
+                                $("#userPwd").css("border-color","red");
+                            }else {
+                                alert(data.msg);
+                            }
+                            suo = true;
+                        }, "json");
+                    return false;
+				}
 			}
 		}
     }

@@ -87,6 +87,12 @@ public class backstageController {
         mv.setViewName("backstage/Badd_Bid");
         return mv;
     }
+    //理财首页轮播图
+    @RequestMapping("/homeImg")
+    public ModelAndView homeImg(ModelAndView mv){
+        mv.setViewName("backstage/homeImg");
+        return mv;
+    }
     //新增投标 专享标和新手标
     @RequestMapping("/addBid")
     public ModelAndView addBid(ModelAndView mv, Bid bid,String begTime,String gebTime) throws ParseException {

@@ -63,16 +63,102 @@
 
         .ant-modal.popBox .ant-modal-content{border-radius:0}.ant-modal.popBox .ant-modal-content .ant-modal-header{border:none;background-color:#e8f7f8;height:30px;line-height:30px;padding:0 0 0 9px}.ant-modal.popBox .ant-modal-content .ant-modal-header .ant-modal-title{line-height:30px;font-size:12px}.ant-modal.popBox .ant-modal-content .ant-modal-close-x{font-size:12px;top:10px;right:9px}.ant-modal.popBox .ant-modal-content .ant-modal-footer{border:0;padding:40px;text-align:center}a.button{margin:0 auto;display:block}a.button,button{width:100%;height:40px;border:none;outline:0 none!important;line-height:40px;text-align:center;font-size:16px!important;font-weight:400!important;color:#fff;background-color:#00c2c2}a.button.warn,button.warn{background-color:#f35c5f}a.button.warn:hover,button.warn:hover{background-color:#f57d7f}a.button.warn:active,button.warn:active{background-color:#e8585b}a.button:hover,button:hover{background-color:#33cdce}a.button:active,button:active{background-color:#00b8b9}button:disabled{background-color:#e3e3e3}body{min-height:680px}#react-content,.login,.login_bg{height:100%}.login_bg{width:100%;overflow-x:hidden;position:relative;background-color:#ecf1f1}.login_bg img{position:absolute;left:50%;margin-left:-960px}.login_bg iframe{position:absolute;width:392px;height:443px;overflow:hidden;left:50%;margin-top:125px;margin-left:66px;border:1px solid #b2d5e1}.popWrap{width:auto;height:178px;padding-top:20px;text-align:center}.popWrap p{font-size:16px}.popWrap h3{position:relative;margin-top:45px}.popWrap h3 a{position:absolute;right:36px;top:0;display:block;height:40px;line-height:40px;color:#00c2c2}.mybank-header{position:relative;z-index:99;height:70px;line-height:70px;background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1)}.mybank-header.fixed{position:fixed;top:0;width:100%}.mybank-header .header-inner-wrap{margin:0 auto;height:70px;width:990px}.mybank-header .logo{margin-top:20px;width:169px;height:30px}.mybank-header .logo.error{width:123px}.mybank-header .others{height:26px;line-height:26px;font-size:12px;color:#fff;float:right}.mybank-header .others a{float:left;margin-top:27px;margin-right:10px;height:16px;line-height:16px;color:#333}.mybank-header .others a .phone{margin-right:10px;height:16px;width:14px;float:left}.foot-wrap{background-color:#f8f8f8;min-width:990px}.foot-wrap.fixed{position:fixed;bottom:0;width:100%;z-index:99}.foot-content{width:990px;margin:0 auto;padding:30px 5px;*zoom:1;font-size:12px;line-height:12px;background-color:#f8f8f8;background:url(https://os.alipayobjects.com/rmsportal/AfFplHSMsIUAFHH.png) right -1px no-repeat}.foot-content a{color:#333;margin:0 10px;font-size:12px;text-decoration:none}.foot-content a:hover{color:#00c2c2;line-height:12px;text-decoration:none}.foot-content:after,.foot-content:before{display:table;content:""}.foot-content:after{clear:both}.foot-left{float:left;display:inline}.foot-left img{height:26px}.foot-right{float:right;display:inline;text-align:right}.foot-logo{width:209px;height:26px;display:block}.foot-intro{padding-top:14px;position:relative;right:-10px;color:#d6d6d6}.foot-copyright{padding-top:20px;line-height:12px;color:#333}.foot-link{position:relative;left:-10px;color:#d6d6d6;padding-top:18px;line-height:12px}.copyright{margin-right:15px}@media (max-width:1200px){.nav-content,.nav-header{width:990px}}@media (min-width:1200px){.foot-content{width:1190px}}
     </style>
+
+    <script th:src="@{/js/jquery-1.12.4.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
 </head>
 <body>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 style="display: none" class="modal-title zhifu" id="myModalLabel">请输入支付密码</h4>
+                    <h4 class="modal-title queren">请确认金额</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group carClass" style="">
+                        <input id="dealPwd" type="password" class="form-control zhifu" style="text-align: center;font-size: 60px;display: none">
+                        <h3 class="queren">
+                            您当前有余额<span style="color: #de622f" th:text="${#numbers.formatDecimal(session.user.avaBalance,1,'COMMA',2,'POINT')} + ' 元'"></span>
+                        </h3>
+                        <h3 class="queren">
+                            您还款后余额为<span style="color: #de622f" th:text="${#numbers.formatDecimal((session.user.avaBalance - (action.tobePay * 10000)),1,'COMMA',2,'POINT')} + ' 元'"></span>
+                        </h3>
+                        <h3 class="queren" th:if="${(session.user.avaBalance - (action.tobePay * 10000)) >= 0}">
+                            您确定还款吗？
+                        </h3>
+                        <h3 class="queren" th:if="${(session.user.avaBalance - (action.tobePay * 10000)) < 0}">
+                            当前余额不足，请前往充值！
+                        </h3>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default zhifu" data-dismiss="modal" style="margin-left: 5px;display: none">关闭</button>
+                    <button type="button" class="btn btn-primary zhifu" onclick="checkDealPwd()" style="display: none">确认</button>
+                    <button th:if="${(session.user.avaBalance - (action.tobePay * 10000)) >= 0}" type="button" class="btn btn-default queren" data-dismiss="modal" style="margin-left: 5px;display: none">关闭</button>
+                    <button th:if="${(session.user.avaBalance - (action.tobePay * 10000)) >= 0}" class="queren btn btn-primary" type="button" onclick="queren()">下一步</button>
+                    <button th:if="${(session.user.avaBalance - (action.tobePay * 10000)) < 0}" type="button" class="btn btn-default queren" data-dismiss="modal" style="margin-left: 5px;display: none">关闭</button>
+                    <a th:if="${(session.user.avaBalance - (action.tobePay * 10000)) < 0}" th:href="@{/user/toAO}" class="queren">
+                        <button class=" btn btn-primary" type="button">去充值</button>
+                    </a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <form id="toHuanForm" th:action="@{/loan/toHuanEnd}" method="post">
+        <input type="hidden" name="aId" th:value="${action.aId}">
+        <input type="hidden" name="tobePay" th:value="${action.tobePay}">
+    </form>
+
+    <input type="hidden" id="ddddpppp" th:value="${session.user.dealPsw}">
+
+    <script type="text/javascript">
+        function queren() {
+            $(".queren").css("display","none");
+            $(".zhifu").css("display","block");
+        }
+
+        function checkDealPwd(){
+            var ddddpppp = document.getElementById("ddddpppp");
+            var dealPwd = document.getElementById("dealPwd");
+
+            console.log("ddddpppp:" + ddddpppp.value + "\ndealPwd:" + dealPwd.value);
+
+            if (dealPwd.value == "" || dealPwd.value == null){
+                document.getElementById("myModalLabel").innerHTML = "支付密码不能为空";
+                document.getElementById("myModalLabel").style.color = "red";
+            }else if (ddddpppp.value == dealPwd.value){
+                document.getElementById("myModalLabel").innerHTML = "请输入支付密码";
+                document.getElementById("myModalLabel").style.color = "black";
+
+                $("#toHuanForm").submit();
+            }else {
+                document.getElementById("myModalLabel").innerHTML = "支付密码不正确";
+                document.getElementById("myModalLabel").style.color = "red";
+            }
+
+        }
+
+        function startModal() {
+            $(".queren").css("display","block");
+            $(".zhifu").css("display","none");
+
+            $("#myModal").modal('show');
+        }
+    </script>
+
     <!--    导航-->
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
-            <div class="top" data-reactid=".0.2.1.0.0"><h1 data-reactid=".0.2.1.0.0.0">
-                <a th:href="@{/loan/main2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
-                    <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
-                </a>
-            </h1>
+            <div class="top" data-reactid=".0.2.1.0.0">
+                <h1 data-reactid=".0.2.1.0.0.0" style="margin-top: 0">
+                    <a th:href="@{/loan/main2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
+                        <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
+                    </a>
+                </h1>
                 <ul data-reactid=".0.2.1.0.0.1">
                     <li data-reactid=".0.2.1.0.0.1.0">
                         <a th:href="@{/user/toAO}" data-reactid=".0.2.1.0.0.1.0.0">
@@ -98,8 +184,8 @@
     </div>
     <div class="nav" data-aspm="c10121" data-aspm-expo="true" data-reactid=".0.2.1.1:0">
         <div class="navBox" data-reactid=".0.2.1.1:0.0">
-            <h2 data-reactid=".0.2.1.1:0.0.0"  th:text="飞机贷"></h2>
-            <ul data-reactid=".0.2.1.1:0.0.1">
+            <h2 data-reactid=".0.2.1.1:0.0.0"  th:text="飞机贷" style="margin: 0 0 0 0"></h2>
+            <ul data-reactid=".0.2.1.1:0.0.1" style="margin-top: -10px;margin-bottom: 0">
                 <li data-aspm-click="d18478" class="" data-reactid=".0.2.1.1:0.0.1.$0">
                     <a th:href="@{/loan/main2}" data-reactid=".0.2.1.1:0.0.1.$0.0">借款</a>
                 </li>
@@ -119,15 +205,18 @@
     <!--    内容-->
     <div style="height:auto;width: 100%">
         <div class="repayBar bg" data-aspm="c10221" data-aspm-expo="true" data-reactid=".0.2">
-            <div class="repayBox orderBox" data-reactid=".0.2.0">
+            <div th:if="${session.userLoan == null || action == null || session.userLoan.loanStatue == 0}" class="repayBox orderBox" data-reactid=".0.2.0">
+                <p class="fixTop" style="padding-top:24px;margin-top: 180px;font-size: 30px" data-reactid=".0.2.0.4">目前没有需要还的款哦~</p>
+            </div>
+            <div th:if="${session.userLoan != null && action != null && (session.userLoan.loanStatue == 1 || session.userLoan.loanStatue == 2)}" class="repayBox orderBox" data-reactid=".0.2.0">
                 <p data-reactid=".0.2.0.0">未还金额（元）</p>
                 <h3 data-reactid=".0.2.0.1" th:if="${action != null}">
                     <span data-reactid=".0.2.0.1.2" th:if="${action.acStatus == 2 || action.acStatus == 1}" th:text="${(action.acMoney + (action.acMoney * session.userLoan.interest * 0.01))} + '万'"></span>
                 </h3>
-                <p class="fixTop" style="padding-top:24px;" data-reactid=".0.2.0.4">（仅展示三年内记录，更多信息请拨打95188-3）</p>
+                <p th:if="${action.acStatus == 2}" class="fixTop" style="padding-top:24px;" data-reactid=".0.2.0.4">现在可以还款了！</p>
                 <div class="repayInAdvance" data-reactid=".0.2.0.5">
                     <a th:if="${action.acStatus == 1}" data-aspm-click="d18678" class="disabled" href="javascript:void(0);" data-reactid=".0.2.0.5.0">提前还款</a>
-                    <a th:if="${action.acStatus == 2}" data-aspm-click="d18678" href="javascript:void(0);" data-reactid=".0.2.0.5.0">现在还款</a>
+                    <a th:if="${action.acStatus == 2}" data-aspm-click="d18678" href="javascript:void(0);" onclick="startModal()" data-reactid=".0.2.0.5.0">还款</a>
                 </div>
                 <div class="repayAccountBox" data-reactid=".0.2.0.6">
                     <h5 data-reactid=".0.2.0.6.0">还款账户：</h5>
@@ -169,7 +258,7 @@
 
         <div class="repayMain clearfix" data-reactid=".0.4">
 <!--            无还款-->
-            <div th:if="false" class="repayPlan clearfix" data-reactid=".0.4.1">
+            <div th:if="${session.userLoan == null || action == null || session.userLoan.loanStatue == 0}" class="repayPlan clearfix" data-reactid=".0.4.1">
                 <div class="poster" data-reactid=".0.4.1.0"></div>
                 <h5 data-reactid=".0.4.1.1">目前还没有还款计划哦</h5>
                 <div class="mayun" data-reactid=".0.4.1.2">马云说“聪明的商人，懂得用别人的钱赚钱”</div>
@@ -177,13 +266,13 @@
 
 <!--            有还款-->
             <!--总额-->
-            <div class="mainTitle" data-reactid=".0.4.0">
+            <div th:if="${session.userLoan != null && action != null && (session.userLoan.loanStatue == 1 || session.userLoan.loanStatue == 2)}" class="mainTitle" data-reactid=".0.4.0">
                 <p data-reactid=".0.4.0.0">
                     <h1>还款计划</h1>
                 </p>
             </div>
 
-            <div class="repayPlan clearfix" data-reactid=".0.4.1">
+            <div th:if="${session.userLoan != null && action != null && (session.userLoan.loanStatue == 1 || session.userLoan.loanStatue == 2)}" class="repayPlan clearfix" data-reactid=".0.4.1">
                 <div class="listDate" data-reactid=".0.4.1.0">
                     <h3 data-reactid=".0.4.1.0.0">还款日期</h3>
                     <ul data-reactid=".0.4.1.0.1">
