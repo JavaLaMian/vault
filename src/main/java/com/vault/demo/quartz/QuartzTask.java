@@ -97,7 +97,7 @@ public class QuartzTask implements Job {
                                 Date kais = simpleDateFormat.parse(simpleDateFormat.format(bid.getExprie()));//标结束时间
                                 //86400000
                                 double days = (int)((kais.getTime()-jieshu.getTime()) / (1000*3600*24));//求出时间
-                                if(days>0 && days<=29){//判断这个人投了多久 小于29天按照天来算
+                                if(days>=0 && days<=29){//判断这个人投了多久 小于29天按照天来算
                                     double SumMOney =usersummoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),days,String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
                                     Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
@@ -113,7 +113,7 @@ public class QuartzTask implements Job {
                                     //将这个订单状态改为5 说明已经操作
                                     is.updateTender(tender.gettId(),5);
                                     System.out.println("操作成功");
-                                }else {//小于0天按照月来算
+                                }else if(days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
                                     Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
@@ -154,7 +154,7 @@ public class QuartzTask implements Job {
                                     //将这个订单状态改为5 说明已经操作
                                     is.updateTender(tender.gettId(),5);
                                     System.out.println("操作成功");
-                                }else {//小于0天按照月来算
+                                }else if(days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
                                     Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
@@ -195,7 +195,7 @@ public class QuartzTask implements Job {
                                     //将这个订单状态改为5 说明已经操作
                                     is.updateTender(tender.gettId(),5);
                                     System.out.println("操作成功");
-                                }else {//小于0天按照月来算
+                                }else if (days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
                                     Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());

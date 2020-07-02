@@ -70,14 +70,18 @@
                 };
                 return temp;
             },
+            onLoadSuccess:function () {
+                setDisable(disabledIndex);
+            },
             columns: [{
                 checkbox: true
             },{
                 title:'贷款编号',
                 field:'lId'
             },{
-                title:'待打款金额(元)',
-                field:'acMoney'
+                title:'待打款金额',
+                field:'acMoney',
+                formatter:addw
             },{
                 title:'到账银行',
                 field:'bankName'
@@ -102,18 +106,30 @@
                 formatter: option
             }]
         });
+        var disabledIndex = new Array();
+        var indexNum = 0;
 
+
+        function addw(value, row, index) {
+            return value+"<span style='color: blue'>万</span>";
+        }
         function option(value, row, index) {
             var htm="";
-            htm +='<button class="btn btn-success m-r-5" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 打款</button>';
+            htm +='<button class="btn btn-success m-r-5" id="'+index+'" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 打款</button>';
             return htm;
         }
         function status(value, row, index) {
             if(value==0){
                 return '<span style="color: yellow">待打款</span>';
             }else if(value==1){
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+
                 return '<span style="color: green">到账</span>';
             }else if(value==2){
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+
                 return '<span style="color: red">终止</span>';
             }
         }
@@ -154,9 +170,61 @@
             return num < 10 ? '0' + num : num;
         }
 
+        function setDisable(disabledIndex) {
+            $.each(disabledIndex,function (i,e) {
+                var iddd = document.getElementById(e);
+                iddd.disabled = true;
+            })
+        }
     });
     function tooexamine(id) {
-        window.location.href="/back_loan/toactivePayment?Id="+id;
+        $.confirm({
+            title: '提示',
+            content: '是否确认打款',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+                omg: {
+                    text: '确定',
+                    btnClass: 'btn-green',
+                    confirm:function () {
+                        $.ajax({
+                            url:'/back_loan/toactivePayment',
+                            cache: false,//false是不缓存，true为缓存
+                            async: true,//true为异步，false为同步
+                            data:{
+                                Id:id
+                            },
+                            success:function (obj) {
+                                if(obj=="success"){
+                                    window.location.href='/XMN/Loan_List'
+                                }
+                            },
+                            error:function () {
+                                $.confirm({
+                                    title: '提示',
+                                    content: '请求失败',
+                                    type: 'red',
+                                    keyboardEnabled:true,
+                                    buttons: {
+                                        omg: {
+                                            text: '重试',
+                                            btnClass: 'btn-green',
+                                        },
+                                        close: {
+                                            text: '关闭',
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                },
+                close: {
+                    text: '关闭'
+                }
+            }
+        });
     }
 </script>
 </body>
