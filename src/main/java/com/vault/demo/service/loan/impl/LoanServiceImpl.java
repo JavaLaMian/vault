@@ -38,6 +38,14 @@ public class LoanServiceImpl implements LoanService {
     @Resource
     WarrantDao warrantDao;
 
+    @Resource
+    UserimfDao userimfDao;
+
+    @Override
+    public Userimf selectUserimfByUId(Userimf userimf) {
+        return userimfDao.selectUserimfByUId(userimf);
+    }
+
     @Override
     public void TestInsertLoan() {
         Loan loan = new Loan();

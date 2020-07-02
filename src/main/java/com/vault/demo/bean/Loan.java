@@ -49,7 +49,7 @@ public class Loan {//6月10日16点42
     private int guarantees;
 
     @Column(name = "guaranter",type = MySqlTypeConstant.VARCHAR,length = 50)
-    private String guaranter;
+    private int wId;
 
     @Column(name = "guaCardId",type = MySqlTypeConstant.VARCHAR,length = 200)
     private String guaCardId;
@@ -88,7 +88,7 @@ public class Loan {//6月10日16点42
                 ", applicationTime=" + applicationTime +
                 ", applicationEnd=" + applicationEnd +
                 ", guarantees=" + guarantees +
-                ", guaranter='" + guaranter + '\'' +
+                ", wId='" + wId + '\'' +
                 ", guaCardId='" + guaCardId + '\'' +
                 ", review=" + review +
                 ", interest=" + interest +
@@ -203,12 +203,12 @@ public class Loan {//6月10日16点42
         this.guarantees = guarantees;
     }
 
-    public String getGuaranter() {
-        return guaranter;
+    public int getwId() {
+        return wId;
     }
 
-    public void setGuaranter(String guaranter) {
-        this.guaranter = guaranter;
+    public void setwId(int wId) {
+        this.wId = wId;
     }
 
     public String getGuaCardId() {

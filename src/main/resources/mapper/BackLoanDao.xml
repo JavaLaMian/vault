@@ -52,4 +52,7 @@
     <update id="updPerBidStatus">
         update perBid set combination = #{action.acMoney},bidStatus=0 where perBid=#{loan.bidId}
     </update>
+    <select id="selLoanHistoryAll" resultType="map">
+        select lbh.*,ub.bankName,ub.cardId,l.applicationTime,l.applicationEnd,l.uId from loanBankHistory lbh inner join loan l on lbh.lId = l.lId inner join userBank ub on lbh.bankId = ub.bankId
+    </select>
 </mapper>

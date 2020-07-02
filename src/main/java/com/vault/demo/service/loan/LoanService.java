@@ -13,6 +13,7 @@ public interface LoanService {
     public static final int FILED = 4;      //申请失败
     public static final int OK = 5;         //申请通过等待确认
 
+    Userimf selectUserimfByUId(Userimf userimf);
     void TestInsertLoan();//测试loan的插入
     List<Loan> TestAllLoan();
     Loan LoanNow( Userimf userimf);

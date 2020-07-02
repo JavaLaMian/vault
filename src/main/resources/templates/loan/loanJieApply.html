@@ -93,6 +93,30 @@
     <script th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请输入支付密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group carClass" style="">
+                        <input id="dealPwd" type="password" class="form-control" style="text-align: center;font-size: 60px">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 5px">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="checkDealPwd()">确认</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <input type="hidden" id="ddddpppp" th:value="${dealPwd}">
+    <input type="hidden" id="stepNum" th:value="${step}">
+
     <!--    导航-->
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
@@ -198,7 +222,7 @@
             </div>
             <div class="processRight" data-reactid=".0.2.1.1:2.1.1">
                 <div id="loanForm" style="width: 100%;height: 100%">
-                    <form class="" th:action="@{/loan/toloanJie}" method="post" style="margin: 10px 20px 0 20px" onsubmit="return checkStep1Form()">
+                    <form id="toJieForm" class="" th:action="@{/loan/toloanJie}" method="post" style="margin: 10px 20px 0 20px"><!-- onsubmit="return checkStep1Form()" -->
                         <input type="hidden" name="uId" th:value="${session.user.uId}">
 
 <!--                        为了去提交贷款信息设置step=2-->
@@ -210,13 +234,13 @@
                         <div class="form-group">
                             <label th:if="${loanTypeStr == 1}" for="loanType1">贷款类型</label>
                             <input th:if="${loanTypeStr == 1}" id="loanType1" name="loanTypeShow" type="text" class="form-control" value="信用贷款" readonly >
-                            <input th:if="${loanTypeStr == 1}" name="loanType" type="hidden" value="1">
                             <label th:if="${loanTypeStr == 2}" for="loanType2">贷款类型</label>
                             <input th:if="${loanTypeStr == 2}" id="loanType2" name="loanTypeShow" type="text" class="form-control" value="抵押贷款" readonly >
-                            <input th:if="${loanTypeStr == 2}" name="loanType" type="hidden" value="2">
                             <label th:if="${loanTypeStr == 3}" for="loanType3">贷款类型</label>
                             <input th:if="${loanTypeStr == 3}" id="loanType3" name="loanTypeShow" type="text" class="form-control" value="担保贷款" readonly >
-                            <input th:if="${loanTypeStr == 3}" name="loanType" type="hidden" value="3">
+                            <input th:if="${loanTypeStr == 3}" name="wId" type="hidden" th:value="${warrant.wId}">
+
+                            <input id="loanTypeInput" name="loanType" type="hidden" th:value="${loanTypeStr}">
                         </div>
 
                         <script type="text/javascript">
@@ -227,6 +251,9 @@
                                     $(".carClass").css("display","none");
                                 }else if (value == 1){
                                     $(".carClass").css("display","block");
+                                    $(".houseClass").css("display","none");
+                                }else if (value == 0){
+                                    $(".carClass").css("display","none");
                                     $(".houseClass").css("display","none");
                                 }
                             }
@@ -266,8 +293,6 @@
                             <label for="houseRemark" id="houseRemarkLabel">说明</label>
                             <input id="houseRemark" type="text" class="form-control" th:value="${house.getRemark()}" readonly>
                         </div>
-                        
-
 
                         <div class="form-group">
                             <label for="loanName" id="loanNameLabel">贷款名</label>
@@ -315,7 +340,7 @@
 
                         <br>
 
-                        <button type="submit" class="btn btn-default" style="margin: 0">提交</button>
+                        <button type="button" onclick="checkStep1Form()" class="btn btn-default" style="margin: 0">提交</button>
                     </form>
                 </div>
             </div>
@@ -843,7 +868,7 @@
                                 <strong data-reactid=".0.2.1.1:2.1.1.1:0.2.0.1" th:text="${session.user.getAccount()}">131******15</strong>
                             </p>
                         </div>
-                        <form th:action="@{/loan/toLoanEnd}" method="post">
+                        <form id="toLoanEndForm" th:action="@{/loan/toLoanEnd}" method="post">
                                 <div class="ui-form-item">
                                     <div class="ui-form-explain">安全设置检测成功！无需邮箱校验。</div>
                                 </div>
@@ -851,7 +876,7 @@
 
                             <div style="width: 100%">
                                 <input type="hidden" name="" value="">
-                                <button type="submit">确认申请</button>
+                                <button type="button" onclick="onCheckMoneyShowDealPwdDiv()">确认申请</button>
                             </div>
 
                         </form>
@@ -991,11 +1016,67 @@
         }
     }
 
+    function onCheckMoneyShowDealPwdDiv() {
+        document.getElementById("myModalLabel").innerHTML = "请输入支付密码";
+        document.getElementById("myModalLabel").style.color = "black";
+        var dealPwd = document.getElementById("dealPwd");
+
+        dealPwd.value = "";
+
+        $("#myModal").modal('show');
+    }
+
+    function checkDealPwd(){
+        var ddddpppp = document.getElementById("ddddpppp");
+        var dealPwd = document.getElementById("dealPwd");
+
+        var stepNum = document.getElementById("stepNum");
+
+        console.log("ddddpppp:" + ddddpppp.value + "\ndealPwd:" + dealPwd.value + "\nstepNum:" + stepNum.value);
+
+        if (stepNum.value == 1){
+            if (dealPwd.value == "" || dealPwd.value == null){
+                document.getElementById("myModalLabel").innerHTML = "支付密码不能为空";
+                document.getElementById("myModalLabel").style.color = "red";
+            }else if (ddddpppp.value == dealPwd.value){
+                document.getElementById("myModalLabel").innerHTML = "请输入支付密码";
+                document.getElementById("myModalLabel").style.color = "black";
+
+                $("#toJieForm").submit();
+            }else {
+                document.getElementById("myModalLabel").innerHTML = "支付密码不正确";
+                document.getElementById("myModalLabel").style.color = "red";
+            }
+        }else if (stepNum.value == 2){
+            if (dealPwd.value == "" || dealPwd.value == null){
+                document.getElementById("myModalLabel").innerHTML = "支付密码不能为空";
+                document.getElementById("myModalLabel").style.color = "red";
+            }else if (ddddpppp.value == dealPwd.value){
+                document.getElementById("myModalLabel").innerHTML = "请输入支付密码";
+                document.getElementById("myModalLabel").style.color = "black";
+
+                $("#toLoanEndForm").submit();
+            }else {
+                document.getElementById("myModalLabel").innerHTML = "支付密码不正确";
+                document.getElementById("myModalLabel").style.color = "red";
+            }
+        }
+
+    }
+
     function checkStep1Form() {
+
         var loanName = document.getElementById("loanName").value;
         var loanWantMoney = document.getElementById("loanWantMoney").value;
         var loanPurpose = document.getElementById("loanPurpose").value;
-        var guarantees = document.getElementById("guarantees").value;
+        var loanTypeInput = document.getElementById("loanTypeInput").value;
+
+        var guarantees = 0;
+
+        if (loanTypeInput == 2){
+            guarantees = document.getElementById("guarantees").value;
+            // console.log("guarantees:" + guarantees);
+        }
 
         var check = 1;
 
@@ -1018,12 +1099,20 @@
             document.getElementById("loanWantMoneyLabel").style.color = "black";
         }
 
-        if (guarantees == 0){
+        if (loanTypeInput == 2 && guarantees == 0){
             document.getElementById("guaranteesLabel").innerHTML = '请选择质押物';
             document.getElementById("guaranteesLabel").style.color = 'red';
-        }else {
+            // console.log("质押为0:" + guarantees);
+
+            check = 0;
+        }else if(loanTypeInput == 2 && guarantees == 1){
             document.getElementById("guaranteesLabel").innerHTML = '抵押类型';
             document.getElementById("guaranteesLabel").style.color = 'black';
+            // console.log("质押为1:" + guarantees);
+        }else if(loanTypeInput == 2 && guarantees == 2){
+            document.getElementById("guaranteesLabel").innerHTML = '抵押类型';
+            document.getElementById("guaranteesLabel").style.color = 'black';
+            // console.log("质押为2:" + guarantees);
         }
 
         if (loanPurpose == '' || loanPurpose == null){
@@ -1037,7 +1126,15 @@
         }
 
         if (check == 1){
-            return true;
+            document.getElementById("myModalLabel").innerHTML = "请输入支付密码";
+            document.getElementById("myModalLabel").style.color = "black";
+            var dealPwd = document.getElementById("dealPwd");
+
+            dealPwd.value = "";
+
+            $("#myModal").modal('show');
+
+            return false;
         }else {
             return false;
         }
