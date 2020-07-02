@@ -41,6 +41,11 @@ public class LoanServiceImpl implements LoanService {
     @Resource
     UserimfDao userimfDao;
 
+    @Resource
+    RepaymenDao repaymenDao;
+
+
+
     @Override
     public Userimf selectUserimfByUId(Userimf userimf) {
         return userimfDao.selectUserimfByUId(userimf);
@@ -62,6 +67,11 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public List<Loan> TestAllLoan() {
         return loanDao.allList();
+    }
+
+    @Override
+    public List<Loan> allLoanByUId(Userimf userimf) {
+        return loanDao.allLoanByUId(userimf);
     }
 
     @Override
@@ -150,6 +160,36 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void insertWarrant(Warrant warrant) {
         warrantDao.insertWarrant(warrant);
+    }
+
+    @Override
+    public void updateHouseByUId(House house) {
+        houseDao.updateHouseStatus(house);
+    }
+
+    @Override
+    public void updateCarByUId(Car car) {
+        carDao.updateCarStatus(car);
+    }
+
+    @Override
+    public void updateWarrantStatusByWId(Warrant warrant) {
+        warrantDao.updateWarrantStatusByWId(warrant);
+    }
+
+    @Override
+    public void updateAvanBanlanceByUId(Userimf userimf) {
+        userimfDao.updateAvaBalanceByUId(userimf);
+    }
+
+    @Override
+    public void updateActionStatusByAId(Action action) {
+        actionDao.updateStatusByAId(action);
+    }
+
+    @Override
+    public void insertRepaymen(Repaymen repaymen) {
+        repaymenDao.insertRepaymen(repaymen);
     }
 
 

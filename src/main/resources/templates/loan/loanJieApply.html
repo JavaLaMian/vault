@@ -102,7 +102,7 @@
                     <h4 class="modal-title" id="myModalLabel">请输入支付密码</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group carClass" style="">
+                    <div class="form-group">
                         <input id="dealPwd" type="password" class="form-control" style="text-align: center;font-size: 60px">
                     </div>
                 </div>
@@ -121,7 +121,7 @@
     <div class="header" data-aspm="c37338" data-aspm-expo>
         <div class="header" data-aspm="c10294" data-aspm-expo="true" data-reactid=".0.2.1.0">
             <div class="top" data-reactid=".0.2.1.0.0">
-                <h1 data-reactid=".0.2.1.0.0.0" style="margin: 0">
+                <h1 data-reactid=".0.2.1.0.0.0" style="margin-top: 0">
                 <a th:href="@{/loan/main2}" title="飞机普惠" data-reactid=".0.2.1.0.0.0.0">
                     <img class="nav-mini-logo" th:src="@{/img/loan/log6.png}" data-reactid=".0.2.1.0.0.0.0.0">
                 </a>
@@ -149,9 +149,9 @@
         </div>
     </div>
     <div class="nav" data-aspm="c10121" data-aspm-expo="true" data-reactid=".0.2.1.1:0">
-        <div class="navBox" data-reactid=".0.2.1.1:0.0" style="position: relative">
-            <h2 data-reactid=".0.2.1.1:0.0.0"  style="margin: 7px; width: 100px; position: absolute;left: 0px;font-size: 25px;color: #666">飞机贷</h2>
-            <ul data-reactid=".0.2.1.1:0.0.1" id="ululul">
+        <div class="navBox" data-reactid=".0.2.1.1:0.0">
+            <h2 data-reactid=".0.2.1.1:0.0.0"  style="margin: 0; ">飞机贷</h2>
+            <ul data-reactid=".0.2.1.1:0.0.1" id="ululul" style="margin-top: -10px;margin-bottom: 0">
                 <li data-aspm-click="d18478" class=" active" data-reactid=".0.2.1.1:0.0.1.$0">
                     <a th:href="@{/loan/main2}" data-reactid=".0.2.1.1:0.0.1.$0.0">借款</a>
                 </li>
@@ -196,7 +196,7 @@
         </div>
 
 <!--        1.申请-->
-        <div th:if="${step==1}" class="processBox" data-reactid=".0.2.1.1:2">
+        <div th:if="${step==1}" class="processBox" style="margin-top: -30px" data-reactid=".0.2.1.1:2">
         <div data-reactid=".0.2.1.1:2.0"></div>
         <div class="process clearfix" data-reactid=".0.2.1.1:2.1">
             <div class="processLeft" data-reactid=".0.2.1.1:2.1.0">
@@ -347,7 +347,7 @@
         </div>
     </div>
 <!--        2.签署合同-->
-        <div th:if="${step==2}" class="processBox" data-reactid=".0.2.1.1:2">
+        <div th:if="${step==2}" class="processBox" style="margin-top: -30px" data-reactid=".0.2.1.1:2">
             <div data-reactid=".0.2.1.1:2.0"></div>
             <div th:if="${loan.loanStatue != 5}" style="width: 50%;margin: 0 auto">
                 <div class="page-header" style="text-align: center">
@@ -498,7 +498,7 @@
                                 <div data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0">
                                     <h5 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.0">申请金额(元)</h5>
                                     <h3 data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1">
-                                        <strong th:text="${action.acMoney * 10000}" id="moneyStrong" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.0">1</strong>
+                                        <strong th:text="${#numbers.formatDecimal((action.acMoney * 10000),1,'COMMA',2,'POINT')} + ' 元'" id="moneyStrong" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.0.1.0">1</strong>
                                     </h3>
                                 </div>
                                 <ul class="clearfix" data-reactid=".0.2.1.1:2.1.1.1:0.0.0.1">
