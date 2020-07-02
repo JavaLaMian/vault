@@ -21,6 +21,12 @@
         ]]>
     </select>
 
+    <select id="selectUserimfByUId" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf where uId = #{uId}
+        ]]>
+    </select>
+
     <delete id="deleteById" parameterType="com.vault.demo.bean.Userimf">
         delete from userimf where uId = #{uId}
     </delete>
@@ -106,5 +112,9 @@
         <if test="type != null and type != 0">
             and boType = #{type}
         </if>
+    </select>
+
+    <select id="friendList" resultType="Userimf" parameterType="int">
+        select  uName,regTime,account from userimf where refereerId = #{id}
     </select>
 </mapper>

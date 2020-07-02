@@ -2,12 +2,11 @@ package com.vault.demo.controller.backstage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.vault.demo.bean.Admin;
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.Loan;
+import com.vault.demo.bean.*;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
+import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
+import com.vault.demo.service.backstage.house.BackHouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,10 @@ public class backstageController {
     selevicexmn is;
     @Resource
     BackCreditService bcs;
+    @Resource
+    BackCarService bcas;
+    @Resource
+    BackHouseService bhs;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv){
@@ -82,6 +85,12 @@ public class backstageController {
     @RequestMapping("/Badd_Bid")
     public ModelAndView Badd_Bid(ModelAndView mv){
         mv.setViewName("backstage/Badd_Bid");
+        return mv;
+    }
+    //理财首页轮播图
+    @RequestMapping("/homeImg")
+    public ModelAndView homeImg(ModelAndView mv){
+        mv.setViewName("backstage/homeImg");
         return mv;
     }
     //新增投标 专享标和新手标
@@ -173,26 +182,27 @@ public class backstageController {
 
     //根据id去用户审核页面
     @RequestMapping("/updateCredit")
-    public ModelAndView updateCredit(ModelAndView mv,Model model,Credit credit){
-        List<Map> list = is.selectgetCredit(credit);
-        model.addAttribute("list",list);
+    public ModelAndView updateCredit(ModelAndView mv,Model model,int creId){
+        Credit credit = bcs.selCreditById(creId);
+        model.addAttribute("credit",credit);
+        model.addAttribute("user",bcs.selUserById(credit.getuId()));
         mv.setViewName("backstage/Creditupdate");
         return mv;
     }
     //审核信用信息
     @RequestMapping("/updateCreditOK")
-    public ModelAndView updateCreditOK(ModelAndView mv,String an,Credit credit){
+    public String updateCreditOK(ModelAndView mv,String an,int creId){
+        Credit credit = bcs.selCreditById(creId);
        // 0等待审核 1审核中 2审核完毕
         int ok = 2;
         credit.setCreditLV(an);//获取信用等级
         credit.setCreditUpdateTime(new Date());
         credit.setType(ok);
         is.updateCredit(credit);
-        mv.setViewName("backstage/Creditupdate");
-        return mv;
+        return "redirect:/XMN/loanlist";
     }
     //去往积分订单查询页面
-    @RequestMapping("userintegral")
+    @RequestMapping("/userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
         List<Map> list = is.integralList();
         model.addAttribute("list",list);
@@ -203,11 +213,74 @@ public class backstageController {
     public ModelAndView toAdminInformation(ModelAndView mv,Model model){
         return mv;
     }
+    //打款追踪
     @RequestMapping("/Payment_track")
     public ModelAndView toPaPaymentTrack(ModelAndView mv){
-        mv.setViewName("backstage/");
-
+        mv.setViewName("backstage/Paymenttrack");
         return mv;
+    }
+    @RequestMapping("/carProperty")
+    public ModelAndView toCarProperty(ModelAndView mv){
+        mv.setViewName("backstage/UserCarExamine");
+        return mv;
+    }
+    @ResponseBody
+    @RequestMapping("/getCarData")
+    public JSONObject getCarData(){
+        JSONObject object = new JSONObject();
+        List<Map> cars = bcas.selCarAll();
+        object.put("total", cars.size());
+        object.put("rows", JSON.toJSON(cars));
+        return object;
+    }
+
+    @RequestMapping("/toCarExamine")
+    public String toCarExamine(Model m,int cId){
+        Car car = bcas.selCarById(cId);
+        Credit credit = bcas.selCreditById(car.getuId());
+        Userimf userimf = bcs.selUserById(car.getuId());
+        m.addAttribute("user",userimf);
+        m.addAttribute("credit",credit);
+        m.addAttribute("car",car);
+        return "backstage/Car_Examine";
+    }
+    @RequestMapping("/carExamine")
+    public String carExamine(int cId,int an){
+        Car car = bcas.selCarById(cId);
+        car.setStatus(an);
+        bcas.updCarStatus(car);
+        return "redirect:/XMN/carProperty";
+    }
+    @RequestMapping("/houseProperty")
+    public ModelAndView toHouseProperty(ModelAndView mv){
+        mv.setViewName("backstage/UserHouseExamine");
+        return mv;
+    }
+    @ResponseBody
+    @RequestMapping("/getHouseData")
+    public JSONObject getHouseData(){
+        JSONObject object = new JSONObject();
+        List<Map> houses = bhs.selHosueAll();
+        object.put("total", houses.size());
+        object.put("rows", JSON.toJSON(houses));
+        return object;
+    }
+    @RequestMapping("/toHouseExamine")
+    public String toHouseExamine(Model m,int hId){
+        House house = bhs.selHouseById(hId);
+        Credit credit = bcas.selCreditById(house.getuId());
+        Userimf userimf = bcs.selUserById(house.getuId());
+        m.addAttribute("house",house);
+        m.addAttribute("user",userimf);
+        m.addAttribute("credit",credit);
+        return "backstage/House_Examine";
+    }
+    @RequestMapping("/houseExamine")
+    public String houseExamine(int hId,int an){
+        House house = bhs.selHouseById(hId);
+        house.setStatus(an);
+        bhs.updHouseStatus(house);
+        return "redirect:/XMN/houseProperty";
     }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期
     public void addbid1(Bid bid,Date date1,int ok){

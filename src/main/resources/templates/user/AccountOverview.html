@@ -57,6 +57,53 @@
 			height: 0;
 			transition: 0.5s;
 		}
+		.hkTitle{
+			float: left;
+			text-align: center;
+			width: 10%;
+			height: 30px;
+			line-height: 30px;
+			font-size: 16px;
+			margin: 0 2.1%;
+		}
+		.hkLie{
+			float: left;
+			width: 88px;
+		}
+		.hkRi{
+			width: 98%;
+			margin: 2px 0 2px 0;
+			height: 65px;
+			background-color: rgb(212,233,250);
+		}
+		.hkRik{
+			width: 98%;
+			margin: 2px 0;
+			height: 65px;
+			background-color: transparent;
+		}
+		.hkRi p{
+			text-align: center;
+			font-size: 12px;
+			padding: 5px 0;
+		}
+		.hkButton{
+			width: 120px;
+			height: 30px;
+			margin: 0 30px;
+			background-color: rgb(212,233,250);
+			border: 1px black solid;
+		}
+		.hkButton:hover{
+			background-color: rgb(180,212,245);
+		}
+		.hkButKuan{
+			width: 80%;
+			float: left;
+			margin-left: 9.5%;
+			margin-top: 25px;
+			text-align: center;
+		}
 	</style>
 	<style>
 		.circle {
@@ -134,13 +181,9 @@
 							<i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
 							<i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
 						</div>
-						<!--<div class="point-info" id="riskLevel-info">-->
-							<!--风险评估：***-->
-							<!--<a class="startAssess" href="javascript:;" target="_blank">【重新测评】</a>-->
-						<!--</div>-->
 						<div class="point-info">
-							我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-							<a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+							我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
+							<a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
 						</div>
 						<div id="sign-info" class="sign-info"></div>
 					</div>
@@ -302,11 +345,30 @@
 							<div id="chartsData" style="width: 100%"></div>
 						</div>
 					</div>
-					<div class="calendar">
-						<h2>回款日历</h2>
-						<div class="total-data">
-							<div id="date" data-url="https://www.xiaoniu88.com/MyAccount/repayment/schedule/"></div>
-							<div class="total" id="calendar-total"></div>
+					<div class="charts">
+						<h2 class="hkTitles" style="text-align: center;margin: 10px 0;">回款日历</h2>
+						<div class="inner" style="width: 770px;padding: 25px;height: 430px;border: 0">
+							<div style="width: 80%;height: 30px;margin: 0 auto">
+								<p class="hkTitle">周日</p>
+								<p class="hkTitle">周一</p>
+								<p class="hkTitle">周二</p>
+								<p class="hkTitle">周三</p>
+								<p class="hkTitle">周四</p>
+								<p class="hkTitle">周五</p>
+								<p class="hkTitle">周六</p>
+							</div>
+							<div id="huiKuan" style="width: 80%;float: left;margin-left: 9.5%;">
+								<div class="g-tc" style="padding-top: 100px;">
+									<img src="//image.xiaoniu88.com/static/WebXn/dist/images/loading-44bbc291bc.gif" alt="加载中..." />
+								</div>
+								<div class="hkLie zou7"></div>
+								<div class="hkLie zou1"></div>
+								<div class="hkLie zou2"></div>
+								<div class="hkLie zou3"></div>
+								<div class="hkLie zou4"></div>
+								<div class="hkLie zou5"></div>
+								<div class="hkLie zou6"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -497,10 +559,96 @@
             }]
         });
     },"json");
+
+    var suoDin = false;
+    var daYue = 0;
+    var daNian;
+    function donTaiYue(type){
+        $("#huiKuan .hkButKuan").remove();
+        $("#huiKuan .zou1").empty();
+        $("#huiKuan .zou2").empty();
+        $("#huiKuan .zou3").empty();
+        $("#huiKuan .zou4").empty();
+        $("#huiKuan .zou5").empty();
+        $("#huiKuan .zou6").empty();
+        $("#huiKuan .zou7").empty();
+        $("#huiKuan").append("<div class=\"g-tc\" style=\"padding-top: 100px;\">\n" +
+            "<img src=\"//image.xiaoniu88.com/static/WebXn/dist/images/loading-44bbc291bc.gif\" alt=\"加载中...\" />\n" +
+            "</div>");
+
+        if(type === 'x'){
+            huoquRi(daYue+1,daNian);
+		}else {
+            huoquRi(daYue-1,daNian);
+		}
+        suoDin =false;
+	}
+
+    function huoquRi(mon,year) {
+        $.post("/user/huikuan",{yue:mon,year:year},function(data){
+            var list = data.list;
+            var xzou = 6;
+            var zou = data.thisday;
+            daYue = data.month;
+            for(var i = 0;i<list.length;i++){  //循环LIST
+                var veh = list[i];
+                var sums = veh.sum;
+                var days = veh.day;
+                var tis = veh.tis;
+                if(xzou === 7) xzou = 1;
+                else  xzou += 1;
+
+                var html;
+                if(suoDin) zou = xzou;
+                if(xzou === zou){
+                    suoDin = true;
+                    if(days.charAt(days.length-1) === '*'){
+                        html = "<div class='hkRi' style='background-color:rgb(180,212,245);' onmouseover='yiRuLi(this,"+sums+")' onmouseout='yiChuLi(this,"+sums+")'>"
+                    }else if(sums !== 0){
+                        html = "<div class='hkRi' style='background-color:#ff7136;' onmouseover='yiRuLi(this,"+sums+")' onmouseout='yiChuLi(this,"+sums+")'>"
+                    } else {
+                        html = "<div class='hkRi' onmouseover='yiRuLi(this,"+sums+")' onmouseout='yiChuLi(this,"+sums+")'>"
+                    }
+                    html += "<p>"+days+"</p>\n" +
+                        "<p class='tishi'>"+tis+"</p>\n" +
+                        "</div>";
+                }else {
+                    html="<div class='hkRik'>\n" +
+                        "</div>";
+                    i--;
+                }
+                $("#huiKuan .g-tc").remove();
+                $("#huiKuan .zou"+xzou).append(html);
+            }
+            var butt = "<div class=\"hkButKuan\">\n" +
+                "<button class=\"hkButton\" onclick=\"donTaiYue('s')\">上一月</button>\n" +
+                "<span id=\"months\" style=\"font-size: 16px\"></span>\n" +
+                "<button class=\"hkButton\" onclick=\"donTaiYue('x')\">下一月</button>\n" +
+                "</div>";
+            $("#huiKuan").append(butt);
+            $("#months").text(daYue+"月");
+            daNian = data.year;
+            $(".charts .hkTitles").text(daNian+"年 回款日历");
+        },"json");
+    }
+    var myDate = new Date();
+    var tYear = myDate.getFullYear();
+    var tMonth = myDate.getMonth();
+    huoquRi(tMonth+1,tYear);
+
+    function yiRuLi(id,sum) {
+		$(id).find(".tishi").text(sum+"元");
+    }
+    function yiChuLi(id,sum) {
+        if(sum === 0)$(id).find(".tishi").text("无");
+        else $(id).find(".tishi").text("有回款");
+    }
+
+    $(window).bind("load", function () {
+        $("#ov").addClass("cur");
+    })
 </script>
-
-
-	<div class="code2d-pop">
+<div class="code2d-pop">
 	    <div class="g-o">
 	        <div class="code2d-inner">
 	            <a class="x" href="javascript:"></a>
@@ -511,12 +659,5 @@
 	        </div>
 	    </div>
 	</div>
-	<script type="text/javascript">
-
-        $(window).bind("load", function () {
-            $("#ov").addClass("cur");
-        })
-	
-	</script>
 </body>
 </html>

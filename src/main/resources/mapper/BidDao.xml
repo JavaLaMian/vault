@@ -127,10 +127,13 @@
     </select>
 
     <select id="countTenMoney" resultType="float">
-        select COUNT(tenMoney) from tender
+        select sum(tenMoney) from tender
     </select>
 
     <select id="selTenderByTD" resultType="com.vault.demo.bean.Tender">
         select * from tender where uId = #{uId} and bType = 3 order by tenTime desc
+    </select>
+    <select id="selTenderByUser" resultType="com.vault.demo.bean.Tender">
+        select * from tender where uId = #{uId}
     </select>
 </mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vault.demo.dao.backstage.BackCarDao">
+    <select id="selCarAll" resultType="map">
+        select  u.account,u.phe,c.* from car c inner join userimf u on c.uId = u.uId
+    </select>
+    <select id="selCarById" resultType="Car">
+        select * from car where cId=#{cId}
+    </select>
+    <select id="selCreditById" resultType="Credit">
+        select * from credit where uId=#{uId}
+    </select>
+    <update id="updCarStatus" >
+        UPDATE car set status=#{status} where cId=#{cId}
+    </update>
+</mapper>

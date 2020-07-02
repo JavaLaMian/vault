@@ -1,9 +1,6 @@
 package com.vault.demo.controller.user;
 
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.UserBank;
-import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.WorryCall;
+import com.vault.demo.bean.*;
 import com.vault.demo.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +24,7 @@ public class UserController2 {
         Userimf userimf = (Userimf) session.getAttribute("user");
         Map map = service.daiShou(userimf);
         userimf.setEmail(null);
+        MyIntegral myIntegral = service.selectMyIntegral2(userimf.getuId());
         Userimf user = service.logPadUser(userimf);
         UserBank userBank = service.getBC(user.getuId());
         Credit credit = service.getCredit(user.getuId());
@@ -35,6 +33,7 @@ public class UserController2 {
         ren.put("cred",credit);
         session.setAttribute("ren",ren); //将用户认证信息存入session以判断
         session.setAttribute("user",user);
+        session.setAttribute("sig",myIntegral);
         model.addAttribute("map",map);
         model.addAttribute("bank",userBank);
 
@@ -157,6 +156,8 @@ public class UserController2 {
         if(uPwd.equals(pwd)){
             int pd = service.userChongTi(type,money,userimf);
             if(pd == 1){
+                Userimf user = service.pandEmail(userimf.getEmail(),"e");
+                session.setAttribute("user",user);
                 map.put("msg","cg");
             }else if(pd == 2){
                 map.put("msg","余额不足");

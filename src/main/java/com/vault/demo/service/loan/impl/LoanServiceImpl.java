@@ -1,11 +1,8 @@
 package com.vault.demo.service.loan.impl;
 
 import com.vault.demo.bean.*;
-import com.vault.demo.dao.BankDao;
-import com.vault.demo.dao.CarDao;
-import com.vault.demo.dao.LoanBankHistoryDao;
+import com.vault.demo.dao.*;
 import com.vault.demo.dao.loan.CreditDao;
-import com.vault.demo.dao.HouseDao;
 import com.vault.demo.dao.loan.ActionDao;
 import com.vault.demo.dao.loan.LoanDao;
 import com.vault.demo.service.loan.LoanService;
@@ -37,6 +34,17 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     LoanBankHistoryDao loanBankHistoryDao;
+
+    @Resource
+    WarrantDao warrantDao;
+
+    @Resource
+    UserimfDao userimfDao;
+
+    @Override
+    public Userimf selectUserimfByUId(Userimf userimf) {
+        return userimfDao.selectUserimfByUId(userimf);
+    }
 
     @Override
     public void TestInsertLoan() {
@@ -132,6 +140,16 @@ public class LoanServiceImpl implements LoanService {
         loanBankHistoryDao.insertLBH(loanBankHistory);
 
         return loanBankHistory;
+    }
+
+    @Override
+    public Warrant selectWarrantByUId(Userimf userimf) {
+        return warrantDao.selectWarrantByUId(userimf);
+    }
+
+    @Override
+    public void insertWarrant(Warrant warrant) {
+        warrantDao.insertWarrant(warrant);
     }
 
 

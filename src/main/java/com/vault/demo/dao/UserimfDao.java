@@ -12,6 +12,7 @@ import java.util.Map;
 @Repository
 @Transactional
 public interface UserimfDao {
+    Userimf selectUserimfByUId(Userimf userimf);
     int addUser(Userimf userimf);
     int updateUserAccount(@Param("uId") int uId, @Param("account") String account);//将新增的用户账号同步为xiaomuniu
     void upUser(Userimf userimf);
@@ -24,6 +25,6 @@ public interface UserimfDao {
 
     List<Bounty> selectBounty(@Param("uId") int uId,@Param("type") int type);
     void updateBounty(@Param("id") int id,@Param("type") int type);
-
+    List<Userimf> friendList(int id);
     List<Userimf> selectForReferee(Userimf userimf);
 }
