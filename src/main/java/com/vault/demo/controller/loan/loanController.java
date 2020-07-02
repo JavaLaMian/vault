@@ -141,6 +141,8 @@ public class loanController {
         }
 
         session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+        session.setAttribute("user",loanService.selectUserimfByUId((Userimf) session.getAttribute("user")));
+        model.addAttribute("dealPwd",((Userimf)session.getAttribute("user")).getDealPsw());
 
         if ("".equals(loanTypeStr)) {
 
@@ -243,8 +245,64 @@ public class loanController {
             model.addAttribute("car",car);
             model.addAttribute("house",house);
         }else if ("danbao".equals(loanTypeStr)){
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+            UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+            Userimf userimf = (Userimf)session.getAttribute("user");
+            WorryCall worryCall = worryCallDao.selectWorryByUId(userimf);
+
+            model.addAttribute("loanTypeStr",2);
+
+            if (credit == null
+                    || credit.getName() == null || "".equals(credit.getName())
+                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
+                    || userBank == null
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
+                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCall == null
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+            ){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+
+                return "loan/creditNotPush";
+            }
+
+            if (credit.getType() != 2){
+
+                model.addAttribute("loanNotPushType","请耐心等待您的个人详细信息审核通过");
+
+                return "loan/creditNotPush";
+            }
+
+
+            Warrant warrant = loanService.selectWarrantByUId((Userimf) session.getAttribute("user"));
+
+            if (warrant == null){
+                model.addAttribute("loanNotPushType","您当前没有可担保的信息，快去上传吧！");
+
+                return "loan/creditNotPush";
+            }else if (warrant.getStatus() == 0){
+
+                model.addAttribute("loanNotPushType","您的担保的信息正在审核中！");
+
+                return "loan/creditNotPush";
+            }else if (warrant.getStatus() != 0 && warrant.getStatus() != 1){
+
+                model.addAttribute("loanNotPushType","您当前没有可用的担保信息！");
+
+                return "loan/creditNotPush";
+            }
 
             model.addAttribute("loanTypeStr",3);
+
+            model.addAttribute("warrant",warrant);
+
         }
 
         System.out.println("step："+step);
@@ -294,7 +352,7 @@ public class loanController {
             }
         }
 
-        if (loanEX != null){        //如果目前用户的贷款同伙审核正等待确认的情况
+        if (loanEX != null){        //如果目前用户的贷款审核正等待确认的情况
             if (loanEX.getLoanStatue() == 5){
                 step = 2;
                 System.out.println("loanEX：" + loanEX);

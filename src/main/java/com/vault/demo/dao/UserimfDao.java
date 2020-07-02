@@ -12,6 +12,7 @@ import java.util.Map;
 @Repository
 @Transactional
 public interface UserimfDao {
+    Userimf selectUserimfByUId(Userimf userimf);
     int addUser(Userimf userimf);
     int updateUserAccount(@Param("uId") int uId, @Param("account") String account);//将新增的用户账号同步为xiaomuniu
     void upUser(Userimf userimf);

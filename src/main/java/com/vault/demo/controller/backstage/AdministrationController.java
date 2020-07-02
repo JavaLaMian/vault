@@ -6,9 +6,15 @@ import com.vault.demo.service.backstage.admin.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,4 +56,27 @@ public class AdministrationController {
         }
     }
 
+    @RequestMapping("/homeImg")
+    public String zhuCe(MultipartFile[] files,String xuhao,HttpServletRequest request) throws IOException {
+        if (xuhao!=null&&xuhao.length()>0){
+            for (int i=0;i<xuhao.length();i++){
+                MultipartFile file = files[i];
+                char fir= xuhao.charAt(i);//main+fir
+                //String picName = UUID.randomUUID().toString();
+                // 截取文件的扩展名(如.jpg)
+                String dirName = "D:\\kaifazhe\\JAVA\\vault\\src\\main\\resources\\static\\images\\main\\";
+                File dirFile = new File(dirName);
+                if(!dirFile.exists()){
+                    dirFile.mkdirs();
+                }
+                //新文件名
+                String newFileName = "main"+fir+".png";
+                System.out.println(newFileName+"|new");
+                File targetFile = new File(dirName , newFileName);
+                // 保存文件
+                file.transferTo(targetFile);
+            }
+        }
+        return "redirect:/XMN/homeImg";
+    }
 }

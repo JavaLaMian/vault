@@ -109,8 +109,8 @@
                         <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info">
-                        我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-                        <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+                        我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
+                        <a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
                     </div>
                     <div id="sign-info" class="sign-info"></div>
 

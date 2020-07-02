@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>理财首页轮播图管理</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+    <style>
+        .titles{
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+        <!--End 页面主要内容-->
+        <main class="layout-content">
+            <div class="container-fluid container">
+                <div class="row list-inline clearfix uploads-pic">
+                    <div class="col-lg-6">
+                        <figure>
+                            <img id="img1" src="/images/main/main1.png" class="img-responsive">
+                            <figcaption>
+                                <a class="btn btn-round btn-square btn-primary" href="javascript:updateImg(1)">
+                                    <i class="mdi mdi-lead-pencil"></i>
+                                </a>
+                            </figcaption>
+                        </figure>
+                        <h1 class="titles">图一</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <figure>
+                            <img id="img2" src="/images/main/main2.png" class="img-responsive">
+                            <figcaption>
+                                <a class="btn btn-round btn-square btn-primary" href="javascript:updateImg(2)">
+                                    <i class="mdi mdi-lead-pencil"></i>
+                                </a>
+                            </figcaption>
+                        </figure>
+                        <h1 class="titles">图二</h1>
+                    </div>
+                </div>
+                <div class="row list-inline clearfix uploads-pic">
+                    <div class="col-lg-6">
+                        <figure>
+                            <img id="img3" src="/images/main/main3.png" class="img-responsive">
+                            <figcaption>
+                                <a class="btn btn-round btn-square btn-primary" href="javascript:updateImg(3)">
+                                    <i class="mdi mdi-lead-pencil"></i>
+                                </a>
+                            </figcaption>
+                        </figure>
+                        <h1 class="titles">图三</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <figure>
+                            <img id="img4" src="/images/main/main4.png" class="img-responsive">
+                            <figcaption>
+                                <a class="btn btn-round btn-square btn-primary" href="javascript:updateImg(4)">
+                                    <i class="mdi mdi-lead-pencil"></i>
+                                </a>
+                            </figcaption>
+                        </figure>
+                        <h1 class="titles">图四</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <dov class="col-lg-12">
+                        <form th:action="@{/admin/homeImg}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" id="xuhao" name="xuhao">
+                            <input type="file" id="file1" name="files" style="width: 0;height: 0" onchange="uploadImg()"/>
+                            <input type="file" id="file2" name="files" style="width: 0;height: 0" onchange="uploadImg()"/>
+                            <input type="file" id="file3" name="files" style="width: 0;height: 0" onchange="uploadImg()"/>
+                            <input type="file" id="file4" name="files" style="width: 0;height: 0" onchange="uploadImg()"/>
+                            <h1 class="titles">
+                                <input id="upImg" style="display: none;margin: 0 auto" type="submit" value="确认修改">
+                            </h1>
+                        </form>
+                    </dov>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+<script>
+    var imgs = 0;
+    var xuhao = 0
+    function updateImg(type) {
+        xuhao += 1;
+        $("#file"+xuhao).click();
+        imgs =type;
+        var zhi = $("#xuhao").val()+ type;
+        $("#xuhao").val(zhi);
+    }
+    function uploadImg() {
+        var _name, _fileName, personsFile;
+        personsFile = document.getElementById("file"+xuhao);
+        _name = personsFile.value;
+        _fileName = _name.substring(_name.lastIndexOf(".") + 1).toLowerCase();
+        if (_fileName !== "png" && _fileName !== "jpg") {
+            alert("上传图片格式不正确，请重新上传");
+        } else {
+            $("#upImg").css("display","block");
+            document.getElementById("img"+imgs).src = window.URL.createObjectURL(personsFile.files[0]);
+        }
+    }
+</script>
+</body>
+</html>

@@ -75,8 +75,8 @@
                         <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info">
-                        我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-                        <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+                        我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
+                        <a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
                     </div>
                     <div id="sign-info" class="sign-info"></div>
 
@@ -204,7 +204,7 @@
                                             <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
                                             名下车辆
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="carRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">抵押贷款时可以用做抵押</span>
                                             <span style="position: absolute;right: 10px"><a class="insertCarA" href="javascript:insertCarShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -216,7 +216,7 @@
                                             <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
                                             名下车辆
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="carRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">抵押贷款时可以用做抵押</span>
                                             <span style="position: absolute;right: 10px"><a class="insertCarA" href="javascript:insertCarShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -287,12 +287,14 @@
                                         if (show){
                                             $(".insertCarA").text("收起");
                                             $("#insertCar").css("display","block");
+                                            $(".carRow").css("background","#efd3c2");
                                             // document.getElementsByClassName("insertCarA").innerText = "收起";
                                             // document.getElementsByClassName("insertCar").style.display = 'block';
                                             show = false;
                                         }else {
                                             $(".insertCarA").text("查看");
                                             $("#insertCar").css("display","none");
+                                            $(".carRow").css("background","#fff");
                                             // document.getElementById("insertCarA").innerText = "查看";
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;
@@ -315,7 +317,7 @@
                                             <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
                                             名下房产
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="houseRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">抵押贷款时可以用做抵押</span>
                                             <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertHouseShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -327,7 +329,7 @@
                                             <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
                                             名下房产
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="houseRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">抵押贷款时可以用做抵押</span>
                                             <span style="position: absolute;right: 10px"><a class="insertHouseA" href="javascript:insertHouseShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -398,12 +400,14 @@
                                             if (show){
                                                 $(".insertHouseA").text("收起");
                                                 $("#insertHouse").css("display","block");
+                                                $(".houseRow").css("background","#efd3c2");
                                                 // document.getElementsByClassName("insertCarA").innerText = "收起";
                                                 // document.getElementsByClassName("insertCar").style.display = 'block';
                                                 show = false;
                                             }else {
                                                 $(".insertHouseA").text("查看");
                                                 $("#insertHouse").css("display","none");
+                                                $(".houseRow").css("background","#fff");
                                                 // document.getElementById("insertCarA").innerText = "查看";
                                                 // document.getElementsByClassName("insertCar").css.display("none");
                                                 show = true;
@@ -427,7 +431,7 @@
                                             <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
                                             工作信息
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="jobRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">信用贷款时可以做为评估条件</span>
                                             <span style="position: absolute;right: 10px"><a class="insertJob" href="javascript:insertJobShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -439,7 +443,7 @@
                                             <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
                                             工作信息
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="jobRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">信用贷款时可以做为评估条件</span>
                                             <span style="position: absolute;right: 10px"><a class="insertJob" href="javascript:insertJobShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -500,12 +504,14 @@
                                         if (show){
                                             $(".insertJob").text("收起");
                                             $("#insertJob").css("display","block");
+                                            $(".jobRow").css("background","#efd3c2");
                                             // document.getElementsByClassName("insertCarA").innerText = "收起";
                                             // document.getElementsByClassName("insertCar").style.display = 'block';
                                             show = false;
                                         }else {
                                             $(".insertJob").text("查看");
                                             $("#insertJob").css("display","none");
+                                            $(".jobRow").css("background","#fff");
                                             // document.getElementById("insertCarA").innerText = "查看";
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;
@@ -528,7 +534,7 @@
                                             <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
                                             担保信息
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="warrantRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">担保贷款的凭证</span>
                                             <span style="position: absolute;right: 10px"><a class="insertWarrantA" href="javascript:insertWarrantShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -540,7 +546,7 @@
                                             <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
                                             担保信息
                                         </span>
-                                        <span style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                        <span class="warrantRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
                                             <span style="">抵押贷款的凭证</span>
                                             <span style="position: absolute;right: 10px"><a class="insertWarrantA" href="javascript:insertWarrantShow()" style="text-decoration: none;color: #27c">查看</a></span>
                                         </span>
@@ -598,14 +604,20 @@
                                         <tr style="height: 80px;line-height: 80px">
                                             <th style="width: 130px">编号</th>
                                             <td th:text="${warrant.wId}" style="width: 180px">编号</td>
-                                            <th style="width: 130px">担保人身份证正面</th>
-                                            <td style="width: 180px"><img th:src="@{${warrant.wPositiveIDPhoto}}" style="width: 100px;height: 80px"></td>
-                                        </tr>
-                                        <tr style="height: 80px;line-height: 80px">
-                                            <th style="width: 130px">担保人身份证反面</th>
-                                            <td style="width: 180px"><img th:src="@{${warrant.wNegativeIDPhoto}}" style="width: 100px;height: 80px"></td>
                                             <th style="width: 130px">担保合同</th>
                                             <td style="width: 180px"><img th:src="@{${warrant.wContractPhoto}}" style="width: 100px;height: 80px"></td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">担保人姓名</th>
+                                            <td th:text="${warrant.wName}" style="width: 180px">编号</td>
+                                            <th style="width: 130px">担保人身份证号</th>
+                                            <td style="width: 180px" th:text="${warrant.wCardId}"></td>
+                                        </tr>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">担保人身份证正面</th>
+                                            <td style="width: 180px"><img th:src="@{${warrant.wPositiveIDPhoto}}" style="width: 100px;height: 80px"></td>
+                                            <th style="width: 130px">担保人身份证反面</th>
+                                            <td style="width: 180px"><img th:src="@{${warrant.wNegativeIDPhoto}}" style="width: 100px;height: 80px"></td>
                                         </tr>
                                         <tr style="height: 80px;line-height: 80px">
                                             <th style="width: 130px">说明</th>
@@ -631,12 +643,14 @@
                                         if (show){
                                             $(".insertWarrantA").text("收起");
                                             $("#insertWarrant").css("display","block");
+                                            $(".warrantRow").css("background","#efd3c2");
                                             // document.getElementsByClassName("insertCarA").innerText = "收起";
                                             // document.getElementsByClassName("insertCar").style.display = 'block';
                                             show = false;
                                         }else {
                                             $(".insertWarrantA").text("查看");
                                             $("#insertWarrant").css("display","none");
+                                            $(".warrantRow").css("background","#fff");
                                             // document.getElementById("insertCarA").innerText = "查看";
                                             // document.getElementsByClassName("insertCar").css.display("none");
                                             show = true;

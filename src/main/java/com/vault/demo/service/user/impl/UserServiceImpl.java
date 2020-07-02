@@ -393,6 +393,11 @@ public class UserServiceImpl implements UserService{
         return max;
     }
 
+    @Override
+    public MyIntegral selectMyIntegral2(int id) {
+        return iDao.selectMyIntegral2(id);
+    }
+
     private static String getNowDate(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
