@@ -70,6 +70,10 @@
                 };
                 return temp;
             },
+            onLoadSuccess:function () {
+                setDisable(disabledIndex);
+                setDisable2(shIndex);
+            },
             columns: [{
                 checkbox: true
             },{
@@ -108,26 +112,43 @@
                 formatter: option
             }]
         });
+        var disabledIndex = new Array();
+        var indexNum = 0;
+
+        var shIndex = new Array();
+        var indexn = 0;
 
         function addw(value, row, index) {
             return value+"万";
         }
         function option(value, row, index) {
             var htm = "";
-            htm +='<button class="btn btn-success m-r-5" uId="'+value+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
+            htm +='<button class="btn btn-success m-r-5" id="'+index+'" onclick="tooexamine('+value+')"><i class="mdi mdi-comment-text"></i> 审核</button>'
             return htm;
+        }
+        function setDisable(disabledIndex) {
+            $.each(disabledIndex,function (i,e) {
+                var iddd = document.getElementById(e);
+                iddd.disabled = true;
+            })
+        }
+        function setDisable2(shIndex) {
+            $.each(shIndex,function (i,e) {
+                var iddd = document.getElementById(e);
+                iddd.disabled = true;
+            })
         }
         function creditLV(value, row, index) {
             if(value==1){
-                return '正常';
+                return '<span style="color: green">正常</span>';
             }else if(value==2){
-                return '关注';
+                return '<span style="color: pink">关注</span>';
             }else if(value==3){
-                return '次级';
+                return '<span style="color: indianred">次级</span>';
             }else if(value==4){
-                return '可疑';
+                return '<span style="color: sandybrown">可疑</span>';
             }else if(value==5){
-                return '损失';
+                return '<span style="color: red">损失</span>';
             }
         }
         function szloanType(value, row, index) {
@@ -141,17 +162,27 @@
         };
         function szstatue(value, row, index) {
             if(value==0){
-                return '申请中';
+                return '<span style="color: yellow">申请中</span>';
             }else if(value==1){
-                return '放款中';
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: yellowgreen">放款中</span>';
             }else if(value==2){
-                return '待偿还';
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: olive">待偿还</span>';
             }else if(value==3){
-                return '已偿还';
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: green">已偿还</span>';
             }else if(value==4){
-                return '申请失败';
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: red">申请失败</span>';
             }else if(value==5){
-                return '通过等待确认'
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: hotpink">通过等待确认</span>'
             }
         };
         function formatTime(value, row, index) {

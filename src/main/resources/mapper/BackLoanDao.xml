@@ -5,7 +5,7 @@
 <mapper namespace="com.vault.demo.dao.backstage.BackLoanDao">
     <select id="selLoan" resultType="map">
         <![CDATA[
-          select l.lId,c.name,l.loanType,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,l.loanStatue from loan l inner join credit c on l.uId = c.uId and l.loanStatue= 0
+          select l.lId,c.name,l.loanType,l.loanWantMoney,l.loanPurpose,l.applicationTime,l.uId,c.creditLV,l.loanStatue from loan l inner join credit c on l.uId = c.uId
         ]]>
     </select>
     <select id="selLoanByUid" resultType="Loan">
