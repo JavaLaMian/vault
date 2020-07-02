@@ -54,7 +54,6 @@ public class UserController2 {
         session.setAttribute("sig",myIntegral);
         model.addAttribute("map",map);
         model.addAttribute("bank",userBank);
-
         return "user/AccountOverview";
     }
 
