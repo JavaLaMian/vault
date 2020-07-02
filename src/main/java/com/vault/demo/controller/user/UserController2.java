@@ -188,7 +188,6 @@ public class UserController2 {
     public void ChongZhi(String money,HttpServletResponse httpServletResponse){
         String commodity = "余额充值";//获取表单提交的商品名称
         String nowtime = String.valueOf(System.currentTimeMillis());//性能优化  获取当前时间
-        System.out.println("time:"+nowtime);
 
         // 商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = nowtime;//采用时间戳当做订单号
