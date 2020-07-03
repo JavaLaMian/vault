@@ -13,6 +13,7 @@ import java.util.Map;
 public interface AdxmnDao {
     int addBid(Bid bid);//新增投标
     List<Bid> Bidlist();//查询投标信息
+    List<Bid> Bidlistpage(Pager pager);//查询投标信息 加上分页查询代码
     List<Bid> selectgetBid(Bid bid);//根据id查询出投标信息
     int updateBid(Bid bid);//修改投标信息
     int dateBid(Bid bid);//删除投标信息
@@ -32,4 +33,5 @@ public interface AdxmnDao {
     void updatetenderMoney(@Param("money") Float money,@Param("uid") int uid,@Param("bid") int bid);//根据标id和用户id修改代收本金
     List<Tender> tenderlist();//查询出用户投资的全部信息
     void updateTender(@Param("tid") int tid,@Param("tentype") int tentype);//修改订单状态
+    int slectBidtotalTitle();//查询出标的总条数
 }
