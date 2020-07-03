@@ -105,9 +105,9 @@
             </h1>
                 <ul data-reactid=".0.2.1.0.0.1">
                     <li data-reactid=".0.2.1.0.0.1.0">
-                        <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                        <a th:href="@{/user/toAO}" data-reactid=".0.2.1.0.0.1.0.0">
                             <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
-                            <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                            <span data-reactid=".0.2.1.0.0.1.0.0.1"th:text="${session.user.uName}">284***@qq.com</span>
                         </a>
                     </li>
                     <li data-reactid=".0.2.1.0.0.1.1">
