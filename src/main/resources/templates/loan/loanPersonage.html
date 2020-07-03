@@ -84,9 +84,9 @@
         </h1>
             <ul data-reactid=".0.2.1.0.0.1">
                 <li data-reactid=".0.2.1.0.0.1.0">
-                    <a href="https://loan.mybank.cn/loan/profile.htm" data-reactid=".0.2.1.0.0.1.0.0">
+                    <a th:href="@{/user/toAO}" data-reactid=".0.2.1.0.0.1.0.0">
                         <span data-reactid=".0.2.1.0.0.1.0.0.0">你好，</span>
-                        <span data-reactid=".0.2.1.0.0.1.0.0.1">284***@qq.com</span>
+                        <span data-reactid=".0.2.1.0.0.1.0.0.1" th:text="${session.user.uName}">284***@qq.com</span>
                     </a>
                 </li>
                 <li data-reactid=".0.2.1.0.0.1.1">
@@ -158,7 +158,7 @@
                         <div class="title" data-reactid=".0.3.0.5.0.0.0">姓名</div>
                         <div class="content" data-reactid=".0.3.0.5.0.0.1">
                             <p data-reactid=".0.3.0.5.0.0.1.0">
-                                <span data-reactid=".0.3.0.5.0.0.1.0.0">*学明</span>
+                                <span th:if="${credit != null}" th:text="${credit.name}" data-reactid=".0.3.0.5.0.0.1.0.0">*学明</span>
                             </p>
                         </div>
                     </li>
@@ -166,67 +166,14 @@
                         <div class="title" data-reactid=".0.3.0.5.0.1.0">身份证号</div>
                         <div class="content" data-reactid=".0.3.0.5.0.1.1">
                             <p data-reactid=".0.3.0.5.0.1.1.0">
-                                <span data-reactid=".0.3.0.5.0.1.1.0.0">33032***********15</span>
+                                <span th:if="${credit != null}" th:text="${credit.identity}" data-reactid=".0.3.0.5.0.1.1.0.0">33032***********15</span>
                             </p>
                         </div>
                     </li>
                 </div>
             </ul>
-            <ul>
-                <div data-reactid=".0.3.0.5.1">
-                <li data-reactid=".0.3.0.5.1.2">
-                    <div class="title" data-reactid=".0.3.0.5.1.2.0">登录支付宝帐号</div>
-                    <div class="content" data-reactid=".0.3.0.5.1.2.1">
-                        <p data-reactid=".0.3.0.5.1.2.1.0">
-                            <span data-reactid=".0.3.0.5.1.2.1.0.0">284***@qq.com</span>
-                        </p>
-                    </div>
-                    <div class="link" data-reactid=".0.3.0.5.1.2.2">
-                        <a href="https://www.alipay.com/user/inpour_request.htm" target="_blank" data-aspm-click="d18683" data-reactid=".0.3.0.5.1.2.2.0">充值</a>
-                    </div>
-                </li>
-                <li data-reactid=".0.3.0.5.1.4">
-                    <div class="title" data-reactid=".0.3.0.5.1.4.0">绑定支付宝手机号</div>
-                    <div class="content" data-reactid=".0.3.0.5.1.4.1">
-                        <p data-reactid=".0.3.0.5.1.4.1.0">
-                            <span data-reactid=".0.3.0.5.1.4.1.0.0">176******13</span>
-                            <br data-reactid=".0.3.0.5.1.4.1.0.1">
-                            <span class="tip" data-reactid=".0.3.0.5.1.4.1.0.2">业务相关的通知将会以短信的形式发送到该手机号码</span>
-                        </p>
-                    </div>
-                    <div class="link" data-reactid=".0.3.0.5.1.4.2">
-                        <a href="https://custweb.alipay.com/account/index.htm" target="_blank" data-aspm-click="d18684" data-reactid=".0.3.0.5.1.4.2.0">管理</a>
-                    </div>
-                </li>
-                <ul data-reactid=".0.3.0.5.1.5"></ul>
-                <li data-reactid=".0.3.0.5.1.6">
-                    <div class="title" data-reactid=".0.3.0.5.1.6.0">个人邮箱</div>
-                    <div class="content" data-reactid=".0.3.0.5.1.6.1">
-                        <p data-reactid=".0.3.0.5.1.6.1.0">
-                            <span data-reactid=".0.3.0.5.1.6.1.0.0">284***@qq.com</span>
-                            <br data-reactid=".0.3.0.5.1.6.1.0.1">
-                            <span class="tip" data-reactid=".0.3.0.5.1.6.1.0.2">个人邮箱是重要信息（包括司法文书等）的送达地址</span>
-                        </p>
-                    </div>
-                    <div class="link" data-reactid=".0.3.0.5.1.6.2">
-                        <a href="https://custweb.alipay.com/account/index.htm" target="_blank" data-aspm-click="d18685" data-reactid=".0.3.0.5.1.6.2.0">更换邮箱</a>
-                    </div>
-                </li>
-                <li class="textareaHeight" data-reactid=".0.3.0.5.1.7">
-                    <div class="title" data-reactid=".0.3.0.5.1.7.0">常住地址</div>
-                    <div class="content" data-reactid=".0.3.0.5.1.7.1">
-                        <p data-reactid=".0.3.0.5.1.7.1.0">
-                            <span data-reactid=".0.3.0.5.1.7.1.0.0"></span>
-                        </p>
-                    </div>
-                    <div class="link" data-reactid=".0.3.0.5.1.7.2">
-                        <a href="javascript:void(0);" data-reactid=".0.3.0.5.1.7.2.1">修改</a>
-                    </div>
-                </li>
-            </div>
-            </ul>
             <div class="fold" data-reactid=".0.3.0.6">
-                <span data-reactid=".0.3.0.6.0">展开</span>                <span class="down" data-reactid=".0.3.0.6.1"></span>
+                <span class="down" data-reactid=".0.3.0.6.1"></span>
             </div>
             <div class="infoTitle" data-reactid=".0.3.0.8">联系人信息</div>
             <div class="link legalChange" data-reactid=".0.3.0.9">
@@ -237,7 +184,7 @@
                     <div class="title" data-reactid=".0.3.0.a.0.0">与借款人关系</div>
                     <div class="content" data-reactid=".0.3.0.a.0.1">
                         <p data-reactid=".0.3.0.a.0.1.0">
-                            <span data-reactid=".0.3.0.a.0.1.0.0"></span>
+                            <span th:if="${worryCall != null}" th:text="${worryCall.relationship}" data-reactid=".0.3.0.a.0.1.0.0"></span>
                         </p>
                     </div>
                 </li>
@@ -245,7 +192,7 @@
                     <div class="title" data-reactid=".0.3.0.a.1.0">姓名</div>
                     <div class="content" data-reactid=".0.3.0.a.1.1">
                         <p data-reactid=".0.3.0.a.1.1.0">
-                            <span data-reactid=".0.3.0.a.1.1.0.0"></span>
+                            <span th:if="${worryCall != null}" th:text="${worryCall.name}" data-reactid=".0.3.0.a.1.1.0.0"></span>
                         </p>
                     </div>
                 </li>
@@ -253,7 +200,7 @@
                     <div class="title" data-reactid=".0.3.0.a.2.0">联系手机号</div>
                     <div class="content" data-reactid=".0.3.0.a.2.1">
                         <p data-reactid=".0.3.0.a.2.1.0">
-                            <span data-reactid=".0.3.0.a.2.1.0.0"></span>
+                            <span th:if="${worryCall != null}" th:text="${worryCall.phe}" data-reactid=".0.3.0.a.2.1.0.0"></span>
                         </p>
                     </div>
                 </li>

@@ -94,7 +94,7 @@
           select * from bounty where uId = #{uId}
         ]]>
         <if test="type != null and type != 0">
-            and boType = #{type}
+            and boType not in (0,1)
         </if>
         <![CDATA[
           ORDER BY boType desc
@@ -117,4 +117,8 @@
     <select id="friendList" resultType="Userimf" parameterType="int">
         select  uName,regTime,account from userimf where refereerId = #{id}
     </select>
+
+    <update id="updateAvaBalanceByUId" parameterType="com.vault.demo.bean.Userimf">
+        update userimf set avaBalance = #{avaBalance} where uId = #{uId}
+    </update>
 </mapper>

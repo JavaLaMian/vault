@@ -27,4 +27,6 @@ public interface UserimfDao {
     void updateBounty(@Param("id") int id,@Param("type") int type);
     List<Userimf> friendList(int id);
     List<Userimf> selectForReferee(Userimf userimf);
+
+    void updateAvaBalanceByUId(Userimf userimf);//根据用户uId修改用户余额
 }

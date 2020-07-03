@@ -18,4 +18,7 @@
           update action set acMoney = #{acMoney},minRepayTime = #{minRepayTime},maxRepayTime = #{maxRepayTime},actime = #{actime},acStatus = #{acStatus},tobePay = #{tobePay} where lId = #{lId} and uId = #{uId}
         ]]>
     </update>
+    <update id="updateStatusByAId" parameterType="com.vault.demo.bean.Action">
+        update action set acStatus = #{acStatus} where aId = #{aId}
+    </update>
 </mapper>

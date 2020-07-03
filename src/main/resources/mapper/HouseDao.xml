@@ -16,4 +16,8 @@
           select * from house where uId=#{uId}
         ]]>
     </select>
+
+    <update id="updateHouseStatus" parameterType="com.vault.demo.bean.House">
+        update house set status = #{status} where uId = #{uId}
+    </update>
 </mapper>

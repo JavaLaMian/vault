@@ -8,6 +8,10 @@
         select * from loan
     </select>
 
+    <select id="allLoanByUId" resultType="com.vault.demo.bean.Loan" parameterType="com.vault.demo.bean.Userimf">
+        select * from loan where uId = #{uId}
+    </select>
+
     <insert id="insert" parameterType="com.vault.demo.bean.Loan" useGeneratedKeys="true">
         <selectKey keyColumn="lId" resultType="integer" keyProperty="lId" order="AFTER">
             select LAST_INSERT_ID()
@@ -20,7 +24,7 @@
     </delete>
 
     <select id="loanNow" parameterType="com.vault.demo.bean.Userimf" resultType="com.vault.demo.bean.Loan">
-        select * from loan where uId = #{u.uId} and loanStatue not in (3,4)
+        select * from loan where uId = #{u.uId} and loanStatue not in (3,4,6)
     </select>
 
     <update id="updateLoanStatus" parameterType="com.vault.demo.bean.Loan">

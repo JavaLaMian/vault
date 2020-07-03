@@ -250,7 +250,7 @@ public class UserServiceImpl implements UserService{
             recharge.setuId(userimf.getuId());
             recharge.setReTime(new Date());
             recharge.setBankId(bank.getBankId());
-            recharge.setBankName(bank.getBankName());
+            recharge.setBankName("支付宝充值");
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {

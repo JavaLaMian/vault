@@ -1,11 +1,16 @@
 package com.vault.demo.controller.user;
 
 import com.vault.demo.bean.Car;
+import com.vault.demo.bean.Credit;
 import com.vault.demo.bean.House;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.bean.Warrant;
 import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.loan.LoanService;
+import com.vault.demo.service.user.UserService;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpRequest;
+import com.vault.demo.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -24,6 +29,8 @@ import java.util.Date;
 public class UserControllerForCredit {
     @Resource
     LoanService loanService;
+    @Resource
+    UserService userService;
 
     @Resource
     FileUpload fileUpload;
@@ -35,7 +42,11 @@ public class UserControllerForCredit {
         }
 
         model.addAttribute("user",(Userimf)session.getAttribute("user"));
-        model.addAttribute("credit",loanService.LoanNow((Userimf)session.getAttribute("user")));
+        Credit credit = userService.getCredit(((Userimf) session.getAttribute("user")).getuId());
+        model.addAttribute("credit",credit);
+        if(credit.getDepart()==null||credit.getDepart().equals("")){
+            model.addAttribute("credit",null);
+        }
         model.addAttribute("house",loanService.selectHouseByUId((Userimf)session.getAttribute("user")));
         model.addAttribute("car",loanService.selectCarByUId((Userimf)session.getAttribute("user")));
         model.addAttribute("car",loanService.selectCarByUId((Userimf)session.getAttribute("user")));
@@ -130,8 +141,14 @@ public class UserControllerForCredit {
         return "redirect:toCreditRegisterPage";
     }
 
-    public boolean insertJob(String dept,Double wages){
-        return false;
+
+    @RequestMapping("/insertJob")
+    public String insertJob(Credit credit,HttpSession session){
+        Userimf user = (Userimf) session.getAttribute("user");
+        credit.setuId(user.getuId());
+        System.out.println(credit.toString());
+        loanService.insertJob(credit);
+        return "redirect:/user/toCreditRegisterPage";
     }
 
     @RequestMapping("/toUploadWarrant")
