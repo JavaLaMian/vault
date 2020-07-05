@@ -673,10 +673,13 @@ public class loanController {
         return "loan/loanRecord";
     }
     @RequestMapping("/toloanPersonage")
-    public String toloanPersonage(HttpSession session) {
+    public String toloanPersonage(HttpSession session, Model model) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
+
+        model.addAttribute("credit",loanService.selectCredit((Userimf) session.getAttribute("user")));
+        model.addAttribute("worryCall",worryCallDao.selectWorryByUId((Userimf) session.getAttribute("user")));
 
         return "loan/loanPersonage";
     }

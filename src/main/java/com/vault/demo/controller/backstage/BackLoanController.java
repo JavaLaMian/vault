@@ -92,8 +92,17 @@ public class BackLoanController {
     }
     @ResponseBody
     @RequestMapping("/toactivePayment")
-    public String activePayment(Model m,int Id){
-        
-        return "";
+    public String activePayment(int Id){
+        LoanBankHistory lbh = bls.selLBHById(Id);
+        Loan loan = bls.selLoanById(lbh.getlId());
+        Userimf user = bls.selUserByUid(loan.getuId());
+        float number = lbh.getAcMoney()*10000;
+        float ye = user.getAvaBalance();
+        user.setAvaBalance(number+ye);
+        lbh.setStatus(1);
+        lbh.setInTime(new Date());
+        bls.updUserAvant(user);
+        bls.updLoanBankHistory(lbh);
+        return "success";
     }
 }

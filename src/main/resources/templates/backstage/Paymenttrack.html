@@ -26,6 +26,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <form>
+                                        <div id="toolbar">
+                                            <div class="my-container">
+                                                <label class="myLabel-content">状态：</label>
+                                                <div class="myText-content">
+                                                    <select class="form-control" id="status" name="status" size="1">
+                                                        <option value="0">带打款</option>
+                                                        <option value="1">已打款</option>
+                                                        <option value="2">终止</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="myBtn-content">
+                                                <button id="search" type="button" class="btn btn-primary">搜索</button>
+                                                <button id="reset" type="button" class="btn btn-default">重置</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <table class="table table-bordered" id="payment">
 
                                     </table>
@@ -197,7 +215,7 @@
                             },
                             success:function (obj) {
                                 if(obj=="success"){
-                                    window.location.href='/XMN/Loan_List'
+                                    window.location.href='/XMN/Payment_track'
                                 }
                             },
                             error:function () {
