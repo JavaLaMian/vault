@@ -97,78 +97,79 @@
             <!-- 我的账户菜单 -->
 
             <!--start 我的账户左边菜单列表-->
-            <div class="account-list" th:fragment="usersafe">
-                <div class="account-info">
-                    <div class="member-info">
-                        <div>
-                            <span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>
-                            <span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>
-                            <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
-                        </div>
-                        <div class="security-level">邀请人账号：<span id="security-level" th:text="${session.user.refereer}"></span></div>
-                    </div>
-                    <div class="badge-info">
-                        <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>
-                        <i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>
-                        <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
-                    </div>
-                    <div class="point-info">
-                        我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
-                        <a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
-                    </div>
-                    <div id="sign-info" class="sign-info"></div>
+            <div th:replace="/user/AccountOverview::inflist"></div>
+            <!--<div class="account-list" th:fragment="usersafe">-->
+                <!--<div class="account-info">-->
+                    <!--<div class="member-info">-->
+                        <!--<div>-->
+                            <!--<span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>-->
+                            <!--<span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>-->
+                            <!--<span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>-->
+                        <!--</div>-->
+                        <!--<div class="security-level">邀请人账号：<span id="security-level" th:text="${session.user.refereer}"></span></div>-->
+                    <!--</div>-->
+                    <!--<div class="badge-info">-->
+                        <!--<i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>-->
+                        <!--<i class="badge-icon badge-realname middle pop-tip" style="background-position: 22px -123px;" th:if="${session.ren.cred!=null}"></i>-->
+                        <!--<i class="badge-icon badge-realname middle pop-tip" th:if="${session.ren.cred==null}"></i>-->
+                        <!--<i class="badge-icon badge-bindcard pop-tip" style="background-position: 0 -205px;" th:if="${session.ren.bank!=null}"></i>-->
+                        <!--<i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>-->
+                    <!--</div>-->
+                    <!--<div class="point-info">-->
+                        <!--我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>-->
+                        <!--<a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>-->
+                    <!--</div>-->
+                    <!--<div id="sign-info" class="sign-info"></div>-->
 
-                </div>
-                <ul class="g-cf left-menu">
-                    <li data-type="index">
-                        <a class="h2" href="/user/toAO"><b>账户总览</b></a>
-                    </li>
-                    <li data-type="">
-                        <a target="_blank" th:href="@{/loan/main2}">我的网贷</a>
-                    </li>
-                    <li data-type="record">
-                        <a href="/user/tozj">资金记录</a>
-                    </li>
-                    <li data-type="datum" id="safe">
-                        <a href="/user/toAS">账户安全</a>
-                    </li>
-                    <li data-type="bankCard" class="last">
-                        <a href="/user/viewApply">银行卡管理</a>
-                    </li>
-                    <li data-type="credit" class="last">
-                        <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
-                    </li>
-                    <li data-type="redEnvelope">
-                        <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
-                    </li>
-                    <li class="planner last" data-type="planner">
-                        <a href="/user/toYq">邀请好友<span>赚收益</span></a>
-                    </li>
+                <!--</div>-->
+                <!--<ul class="g-cf left-menu">-->
+                    <!--<li data-type="index">-->
+                        <!--<a class="h2" href="/user/toAO"><b>账户总览</b></a>-->
+                    <!--</li>-->
+                    <!--<li data-type="">-->
+                        <!--<a target="_blank" th:href="@{/loan/main2}">我的网贷</a>-->
+                    <!--</li>-->
+                    <!--<li data-type="record">-->
+                        <!--<a href="/user/tozj">资金记录</a>-->
+                    <!--</li>-->
+                    <!--<li data-type="datum" id="safe">-->
+                        <!--<a href="/user/toAS">账户安全</a>-->
+                    <!--</li>-->
+                    <!--<li data-type="bankCard" class="last">-->
+                        <!--<a href="/user/viewApply">银行卡管理</a>-->
+                    <!--</li>-->
+                    <!--<li data-type="credit" class="last">-->
+                        <!--<a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>-->
+                    <!--</li>-->
+                    <!--<li data-type="redEnvelope">-->
+                        <!--<a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>-->
+                    <!--</li>-->
+                    <!--<li class="planner last" data-type="planner">-->
+                        <!--<a href="/user/toYq">邀请好友<span>赚收益</span></a>-->
+                    <!--</li>-->
 
-                </ul>
-                <div class="qqun">
-                    <p class="q1 g-dn">客户交流群：
-                        <br/>521069624
-                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">
-                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群④" title="小牛在线客户交流群④" />
-                        </a>
-                    </p>
-                    <p class="q2">投标计划群：
-                        <br/>479230479
-                        <a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">
-                            <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群②" title="小牛在线客户交流群②"/>
-                        </a>
-                    </p>
-                    <div class="g-cf">
-                        <span class="g-fl">微信客服号：<br/>niubaobao88888</span>
-                        <div class="weixin-icon" data-key="kfh01">
-                            <i></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!--</ul>-->
+                <!--<div class="qqun">-->
+                    <!--<p class="q1 g-dn">客户交流群：-->
+                        <!--<br/>521069624-->
+                        <!--<a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=772aceff2684cb1e0a2904e4550e02e37ce7cf7900bacdccc6ecc562706ec6f2">-->
+                            <!--<img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群④" title="小牛在线客户交流群④" />-->
+                        <!--</a>-->
+                    <!--</p>-->
+                    <!--<p class="q2">投标计划群：-->
+                        <!--<br/>479230479-->
+                        <!--<a class="qq-icon" target="_blank"  rel="nofollow" href="//shang.qq.com/wpa/qunwpa?idkey=0359784f6397235da982b8db57f19d699a396ea11da21e430395253ab6035580">-->
+                            <!--<img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="小牛在线客户交流群②" title="小牛在线客户交流群②"/>-->
+                        <!--</a>-->
+                    <!--</p>-->
+                    <!--<div class="g-cf">-->
+                        <!--<span class="g-fl">微信客服号：<br/>niubaobao88888</span>-->
+                        <!--<div class="weixin-icon" data-key="kfh01">-->
+                            <!--<i></i>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <script src="http://image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
             <script>
@@ -180,9 +181,9 @@
                 });
             </script>
 
-            <!--end 我的账户左边菜单列表-->
+           <div class="account-c   <!--end 我的账户左边菜单列表-->
             <!-- 右侧内容 -->
-            <div class="account-cont">
+          ont">
                 <!-- 右侧标题 -->
                 <div class="at-til">
                     <span class="name">账户安全</span>
@@ -195,8 +196,8 @@
                         <div class="account_number">
                             <span class="account_name" th:text="${session.user.uName}">用户名</span>
                             <span class="account_regTime" th:text="'注册时间&nbsp;&nbsp;'+${#dates.format(session.user.regTime, 'yyyy-MM-dd')}">注册时间&nbsp;&nbsp;****-**-**</span>
-                            <a href="javascript:openwin()" th:if="${session.user.refereer} eq null or ${session.user.refereer} eq ''">填写推荐人</a>
-                            <span th:if="${session.user.refereer} ne null and ${session.user.refereer} ne ''" th:text="'您的推荐人：'+${session.user.refereer}"></span>
+                            <a href="javascript:openwin()" th:if="${session.user.refereer} eq '无'">填写推荐人</a>
+                            <span th:if="${session.user.refereer} ne '无'" th:text="'您的推荐人：'+${session.user.refereer}"></span>
                         </div>
 
                         <div id="dialogCode">
@@ -1008,7 +1009,7 @@
 <!--end 尾部-->
 
 <!--推荐人弹窗-->
-<div class="zhezhao" id='zhezhao'>
+<div class="zhezhao" id='zhezhao' th:fragment="referee">
     <div class="tankuang">
         <div id="header" style="background-color:#ff7136">
             <p class="title">填写推荐人</p>
@@ -1082,7 +1083,6 @@
                     $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
                 }else {
                     yhMa = data;
-                    alert(yhMa)
                     $("#jymi_step1_codetemp").attr("value",yhMa);
                 }
             },"json");
@@ -1245,7 +1245,6 @@
                         $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
                     }else {
                         dlMa = data;
-                        alert(dlMa);
                     }
                 },"json");
             }
@@ -1313,7 +1312,6 @@
                     alert("请检查邮箱格式是否正确");
                 }else {
                     emMa = data;
-                    alert(emMa);
                 }
             },"json");
         }
@@ -1389,7 +1387,6 @@
                         alert("请检查邮箱格式是否正确");
                     }else {
                         emMa2 = data;
-                        alert(emMa2);
                     }
                 },"json");
             }
@@ -1420,7 +1417,6 @@
             emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码不能为空</div>");
         }else if (ma!=emMa2){
-            alert(ma+"///"+emMa2);
             emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
         }
@@ -1497,6 +1493,7 @@
                     return;
                 }else {
                     $("#refereeTip").addClass("rp_error");
+                    $("#refereeTip").css("color","red");
                     $("#refereeTip").text("认证失败，请检查推荐人ID是否正确");
                 }
             },"json");

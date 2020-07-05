@@ -17,9 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/XMN")
@@ -34,7 +32,9 @@ public class backstageController {
     BackHouseService bhs;
     //首页
     @RequestMapping("/backstage")
-    public ModelAndView backstage(ModelAndView mv){
+    public ModelAndView backstage(ModelAndView mv,Model model){
+        List<Map> list = is.Bidlistall();
+        model.addAttribute("list",list);
         mv.setViewName("backstage/Bindex");
         return mv;
     }
@@ -71,12 +71,14 @@ public class backstageController {
     @RequestMapping("/BidList")
     public ModelAndView BidList(ModelAndView mv, Model model,Pager pager){
         //分页
-        pager.titleSize = 2;//每页显示页数
+        pager.titleSize = 10;//每页显示页数
         //查询出总条数
         pager.page(is.slectBidtotalTitle());
-        List<Bid> list = is.Bidlistpage(pager);
+        List<Bid> list = is.Bidlistpage((pager.thisPage-1)*pager.titleSize,pager.titleSize);
+        System.out.println("第"+(pager.thisPage-1)+"页"+pager.titleSize+"记录数");
         model.addAttribute("list",list);
         model.addAttribute("pager",pager);
+        System.out.println(pager.thisPage);
         mv.setViewName("backstage/BidList");
         return mv;
     }
@@ -209,10 +211,16 @@ public class backstageController {
     //去往积分订单查询页面
     @RequestMapping("/userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
-        List<Map> list = is.integralList();
+        List<Map> list = is.integralCoin();
         model.addAttribute("list",list);
-        mv.setViewName("backstage/integralList");
+        mv.setViewName("backstage/integralCion");
         return mv;
+    }
+    @RequestMapping("/integralList")
+    public String integralList(Model model){
+        List<Integral> integralList = is.integralList();
+        model.addAttribute("integralList",integralList);
+        return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")
     public ModelAndView toAdminInformation(ModelAndView mv,Model model){
@@ -287,6 +295,12 @@ public class backstageController {
         bhs.updHouseStatus(house);
         return "redirect:/XMN/houseProperty";
     }
+//    @ResponseBody
+//    @RequestMapping("/dashChartBarsCnt")
+//    public JSONObject dashChartBarsCnt(){
+//        JSONObject jsonObject = new JSONObject();
+//
+//    }
     //调用新增标期的方法    1 新手标 定期  2 新手标 活期   3优享标 定期   4 优享标活期
     public void addbid1(Bid bid,Date date1,int ok){
         if(ok == 1){
@@ -368,4 +382,5 @@ public class backstageController {
         }
 
     }
+
 }
