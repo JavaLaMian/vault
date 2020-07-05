@@ -55,4 +55,16 @@
     <select id="selLoanHistoryAll" resultType="map">
         select lbh.*,ub.bankName,ub.cardId,l.applicationTime,l.applicationEnd,l.uId from loanBankHistory lbh inner join loan l on lbh.lId = l.lId inner join userBank ub on lbh.bankId = ub.bankId
     </select>
+    <select id="selLBHById" resultType="LoanBankHistory">
+        select * from loanBankHistory where Id=#{id}
+    </select>
+    <select id="selLoanById" resultType="Loan">
+        select * from loan where lId=#{lId}
+    </select>
+    <update id="updUserAvant">
+        UPDATE userimf set avaBalance=#{avaBalance} where uId=#{uId}
+    </update>
+    <update id="updLoanBankHistory">
+        UPDATE loanBankHistory set status=#{status},inTime=#{inTime} where Id=#{Id}
+    </update>
 </mapper>
