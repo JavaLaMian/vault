@@ -25,8 +25,8 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public List<Bid> Bidlistpage(Pager pager) {
-        return dao.Bidlistpage(pager);
+    public List<Bid> Bidlistpage(int thisPage,int titleSize) {
+        return dao.Bidlistpage(thisPage,titleSize);
     }
 
     @Override
@@ -130,6 +130,11 @@ public class selevicexmnImpl implements selevicexmn {
     @Override
     public int slectBidtotalTitle() {
         return dao.slectBidtotalTitle();
+    }
+
+    @Override
+    public List<Map> Bidlistall() {
+        return dao.Bidlistall();
     }
 
 }

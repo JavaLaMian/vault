@@ -17,7 +17,7 @@
     </select>
     <select id="Bidlistpage" resultType="Bid">
          <![CDATA[
-          select * from bid limit (#{thisPage}-1)*#{titleSize},#{titleSize}
+          select * from bid limit #{thisPage},#{titleSize}
         ]]>
     </select>
     <select id="selectgetBid" resultType="Bid">
@@ -119,4 +119,14 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
            update tender set tenType = #{tentype} where tid = #{tid}
          ]]>
     </update>
+    <select id="slectBidtotalTitle" resultType="int">
+         <![CDATA[
+           select count(bId) from  bid
+         ]]>
+    </select>
+    <select id="Bidlistall" resultType="map">
+         <![CDATA[
+          select b.bId,b.bidName,b.exprie,b.bidTime,b.bidStatus,b.sumLimit,IfNULL(t.tenMoney,0) as tenMoney from bid b left join tender t on b.bId = t.bId
+         ]]>
+    </select>
 </mapper>
