@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 @Transactional
 public interface LoanDao {
+    List<Loan> allLoanByUId(Userimf userimf);
+
     List<Loan> allList();
 
     void insert(Loan loan);

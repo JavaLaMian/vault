@@ -23,7 +23,7 @@
     </update>
     <delete id="unBank" parameterType="UserBank">
         <![CDATA[
-          delete from userBank where cardId=,#{cardId}
+          delete from userBank where uId=#{uId}
         ]]>
     </delete>
 </mapper>

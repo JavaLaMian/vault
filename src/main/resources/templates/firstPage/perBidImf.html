@@ -124,7 +124,6 @@
                             var t = time.charCodeAt(i);
                             if (!(t >= 48 && t <= 57)){
                                 if(t !== 46){
-                                    console.log("t1"+t);
                                     $(id).val(time.substr(0,time.length-1));
                                 }else{
                                     $(id).val(arr[0]);
@@ -496,11 +495,16 @@
                 <div class="nav nav-index" data-type="index">
                     <a href="/">首页</a>
                 </div>
-                <ul class="nav nav-financial current" data-type="financial">
-                    <li class="first"> <a href="/product/portal/index">网贷</a> </li>
-                    <li> <a href="/product/portal/index">投标工具</a> </li>
-                    <li> <a href="/product/list?type=common">散标</a> </li>
-                    <li> <a href="/product/list?type=transfer">转让专区</a> </li>
+                <ul class="nav nav-financial" data-type="financial">
+                    <li class="first">
+                        <a th:href="@{/loan/main2}">网贷</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/main/bidList}">投标工具</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/main/perList}">散标</a>
+                    </li>
                 </ul>
             </nav>
             <div th:if="${session.user!=null}" class="user">
@@ -520,17 +524,8 @@
             </div>
         </div>
     </div>
-
-    <!--产品列表导航-->
-    <div class="product-menu-contanier" id="productMenu">
-        <ul class="product-menu clearfix">
-            <li> <a href="/product/portal/index" id="menu_optimize">投标工具 (<em id="optimizeCount" data-count="0">售罄</em>)</a> </li>
-            <li> <a href="/product/list?type=common" id="menu_common" class=" active">散标 (<em id="commonCount">售罄</em>)</a> </li>
-            <li> <a href="/product/list?type=transfer" id="menu_transfer">转让专区 (<em id="transferCount">99+</em>)</a> </li>
-        </ul>
-    </div>
     <script>
-        $(function() {
+        /*$(function() {
             var doc = document;
             var currentMenu = doc.getElementById('currentProductMenu').value;
             var currentType = queryString("type");
@@ -544,7 +539,7 @@
         function queryString(item){
             var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
             return svalue ? svalue[1] : svalue;
-        };
+        };*/
     </script>
     <!-- body内容 -->
     <div class="container detail-container" id="contanier">
@@ -651,11 +646,11 @@
                         </dl>
                     </div>
                 </div>
-                <div class="sub-right" style="width: 408px;">
+                <div class="sub-right" style="width: 408px;" th:if="${p.perBid != null}" th:switch="${p.bidStatus}">
                     <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                         <div class="info">请先登陆您的账号</div>
                     </div>
-                    <div class="sellout abs" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
+                    <div class="sellout abs" th:case="0" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
                         <div class="info">将从余额扣除</div>
                         <button class="goumai" onclick="zhifuKuan()">立即购买</button>
                         <div class="collapse" id="coll2">
@@ -692,9 +687,14 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="sellout abs" th:if="${#numbers.formatDecimal(p.enquiry,1,'COMMA',2,'POINT')}==0.00">
-                        <div class="describe" th:text="${#dates.format(lastTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+                    <div class="sellout abs" th:case="1" th:if="${session.user!=null}" style="background: rgb(254,250,250);">
+                        <div class="info">该标尚未开始销售 请留意开售时间</div>
+                    </div>
+                    <div class="sellout abs" th:case="3" th:if="${session.user!=null}">
+                        <div class="info">该标已售馨 请浏览其它标</div>
+                    </div>
+                    <div class="sellout abs" th:case="2" th:if="${session.user!=null}">
+                        <div class="info">该标已关闭交易</div>
                     </div>
 
                 </div>
@@ -936,23 +936,21 @@
             var suru = $(id).val();
             var min = 100;
             var max = $("#maxMoney").text();
-            if(suru != ''){
+            if(suru !== ''){
                 suru = parseFloat(suru);
-                min = parseFloat(min);
 
                 if(suru < min){
-                    console.log("suru<min"+suru);
                     $(id).val(min);
+                    return;
                 }
                 else $(id).val(suru);
 
                 if(suru > max){
-                    console.log("suru>max"+suru);
                     $(id).val(max);
+                    return;
                 }
                 else $(id).val(suru);
             }
-            console.log(min+"|"+max);
         }
     </script>
     <script async="" src="https://qiyukf.com/script/bbf1f358fbe2baf496d7d57ff885bbd8.js"></script>

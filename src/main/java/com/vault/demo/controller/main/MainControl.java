@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+//
 @Controller
 @RequestMapping("/main")
 public class MainControl{
@@ -57,8 +57,26 @@ public class MainControl{
             perList=per;
         }
 
-        float countM = bidSer.countTenMoney();
+        float countM = bidSer.countTenMoney()*10000;
         int countU = bidSer.countUser();
+        String str="";
+        long starTime=System.currentTimeMillis();
+        //计算循环10000的时间
+        for(int i=0;i<10000;i++){
+            str=str+i;
+        }
+        long endTime=System.currentTimeMillis();
+        long Time=endTime-starTime;
+        System.out.println(Time);
+        StringBuilder bulider=new StringBuilder("");
+        starTime=System.currentTimeMillis();
+        for(int j=0;j<10000;j++){
+            bulider.append(j);
+        }
+        endTime=System.currentTimeMillis();
+        Time=endTime-starTime;
+        request.setAttribute("time",Time);
+
         request.setAttribute("countM",countM);
         request.setAttribute("countU",countU);
         request.setAttribute("ncList", ncList);
@@ -72,6 +90,7 @@ public class MainControl{
     public String perList(PerBid perBid, Pager pager, HttpServletRequest request) {
         pager.page(bidSer.countPerPage(perBid.getRate(), perBid.getEnquiry()));
         List<PerBid> list = bidSer.pagePerB((pager.thisPage - 1) * pager.titleSize, pager.titleSize, perBid.getRate(), perBid.getEnquiry());
+        System.out.println(list.toString());
         request.setAttribute("pager", pager);
         request.setAttribute("list", list);
         request.setAttribute("p", perBid);

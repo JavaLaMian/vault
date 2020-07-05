@@ -124,16 +124,13 @@
                     </div>
                     <ul class="nav nav-financial" data-type="financial">
                         <li class="first">
-                            <a href="/product/portal/index">网贷</a>
+                            <a th:href="@{/loan/main2}">网贷</a>
                         </li>
                         <li>
-                            <a href="/product/portal/index">投标工具</a>
+                            <a th:href="@{/main/bidList}">投标工具</a>
                         </li>
                         <li>
-                            <a href="/product/list?type=common">散标</a>
-                        </li>
-                        <li>
-                            <a href="/product/list?type=transfer">转让专区</a>
+                            <a th:href="@{/main/perList}">散标</a>
                         </li>
                     </ul>
                     <ul class="nav nav-information" data-type="security">
@@ -183,20 +180,22 @@
         <!--产品列表导航-->
         <div class="product-menu-contanier" id="productMenu">
             <ul class="product-menu clearfix">
-                <li>
-                    <a href="/product/portal/index" id="menu_optimize">投标工具 (<em id="optimizeCount">0</em>)</a>
-                </li>
-                <li>
-                    <a href="/product/list?type=common" id="menu_common">散标 (<em id="commonCount">0</em>)</a>
-                </li>
-                <li>
-                    <a href="/product/list?type=transfer" id="menu_transfer">转让专区 (<em id="transferCount">0</em>)</a>
-                </li>
+                <ul class="nav nav-financial" data-type="financial">
+                    <li class="first">
+                        <a th:href="@{/loan/main2}">网贷</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/main/bidList}">投标工具</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/main/perList}">散标</a>
+                    </li>
+                </ul>
             </ul>
         </div>
 
         <script>
-            $(function() {
+            /*$(function() {
                 var doc = document;
                 var currentMenu = doc.getElementById('currentProductMenu').value;
                 var currentType = queryString("type");
@@ -210,7 +209,7 @@
             function queryString(item){
                 var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
                 return svalue ? svalue[1] : svalue;
-            };
+            };*/
         </script>
 
         <!-- body内容 -->
@@ -220,6 +219,7 @@
                 <form th:action="@{/main/perList}" method="post" id="fr">
                 <input type="hidden" name="rate" id="rate" th:value="${#numbers.formatInteger(p.rate,0)}">
                 <input type="hidden" name="enquiry" id="enquiry" th:value="${#numbers.formatInteger(p.enquiry,0)}">
+                    <input type="hidden" name="expire" id="expire" th:value="${#numbers.formatInteger(p.expire,0)}">
                 </form>
                 <div class="filtrate" id="filtrateModel">
                     <div class="content">
@@ -240,14 +240,14 @@
                             <dd><a href="javascript:rate(5);" data-min="8" data-max="10">8.00-10.00%</a></dd>
                             <dd><a href="javascript:rate(6);" data-min="10" data-max="">10.00%以上</a></dd>
                         </dl>
-                        <dl data-key="repayMode" class="repayMode">
-                            <dt>还款方式：</dt><!--0-一次性还款，1-等额本息，2-等额本金，3-先息后本，4-等额本息N-1，5-每月还本付息，6-按期还本付息）-->
-                            <dd class="first-label active"><a href="javascript:;" onclick="repayment(0)">不限</a></dd>
-                            <dd><a href="javascript:;" data-val="0" onclick="repayment(1)">一次性还款</a></dd>
-                            <dd><a href="javascript:;" data-val="3" onclick="repayment(2)">先息后本</a></dd>
-                            <dd><a href="javascript:;" data-val="5" onclick="repayment(3)">每月还本付息</a></dd>
-                            <dd><a href="javascript:;" data-val="6" onclick="repayment(4)">按期还本息</a></dd>
-                        </dl>
+                        <!--<dl data-key="repayMode" class="repayMode">-->
+                            <!--<dt>还款方式：</dt>&lt;!&ndash;0-一次性还款，1-等额本息，2-等额本金，3-先息后本，4-等额本息N-1，5-每月还本付息，6-按期还本付息）&ndash;&gt;-->
+                            <!--<dd class="first-label active"><a href="javascript:;" onclick="repayment(0)">不限</a></dd>-->
+                            <!--<dd><a href="javascript:;" data-val="0" onclick="repayment(1)">一次性还款</a></dd>-->
+                            <!--<dd><a href="javascript:;" data-val="3" onclick="repayment(2)">先息后本</a></dd>-->
+                            <!--<dd><a href="javascript:;" data-val="5" onclick="repayment(3)">每月还本付息</a></dd>-->
+                            <!--<dd><a href="javascript:;" data-val="6" onclick="repayment(4)">按期还本息</a></dd>-->
+                        <!--</dl>-->
                         <dl data-key="surplusAmount" class="surplusAmount">
                             <dt>剩余金额：</dt>
                             <dd class="first-label"><a href="javascript:enquirys(2);">不限</a></dd>
@@ -323,8 +323,11 @@
                                             </dd>
                                         </dl>
                                         <dl class="starting-amount">
-                                            <dt th:text="${#numbers.formatDecimal(per.enquiry,1,'COMMA',2,'POINT')}">
-
+                                            <dt th:if="${per.enquiry gt 0}">
+                                                <span class="f-rest"  th:text="${#numbers.formatDecimal(per.enquiry*10000,1,'COMMA',2,'POINT')}"></span>元
+                                            </dt>
+                                            <dt th:if="${per.enquiry==null||per.enquiry==0}">
+                                                <span class="f-rest"  th:text="${per.combination*10000}"></span>元
                                             </dt>
                                             <dd>
                                                 剩余金额

@@ -109,8 +109,8 @@
                         <i class="badge-icon badge-bindcard pop-tip" th:if="${session.ren.bank==null}"></i>
                     </div>
                     <div class="point-info">
-                        我的积分：<a href="/bonus/point/index" target="_blank" id="point-info"  data-bind="pointBalance">***</a>
-                        <a href="/activity/pointmall/usual/index" target="_blank">【积分换礼】</a>
+                        我的积分：<a href="/integral/main?q=0" target="_blank" th:text="${session.sig.total}" data-bind="pointBalance"></a>
+                        <a href="/integral/list?spId=2&currPage=1&sort=0" target="_blank">【积分换礼】</a>
                     </div>
                     <div id="sign-info" class="sign-info"></div>
 
@@ -120,7 +120,7 @@
                         <a class="h2" href="/user/toAO"><b>账户总览</b></a>
                     </li>
                     <li data-type="">
-                        <a href="#">我的网贷</a>
+                        <a target="_blank" th:href="@{/loan/main2}">我的网贷</a>
                     </li>
                     <li data-type="record">
                         <a href="/user/tozj">资金记录</a>
@@ -134,14 +134,11 @@
                     <li data-type="credit" class="last">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
                     </li>
-                    <li data-type="news">
-                        <a href="#">我的消息<span id="msg-count"></span></a>
-                    </li>
                     <li data-type="redEnvelope" class="cur">
                         <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li class="planner last" data-type="planner">
-                        <a href="#">邀请好友<span>赚收益</span></a>
+                        <a href="/user/toYq">邀请好友<span>赚收益</span></a>
                     </li>
                 </ul>
                 <div class="qqun">

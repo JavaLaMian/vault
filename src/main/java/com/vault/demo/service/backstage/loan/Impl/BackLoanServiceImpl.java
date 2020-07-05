@@ -58,4 +58,29 @@ public class BackLoanServiceImpl implements BackLoanService{
     public void addPerBid(PerBid perBid) {
         backLoanDao.addPerBid(perBid);
     }
+
+    @Override
+    public List<Map> selLoanHistoryAll() {
+        return backLoanDao.selLoanHistoryAll();
+    }
+
+    @Override
+    public LoanBankHistory selLBHById(int id) {
+        return backLoanDao.selLBHById(id);
+    }
+
+    @Override
+    public Loan selLoanById(int lId) {
+        return backLoanDao.selLoanById(lId);
+    }
+
+    @Override
+    public void updUserAvant(Userimf userimf) {
+        backLoanDao.updUserAvant(userimf);
+    }
+
+    @Override
+    public void updLoanBankHistory(LoanBankHistory loanBankHistory) {
+        backLoanDao.updLoanBankHistory(loanBankHistory);
+    }
 }

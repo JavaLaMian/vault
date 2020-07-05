@@ -19,9 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/loan")
 @Controller
@@ -141,6 +139,8 @@ public class loanController {
         }
 
         session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
+        session.setAttribute("user",loanService.selectUserimfByUId((Userimf) session.getAttribute("user")));
+        model.addAttribute("dealPwd",((Userimf)session.getAttribute("user")).getDealPsw());
 
         if ("".equals(loanTypeStr)) {
 
@@ -243,8 +243,64 @@ public class loanController {
             model.addAttribute("car",car);
             model.addAttribute("house",house);
         }else if ("danbao".equals(loanTypeStr)){
+            Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
+            UserBank userBank = bankDao.getBC(((Userimf)session.getAttribute("user")).getuId());
+            Userimf userimf = (Userimf)session.getAttribute("user");
+            WorryCall worryCall = worryCallDao.selectWorryByUId(userimf);
+
+            model.addAttribute("loanTypeStr",2);
+
+            if (credit == null
+                    || credit.getName() == null || "".equals(credit.getName())
+                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
+                    || userBank == null
+                    || credit.getDepart() == null || "".equals(credit.getDepart())
+                    || credit.getWages() == null || "".equals(credit.getWages())
+                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
+                    ||  worryCall == null
+                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
+            ){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+//                model.addAttribute("Name",true);
+
+                return "loan/creditNotPush";
+            }
+
+            if (credit.getType() != 2){
+
+                model.addAttribute("loanNotPushType","请耐心等待您的个人详细信息审核通过");
+
+                return "loan/creditNotPush";
+            }
+
+
+            Warrant warrant = loanService.selectWarrantByUId((Userimf) session.getAttribute("user"));
+
+            if (warrant == null){
+                model.addAttribute("loanNotPushType","您当前没有可担保的信息，快去上传吧！");
+
+                return "loan/creditNotPush";
+            }else if (warrant.getStatus() == 0){
+
+                model.addAttribute("loanNotPushType","您的担保的信息正在审核中！");
+
+                return "loan/creditNotPush";
+            }else if (warrant.getStatus() != 0 && warrant.getStatus() != 1){
+
+                model.addAttribute("loanNotPushType","您当前没有可用的担保信息！");
+
+                return "loan/creditNotPush";
+            }
 
             model.addAttribute("loanTypeStr",3);
+
+            model.addAttribute("warrant",warrant);
+
         }
 
         System.out.println("step："+step);
@@ -263,6 +319,10 @@ public class loanController {
             loan.setLoanWantMoney(loanWantMoney);
             loan.setApplicationTime(new Date());
             loan.setLoanStatue(LoanService.CHECK);
+
+            if (loanService.LoanNow((Userimf) session.getAttribute("user")) != null){ //防止表单重复提交
+                return "redirect:/loan/toloanJie";
+            };
 
             loanService.insertLoan(loan);//把贷款申请信息存到数据库
 
@@ -294,7 +354,7 @@ public class loanController {
             }
         }
 
-        if (loanEX != null){        //如果目前用户的贷款同伙审核正等待确认的情况
+        if (loanEX != null){        //如果目前用户的贷款审核正等待确认的情况
             if (loanEX.getLoanStatue() == 5){
                 step = 2;
                 System.out.println("loanEX：" + loanEX);
@@ -440,6 +500,25 @@ public class loanController {
 
         loanService.insertLoanBankHistory(loan,userBank,action);
 
+        if (loan.getLoanType() == 2){           //抵押类型的贷款
+            if (loan.getGuarantees() == 1){     //车抵押
+                Car car = loanService.selectCarByUId((Userimf) session.getAttribute("user"));
+                car.setStatus(2);
+
+                loanService.updateCarByUId(car);
+            }else if (loan.getGuarantees() == 2){//房子抵押
+                House house = loanService.selectHouseByUId((Userimf) session.getAttribute("user"));
+                house.setStatus(2);
+
+                loanService.updateHouseByUId(house);
+            }
+        }else if (loan.getLoanType() == 3){     //担保类型的贷款
+            Warrant warrant = new Warrant();
+            warrant.setwId(loan.getwId());
+            warrant.setStatus(2);
+
+            loanService.updateWarrantStatusByWId(warrant);
+        }
         backLoanDao.updPerBidStatus(loan,action);
 
         return "redirect:/loan/toloanJie";
@@ -496,8 +575,6 @@ public class loanController {
             return "redirect:/loan/main";
         }
 
-        session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
-
         Credit credit = loanService.selectCredit(((Userimf)session.getAttribute("user")));
         Action action = loanService.selectActionByLId((Loan) session.getAttribute("userLoan"));
         model.addAttribute("credit",credit);
@@ -508,19 +585,101 @@ public class loanController {
 
         return "loan/loanHuan";
     }
-    @RequestMapping("/toloanRecord")
-    public String toloanRecord(HttpSession session) {
+
+    @RequestMapping("/toHuanEnd")
+    public String toHuanEnd(HttpSession session,Action action){
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
 
-        return "loan/loanRecord";
+        System.out.println("还款");
+
+        //修改用户余额
+        Userimf userimf = (Userimf) session.getAttribute("user");
+        userimf.setAvaBalance(userimf.getAvaBalance() - (action.getTobePay() * 10000));
+
+        loanService.updateAvanBanlanceByUId(userimf);
+
+        //修改loan表状态为已还款
+        Loan loan = (Loan) session.getAttribute("userLoan");
+        loan.setLoanStatue(3);
+
+        loanService.updateLoanStatus(loan);
+
+        //修改action表状态为已完成
+        action.setAcStatus(3);
+
+        loanService.updateActionStatusByAId(action);
+
+        if (loan.getLoanType() == 2){           //抵押类型的贷款，吧抵押类型的抵押信息设置回可用
+            if (loan.getGuarantees() == 1){     //车抵押
+                Car car = loanService.selectCarByUId((Userimf) session.getAttribute("user"));
+                car.setStatus(1);
+
+                loanService.updateCarByUId(car);
+            }else if (loan.getGuarantees() == 2){//房子抵押
+                House house = loanService.selectHouseByUId((Userimf) session.getAttribute("user"));
+                house.setStatus(1);
+
+                loanService.updateHouseByUId(house);
+            }
+        }else if (loan.getLoanType() == 3){     //担保类型的贷，把使用过的担保信息设置为已经使用过了
+            Warrant warrant = new Warrant();
+            warrant.setwId(loan.getwId());
+            warrant.setStatus(3);
+
+            loanService.updateWarrantStatusByWId(warrant);
+        }
+
+        //还款记录表记录信息
+        Repaymen repaymen = new Repaymen();
+        repaymen.setlId(loan.getlId());
+        repaymen.setRepayTime(new Date());
+        repaymen.setRepayMoney(action.getTobePay());
+
+        loanService.insertRepaymen(repaymen);
+
+        return "loan/loanHuanEnd";
     }
-    @RequestMapping("/toloanPersonage")
-    public String toloanPersonage(HttpSession session) {
+
+    @RequestMapping("/toloanRecord")
+    public String toloanRecord(HttpSession session,Model model) {
         if (checkSessionIsEmpty(session)){//检测用户是否登录
             return "redirect:/loan/main";
         }
+
+        List loanList = new ArrayList();
+
+        List loanListYuan = loanService.allLoanByUId((Userimf) session.getAttribute("user"));
+
+        for (Object o : loanListYuan){
+            Loan loan = (Loan)o;
+            Map loanEx = new HashMap();
+            loanEx.put("applicationTime",loan.getApplicationTime());
+            loanEx.put("lId",loan.getlId());
+            loanEx.put("loanType",loan.getLoanType());
+            loanEx.put("lowLimit",loan.getLowLimit());
+
+            Action action = loanService.selectActionByLId(loan);
+
+            loanEx.put("acMoney",action.getAcMoney());
+            loanEx.put("loanStatue",loan.getLoanStatue());
+
+            loanList.add(loanEx);
+        }
+
+        model.addAttribute("loanList",loanList);
+
+        return "loan/loanRecord";
+    }
+    @RequestMapping("/toloanPersonage")
+    public String toloanPersonage(HttpSession session, Model model) {
+        if (checkSessionIsEmpty(session)){//检测用户是否登录
+            return "redirect:/loan/main";
+        }
+
+        model.addAttribute("credit",loanService.selectCredit((Userimf) session.getAttribute("user")));
+        model.addAttribute("worryCall",worryCallDao.selectWorryByUId((Userimf) session.getAttribute("user")));
 
         return "loan/loanPersonage";
     }
@@ -531,6 +690,8 @@ public class loanController {
         if (userimf == null){
             return true;
         }else {
+            session.setAttribute("user",loanService.selectUserimfByUId(((Userimf)session.getAttribute("user"))));
+            session.setAttribute("userLoan",loanService.LoanNow((Userimf) session.getAttribute("user")));
             return false;
         }
     }

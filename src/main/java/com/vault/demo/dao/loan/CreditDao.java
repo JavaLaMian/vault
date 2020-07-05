@@ -17,6 +17,7 @@ public interface CreditDao {
     void insert(Credit credit);
     void deleteById(Credit credit);
     Credit selectCreditByUserId(Userimf userimf);//根据用户ID查询用户高级信用记录
+    void insertJob(Credit credit);
 
     int addRecharge(Recharge rechargeh);
     int addWithdraw(Withdraw withdraw);

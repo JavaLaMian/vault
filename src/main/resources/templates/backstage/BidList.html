@@ -112,13 +112,6 @@
                         <td th:if="${p.bidStatus eq 2}">
                           <font class="text-dark">关闭</font>
                         </td>
-                        <td th:if="${p.bidStatus eq 4}">
-                          <font class="text-dark">锁定</font>
-                        </td>
-                        <td th:if="${p.bidStatus eq 5}">
-                          <font class="text-dark">转让</font>
-                        </td>
-
                         <td>
                           <div class="btn-group">
                             <a class="btn btn-xs btn-default" th:href="@{/XMN/updataBid/(bId=${p.bId})}" title="修改" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
@@ -129,7 +122,95 @@
                     </tbody>
                   </table>
                 </div>
-
+                <nav style="text-align: center">
+                  <ul class="pagination pagination-circle">
+                    <td th:if="${pager.thisPage eq 1}">
+                      <li class="disabled">
+                        <a href="#!">
+                          <span><i class="mdi mdi-chevron-left"></i></span>
+                        </a>
+                      </li>
+                    <li class="active"><a>1</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=2)}">2</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=3)}">3</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=4)}">4</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=5)}">5</a></li>
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage+1})}">
+                          <span><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                      </li>
+                    </td>
+                    <td th:if="${pager.thisPage eq 2}">
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage-1})}">
+                          <span><i class="mdi mdi-chevron-left"></i></span>
+                        </a>
+                      </li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=1)}">1</a></li>
+                    <li class="active"><a>2</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=3)}">3</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=4)}">4</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=5)}">5</a></li>
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage+1})}">
+                          <span><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                      </li>
+                    </td>
+                    <td th:if="${pager.thisPage eq 3}">
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage-1})}">
+                          <span><i class="mdi mdi-chevron-left"></i></span>
+                        </a>
+                      </li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=1)}">1</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=2)}">2</a></li>
+                    <li class="active"><a>3</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=4)}">4</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=5)}">5</a></li>
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage+1})}">
+                          <span><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                      </li>
+                    </td>
+                    <td th:if="${pager.thisPage eq 4}">
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage-1})}">
+                          <span><i class="mdi mdi-chevron-left"></i></span>
+                        </a>
+                      </li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=1)}">1</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=2)}">2</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=3)}">3</a></li>
+                    <li class="active"><a>4</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=5)}">5</a></li>
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage+1})}">
+                          <span><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                      </li>
+                    </td>
+                    <td th:if="${pager.thisPage eq 5}">
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage-1})}">
+                          <span><i class="mdi mdi-chevron-left"></i></span>
+                        </a>
+                      </li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=1)}">1</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=2)}">2</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=3)}">3</a></li>
+                    <li><a th:href="@{/XMN/BidList/(thisPage=4)}">4</a></li>
+                      <li>
+                        <a th:href="@{/XMN/BidList/(thisPage=${pager.thisPage+1})}">
+                          <span><i class="mdi mdi-chevron-right"></i></span>
+                        </a>
+                      </li>
+                    <li class="active"><a>5</a></li>
+                    </td>
+                  </ul>
+                </nav>
        
               </div>
             </div>

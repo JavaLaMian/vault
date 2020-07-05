@@ -85,9 +85,24 @@ public class BackLoanController {
     @RequestMapping("/payment_data")
     public JSONObject getPaymentData(){
         JSONObject object = new JSONObject();
-        List<Map> loan = bls.selLoan();
-        object.put("total",loan.size());
-        object.put("rows",JSON.toJSON(loan));
+        List<Map> lbhs = bls.selLoanHistoryAll();
+        object.put("total",lbhs.size());
+        object.put("rows",JSON.toJSON(lbhs));
         return object;
+    }
+    @ResponseBody
+    @RequestMapping("/toactivePayment")
+    public String activePayment(int Id){
+        LoanBankHistory lbh = bls.selLBHById(Id);
+        Loan loan = bls.selLoanById(lbh.getlId());
+        Userimf user = bls.selUserByUid(loan.getuId());
+        float number = lbh.getAcMoney()*10000;
+        float ye = user.getAvaBalance();
+        user.setAvaBalance(number+ye);
+        lbh.setStatus(1);
+        lbh.setInTime(new Date());
+        bls.updUserAvant(user);
+        bls.updLoanBankHistory(lbh);
+        return "success";
     }
 }

@@ -7,9 +7,9 @@
         select u.account,u.phe,u.email,c.* from credit c left join userimf u on c.uId = u.uId
     </select>
     <select id="selCreditById" resultType="Credit">
-        select * from credit
+        select * from credit where creId=#{creId}
     </select>
     <select id="selUserById" resultType="Userimf">
-        select * from userimf
+        select * from userimf where uId=#{uId}
     </select>
 </mapper>

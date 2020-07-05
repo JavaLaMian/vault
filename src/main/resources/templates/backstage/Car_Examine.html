@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>投标表</title>
+    <title>车产信息审核</title>
     <link rel="icon" href="favicon.ico" type="image/ico">
     <meta name="author" content="yinqi">
     <!--引入相应的bootstrap.JS支持文件-->
@@ -20,28 +20,30 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-                            <form method="post" th:action="@{/XMN/updateCreditOK}">
+                            <form method="post" th:action="@{/XMN/carExamine}">
                                 <div class="card-header"><h4>基本信息</h4></div>
                                 <div class="card-body">
                                     <div style="border-bottom: 1px solid rgba(77,82,89,0.05);height: 40px;">
-                                        <input name="creId" type="hidden" th:value="${car.cId}"/>
+                                        <input name="cId" type="hidden" th:value="${car.cId}"/>
                                         <span style="width: 200px;margin-left: 50px;"><strong>姓名：<a th:text="${credit.name}"></a></strong></span>
+                                        <span style="width: 200px;margin-left: 50px;"><strong>联系电话：<a th:text="${user.phe}"></a></strong></span>
+                                    </div>
+                                    <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
                                         <span style="width: 200px;margin-left: 50px;"><strong>车产证明照片：<a></a></strong></span>
-                                        <div class="masonry-grid gap-2" data-provide="photoswipe" style="margin-top: 20px;">
-                                            <a class="masonry-item" href="#">
-                                                <img th:src="@{${car.photo}}" alt="没有图片">
-                                            </a>
-                                        </div>
+                                        <a class="masonry-item" href="#">
+                                            <img th:src="@{${car.photo}}" alt="没有图片">
+                                        </a>
                                     </div>
+                                    <div class="clearfix"></div>
                                     <div style="border-bottom: 1px solid rgba(77,82,89,0.05);">
-                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">请审核并确认征信等级</p>
-                                        <button class="btn btn-w-md btn-round btn-warning" target-form="add-form" type="submit" value="2" name="an">关注</button>
-                                        <button class="btn btn-w-md btn-round btn-secondary" target-form="add-form" type="submit" value="3" name="an">次级</button>
-                                        <button class="btn btn-w-md btn-round btn-success" target-form="add-form" type="submit" value="1" name="an">正常</button>
-                                        <button class="btn btn-w-md btn-round btn-dark" target-form="add-form" type="submit" value="4" name="an">可疑</button>
-                                        <button class="btn btn-w-md btn-round btn-danger" target-form="add-form" type="submit" value="5" name="an">损失</button>
+                                        <p class="lead" style="font-size: 16px;margin-bottom: 20px;">请审核并确认车产状态</p>
+                                        <button class="btn btn-w-md btn-round btn-warning" target-form="add-form" type="submit" value="2" name="an">已抵</button>
+                                        <button class="btn btn-w-md btn-round btn-success" target-form="add-form" type="submit" value="1" name="an">可用</button>
+                                        <button class="btn btn-w-md btn-round btn-danger" target-form="add-form" type="submit" value="0" name="an">不可用</button>
                                     </div>
+                                    <div class="clearfix"></div>
                                 </div>
+                                <div class="clearfix"></div>
                             </form>
                         </div>
                     </div>

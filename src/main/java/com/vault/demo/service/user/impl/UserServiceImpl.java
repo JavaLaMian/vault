@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     @Resource
     private UserimfDao dao;
     @Resource
@@ -232,6 +232,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Userimf> friendList(int id) {
+        return dao.friendList(id);
+    }
+
+    @Override
     public int userChongTi(String type, String money, Userimf userimf) {
         BigDecimal user = new BigDecimal(""+userimf.getAvaBalance());
         BigDecimal bian = new BigDecimal(""+money);
@@ -245,7 +250,7 @@ public class UserServiceImpl implements UserService {
             recharge.setuId(userimf.getuId());
             recharge.setReTime(new Date());
             recharge.setBankId(bank.getBankId());
-            recharge.setBankName(bank.getBankName());
+            recharge.setBankName("支付宝充值");
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {
@@ -281,7 +286,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean bindReferee(Userimf refereerUser,Userimf curr) {
-        if (dao.selectByUserimf(refereerUser)!=null){
+        if (dao.selectByUserimf(refereerUser)!= null){
             dao.upUser(curr);
             return true;
         }
@@ -386,6 +391,11 @@ public class UserServiceImpl implements UserService {
         }
         max.put("list",mlist);
         return max;
+    }
+
+    @Override
+    public MyIntegral selectMyIntegral2(int id) {
+        return iDao.selectMyIntegral2(id);
     }
 
     private static String getNowDate(Date date) {

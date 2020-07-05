@@ -21,6 +21,12 @@
         ]]>
     </select>
 
+    <select id="selectUserimfByUId" resultType="com.vault.demo.bean.Userimf">
+        <![CDATA[
+          select * from userimf where uId = #{uId}
+        ]]>
+    </select>
+
     <delete id="deleteById" parameterType="com.vault.demo.bean.Userimf">
         delete from userimf where uId = #{uId}
     </delete>
@@ -88,7 +94,7 @@
           select * from bounty where uId = #{uId}
         ]]>
         <if test="type != null and type != 0">
-            and boType = #{type}
+            and boType not in (0,1)
         </if>
         <![CDATA[
           ORDER BY boType desc
@@ -103,8 +109,13 @@
         <![CDATA[
           select * from userimf where refereer = #{refereer}
         ]]>
-        <if test="type != null and type != 0">
-            and boType = #{type}
-        </if>
     </select>
+
+    <select id="friendList" resultType="Userimf" parameterType="int">
+        select  uName,regTime,account from userimf where refereerId = #{id}
+    </select>
+
+    <update id="updateAvaBalanceByUId" parameterType="com.vault.demo.bean.Userimf">
+        update userimf set avaBalance = #{avaBalance} where uId = #{uId}
+    </update>
 </mapper>

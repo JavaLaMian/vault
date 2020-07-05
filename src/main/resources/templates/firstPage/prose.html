@@ -307,16 +307,13 @@
             </div>
             <ul class="nav nav-financial" data-type="financial">
                 <li class="first">
-                    <a href="/product/portal/index">网贷</a>
+                    <a th:href="@{/loan/main2}">网贷</a>
                 </li>
                 <li>
-                    <a href="/product/portal/index">投标工具</a>
+                    <a th:href="@{/main/bidList}">投标工具</a>
                 </li>
                 <li>
-                    <a href="/product/list?type=common">散标</a>
-                </li>
-                <li>
-                    <a href="/product/list?type=transfer">转让专区</a>
+                    <a th:href="@{/main/perList}">散标</a>
                 </li>
             </ul>
         </nav>
@@ -759,14 +756,20 @@
         var suru = $(id).val();
         var min = $("#kai").text();
         var max = $("#ketous").text();
-        if(suru != ''){
+        if(suru !== ''){
             suru = parseFloat(suru);
             min = parseFloat(min);
 
-            if(suru < min) $(id).val(min);
+            if(suru < min){
+                $(id).val(min);
+                return;
+            }
             else $(id).val(suru);
 
-            if(suru > max) $(id).val(max);
+            if(suru > max){
+                $(id).val(max);
+                return;
+            }
             else $(id).val(suru);
         }
     }

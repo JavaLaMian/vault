@@ -21,4 +21,9 @@ public interface BackLoanDao {
     Loan selLoanByLid(int lId);
     void addPerBid(@Param("perBid") PerBid perBid);
     void updPerBidStatus(@Param("loan")Loan loan,@Param("action") Action action);
+    List<Map> selLoanHistoryAll();
+    LoanBankHistory selLBHById(int id);
+    Loan selLoanById(int lId);
+    void updUserAvant(Userimf userimf);
+    void updLoanBankHistory(LoanBankHistory loanBankHistory);
 }

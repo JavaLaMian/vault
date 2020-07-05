@@ -29,4 +29,9 @@ public class BackCarServiceImpl implements BackCarService {
     public Credit selCreditById(int uId) {
         return bcd.selCreditById(uId);
     }
+
+    @Override
+    public void updCarStatus(Car car) {
+        bcd.updCarStatus(car);
+    }
 }
