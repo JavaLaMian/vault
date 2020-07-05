@@ -180,10 +180,9 @@
                     }
                 });
             </script>
-
-           <div class="account-c   <!--end 我的账户左边菜单列表-->
+            <!--end 我的账户左边菜单列表-->
             <!-- 右侧内容 -->
-          ont">
+           <div class="account-cont">
                 <!-- 右侧标题 -->
                 <div class="at-til">
                     <span class="name">账户安全</span>
@@ -1115,7 +1114,7 @@
            $("#jymm_rz_step2_new_pwdTip").replaceWith("<div id=\"jymm_rz_step2_new_pwdTip\" class=\"tips_content\"></div>");
        }
     }
-    function restep2p() {
+    function restep2p(id) {
         var p = $("#jymm_rz_step2_pwd_qr").val();
         var val = $(id).val();
         if (p != val){
