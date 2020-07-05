@@ -181,9 +181,9 @@
                 });
             </script>
 
-           <div class="account-c   <!--end 我的账户左边菜单列表-->
+            <!--end 我的账户左边菜单列表-->
             <!-- 右侧内容 -->
-          ont">
+           <div class="account-cont">
                 <!-- 右侧标题 -->
                 <div class="at-til">
                     <span class="name">账户安全</span>
@@ -1117,7 +1117,7 @@
     }
     function restep2p() {
         var p = $("#jymm_rz_step2_pwd_qr").val();
-        var val = $(id).val();
+        var val = $("#jymm_rz_step2_pwd").val();
         if (p != val){
             couldSub = false;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
