@@ -71,12 +71,17 @@
             <optional>true</optional><!-- 这个需要为 true 热部署才有效 -->
         </dependency>
 
-<!--            quartz依赖-->
+        <!-- quartz依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
-
+        <!--支付宝沙箱依赖-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <!--        &lt;!&ndash;读取excel文件&ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>org.apache.poi</groupId>-->

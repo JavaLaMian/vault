@@ -86,7 +86,7 @@
                         <a class="h2" href="/user/toAO"><b>账户总览</b></a>
                     </li>
                     <li data-type="">
-                        <a href="#">我的网贷</a>
+                        <a target="_blank" th:href="@{/loan/main2}">我的网贷</a>
                     </li>
                     <li data-type="record">
                         <a href="/user/tozj">资金记录</a>
@@ -100,14 +100,11 @@
                     <li data-type="credit" class="last cur">
                         <a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
                     </li>
-                    <li data-type="news" style="border-top: 1px solid #ccc">
-                        <a href="#">我的消息<span id="msg-count"></span></a>
-                    </li>
                     <li data-type="redEnvelope">
                         <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li class="planner last" data-type="planner" style="border-top: 1px solid #ccc">
-                        <a href="#">邀请好友<span>赚收益</span></a>
+                        <a href="/user/toYq">邀请好友<span>赚收益</span></a>
                     </li>
 
                 </ul>
@@ -450,11 +447,11 @@
                                     </span>
 
                                 <div id="insertJob" style="width: 70%;margin: 0 auto;display: none">
-                                    <form th:if="${credit == null}" th:action="@{/user/insertJob}" onsubmit="return houseSubmit()" method="post" enctype="multipart/form-data">
+                                    <form th:if="${credit == null}" th:action="@{/user/insertJob}" onsubmit="return jobSubmit()" method="post" enctype="multipart/form-data">
                                         <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                 <td style="text-align: right;padding-right: 12px">工作单位</td>
-                                                <td><input type="text" name="dept"></td>
+                                                <td><input type="text" name="depart"></td>
                                             </tr>
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
@@ -464,7 +461,7 @@
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
                                                 <td style="text-align: right;padding-right: 12px">单位电话</td>
-                                                <td><input name="phe"></td>
+                                                <td><input name="phe" maxlength="11"></td>
                                             </tr>
 
                                             <tr style="height: 55px;    border-top: 1px solid #ccc;">
@@ -477,21 +474,21 @@
                                         </table>
                                     </form>
 
-                                    <table th:if="${credit != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                    <table th:if="${credit != null}" cellspacing="0" style="border: 1px solid #ccc;text-align: center;margin: 20px 0;width: 58%;">
 
-                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                            <td style="text-align: right;padding-right: 12px">工作单位</td>
-                                            <td><input type="text" disabled></td>
+                                        <tr style="height: 55px">
+                                            <td style="text-align: center">工作单位:</td>
+                                            <td><span style="text-align: left" type="text" th:text="${credit.depart}"></span></td>
                                         </tr>
 
-                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                            <td style="text-align: right;padding-right: 12px">月薪水平</td>
-                                            <td><input type="number" disabled></td>
+                                        <tr style="height: 55px;">
+                                            <td style="text-align: center">月薪水平:</td>
+                                            <td><span style="text-align: left" type="text" th:text="${credit.wages}"></span></td>
                                         </tr>
 
-                                        <tr style="height: 55px;    border-top: 1px solid #ccc;">
-                                            <td style="text-align: right;padding-right: 12px">单位热线</td>
-                                            <td><input type="number" disabled></td>
+                                        <tr style="height: 55px;">
+                                            <td style="text-align: center">单位热线:</td>
+                                            <td><span type="text"></span></td>
                                         </tr>
                                     </table>
                                 </div>

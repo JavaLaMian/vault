@@ -15,6 +15,11 @@
           select * from bid
         ]]>
     </select>
+    <select id="Bidlistpage" resultType="Bid">
+         <![CDATA[
+          select * from bid limit (#{thisPage}-1)*#{titleSize},#{titleSize}
+        ]]>
+    </select>
     <select id="selectgetBid" resultType="Bid">
         <![CDATA[
             select  * from bid where bId = #{bId}
