@@ -63,7 +63,12 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public List<Map> integralList() {
+    public List<Map> integralCoin() {
+        return dao.integralCoin();
+    }
+
+    @Override
+    public List<Integral> integralList() {
         return dao.integralList();
     }
 

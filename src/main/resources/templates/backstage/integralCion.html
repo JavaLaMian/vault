@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>积分订单审核</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="yinqi">
+    <!--引入相应的bootstrap.JS支持文件-->
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+</head>
+<body data-logobg="color_8" data-sidebarbg="color_8">
+<div class="layout-web">
+    <div class="layout-container">
+        <!--引入头html代码-->
+        <div th:replace="/backstage/Brepetition::head"></div>
+        <!--页面主要内容-->
+        <main class="layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-toolbar clearfix">
+                                <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <input type="hidden" name="search_field" id="search-field" value="title">
+                                            <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                                                标种 <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">新手标</a> </li>
+                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="cat_name">散标</a> </li>
+                                            </ul>
+                                        </div>
+                                        <input type="text" class="form-control" value="" name="keyword" placeholder="请输入名称">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr style="background-color: #00b8b9">
+                                            <th>
+                                                <label class="checkbox checkbox-primary">
+                                                    <input type="checkbox" id="check-all"><span></span>
+                                                </label>
+                                            </th>
+                                            <th>编号</th>
+                                            <th>用户姓名</th>
+                                            <th>商品名称</th>
+                                            <th>变动积分</th>
+                                            <th>变动类型</th>
+                                            <th>总积分</th>
+                                            <th>兑换时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p,pStart:${list}">
+                                            <td>
+                                                <label class="checkbox checkbox-primary">
+                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                </label>
+                                            </td>
+                                            <td th:text="${pStart.count}"></td>
+                                            <td th:if="${p.uName} eq null">无</td>
+                                            <td th:if="${p.uName} ne null"><p th:text="${p.uName}"></p></td>
+                                            <td th:if="${p.integralName} eq null">无</td>
+                                            <td th:if="${p.integralName} ne null"><p th:text="${p.integralName}"></p></td>
+                                            <td th:if="${p.change} eq null">无</td>
+                                            <td th:if="${p.change} ne null"><p th:text="${p.change}"></p></td>
+                                            <td th:if="${p.changeType} eq null">无</td>
+                                            <td th:if="${p.changeType} ne null"><p th:text="${p.changeType}"></p></td>
+                                            <td th:if="${p.total} eq null">无</td>
+                                            <td th:if="${p.total} ne null"><p th:text="${p.total}"></p></td>
+                                            <td th:if="${p.conversionTime} eq null">无</td>
+                                            <td th:if="${p.conversionTime} ne null"><p th:text="${p.conversionTime}"></p></td>
+
+                                            <td>
+                                                <div class="btn-group">
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+<!--引入相应的javascript支持文件-->
+<div th:replace="/backstage/Brepetition::javascript"></div>
+</body>
+</html>

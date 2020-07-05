@@ -219,10 +219,16 @@ public class backstageController {
     //去往积分订单查询页面
     @RequestMapping("/userintegral")
     public ModelAndView userintegral(ModelAndView mv,Model model){
-        List<Map> list = is.integralList();
+        List<Map> list = is.integralCoin();
         model.addAttribute("list",list);
-        mv.setViewName("backstage/integralList");
+        mv.setViewName("backstage/integralCion");
         return mv;
+    }
+    @RequestMapping("/integralList")
+    public String integralList(Model model){
+        List<Integral> integralList = is.integralList();
+        model.addAttribute("integralList",integralList);
+        return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")
     public ModelAndView toAdminInformation(ModelAndView mv,Model model){

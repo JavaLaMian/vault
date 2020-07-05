@@ -1083,7 +1083,6 @@
                     $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
                 }else {
                     yhMa = data;
-                    alert(yhMa)
                     $("#jymi_step1_codetemp").attr("value",yhMa);
                 }
             },"json");
@@ -1246,7 +1245,6 @@
                         $("#jymm_step1_codeTip").replaceWith("<span class=\"bindcard-tip errTip\" id=\"jymm_step1_codeTip\">发送验证码失败</span>");
                     }else {
                         dlMa = data;
-                        alert(dlMa);
                     }
                 },"json");
             }
@@ -1314,7 +1312,6 @@
                     alert("请检查邮箱格式是否正确");
                 }else {
                     emMa = data;
-                    alert(emMa);
                 }
             },"json");
         }
@@ -1390,7 +1387,6 @@
                         alert("请检查邮箱格式是否正确");
                     }else {
                         emMa2 = data;
-                        alert(emMa2);
                     }
                 },"json");
             }
@@ -1421,7 +1417,6 @@
             emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码不能为空</div>");
         }else if (ma!=emMa2){
-            alert(ma+"///"+emMa2);
             emailUp_key=false;
             $("#sjyz_xg_step2_codeTip").replaceWith("<div id=\"sjyz_xg_step2_codeTip\" class=\"onError\">验证码错误</div>");
         }

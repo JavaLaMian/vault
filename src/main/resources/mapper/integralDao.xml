@@ -57,4 +57,15 @@
     <select id="selectSignCount" resultType="int">
           select  count(*) from sign  where signTime like #{time}
     </select>
+
+    <insert id="addIntrgral" >
+        insert into integral values (null,#{integralName},#{integralImg},#{integral},#{integralType},#{inventory},#{tag})
+    </insert>
+
+    <update id="Update" >
+        update integral set integralName = #{integralName},integralImg = #{integralImg},integral = #{integral},integralType = #{integralType},inventory = #{inventory},tag = #{tag} where id = #{id}
+    </update>
+    <delete id="delete" >
+        delete from integral where id = #{id}
+    </delete>
 </mapper>

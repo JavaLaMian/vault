@@ -35,4 +35,8 @@ public interface integralService {
 
     //查出今天签到人
     int selectSignCount(String time);
+
+    void addIntrgral(Integral integral);
+    int Update(Integral integral);
+    int delete(int id);
 }
