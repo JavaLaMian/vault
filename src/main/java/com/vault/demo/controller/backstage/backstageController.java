@@ -77,10 +77,8 @@ public class backstageController {
         int a = is.slectBidtotalTitle();
         if(a != 0){
             List<Bid> list = is.Bidlistpage((pager.thisPage-1)*pager.titleSize,pager.titleSize);
-            System.out.println("第"+(pager.thisPage-1)+"页"+pager.titleSize+"记录数");
             model.addAttribute("list",list);
             model.addAttribute("pager",pager);
-            System.out.println(pager.thisPage);
             mv.setViewName("backstage/BidList");
             return mv;
         }else {
