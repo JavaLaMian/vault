@@ -4,5 +4,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface BackTenderService {
-    List<Map> selTender();
+    List<Map> selTender(int currentPage,int pageSize);
 }
