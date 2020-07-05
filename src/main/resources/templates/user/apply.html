@@ -29,6 +29,53 @@
         })
     </script>
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/css/apply-73c8a78781.css" />
+
+    <style type="text/css">
+
+        .zhezhao{
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: #000;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background-color: rgba(234,238,247,0.3);
+            display: none;
+        }
+        .tankuang{
+            position: relative;
+            background: #fff;
+            width: 420px;
+            height: 300px;
+            border-radius: 5px;
+            margin: 5% auto;
+            border: 1px solid #ff7136;
+        }
+        #header{
+            height: 40px;
+        }
+        #header-right{
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            background: #ff7136;
+            color: #fff;
+            right: 5px;
+            top: 1px;
+            text-align: center;
+            font-size:25px;
+        }
+        .title{
+            font-size:15px;
+            color:#fff;
+            padding:10px;
+        }
+        #content{
+            height:100px;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="em" th:value="${session.user.email}"/>
@@ -57,7 +104,7 @@
         <div class="center user-box">
 
             <!--start 我的账户左边菜单列表-->
-            <div class="account-list" th:replace="/user/AccountSafe::usersafe"></div>
+            <div class="account-list" th:replace="/user/AccountOverview::inflist"></div>
 
             <script src="//image.xiaoniu88.com/static/WebXn/dist/module/userNavList/js/init-09a2ab6833.js"></script>
             <script>
@@ -88,7 +135,7 @@
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="number" class="bindcard-input" id="cid" maxlength="23" value="" onblur="checkCid()"/>
+                        <input type="number" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -196,7 +243,7 @@
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" id="cid" maxlength="23" value="" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -320,6 +367,8 @@
         <!-- <a class="lk07" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.xiaoniu88.com&lang=zh_cn"></a> -->
     </span>
 </div>
+<!--推荐人弹窗-->
+<div th:replace="/user/AccountSafe::referee"></div>
 
 <!--end 尾部-->
 <script type="text/javascript">
@@ -567,6 +616,38 @@
             }, function (data) {
                 window.location.href="/user/toAS";
             }, "json");
+        }
+    }
+
+    function openwin(){
+        $("#zhezhao").css("display","block");
+    }
+    function closewin(){
+        $("#zhezhao").css("display","none");
+    }
+
+    function referee_check() {
+        var referee = $("#referee").val();
+        if (referee==null||referee==""){
+            $("#refereeTip").addClass("rp_error");
+            $("#refereeTip").text("推荐人ID不能为空");
+            return;
+        }
+    }
+    function referee_sub() {
+        referee_check();
+        var referee = $("#referee").val();
+        if (referee!=null&&referee!=""){
+            $.post("/user/bindReferee",{referee:referee},function (data) {
+                if(data){
+                    window.location.reload();
+                    return;
+                }else {
+                    $("#refereeTip").addClass("rp_error");
+                    $("#refereeTip").css("color","red");
+                    $("#refereeTip").text("认证失败，请检查推荐人ID是否正确");
+                }
+            },"json");
         }
     }
 </script>

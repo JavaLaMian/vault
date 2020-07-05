@@ -109,9 +109,6 @@
         <![CDATA[
           select * from userimf where refereer = #{refereer}
         ]]>
-        <if test="type != null and type != 0">
-            and boType = #{type}
-        </if>
     </select>
 
     <select id="friendList" resultType="Userimf" parameterType="int">
