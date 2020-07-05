@@ -25,6 +25,11 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
+    public List<Bid> Bidlistpage(Pager pager) {
+        return dao.Bidlistpage(pager);
+    }
+
+    @Override
     public List<Bid> selectgetBid(Bid bid) {
         return dao.selectgetBid(bid);
     }
@@ -120,6 +125,11 @@ public class selevicexmnImpl implements selevicexmn {
     @Override
     public void updateTender(int tid, int tentype) {
         dao.updateTender(tid,tentype);
+    }
+
+    @Override
+    public int slectBidtotalTitle() {
+        return dao.slectBidtotalTitle();
     }
 
 }

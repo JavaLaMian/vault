@@ -69,9 +69,14 @@ public class backstageController {
     }
     //投标类别页面
     @RequestMapping("/BidList")
-    public ModelAndView BidList(ModelAndView mv, Model model){
-        List<Bid> list = is.Bidlist();
+    public ModelAndView BidList(ModelAndView mv, Model model,Pager pager){
+        //分页
+        pager.titleSize = 2;//每页显示页数
+        //查询出总条数
+        pager.page(is.slectBidtotalTitle());
+        List<Bid> list = is.Bidlistpage(pager);
         model.addAttribute("list",list);
+        model.addAttribute("pager",pager);
         mv.setViewName("backstage/BidList");
         return mv;
     }

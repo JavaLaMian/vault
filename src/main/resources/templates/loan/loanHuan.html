@@ -70,7 +70,7 @@
 </head>
 <body>
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${action != null}">
         <div class="modal-dialog" style="margin-top: 250px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,12 +108,12 @@
         </div><!-- /.modal -->
     </div>
 
-    <form id="toHuanForm" th:action="@{/loan/toHuanEnd}" method="post">
+    <form th:if="${action != null}" id="toHuanForm" th:action="@{/loan/toHuanEnd}" method="post">
         <input type="hidden" name="aId" th:value="${action.aId}">
         <input type="hidden" name="tobePay" th:value="${action.tobePay}">
     </form>
 
-    <input type="hidden" id="ddddpppp" th:value="${session.user.dealPsw}">
+    <input th:if="${session.user != null}" type="hidden" id="ddddpppp" th:value="${session.user.dealPsw}">
 
     <script type="text/javascript">
         function queren() {
@@ -203,7 +203,7 @@
         <div class="navShadow" data-reactid=".0.2.1.1:0.1"></div>
     </div>
     <!--    内容-->
-    <div style="height:auto;width: 100%">
+    <div style="height:auto;width: 100%;margin-top: -174px">
         <div class="repayBar bg" data-aspm="c10221" data-aspm-expo="true" data-reactid=".0.2">
             <div th:if="${session.userLoan == null || action == null || session.userLoan.loanStatue == 0}" class="repayBox orderBox" data-reactid=".0.2.0">
                 <p class="fixTop" style="padding-top:24px;margin-top: 180px;font-size: 30px" data-reactid=".0.2.0.4">目前没有需要还的款哦~</p>
@@ -308,7 +308,7 @@
                         </tr>
                         </thead>
                         <tbody data-reactid=".0.4.1.1.0.1">
-                        <tr class="listEven" data-reactid=".0.4.1.1.0.1.$0">
+                        <tr class="listEven" data-reactid=".0.4.1.1.0.1.$0" th:if="${action != null}">
                             <td class="td0" data-reactid=".0.4.1.1.0.1.$0.$0">
                                 <div data-reactid=".0.4.1.1.0.1.$0.$0.0" th:text="${action.tobePay} + '万'">87.30</div>
                             </td>
