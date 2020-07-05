@@ -195,7 +195,7 @@
         </div>
 
         <script>
-            $(function() {
+            /*$(function() {
                 var doc = document;
                 var currentMenu = doc.getElementById('currentProductMenu').value;
                 var currentType = queryString("type");
@@ -209,7 +209,7 @@
             function queryString(item){
                 var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
                 return svalue ? svalue[1] : svalue;
-            };
+            };*/
         </script>
 
         <!-- body内容 -->
@@ -323,8 +323,11 @@
                                             </dd>
                                         </dl>
                                         <dl class="starting-amount">
-                                            <dt th:text="${#numbers.formatDecimal(per.enquiry,1,'COMMA',2,'POINT')}">
-
+                                            <dt th:if="${per.enquiry gt 0}">
+                                                <span class="f-rest"  th:text="${#numbers.formatDecimal(per.enquiry*10000,1,'COMMA',2,'POINT')}"></span>元
+                                            </dt>
+                                            <dt th:if="${per.enquiry==null||per.enquiry==0}">
+                                                <span class="f-rest"  th:text="${per.combination*10000}"></span>元
                                             </dt>
                                             <dd>
                                                 剩余金额

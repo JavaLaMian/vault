@@ -90,6 +90,7 @@ public class MainControl{
     public String perList(PerBid perBid, Pager pager, HttpServletRequest request) {
         pager.page(bidSer.countPerPage(perBid.getRate(), perBid.getEnquiry()));
         List<PerBid> list = bidSer.pagePerB((pager.thisPage - 1) * pager.titleSize, pager.titleSize, perBid.getRate(), perBid.getEnquiry());
+        System.out.println(list.toString());
         request.setAttribute("pager", pager);
         request.setAttribute("list", list);
         request.setAttribute("p", perBid);
