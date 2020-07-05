@@ -38,6 +38,10 @@ public class backstageController {
         mv.setViewName("backstage/Bindex");
         return mv;
     }
+    @RequestMapping("/test")
+    public String totest(){
+        return "backstage/test";
+    }
     @RequestMapping("/text")
     public ModelAndView text(ModelAndView mv){
         mv.setViewName("backstage/text");
