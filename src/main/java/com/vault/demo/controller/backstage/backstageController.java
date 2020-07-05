@@ -74,13 +74,21 @@ public class backstageController {
         pager.titleSize = 10;//每页显示页数
         //查询出总条数
         pager.page(is.slectBidtotalTitle());
-        List<Bid> list = is.Bidlistpage((pager.thisPage-1)*pager.titleSize,pager.titleSize);
-        System.out.println("第"+(pager.thisPage-1)+"页"+pager.titleSize+"记录数");
-        model.addAttribute("list",list);
-        model.addAttribute("pager",pager);
-        System.out.println(pager.thisPage);
-        mv.setViewName("backstage/BidList");
-        return mv;
+        int a = is.slectBidtotalTitle();
+        if(a != 0){
+            List<Bid> list = is.Bidlistpage((pager.thisPage-1)*pager.titleSize,pager.titleSize);
+            System.out.println("第"+(pager.thisPage-1)+"页"+pager.titleSize+"记录数");
+            model.addAttribute("list",list);
+            model.addAttribute("pager",pager);
+            System.out.println(pager.thisPage);
+            mv.setViewName("backstage/BidList");
+            return mv;
+        }else {
+            List<Bid> list = is.Bidlist();
+            model.addAttribute("list",list);
+            mv.setViewName("backstage/BidList");
+            return mv;
+        }
     }
     //去往贷款审核页面
     @RequestMapping("/Loan_List")
