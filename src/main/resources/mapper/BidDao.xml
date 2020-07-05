@@ -127,7 +127,7 @@
     </select>
 
     <select id="countTenMoney" resultType="float">
-        select sum(tenMoney) from tender
+        select IFNULL(sum(tenMoney),0) from tender
     </select>
 
     <select id="selTenderByTD" resultType="com.vault.demo.bean.Tender">

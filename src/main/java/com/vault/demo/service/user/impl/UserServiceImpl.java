@@ -286,7 +286,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Boolean bindReferee(Userimf refereerUser,Userimf curr) {
-        if (dao.selectByUserimf(refereerUser)!=null){
+        if (dao.selectByUserimf(refereerUser)!= null){
             dao.upUser(curr);
             return true;
         }

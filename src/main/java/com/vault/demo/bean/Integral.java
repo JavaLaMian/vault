@@ -9,25 +9,12 @@ import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 //@Table(name = "integral")
 public class Integral {
 
-    @Column(name = "Id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
     private int Id;
-
-    @Column(name = "integralName",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralName;
-
-    @Column(name = "integralImg",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralImg;
-
-    @Column(name = "integral",type = MySqlTypeConstant.INT)
     private int integral;
-
-    @Column(name = "integralType",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String integralType;
-
-    @Column(name = "inventory",type = MySqlTypeConstant.INT)
     private int inventory ;//库存
-
-    @Column(name = "tag",type = MySqlTypeConstant.VARCHAR,length = 100)
     private String tag; //标签  热门，人气 ，优质
 
     @Override
