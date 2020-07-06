@@ -192,8 +192,109 @@
                                 <h2 style="color: #333;text-align: center">高级借贷信息管理</h2>
                             </div>
                             <div style="margin-top: 20px">
+
                                 <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
 
+
+                                    <!--                 如果身份证照片信息为空                   -->
+                                    <span th:if="${credit.positiveIDPhoto == null && credit.negativeIDPhoto == null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/tan.png}" style="line-height: 50px">
+                                            身份证照
+                                        </span>
+                                        <span class="IdentityPhotoRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">必填项</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertIdentityPhotoA" href="javascript:insertIdentityPhotoShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                    <!--                 如果身份证照片信息不为空                   -->
+                                    <span th:if="${credit.positiveIDPhoto != null && credit.negativeIDPhoto != null}" style="width: 100%;display: inline-block">
+                                        <span style="height: 50px;line-height: 50px;border-right: 1px solid #ddd;padding: 0 20px 0 5px;background-color: rgb(250,250,250);display: inline-block">
+                                            <img th:src="@{/img/loan/gou.png}" style="line-height: 50px">
+                                            身份证照
+                                        </span>
+                                        <span class="IdentityPhotoRow" style="padding:0 5px;display: inline-block;width: 81.9%;position: relative">
+                                            <span style="">必填项</span>
+                                            <span style="position: absolute;right: 10px"><a class="insertIdentityPhotoA" href="javascript:insertIdentityPhotoShow()" style="text-decoration: none;color: #27c">查看</a></span>
+                                        </span>
+                                    </span>
+
+                                <div id="insertIdentityPhoto" style="width: 70%;margin: 0 auto;display: none">
+                                    <form th:if="${credit.positiveIDPhoto == null && credit.negativeIDPhoto == null}" th:action="@{/user/toUploadIdentity}" onsubmit="return IdentityPhotoSubmit()" method="post" enctype="multipart/form-data">
+                                        <table cellspacing="0" cellpadding="0" style="width: 100%;margin-top: 15px">
+                                            <input type="hidden" name="creId" th:value="${credit.creId}">
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传身份证正面</td>
+                                                <td><input id="positiveIDPhoto" type="file" name="positiveIDPhotoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td style="text-align: right;padding-right: 12px">请上传身份证反面</td>
+                                                <td><input id="negativeIDPhoto" type="file" name="negativeIDPhotoFile"></td>
+                                            </tr>
+
+                                            <tr style="height: 55px;    border-top: 1px solid #ccc;">
+                                                <td colspan="2" style="text-align: center">
+                                                    <button type="submit" style="width: 100px;height: 30px;border-radius: 3px;border: 1px solid #ccc;background: #5189c3;color: #fff;font-size: 13px;font-weight: bold;">
+                                                        提交
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                    <table th:if="${credit.positiveIDPhoto != null && credit.negativeIDPhoto != null}" cellpadding="0" cellspacing="0" border="1px solid #ccc" style="border: 1px solid #ccc;text-align: center;margin: 20px 0">
+                                        <tbody>
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">用户账号</th>
+                                            <td th:text="${session.user.account}" style="width: 180px">编号</td>
+                                            <th style="width: 130px">姓名</th>
+                                            <td th:text="${credit.name}" style="width: 180px">编号</td>
+                                        </tr>
+
+                                        <tr style="height: 80px;line-height: 80px">
+                                            <th style="width: 130px">身份证正面</th>
+                                            <td style="width: 180px"><img th:src="@{${credit.positiveIDPhoto}}" style="width: 100px;height: 80px"></td>
+                                            <th style="width: 130px">身份证反面</th>
+                                            <td style="width: 180px"><img th:src="@{${credit.negativeIDPhoto}}" style="width: 100px;height: 80px"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <script type="text/javascript">
+                                    var show = true;
+
+                                    function insertIdentityPhotoShow() {
+
+                                        if (show){
+                                            $(".insertIdentityPhotoA").text("收起");
+                                            $("#insertIdentityPhoto").css("display","block");
+                                            $(".IdentityPhotoRow").css("background","#efd3c2");
+                                            // document.getElementsByClassName("insertCarA").innerText = "收起";
+                                            // document.getElementsByClassName("insertCar").style.display = 'block';
+                                            show = false;
+                                        }else {
+                                            $(".insertIdentityPhotoA").text("查看");
+                                            $("#insertIdentityPhoto").css("display","none");
+                                            $(".IdentityPhotoRow").css("background","#fff");
+                                            // document.getElementById("insertCarA").innerText = "查看";
+                                            // document.getElementsByClassName("insertCar").css.display("none");
+                                            show = true;
+                                        }
+
+                                    }
+
+                                    function IdentityPhotoSubmit() {
+                                        return true;
+                                    }
+                                </script>
+                                </p>
+
+
+                                <p style="height: 50px;line-height: 50px;border: 1px solid #ddd">
 
                                     <!--                 如果车辆信息为空                   -->
                                     <span th:if="${car == null}" style="width: 100%;display: inline-block">
