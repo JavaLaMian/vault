@@ -129,7 +129,7 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
     </select>
     <select id="Bidlistall" resultType="map">
          <![CDATA[
-          select b.bId,b.bidName,b.exprie,b.bidTime,b.bidStatus,b.sumLimit,IfNULL(t.tenMoney,0) as tenMoney from bid b left join tender t on b.bId = t.bId
+          select b.bId,b.bidName,b.exprie,b.bidTime,b.bidStatus,b.sumLimit  from bid b
          ]]>
     </select>
 </mapper>
