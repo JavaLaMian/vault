@@ -16,7 +16,7 @@
                 <form th:action="@{/user/add}" method="post">
                     <div style="width: 90%;height: 30px;margin: 30px auto;">
                         <p class="pxian">邮箱</p>
-                        <input class="kuang" id="zcEmail" name="email" oninput="zzsru(this)" onblur="yanEmail(this,'zc')" type="text"/>
+                        <input class="kuang" id="zcEmail"placeholder="完整的邮箱号" name="email" oninput="zzsru(this)" onblur="yanEmail(this,'zc')" type="text"/>
                     </div>
                     <div style="width: 90%;height: 30px;margin: 30px auto;">
                         <p class="pxian">密码</p>
@@ -55,8 +55,8 @@
                             <option value="zh">账号</option>
                             <option value="yx">邮箱</option>
                         </select>
-                        <input class="kuang" name="account" id="zhanghao" placeholder="也可以是邮箱" style="display: block" type="text"/>
-                        <input class="kuang" name="email" id="dlEmail" style="display: none" oninput="zzsru(this)" onblur="yanEmail(this,'dl')" type="text"/>
+                        <input class="kuang" name="account" id="zhanghao" placeholder="账号或完整邮箱号" style="display: block" type="text"/>
+                        <input class="kuang" name="email" id="dlEmail"placeholder="邮箱验证码登陆" style="display: none" oninput="zzsru(this)" onblur="yanEmail(this,'dl')" type="text"/>
                     </div>
                     <div id="pwdYz" style="width: 90%;height: 30px;margin: 30px auto;transition: 0.5s;">
                         <select class="xiala" onchange="pwdLookF(this)">
@@ -64,10 +64,10 @@
                             <option value="xs">显示</option>
                         </select>
                         <input class="kuang" id="pwdyc" name="pwd" placeholder="区分大小写" oninput="tonBu('yc')" type="password"/>
-                        <input id="pwdLook" class="kuang" type="text" oninput="tonBu('lk')" style="display: none"/>
+                        <input id="pwdLook" class="kuang" type="text" placeholder="密码当前可见" oninput="tonBu('lk')" style="display: none"/>
                     </div>
                     <div id="emailYz" style="width: 90%;margin:0 auto;height: 0px;transition: 0.5s;">
-                        <input class="mkuang" id="dlmaKun" type="text"/>
+                        <input class="mkuang" id="dlmaKun"placeholder="6位数验证码" type="text"/>
                         <input class="cxMa" type="button" onclick="getMa('dl',this)" value="获取" />
                     </div>
                     <div style="width: 90%;height: 30px;margin: 0 auto;">
