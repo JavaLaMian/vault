@@ -319,6 +319,7 @@ public class backstageController {
     @ResponseBody
     @RequestMapping("/getRegNumber")
     public List getRegNumber(String[] weekarry){
+        //林学名傻逼
         List  data = new ArrayList();
         for(int i=0;i<weekarry.length;i++){
             if(as.selUserRegWeek(weekarry[i])==null){
