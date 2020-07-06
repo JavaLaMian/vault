@@ -16,12 +16,12 @@
   <div class="layout-container">
     <!--引入头html代码-->
     <div th:replace="/backstage/Brepetition::head"></div>
-    
+
     <!--页面主要内容-->
     <main class="layout-content">
-      
+
       <div class="container-fluid">
-        
+
         <div class="row">
           <div class="col-sm-6 col-lg-3">
             <div class="card bg-primary">
@@ -34,7 +34,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-sm-6 col-lg-3">
             <div class="card bg-danger">
               <div class="card-body clearfix">
@@ -46,7 +46,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-sm-6 col-lg-3">
             <div class="card bg-success">
               <div class="card-body clearfix">
@@ -58,7 +58,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-sm-6 col-lg-3">
             <div class="card bg-purple">
               <div class="card-body clearfix">
@@ -71,10 +71,10 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <!--每周用户的chartjs图-->
-          <div class="col-lg-6"> 
+          <div class="col-lg-6">
             <div class="card">
               <div class="card-header">
                 <h4>每周用户</h4>
@@ -84,8 +84,8 @@
               </div>
             </div>
           </div>
-          
-          <div class="col-lg-6"> 
+
+          <div class="col-lg-6">
             <div class="card">
               <div class="card-header">
                 <h4>交易历史记录</h4>
@@ -95,11 +95,11 @@
               </div>
             </div>
           </div>
-           
+
         </div>
-        
+
         <div class="row">
-          
+
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
@@ -164,11 +164,11 @@
               </div>
             </div>
           </div>
-          
+
         </div>
-        
+
       </div>
-      
+
     </main>
     <!--End 页面主要内容-->
   </div>
@@ -183,10 +183,97 @@
 $(document).ready(function(e) {
     var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
         $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
-    var testWeek = new Array();
-    var weeks = new Array();
-    var newDate = formatDateTime(new Date().getTime());
-    console.log(newDate);
+  var testWeek = new Array();
+  var weeks = new Array();
+  var newDate = formatDateTime(new Date().getTime());
+  console.log(newDate);
+  $.ajax({
+    type:"get",//请求类型
+    datatype:"json",//数据类型
+    url:"/XMN/dashChartBarsCnt",
+    success:function (data) {//请求成功后执行该函数
+      console.log(data.person.name)//tom
+    }
+  });
+  function formatDateTime(date) {
+    var time = new Date(date);
+    //time.setTime(time.setHours(time.getHours()));
+    var Y = time.getFullYear() + '-';
+    var  M = addZero(time.getMonth() + 1) + '-';
+    var D =addZero(time.getDate());
+    return Y + M + D;
+    // }
+  }
+
+  // 数字补0操作
+  function  addZero(num) {
+    return num < 10 ? '0' + num : num;
+  }
+  function getWeekDay(dateString) {
+    let dateStringReg = /^\d{4}[/-]\d{1,2}[/-]\d{1,2}$/;
+
+    if (dateString.match(dateStringReg)) {
+      let presentDate = new Date(dateString),
+              today = presentDate.getDay() !== 0 ? presentDate.getDay() : 7;
+
+      return Array.from(new Array(7), function(val, index) {
+        return formatDate(new Date(presentDate.getTime() - (today - index-1) * 24 * 60 * 60 * 1000));
+      });
+
+    } else {
+      throw new Error('dateString should be like "yyyy-mm-dd" or "yyyy/mm/dd"');
+    }
+
+    function formatDate(date) {
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
+  }
+  testWeek = getWeekDay(""+newDate);
+  console.log("test : "+testWeek);
+  function getBeforeDate(n){
+    var n = n;
+    var d = new Date();
+    var year = d.getFullYear();
+    var mon=d.getMonth()+1;
+    var day=d.getDate();
+    if(day <= n){
+      if(mon>1) {
+        mon=mon-1;
+      }
+      else {
+        year = year-1;
+        mon = 12;
+      }
+    }
+    d.setDate(d.getDate()-n);
+    year = d.getFullYear();
+    mon=d.getMonth()+1;
+    day=d.getDate();
+    s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+    return s;
+  };
+  var jsWeek = new Array();
+  var number = 0;
+  for(var i=7;i>=1;i--){
+    jsWeek[number] = getBeforeDate(i);
+    number++;
+  }
+  console.log(getBeforeDate(1));//昨天的日期
+  console.log(getBeforeDate(7));//前七天的日期
+  $.ajax({
+    type:'post',
+    datatype:"json",
+    async : false,
+    cache : false,
+    traditional: true,
+    url:"/XMN/getRegNumber",
+    data:{
+      "weekarry":jsWeek
+    },
+    success:function (data) {
+      weeks = data
+    }
+  });
     $.ajax({
       type:"get",//请求类型
       datatype:"json",//数据类型
@@ -195,85 +282,6 @@ $(document).ready(function(e) {
         console.log(data.person.name)//tom
       }
     });
-    function formatDateTime(date) {
-        var time = new Date(date);
-        //time.setTime(time.setHours(time.getHours()));
-        var Y = time.getFullYear() + '-';
-        var  M = addZero(time.getMonth() + 1) + '-';
-        var D =addZero(time.getDate());
-        return Y + M + D;
-        // }
-    }
-
-    // 数字补0操作
-    function  addZero(num) {
-        return num < 10 ? '0' + num : num;
-    }
-    function getWeekDay(dateString) {
-        let dateStringReg = /^\d{4}[/-]\d{1,2}[/-]\d{1,2}$/;
-
-        if (dateString.match(dateStringReg)) {
-            let presentDate = new Date(dateString),
-                today = presentDate.getDay() !== 0 ? presentDate.getDay() : 7;
-
-            return Array.from(new Array(7), function(val, index) {
-                return formatDate(new Date(presentDate.getTime() - (today - index-1) * 24 * 60 * 60 * 1000));
-            });
-
-        } else {
-            throw new Error('dateString should be like "yyyy-mm-dd" or "yyyy/mm/dd"');
-        }
-
-        function formatDate(date) {
-            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        }
-    }
-    testWeek = getWeekDay(""+newDate);
-    console.log("test : "+testWeek);
-    function getBeforeDate(n){
-        var n = n;
-        var d = new Date();
-        var year = d.getFullYear();
-        var mon=d.getMonth()+1;
-        var day=d.getDate();
-        if(day <= n){
-            if(mon>1) {
-                mon=mon-1;
-            }
-            else {
-                year = year-1;
-                mon = 12;
-            }
-        }
-        d.setDate(d.getDate()-n);
-        year = d.getFullYear();
-        mon=d.getMonth()+1;
-        day=d.getDate();
-        s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
-        return s;
-    };
-    var jsWeek = new Array();
-    var number = 0;
-    for(var i=7;i>=1;i--){
-        jsWeek[number] = getBeforeDate(i);
-        number++;
-    }
-    console.log(getBeforeDate(1));//昨天的日期
-    console.log(getBeforeDate(7));//前七天的日期
-    $.ajax({
-        type:'post',
-        datatype:"json",
-        async : false,
-        cache : false,
-        traditional: true,
-        url:"/XMN/getRegNumber",
-        data:{
-            "weekarry":jsWeek
-        },
-        success:function (data) {
-            weeks = data
-        }
-    })
     var $dashChartBarsData = {
 		labels: jsWeek,
 		datasets: [
@@ -302,12 +310,12 @@ $(document).ready(function(e) {
 			}
 		]
 	};
-    
+
     new Chart($dashChartBarsCnt, {
         type: 'bar',
         data: $dashChartBarsData
     });
-    
+
     var myLineChart = new Chart($dashChartLinesCnt, {
         type: 'line',
         data: $dashChartLinesData,

@@ -140,4 +140,24 @@ left join house h on c.uId = h.uId left join car r on c.uId = r.uId where c.crei
           select b.bId,b.bidName,b.exprie,b.bidTime,b.bidStatus,b.sumLimit  from bid b
          ]]>
     </select>
+    <select id="userimfaccount" resultType="int">
+         <![CDATA[
+         select IFNULL(count(*),0) as account from  userimf
+         ]]>
+    </select>
+    <select id="tendermoney" resultType="int">
+         <![CDATA[
+        select IFNULL( sum(tenMoney)*10000,0) as account from tender where  to_days(tenTime) = to_days(now())
+         ]]>
+    </select>
+    <select id="licaimoney" resultType="int">
+         <![CDATA[
+        select IFNULL(sum(tenMoney)*10000,0) as account  from  tender
+         ]]>
+    </select>
+    <select id="daikuanmoney" resultType="int">
+         <![CDATA[
+      select IFNULL(sum(acMoney)*10000,0) as account  from action
+         ]]>
+    </select>
 </mapper>

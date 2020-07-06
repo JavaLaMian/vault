@@ -41,6 +41,25 @@ public class backstageController {
         mv.setViewName("backstage/Bindex");
         return mv;
     }
+    @ResponseBody
+    @RequestMapping("/summ")
+    public Map summ(){
+        Map map = new HashMap();
+        //用户统计
+        int userimfaccount = is.userimfaccount();
+        //<!--今日收入-->
+        int tendermoney = is.tendermoney();
+        //<!--理财金额-->
+        int licaimoney = is.licaimoney();
+        //<!--贷款金额-->
+        int daikuanmoney = is.daikuanmoney();
+        map.put("daymoney",tendermoney);
+        map.put("renshu",userimfaccount);
+        map.put("licaimoney",licaimoney);
+        map.put("daikuanmoeny",daikuanmoney);
+
+       return map;
+    }
     @RequestMapping("/test")
     public String totest(){
         return "backstage/test";
