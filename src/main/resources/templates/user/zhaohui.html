@@ -91,7 +91,7 @@
             <div class="divk">
                 <span class="tishi">验证：</span>
                 <input type="text" placeholder="输入邮箱验证码" id="shuruma" class="shuru" style="margin-left: 90px;width: 220px">
-                <input type="button" value="获取验证码" onclick="faSonMa(this)" id="huoqu3" class="anniu"  style="width: 100px;height: 41px;font-size: 15px">
+                <input type="button" value="获取验证码" onclick="faSonMa(this)" id="huoqu3" class="anniu"  style="width: 93px;height: 41px;font-size: 15px">
             </div>
             <div class="divk">
                 <input type="button" value="确认修改" onclick="return gengGai()" class="anniu" style="width: 350px;height: 40px;margin-left: 90px;">
@@ -135,6 +135,7 @@
                             $("#zhangHao").css("border-color","black");
                             $("#No1t").css("color","#bb6647");
                             $("#No2t").css("color","#FF7F50");
+                            $("#No3t").css("color","#bb6647");
 
                             $("#No1").css("display","none");
                             $("#No2").css("display","block");
@@ -155,6 +156,7 @@
                 $("#No1").css("display","none");
                 $("#No2").css("display","none");
                 $("#No3").css("display","block");
+                $("#bods").css("background-position","100% 50%");
             }
         }
     }
@@ -167,7 +169,7 @@
         if(mima1 === "" || mima2 === "" || mima1 !== mima2){
             $("#zhmsg").text("请检查输入的2次密码");
         }else if(shuruma !== yunma || yunma === ""){
-            $("#zhmsg").text(shuruma+"请检查验证码"+yunma);
+            $("#zhmsg").text("请检查验证码");
         }else {
             var id = document.getElementById("zhangHao").value;
             xiuGai(id,mima1);
@@ -186,14 +188,12 @@
     //         }
     //     }
     // }
-    var dian3 = 0;
+    var dian3 = 1;
     function xiuGai(id,pwd) {
-        alert(id+"|"+pwd);
         $.post("/user/updpwd",{email:id,pwd:pwd},function (data) {
             if(data === 1){
                 buZhuo('3');
                 dian3 = 1;
-                $("#beijin").css("background-color","#00CC33");
             }else {
                 dian3 = 0;
                 $("#zhmsg").text("修改失败 请重试");
