@@ -1025,7 +1025,7 @@
     var dlMa;
     function dlmm_old() {
         var pwd = $("#dlmm_old_pwd").val();
-        if (pwd != "" || pwd != null) {
+        if (pwd != "" && pwd != null) {
             // $.post("/user/checkold", {dp: pwd}, function (data) {
             //     if (data == false) {
             //         $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"onError\">原密码错误</div>");
@@ -1040,7 +1040,7 @@
             }else {
                 $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
             }
-        }else if (pwd == "" || pwd == null) {
+        }else{
             dlmm_key_xg=false;
             $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
         }
@@ -1048,9 +1048,12 @@
     function dlmm_new() {
         var pwd = $("#dlmm_new_pwd").val();
         if ((pwd!="" || pwd!=null) && pwd.length>6){
-            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
-        }else if((pwd!="" || pwd!=null) && pwd.length<6){
-            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">请输入6-20位新登陆密码</div>");
+            if(pwd.length>=6){
+                $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
+            }else {
+                dlmm_key_xg=false;
+                $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">请输入6-20位新登陆密码</div>");
+            }
         }else{
             dlmm_key_xg=false;
             $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
