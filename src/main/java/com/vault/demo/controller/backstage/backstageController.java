@@ -220,9 +220,17 @@ public class backstageController {
     }
     //去往积分订单查询页面
     @RequestMapping("/userintegral")
-    public ModelAndView userintegral(ModelAndView mv,Model model){
-        List<Map> list = is.integralCoin();
-        model.addAttribute("list",list);
+    public ModelAndView userintegral(ModelAndView mv, Model model, String email, com.vault.demo.common.Pager pager){
+        pager.pageSize=8;
+        pager.page(is.integralCount());
+
+        System.out.println(email);
+        if(email != null && !"".equals(email)){
+            pager.data = is.integralCoin2(pager,email);
+        }else{
+            pager.data = is.integralCoin(pager);
+        }
+        model.addAttribute("pager",pager);
         mv.setViewName("backstage/integralCion");
         return mv;
     }
