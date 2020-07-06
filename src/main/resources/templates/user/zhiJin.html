@@ -71,8 +71,6 @@
             height: 1250px;
         }
     </style>
-    <span th:replace="/common::bootstrap"></span>
-
 </head>
 <body>
 <header th:replace="/common::commonHeader"></header>
@@ -184,6 +182,7 @@
                     var name = veh.bankName;
                     var type = typeName(veh.t);
                     if(type === '充值' || type === '提现') money+='元';
+                    else if(type === '散标') money+='元';
                     else money+='万';
                     var dates = formatDateTime(veh.reTime);
 

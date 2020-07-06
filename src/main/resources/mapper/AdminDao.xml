@@ -18,4 +18,7 @@
           UPDATE admin set pwd=#{newpwd} where aid=#{aid}
         ]]>
     </update>
+    <select id="selUserRegWeek" resultType="map">
+        select * from userimf where regTime = #{b1}
+    </select>
 </mapper>

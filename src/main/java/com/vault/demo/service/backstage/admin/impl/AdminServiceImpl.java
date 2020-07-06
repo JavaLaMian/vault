@@ -6,6 +6,8 @@ import com.vault.demo.service.backstage.admin.AdminService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -25,5 +27,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void setPwd(int aid, String newpwd) {
         adminDao.setPwd(aid,newpwd);
+    }
+
+    @Override
+    public List<Map> selUserRegWeek(String b1) {
+        return adminDao.selUserRegWeek(b1);
     }
 }

@@ -111,8 +111,8 @@
         ]]>
     </select>
 
-    <select id="friendList" resultType="Userimf" parameterType="int">
-        select  uName,regTime,account from userimf where refereerId = #{id}
+    <select id="friendList" resultType="Userimf">
+        select  uName,regTime,account from userimf where refereerId = #{id} or refereer = #{act}
     </select>
 
     <update id="updateAvaBalanceByUId" parameterType="com.vault.demo.bean.Userimf">

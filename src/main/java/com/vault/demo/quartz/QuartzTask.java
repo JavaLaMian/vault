@@ -1,26 +1,37 @@
 package com.vault.demo.quartz;
 
-import com.vault.demo.bean.Bid;
-import com.vault.demo.bean.Recharge;
-import com.vault.demo.bean.Tender;
+import com.vault.demo.bean.*;
+import com.vault.demo.dao.PerBidDao;
+import com.vault.demo.dao.loan.ActionDao;
+import com.vault.demo.dao.loan.LoanDao;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class QuartzTask implements Job {
     public double  summoney = 0;
     @Resource
     selevicexmn is;
+
+    @Resource
+    LoanDao loanDao;
+
+    @Resource
+    ActionDao actionDao;
+
+    @Resource
+    PerBidDao perBidDao;
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         //查询出所有标 新手标和优享标
@@ -241,7 +252,98 @@ public class QuartzTask implements Job {
                 e.printStackTrace();
             }
         }
+
+        //每次检测有没有到最短还款时间，到期改贷款状态为待还款
+        if (true){
+            List<Loan> loanList = loanDao.listForStatusEq1();
+
+            if (loanList.size() > 0){
+                for (Loan loan : loanList){
+                    System.out.println("算还款："+loan);
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    SimpleDateFormat simpleDateFormatEX = new SimpleDateFormat("yyyy-MM-dd");
+
+                    String thisDayStr = simpleDateFormat.format(calendar.getTime());
+
+                    Date thisDay = new Date();
+
+                    try {
+                        thisDay = simpleDateFormat.parse(thisDayStr);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    Action action = actionDao.selectActionByLId(loan);
+
+                    List<Map> perBidMap = perBidDao.selectPerBidByPerBidId(loan);
+                    PerBid perBid = new PerBid();
+                    perBid.setPerBid((Integer) perBidMap.get(0).get("perBid"));
+                    perBid.setBidStatus((Integer) perBidMap.get(0).get("bidStatus"));
+
+                    int compare = thisDay.compareTo(action.getMinRepayTime());
+
+                    if (compare == 1 || compare == 0){
+                        loan.setLoanStatue(2);
+                        action.setAcStatus(2);
+                        perBid.setBidStatus(3);
+
+                        loanDao.updateLoanStatus(loan);
+                        actionDao.updateStatusByAId(action);
+                        perBidDao.updatePerBidStatus(perBid);
+                    }
+                }
+            }
+        }
+
+
+        //每次检测有没有到最长还款时间，到期改贷款状态为坏账
+        if (true){
+            List<Loan> loanList = loanDao.listForStatusEq2();
+
+            if (loanList.size() > 0){
+                for (Loan loan : loanList){
+                    System.out.println("算坏账："+loan);
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    SimpleDateFormat simpleDateFormatEX = new SimpleDateFormat("yyyy-MM-dd");
+
+                    String thisDayStr = simpleDateFormat.format(calendar.getTime());
+
+                    Date thisDay = new Date();
+
+                    try {
+                        thisDay = simpleDateFormat.parse(thisDayStr);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    Action action = actionDao.selectActionByLId(loan);
+
+                    List<Map> perBidMap = perBidDao.selectPerBidByPerBidId(loan);
+                    PerBid perBid = new PerBid();
+                    perBid.setPerBid((Integer) perBidMap.get(0).get("perBid"));
+                    perBid.setBidStatus((Integer) perBidMap.get(0).get("bidStatus"));
+
+                    int compare = thisDay.compareTo(action.getMaxRepayTime());
+
+                    if (compare == 1 || compare == 0){
+                        loan.setLoanStatue(6);
+                        action.setAcStatus(4);
+                        perBid.setBidStatus(2);
+
+                        loanDao.updateLoanStatus(loan);
+                        actionDao.updateStatusByAId(action);
+                        perBidDao.updatePerBidStatus(perBid);
+                    }
+                }
+            }
+        }
     }
+
+
     public double usersummoney(Float ratee,Float rewardrate,Float tenmoney,double days,String p,double n){
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         double rate = ratee+rewardrate;//总利率
@@ -267,6 +369,8 @@ public class QuartzTask implements Job {
         double SumMOney = sum+usertenmoney;
         return SumMOney;
     }
+
+
     public double userSumMoney(Float ratee,Float rewardrate,Float tenmoney,String p,double n){
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         double rate = ratee+rewardrate;//总利率
