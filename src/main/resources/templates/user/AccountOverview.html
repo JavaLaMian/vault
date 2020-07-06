@@ -213,7 +213,9 @@
 				<div class="account-list" th:fragment="inflist">
 					<div class="account-info">
 						<div class="member-info">
-							<div><span class="name" id="username" th:text="${session.user.uName}">**</span>
+							<div>
+								<span class="name" id="username" th:if="${session.user.uName} ne null" th:text="${session.user.uName}">**</span>
+								<span class="name" id="username" th:if="${session.user.uName} eq null" th:text="${session.user.account}">**</span>
 								<span class="member-level pop-tip member-level-2" id="member-level"
 									  title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级
 								</span>
@@ -252,7 +254,7 @@
 						<li id="safe">
 							<a href="/user/toAS">账户安全</a>
 						</li>
-						<li class="last">
+						<li class="last" id="card">
 							<a href="/user/viewApply">银行卡管理</a>
 						</li>
 						<li class="last">

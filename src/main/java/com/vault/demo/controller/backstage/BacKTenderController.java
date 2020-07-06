@@ -21,9 +21,9 @@ public class BacKTenderController {
 
     @ResponseBody
     @RequestMapping("/tender_data")
-    public JSONObject getTenderData(){
+    public JSONObject getTenderData(int pageSize,int currentPage){
         JSONObject object = new JSONObject();
-        List<Map> tenderMap = bts.selTender();
+        List<Map> tenderMap = bts.selTender(pageSize,currentPage);
         /*System.out.println(JSON.toJSON(tenderMap).toString());*/
         //JsonArray array = (JsonArray)JSON.toJSON(tenderMap);
         //System.out.println("+++"+array.toString());
