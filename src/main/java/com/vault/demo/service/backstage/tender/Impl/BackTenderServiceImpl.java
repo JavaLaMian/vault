@@ -14,7 +14,7 @@ public class BackTenderServiceImpl implements BackTenderService {
     BackTenderDao backTenderDao;
 
     @Override
-    public List<Map> selTender() {
-        return backTenderDao.selTender();
+    public List<Map> selTender(int pageSize,int currentPage) {
+        return backTenderDao.selTender(pageSize,currentPage);
     }
 }

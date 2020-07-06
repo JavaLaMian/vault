@@ -180,7 +180,6 @@
                     }
                 });
             </script>
-
             <!--end 我的账户左边菜单列表-->
             <!-- 右侧内容 -->
            <div class="account-cont">
@@ -253,7 +252,7 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${credit}">
+                            <div class="column_name seted lv15" th:if="null ne ${credit}">
                                 实名认证
                             </div>
                             <div class="column_msg" th:if="null ne ${credit}">
@@ -463,7 +462,7 @@
                                         <tr>
                                             <td class="align_right">确认新密码：</td>
                                             <td>
-                                                <input id="dlmm_new_pwd_qr" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false" onblur="dlmm_new_qr()" />
+                                                <input id="dlmm_new_pwd_qr" minlength="6" maxlength="20" type="password" oncut="return false" oncopy="return false" oncontextmenu="return false" onpaste="return false" onblur="dlmm_new_qr()" />
                                             </td>
                                             <td class="width250">
                                                 <div id="dlmm_new_pwd_qrTip" class="tips_content"></div>
@@ -1040,7 +1039,7 @@
 
     function fengXiang() {
         var lv15 = $(".account_list").find(".column").children(".lv15").length*15;
-        var lv10 = $(".account_list").find(".column").children(".lv10").length*10
+        var lv10 = $(".account_list").find(".column").children(".lv10").length*10;
         lv15 = lv15 + 30 + lv10;//登陆密码与邮箱绑定
         var color = '';
         var text = '';
@@ -1117,7 +1116,7 @@
     }
     function restep2p() {
         var p = $("#jymm_rz_step2_pwd_qr").val();
-        var val = $(id).val();
+        var val = $("#jymm_rz_step2_pwd").val();
         if (p != val){
             couldSub = false;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
@@ -1181,14 +1180,19 @@
             }else {
                 $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
             }
+        }else if (pwd == "" || pwd == null) {
+            dlmm_key_xg=false;
+            $("#dlmm_xg_old_pwdTip").replaceWith("<div id=\"dlmm_xg_old_pwdTip\" class=\"tips_content\"></div>");
         }
     }
     function dlmm_new() {
         var pwd = $("#dlmm_new_pwd").val();
-        if ((pwd!="" || pwd!=null)&& pwd.length<6){
-            dlmm_key_xg=false;
+        if ((pwd!="" || pwd!=null) && pwd.length>6){
+            $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
+        }else if((pwd!="" || pwd!=null) && pwd.length<6){
             $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"onError\">请输入6-20位新登陆密码</div>");
-        }else {
+        }else{
+            dlmm_key_xg=false;
             $("#dlmm_xg_new_pwdTip").replaceWith("<div id=\"dlmm_xg_new_pwdTip\" class=\"tips_content\"></div>");
         }
     }

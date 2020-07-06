@@ -135,7 +135,7 @@
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="number" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="19" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -157,6 +157,11 @@
                             <option value="浦发银行">浦发银行</option>
                         </select>
                         <span class="bindcard-tip" id="bn"></span>
+                    </div>
+                    <div>
+                        <label>联系手机：</label>
+                        <input class="bindcard-input" id="phe" type="text" maxlength="11" oninput = "value=value.replace(/[^\d]/g,'')" onblur="checkPhe()">
+                        <span class="bindcard-tip" id="phemsg">用以联系回访</span>
                     </div>
                     <div>
                         <label>验证邮箱：</label>
@@ -243,7 +248,7 @@
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="19" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -372,6 +377,10 @@
 
 <!--end 尾部-->
 <script type="text/javascript">
+    $(window).bind("load", function () {
+        $("#card").addClass("cur");
+    });
+
     var couldsub = true;
     var jishi = 59;
     var jishuTishi;
@@ -419,11 +428,11 @@
                 couldsub=false;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
-                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
             }
         }else if(code==null||code==""){
             couldsub=false;
-            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
         }
     }
     function checkUN() {
@@ -461,6 +470,25 @@
             $("#bn").replaceWith("<span class=\"bindcard-tip\" id=\"bn\"></span>");
         }
     }
+    function checkPhe() {
+        var phe = $("#phe").val();
+        var phone_reg = /^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}|17[0-9]{1}[0-9]{8}$|14[0-9]{1}[0-9]{8}/;
+        var tel_reg = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+        if (phe =="" ||phe ==null){
+            couldsub=false;
+            $("#phemsg").replaceWith("<span id=\"phemsg\" class=\"bindcard-tip\"></span>");
+            return "f";
+        }else if(!phone_reg.test(phe) && !tel_reg.test(phe)){
+            $("#phemsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"phemsg\">手机号码格式不正确</span>");
+
+            // alert('手机或电话号码格式不正确。如果是固定电话，必须形如(xxxx-xxxxxxxx)');
+            phone.focus();
+            return "f";
+        }else {
+            $("#emmsg").replaceWith("<span id=\"phemsg\" class=\"bindcard-tip\"></span>");
+            return "t";
+        }
+    }
     function checkEmail() {
         var email = $("#email").val();
         var emailReg=/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/
@@ -484,12 +512,14 @@
         var identity = $("#identity").val();
         var cardId = $("#cid").val();
         var bankName = $("#bankName").val();
+        var phe = $("#phe").val();
         var email = $("#email").val();
         var ma = $("#code").val();
         checkUN();
         checkIden();
         checkCid();
         checkBn();
+        checkPhe()
         checkEmail();
         checkMa();
         if (uName == null || uName == "") {
@@ -507,6 +537,9 @@
         }else if (email == null || email == "") {
             couldsub = false;
             $("#emmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"emmsg\">邮箱不能为空！</span>");
+        }else if (phe == null || phe == "") {
+            couldsub = false;
+            $("#phemsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"phemsg\">电话不能为空！</span>");
         }else if (ma == null || ma == "") {
             couldsub = false;
             $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">请填写验证码！</span>");
@@ -520,6 +553,7 @@
                 identity: identity,
                 cardId: cardId,
                 bankName: bankName,
+                phe:phe,
                 bcUserPhe:email
             }, function (data) {
                 if(data.msg === 'cg'){

@@ -150,27 +150,25 @@
                 <li><a href="/portal/platform/riskmanagement">保障体系</a></li>
             </ul>
         </nav>
-        <div class="user">
-
-
-
-					<span onclick="gotoLogin('/user/login', 0, '/MyAccount/index')" class="title">
+        <div th:if="${session.user==null}" class="user">
+            <span style="cursor: pointer;" class="title">
+                <div class="img-box"></div>
+                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
+            </span>
+        </div>
+        <div th:if="${session.user!=null}"  class="user">
+					<span class="title">
 						<div class="img-box"></div>
-						<span>我的账户</span>
+						<span><a style="color: black" href="/user/toAO">我的账户</a></span>
 						<i class="icon-common icon-common-to-bottom"></i>
 					</span>
             <ul>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/payment/recharge/index');">充值</a></li>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/payment/withdraw/index');">提现</a></li>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/invest/index');">我的网贷</a></li>
-
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/user/uasec');">账户安全</a></li>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/MyAccount/message');">我的消息</a></li>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/bonus/index');">红包优惠券</a></li>
-                <li><a href="javascript:gotoLogin('/user/login', 0, '/financier/relationship');">邀请好友</a></li>
+                <li><a href="/user/toAO">充值</a></li>
+                <li><a href="/user/toAO">提现</a></li>
+                <li><a href="/loan/main">我的网贷</a></li>
+                <li><a href="/user/toAS">账户安全</a></li>
+                <li><a href="/user/toYuhui">红包优惠券</a></li>
             </ul>
-
-
         </div>
     </div>
 </div>
