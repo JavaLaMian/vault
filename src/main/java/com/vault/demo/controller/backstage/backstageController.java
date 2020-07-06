@@ -3,6 +3,7 @@ package com.vault.demo.controller.backstage;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.*;
+import com.vault.demo.service.backstage.admin.AdminService;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
@@ -30,6 +31,8 @@ public class backstageController {
     BackCarService bcas;
     @Resource
     BackHouseService bhs;
+    @Resource
+    AdminService as;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv,Model model){
@@ -304,6 +307,20 @@ public class backstageController {
         house.setStatus(an);
         bhs.updHouseStatus(house);
         return "redirect:/XMN/houseProperty";
+    }
+    @ResponseBody
+    @RequestMapping("/getRegNumber")
+    public List getRegNumber(String[] weekarry){
+        List object = new ArrayList();
+        for(int i=0;i<weekarry.length;i++){
+            if(as.selUserRegWeek(weekarry[i]) == null){
+                object.add(i,0);
+            }else{
+                int val = as.selUserRegWeek(weekarry[i]).size();
+                object.add(i,val);
+            }
+        }
+        return object;
     }
 //    @ResponseBody
 //    @RequestMapping("/dashChartBarsCnt")

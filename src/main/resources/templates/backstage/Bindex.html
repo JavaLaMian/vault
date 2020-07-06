@@ -183,7 +183,10 @@
 $(document).ready(function(e) {
     var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
         $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
-
+    var testWeek = new Array();
+    var weeks = new Array();
+    var newDate = formatDateTime(new Date().getTime());
+    console.log(newDate);
     $.ajax({
       type:"get",//请求类型
       datatype:"json",//数据类型
@@ -192,27 +195,87 @@ $(document).ready(function(e) {
         console.log(data.person.name)//tom
       }
     });
-    var getWeek = (function(){
-        // 一周
-        var arr = [];  // 周一开始
-        var newdate = new Date();
-        var now = newdate.getTime();
-        var day = newdate.getDay();    // 星期
-        var oneDayTime = 60*60*24*1000;
-        for(var i=1; i<8; i++){
-            if(day >= i){
-                var dd = new Date(now - (day - i)*oneDayTime).getDate();
-                arr.push(dd < 10 ? '0' + dd : dd + '');
-            }else{
-                var aa = new Date(now + (i - day)*oneDayTime).getDate();
-                arr.push(aa < 10 ? '0' + aa : aa + '');
+    function formatDateTime(date) {
+        var time = new Date(date);
+        //time.setTime(time.setHours(time.getHours()));
+        var Y = time.getFullYear() + '-';
+        var  M = addZero(time.getMonth() + 1) + '-';
+        var D =addZero(time.getDate());
+        return Y + M + D;
+        // }
+    }
+
+    // 数字补0操作
+    function  addZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+    function getWeekDay(dateString) {
+        let dateStringReg = /^\d{4}[/-]\d{1,2}[/-]\d{1,2}$/;
+
+        if (dateString.match(dateStringReg)) {
+            let presentDate = new Date(dateString),
+                today = presentDate.getDay() !== 0 ? presentDate.getDay() : 7;
+
+            return Array.from(new Array(7), function(val, index) {
+                return formatDate(new Date(presentDate.getTime() - (today - index-1) * 24 * 60 * 60 * 1000));
+            });
+
+        } else {
+            throw new Error('dateString should be like "yyyy-mm-dd" or "yyyy/mm/dd"');
+        }
+
+        function formatDate(date) {
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        }
+    }
+    testWeek = getWeekDay(""+newDate);
+    console.log("test : "+testWeek);
+    function getBeforeDate(n){
+        var n = n;
+        var d = new Date();
+        var year = d.getFullYear();
+        var mon=d.getMonth()+1;
+        var day=d.getDate();
+        if(day <= n){
+            if(mon>1) {
+                mon=mon-1;
+            }
+            else {
+                year = year-1;
+                mon = 12;
             }
         }
-        return arr
-    })();
-    console.log('getWeek: ',getWeek);
+        d.setDate(d.getDate()-n);
+        year = d.getFullYear();
+        mon=d.getMonth()+1;
+        day=d.getDate();
+        s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+        return s;
+    };
+    var jsWeek = new Array();
+    var number = 0;
+    for(var i=7;i>=1;i--){
+        jsWeek[number] = getBeforeDate(i);
+        number++;
+    }
+    console.log(getBeforeDate(1));//昨天的日期
+    console.log(getBeforeDate(7));//前七天的日期
+    $.ajax({
+        type:'post',
+        datatype:"json",
+        async : false,
+        cache : false,
+        traditional: true,
+        url:"/XMN/getRegNumber",
+        data:{
+            "weekarry":jsWeek
+        },
+        success:function (data) {
+            weeks = data
+        }
+    })
     var $dashChartBarsData = {
-		labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+		labels: jsWeek,
 		datasets: [
 			{
 				label: '注册用户',
@@ -221,7 +284,7 @@ $(document).ready(function(e) {
 				backgroundColor: 'rgba(51,202,185,0.5)',
                 hoverBackgroundColor: "rgba(51,202,185,0.7)",
                 hoverBorderColor: "rgba(0,0,0,0)",
-				data: [2500, 1500, 1200, 3200, 4800, 3500, 1500]
+				data: weeks
 			}
 		]
 	};
