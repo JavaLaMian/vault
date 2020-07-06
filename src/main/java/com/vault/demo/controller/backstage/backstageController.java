@@ -7,6 +7,7 @@ import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
 import com.vault.demo.service.backstage.house.BackHouseService;
+import com.vault.demo.service.integral.integralService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ public class backstageController {
     BackCarService bcas;
     @Resource
     BackHouseService bhs;
+    @Resource
+    private integralService service;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv,Model model){
@@ -220,23 +223,27 @@ public class backstageController {
     }
     //去往积分订单查询页面
     @RequestMapping("/userintegral")
-    public ModelAndView userintegral(ModelAndView mv,Model model,String email){
-        List<Map> list ;
+    public ModelAndView userintegral(ModelAndView mv, Model model, String email, com.vault.demo.common.Pager pager){
+        pager.pageSize=8;
+        pager.page(is.integralCount());
+
         System.out.println(email);
         if(email != null && !"".equals(email)){
-             list = is.integralCoin2(email);
-             System.out.println("2");
+             pager.data = is.integralCoin2(pager,email);
         }else{
-             list = is.integralCoin();
+             pager.data = is.integralCoin(pager);
         }
-        model.addAttribute("list",list);
+        model.addAttribute("pager",pager);
         mv.setViewName("backstage/integralCion");
         return mv;
     }
     @RequestMapping("/integralList")
-    public String integralList(Model model){
-        List<Integral> integralList = is.integralList();
-        model.addAttribute("integralList",integralList);
+    public String integralList(Model model, com.vault.demo.common.Pager pager){
+        pager.pageSize = 10;
+        pager.page(service.integral());
+        pager.data=service.plistpage(pager);
+//        List<Integral> integralList = is.integralList();
+        model.addAttribute("pager",pager);
         return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")

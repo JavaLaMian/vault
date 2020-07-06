@@ -360,6 +360,13 @@ public class UserController2 {
         refereer.setAccount(referee);
         Userimf user = (Userimf) session.getAttribute("user");
         user.setRefereer(referee);
+
+        Bounty bounty = new Bounty();
+        bounty.setuId(user.getuId());
+        bounty.setBoMoney(10);
+        bounty.setBoTime(new Date());
+        bounty.setBoType(3);
+        integralService.bountyAdd(bounty);
         if (service.bindReferee(refereer,user)){
             session.setAttribute("user",user);
             return true;
