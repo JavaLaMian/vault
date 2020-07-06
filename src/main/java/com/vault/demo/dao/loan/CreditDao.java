@@ -26,4 +26,6 @@ public interface CreditDao {
     List<Map> getWithdrawMax(@Param("uId") int uId);
     List<Recharge> getRechargeById(@Param("uId") int uId);
     List<Withdraw> getWithdrawById(@Param("uId") int uId);
+
+    void updateIdentity(Credit credit);//修改身份证正反面
 }

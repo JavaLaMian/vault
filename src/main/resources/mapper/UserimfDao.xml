@@ -118,4 +118,8 @@
     <update id="updateAvaBalanceByUId" parameterType="com.vault.demo.bean.Userimf">
         update userimf set avaBalance = #{avaBalance} where uId = #{uId}
     </update>
+
+    <update id="updateIdentityAndSexAndAge" parameterType="com.vault.demo.bean.Userimf">
+        update userimf set sex = #{sex},age = #{age} where uId = #{uId}
+    </update>
 </mapper>
