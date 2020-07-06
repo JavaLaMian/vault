@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.vault.demo.dao.HouseDao">
-    <select id="selectPerBidByPerBidId" resultType="com.vault.demo.bean.PerBid" parameterType="com.vault.demo.bean.Loan">
+<mapper namespace="com.vault.demo.dao.PerBidDao">
+    <select id="selectPerBidByPerBidId" resultType="map" parameterType="com.vault.demo.bean.Loan">
         <![CDATA[
-          select * from perBid where perBid=#{bidId}
+          select perBid,bidStatus from perBid where perBid=#{loan.bidId}
         ]]>
     </select>
 

@@ -34,4 +34,8 @@
     <select id="listForStatusEq1" resultType="com.vault.demo.bean.Loan">
         select * from loan where loanStatue = 1
     </select>
+
+    <select id="listForStatusEq2" resultType="com.vault.demo.bean.Loan">
+        select * from loan where loanStatue = 2
+    </select>
 </mapper>
