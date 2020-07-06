@@ -154,4 +154,24 @@ public class selevicexmnImpl implements selevicexmn {
         return dao.Bidlistall();
     }
 
+    @Override
+    public int userimfaccount() {
+        return dao.userimfaccount();
+    }
+
+    @Override
+    public int tendermoney() {
+        return dao.tendermoney();
+    }
+
+    @Override
+    public int licaimoney() {
+        return dao.licaimoney();
+    }
+
+    @Override
+    public int daikuanmoney() {
+        return dao.daikuanmoney();
+    }
+
 }
