@@ -1,15 +1,10 @@
 package com.vault.demo.controller.user;
 
-import com.vault.demo.bean.Car;
-import com.vault.demo.bean.Credit;
-import com.vault.demo.bean.House;
-import com.vault.demo.bean.Userimf;
-import com.vault.demo.bean.Warrant;
+import com.vault.demo.bean.*;
+import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.file.FileUpload;
+import com.vault.demo.dao.loan.CreditDao;
 import com.vault.demo.service.loan.LoanService;
-import com.vault.demo.service.user.UserService;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpRequest;
 import com.vault.demo.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +30,12 @@ public class UserControllerForCredit {
     @Resource
     FileUpload fileUpload;
 
+    @Resource
+    UserimfDao userimfDao;
+
+    @Resource
+    CreditDao creditDao;
+
     @RequestMapping("/toCreditRegisterPage")
     public String toCreditRegisterPage(HttpSession session, Model model){
         if (((Userimf)session.getAttribute("user")) == null){//判断用户是否登录，
@@ -53,6 +54,50 @@ public class UserControllerForCredit {
         model.addAttribute("warrant",loanService.selectWarrantByUId((Userimf) session.getAttribute("user")));
 
         return "user/creditRegister";
+    }
+
+    @RequestMapping("/toUploadIdentity")
+    public String toUploadIdentity(HttpSession session, HttpServletRequest request, MultipartFile positiveIDPhotoFile, MultipartFile negativeIDPhotoFile, Credit credit) throws FileNotFoundException {
+        Userimf sessionUser = (Userimf) session.getAttribute("user");
+
+        //找到项目根目录
+        String dirPath = System.getProperty("user.dir");
+        dirPath = dirPath + "\\src\\main\\resources\\static\\identity";
+//        System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
+
+        File path = new File(ResourceUtils.getURL("classpath:").getPath());
+
+        File upload = new File(path.getAbsolutePath(),"static/identity/");
+
+        //找到项目发布路径根目录
+        String dirPathEx = upload.getAbsolutePath();
+
+        System.out.println(dirPath + "\n" + dirPathEx);
+
+        String fileName = null;
+        String fileNameEx = null;
+
+        try {
+            fileName = fileUpload.upload(positiveIDPhotoFile,dirPathEx,dirPath,request,null);//优先存到项目发布目录了，如果要优先存到项目根目录，第二三参数对调，第二参数是优先存的参数
+            fileNameEx = fileUpload.upload(negativeIDPhotoFile,dirPathEx,dirPath,request,null);//优先存到项目发布目录了，如果要优先存到项目根目录，第二三参数对调，第二参数是优先存的参数
+        }catch (Exception e){
+            e.printStackTrace();
+
+            System.out.println("文件存储出错了");
+
+            return "redirect:toCreditRegisterPage";
+        }
+
+        System.out.println(fileName + "\n" + fileNameEx);
+
+        credit.setPositiveIDPhoto("/identity/"+fileName);
+        credit.setNegativeIDPhoto("/identity/"+fileNameEx);
+
+        System.out.println(credit);
+
+        creditDao.updateIdentity(credit);
+
+        return "redirect:toCreditRegisterPage";
     }
 
     @RequestMapping("/toUploadCar")

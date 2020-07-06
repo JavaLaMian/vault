@@ -71,7 +71,6 @@ public class Userimf { //6月10日15点23
     @Column(name = "place",type = MySqlTypeConstant.VARCHAR,length = 1000)
     private String place;
 
-
     @Override
     public String toString() {
         return "Userimf{" +

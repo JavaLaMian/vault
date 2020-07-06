@@ -73,17 +73,17 @@
             </h1>
             <nav class="info">
                 <div class="nav nav-index" data-type="index">
-                    <a href="/main/first">首页</a>
+                    <a th:href="@{/main/first}">首页</a>
                 </div>
                 <ul class="nav nav-financial" data-type="financial">
                     <li class="first">
-                        <a href="/product/portal/index">网贷</a>
+                        <a th:href="@{/loan/main2}">网贷</a>
                     </li>
                     <li>
-                        <a href="/product/portal/index">投标工具</a>
+                        <a th:href="@{/main/bidList}">投标工具</a>
                     </li>
                     <li>
-                        <a href="/product/list?type=common">散标</a>
+                        <a th:href="@{/main/perList}">散标</a>
                     </li>
                 </ul>
             </nav>

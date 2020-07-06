@@ -89,6 +89,17 @@ $(function(){
         sortOrder: 'desc', // 设置排序为反序 desc
         pageSize: 10, // 单页记录数
         pageList: [10, 20, 30],
+        queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
+
+            return {
+                pageSize: params.limit, // 每页要显示的数据条数
+                currentPage: params.offset / params.limit + 1, // 每页显示数据的开始行号
+                //sort: params.sort, // 要排序的字段
+                //sortOrder: params.order, // 排序规则
+                //dataId: $("#dataId").val() // 额外添加的参数
+                //search: params.search, //搜索框内容
+            }
+        },
         columns: [{
             checkbox: true
         }, {
@@ -107,7 +118,8 @@ $(function(){
             formatter: szbidtype
         }, {
             title: '投资金额',
-            field: 'tenMoney'
+            field: 'tenMoney',
+            formatter: addw
         }, {
             title: '利率',
             field: 'lv',
@@ -120,23 +132,13 @@ $(function(){
             title: '状态',
             field: 'tenType',
             formatter: szstatue
-        }, {
-            title: '操作',
-            field: 'tId',
-            formatter: option
         }]
     });
 
     function addbfh(value, row, index) {
-        return value+"%";
+        return value+"<span style='color: blue'>%</span>";
     }function addw(value, row, index) {
-        return value+"万";
-    }
-    function option(value, row, index) {
-        var htm = "";
-        htm += '<a class="btn btn-success m-r-5" th:href="@{/back_tender/lookDetails}" target="_blank"><i class="mdi mdi-arrange-bring-forward"></i> 详情</a>'+
-            '<a class="btn btn-success m-r-5" th:href="@{/back_loan/tooExamine}"><i class="mdi mdi-arrange-bring-forward"></i> 审核</a>'
-        return htm;
+        return value+"<span style='color: blue'>万</span>";
     }
     function formatTime(value, row, index) {
         console.log("haomiao"+value);
@@ -177,9 +179,9 @@ $(function(){
 
     function szbidtype(value, row, index) {
         if(value==1){
-            return "新手标";
+            return "<span style='color: green'>新手标</span>";
         }else if(value==2){
-            return "散标";
+            return "<span style='color: green'>散标</span>";
         }
     }
     function szstatue(value, row, index) {
@@ -189,6 +191,8 @@ $(function(){
             return "转让期";
         }else if(value ==2){
             return "定期";
+        }else if(value==5){
+            return "结束";
         }
     }
 });

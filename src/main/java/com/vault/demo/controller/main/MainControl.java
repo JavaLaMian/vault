@@ -112,6 +112,7 @@ public class MainControl{
             model.addAttribute("to",max.get("to"));//最后一次投标
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
+            System.out.println("|"+max.get("ketou").toString());
             model.addAttribute("ylist",max.get("yuhui"));//优惠券
         }else {
             model.addAttribute("kai",null);
