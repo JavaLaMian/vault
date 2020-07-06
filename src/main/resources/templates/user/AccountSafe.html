@@ -252,7 +252,7 @@
                                 <span class="info_con"></span>
                                 <span class="info_con"></span>
                             </div>
-                            <div class="column_name seted" th:if="null ne ${credit}">
+                            <div class="column_name seted lv15" th:if="null ne ${credit}">
                                 实名认证
                             </div>
                             <div class="column_msg" th:if="null ne ${credit}">
@@ -1039,7 +1039,7 @@
 
     function fengXiang() {
         var lv15 = $(".account_list").find(".column").children(".lv15").length*15;
-        var lv10 = $(".account_list").find(".column").children(".lv10").length*10
+        var lv10 = $(".account_list").find(".column").children(".lv10").length*10;
         lv15 = lv15 + 30 + lv10;//登陆密码与邮箱绑定
         var color = '';
         var text = '';
@@ -1116,7 +1116,7 @@
     }
     function restep2p() {
         var p = $("#jymm_rz_step2_pwd_qr").val();
-        var val = $(id).val();
+        var val = $("#jymm_rz_step2_pwd").val();
         if (p != val){
             couldSub = false;
             $("#jymm_rz_step2_new_pwd_qrTip").replaceWith("<div id=\"jymm_rz_step2_new_pwd_qrTip\" class=\"onError\">两次输入密码不一致</div>");
