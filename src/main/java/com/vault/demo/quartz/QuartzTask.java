@@ -259,7 +259,7 @@ public class QuartzTask implements Job {
 
             if (loanList.size() > 0){
                 for (Loan loan : loanList){
-                    System.out.println("算还款："+loan);
+//                    System.out.println("算还款："+loan);
 
                     Calendar calendar = Calendar.getInstance();
 
@@ -304,7 +304,7 @@ public class QuartzTask implements Job {
 
             if (loanList.size() > 0){
                 for (Loan loan : loanList){
-                    System.out.println("算坏账："+loan);
+//                    System.out.println("算坏账："+loan);
 
                     Calendar calendar = Calendar.getInstance();
 
