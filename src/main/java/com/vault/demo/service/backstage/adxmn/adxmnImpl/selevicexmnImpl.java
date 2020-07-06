@@ -125,7 +125,7 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public Float selecttendertenMoney(int uid, int bid) {
+    public List<Float> selecttendertenMoney(int uid, int bid) {
         return dao.selecttendertenMoney(uid,bid);
     }
 
