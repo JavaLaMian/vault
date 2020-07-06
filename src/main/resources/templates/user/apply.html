@@ -135,7 +135,7 @@
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="number" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="19" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" value="" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -243,7 +243,7 @@
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
-                        <input type="text" class="bindcard-input" id="cid" maxlength="19" value="" onblur="checkCid()"/>
+                        <input type="text" class="bindcard-input" id="cid" maxlength="19" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onblur="checkCid()"/>
                         <span class="bindcard-tip" id="cidmsg">仅支持储蓄卡</span>
                     </div>
                     <div>
@@ -372,6 +372,10 @@
 
 <!--end 尾部-->
 <script type="text/javascript">
+    $(window).bind("load", function () {
+        $("#card").addClass("cur");
+    });
+
     var couldsub = true;
     var jishi = 59;
     var jishuTishi;
@@ -419,11 +423,11 @@
                 couldsub=false;
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"codeMsg\">验证码错误！</span>");
             }else {
-                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+                $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
             }
         }else if(code==null||code==""){
             couldsub=false;
-            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" data-tip=\"\" id=\"codeMsg\"></span>");
+            $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
         }
     }
     function checkUN() {
