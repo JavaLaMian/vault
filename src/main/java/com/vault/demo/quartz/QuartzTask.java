@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class QuartzTask implements Job {
     public double  summoney = 0;
@@ -252,13 +253,14 @@ public class QuartzTask implements Job {
             }
         }
 
-
-        //每次检测有没有到最短还款时间，到期改贷款状态为坏账
+        //每次检测有没有到最短还款时间，到期改贷款状态为待还款
         if (true){
             List<Loan> loanList = loanDao.listForStatusEq1();
 
             if (loanList.size() > 0){
                 for (Loan loan : loanList){
+                    System.out.println("算还款："+loan);
+
                     Calendar calendar = Calendar.getInstance();
 
                     SimpleDateFormat simpleDateFormatEX = new SimpleDateFormat("yyyy-MM-dd");
@@ -275,14 +277,17 @@ public class QuartzTask implements Job {
 
                     Action action = actionDao.selectActionByLId(loan);
 
-                    PerBid perBid = perBidDao.selectPerBidByPerBidId(loan);
+                    List<Map> perBidMap = perBidDao.selectPerBidByPerBidId(loan);
+                    PerBid perBid = new PerBid();
+                    perBid.setPerBid((Integer) perBidMap.get(0).get("perBid"));
+                    perBid.setBidStatus((Integer) perBidMap.get(0).get("bidStatus"));
 
-                    int compare = thisDay.compareTo(action.getMaxRepayTime());
+                    int compare = thisDay.compareTo(action.getMinRepayTime());
 
                     if (compare == 1 || compare == 0){
-                        loan.setLoanStatue(6);
-                        action.setAcStatus(4);
-                        perBid.setBidStatus(2);
+                        loan.setLoanStatue(2);
+                        action.setAcStatus(2);
+                        perBid.setBidStatus(3);
 
                         loanDao.updateLoanStatus(loan);
                         actionDao.updateStatusByAId(action);
@@ -292,12 +297,15 @@ public class QuartzTask implements Job {
             }
         }
 
-        //每次检测有没有到最长还款时间，到期改贷款状态为待还款
+
+        //每次检测有没有到最长还款时间，到期改贷款状态为坏账
         if (true){
-            List<Loan> loanList = loanDao.listForStatusEq1();
+            List<Loan> loanList = loanDao.listForStatusEq2();
 
             if (loanList.size() > 0){
                 for (Loan loan : loanList){
+                    System.out.println("算坏账："+loan);
+
                     Calendar calendar = Calendar.getInstance();
 
                     SimpleDateFormat simpleDateFormatEX = new SimpleDateFormat("yyyy-MM-dd");
@@ -314,14 +322,17 @@ public class QuartzTask implements Job {
 
                     Action action = actionDao.selectActionByLId(loan);
 
-                    PerBid perBid = perBidDao.selectPerBidByPerBidId(loan);
+                    List<Map> perBidMap = perBidDao.selectPerBidByPerBidId(loan);
+                    PerBid perBid = new PerBid();
+                    perBid.setPerBid((Integer) perBidMap.get(0).get("perBid"));
+                    perBid.setBidStatus((Integer) perBidMap.get(0).get("bidStatus"));
 
-                    int compare = thisDay.compareTo(action.getMinRepayTime());
+                    int compare = thisDay.compareTo(action.getMaxRepayTime());
 
                     if (compare == 1 || compare == 0){
-                        loan.setLoanStatue(2);
-                        action.setAcStatus(2);
-                        perBid.setBidStatus(3);
+                        loan.setLoanStatue(6);
+                        action.setAcStatus(4);
+                        perBid.setBidStatus(2);
 
                         loanDao.updateLoanStatus(loan);
                         actionDao.updateStatusByAId(action);

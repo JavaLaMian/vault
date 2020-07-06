@@ -684,7 +684,11 @@ public class loanController {
 
         loanService.insertRepaymen(repaymen);
 
-        PerBid perBid = perBidDao.selectPerBidByPerBidId(loan);
+        List<Map> perBidMap = perBidDao.selectPerBidByPerBidId(loan);
+        PerBid perBid = new PerBid();
+        perBid.setPerBid((Integer) perBidMap.get(0).get("perBid"));
+        perBid.setBidStatus((Integer) perBidMap.get(0).get("bidStatus"));
+
         perBid.setBidStatus(2);
 
         perBidDao.updatePerBidStatus(perBid);//还款后把散标状态改为  关闭交易（CLOSE=2）

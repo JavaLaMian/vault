@@ -24,4 +24,6 @@ public interface LoanDao {
     void updateLoanStatus(Loan loan);
 
     List<Loan> listForStatusEq1();
+
+    List<Loan> listForStatusEq2();
 }
