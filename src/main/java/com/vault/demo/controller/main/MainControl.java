@@ -7,6 +7,7 @@ import com.vault.demo.bean.PerBid;
 import com.vault.demo.bean.Tender;
 import com.vault.demo.bean.Userimf;
 import com.vault.demo.service.test.BidSer;
+import com.vault.demo.service.user.UserService;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/main")
 public class MainControl{
+    @Resource
+    private UserService service;
     @Resource
     BidSer bidSer;
     @RequestMapping("/first")
@@ -99,6 +102,7 @@ public class MainControl{
 
     @RequestMapping("/prose")
     public String toProse(int t, int id, Model model, HttpSession session,HttpServletRequest request){
+        Userimf userimf = (Userimf) session.getAttribute("user");
         //t == 1 新手标 2   3散标
         if(t == 1 || t == 2){
             Bid bid = bidSer.selectByBid(id);
@@ -112,12 +116,13 @@ public class MainControl{
             model.addAttribute("to",max.get("to"));//最后一次投标
             model.addAttribute("kai",max.get("kai"));
             model.addAttribute("ketou",max.get("ketou")); //没人投此标
-            System.out.println("|"+max.get("ketou").toString());
             model.addAttribute("ylist",max.get("yuhui"));//优惠券
         }else {
             model.addAttribute("kai",null);
             model.addAttribute("ketou",null);
         }
+        Userimf user = service.logPadUser(userimf);
+        session.setAttribute("user",user);
         String msg = request.getParameter("msg");//获取上个方法添加的参数
         model.addAttribute("msg",msg);//设置到requset中页面提醒用户
         return "firstPage/prose";

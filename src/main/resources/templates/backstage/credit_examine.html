@@ -180,11 +180,11 @@
                                     <div class="form-group">
                                         <div class="col-md-12 nav-step-button">
                                             <button class="btn btn-secondary disabled" data-wizard="prev" type="button">上一步</button>
-                                            <button class="btn btn-label btn-danger" id="fail" ><label><i class="mdi mdi-close"></i></label> 不通过</button>
                                             <button class="btn btn-secondary" data-wizard="next" id="next" type="button">下一步</button>
                                             <button class="btn btn-primary hidden" data-wizard="finish" type="submit"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label> 完成</button>
                                         </div>
                                     </div>
+                                    <button class="btn btn-label btn-danger" id="fail" ><label><i class="mdi mdi-close"></i></label> 不通过</button>
                                 </form>
                             </div>
                         </div>
@@ -269,57 +269,7 @@
                 },
             }
         });
-        $('#fail').click(function () {
-            //不通过
-            $.confirm({
-                title: '审核',
-                content: '是否确认不通过',
-                type: 'green',
-                keyboardEnabled:true,
-                autoClose: '400',
-                buttons: {
-                    omg: {
-                        text: '确定',
-                        btnClass: 'btn-green',
-                        confirm:function () {
-                            $.ajax({
-                                url:'/back_loan/examine_fail',
-                                cache: false,//false是不缓存，true为缓存
-                                async: true,//true为异步，false为同步
-                                data:{
-                                    lId:$('#lId').val()
-                                },
-                                success:function (obj) {
-                                    if(obj=="success"){
-                                        window.location.href='/XMN/Loan_List'
-                                    }
-                                },
-                                error:function () {
-                                    $.confirm({
-                                        title: '提示',
-                                        content: '请求失败',
-                                        type: 'red',
-                                        keyboardEnabled:true,
-                                        buttons: {
-                                            omg: {
-                                                text: '重试',
-                                                btnClass: 'btn-green',
-                                            },
-                                            close: {
-                                                text: '关闭',
-                                            }
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    },
-                    close: {
-                        text: '关闭',
-                    }
-                }
-            });
-        })
+
         $('.guide-box').bootstrapWizard({
             'tabClass': 'nav-step',
             'nextSelector': '[data-wizard="next"]',
@@ -336,6 +286,39 @@
 
             }
         });
+    })
+    $('#fail').click(function () {
+        //不通过
+        $.ajax({
+            url:'/back_loan/examine_fail',
+            cache: false,//false是不缓存，true为缓存
+            async: true,//true为异步，false为同步
+            data:{
+                lId:$('#lId').val()
+            },
+            success:function (obj) {
+                if(obj=="success"){
+                    window.location.href='/XMN/Loan_List'
+                }
+            },
+            error:function () {
+                $.confirm({
+                    title: '提示',
+                    content: '请求失败',
+                    type: 'red',
+                    keyboardEnabled:true,
+                    buttons: {
+                        omg: {
+                            text: '重试',
+                            btnClass: 'btn-green',
+                        },
+                        close: {
+                            text: '关闭',
+                        }
+                    }
+                })
+            }
+        })
     })
 </script>
 </body>

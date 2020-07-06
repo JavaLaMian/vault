@@ -9,9 +9,16 @@
     <!--引入相应的bootstrap.JS支持文件-->
     <div th:replace="/backstage/Brepetition::backstageJS"></div>
     <style>
-        body a{
-            text-decoration: none;
-            color: white;
+        table a{
+              text-decoration: none;
+              color: white;
+          }
+        .page {
+            text-align: center;
+            height: 23px;
+            margin: 0 auto;
+            padding: 15px 0;
+            color: #666;
         }
 
     </style>
@@ -51,7 +58,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="p,pStart:${integralList}">
+                                            <tr th:each="p,pStart:${pager.data}">
                                                 <td>
                                                     <label class="checkbox checkbox-primary">
                                                         <input type="checkbox" name="ids[]" value="1"><span></span>
@@ -77,6 +84,13 @@
                                             </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="page">第<i class="pg" th:text="${pager.currPage}"></i>页/共<i class="cal" th:text="${pager.totalPage}"></i>页
+                                        <a data-page="fast" th:href="@{/XMN/integralList(currPage=1)}">首页</a>
+                                        <a data-page="up" th:href="@{/XMN/integralList(currPage=${pager.currPage - 1})}">上一页</a>
+                                        <a data-page="un" th:text="${pager.currPage}" class="cur"></a>
+                                        <a data-page="down" th:href="@{/XMN/integralList(currPage=${pager.currPage + 1})}">下一页</a>
+                                        <a data-page="last" th:href="@{/XMN/integralList(currPage=${pager.totalPage})}">末页</a>
                                     </div>
                                 </div>
                             </div>
