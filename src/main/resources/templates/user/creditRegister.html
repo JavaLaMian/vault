@@ -480,9 +480,9 @@
                                             <tr style="height: 80px;line-height: 80px">
                                                 <th style="width: 130px">状态</th>
                                                 <td style="width: 180px">
-                                                    <span style="color: red" th:if="${house.status == 4}">审核</span>
+                                                    <span style="color: black" th:if="${house.status == 4}">审核</span>
                                                     <span style="color: red" th:if="${house.status == 0}">不可用</span>
-                                                    <span style="color: red" th:if="${house.status == 1}">可用</span>
+                                                    <span style="color: green" th:if="${house.status == 1}">可用</span>
                                                     <span style="color: red" th:if="${house.status == 2}">已抵</span>
                                                 </td>
                                             </tr>

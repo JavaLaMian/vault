@@ -21,19 +21,14 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-                                <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                <form class="pull-right search-bar" method="post" action="/XMN/userintegral" role="form">
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <input type="hidden" name="search_field" id="search-field" value="title">
-                                            <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                                标种 <span class="caret"></span>
+                                            <button type="submit" class="btn btn-default dropdown-toggle">
+                                                查询
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">新手标</a> </li>
-                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="cat_name">散标</a> </li>
-                                            </ul>
                                         </div>
-                                        <input type="text" class="form-control" value="" name="keyword" placeholder="请输入名称">
+                                        <input type="text" class="form-control" value="" name="email" placeholder="请输入邮箱">
                                     </div>
                                 </form>
                             </div>
@@ -48,13 +43,13 @@
                                                 </label>
                                             </th>
                                             <th>编号</th>
+                                            <th>用户账号</th>
                                             <th>用户姓名</th>
                                             <th>商品名称</th>
                                             <th>变动积分</th>
                                             <th>变动类型</th>
                                             <th>总积分</th>
                                             <th>兑换时间</th>
-                                            <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -65,6 +60,8 @@
                                                 </label>
                                             </td>
                                             <td th:text="${pStart.count}"></td>
+                                            <td th:if="${p.email} eq null">无</td>
+                                            <td th:if="${p.email} ne null"><p th:text="${p.email}"></p></td>
                                             <td th:if="${p.uName} eq null">无</td>
                                             <td th:if="${p.uName} ne null"><p th:text="${p.uName}"></p></td>
                                             <td th:if="${p.integralName} eq null">无</td>

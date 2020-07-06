@@ -13,7 +13,7 @@ import java.util.Map;
 public interface AdxmnDao {
     int addBid(Bid bid);//新增投标
     List<Bid> Bidlist();//查询投标信息
-    List<Bid> Bidlistpage(int thisPage,int titleSize);//查询投标信息 加上分页查询代码
+    List<Bid> Bidlistpage(@Param("thisPage") int thisPage,@Param("titleSize") int titleSize);//查询投标信息 加上分页查询代码
     List<Bid> selectgetBid(Bid bid);//根据id查询出投标信息
     int updateBid(Bid bid);//修改投标信息
     int dateBid(Bid bid);//删除投标信息
@@ -21,6 +21,7 @@ public interface AdxmnDao {
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
     List<Map> integralCoin();//查询出积分兑换信息
+    List<Map> integralCoin2(String email);//查询出积分兑换信息
     List<Integral> integralList();//查出商品列表
     void updategetbiBid(@Param("bidStatus") int bidStatus,@Param("id") int id);//根据id修改投标状态
     float selectBidmoney(int bidType);//根据标种查询出标的总金额

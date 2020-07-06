@@ -236,17 +236,23 @@
             var html = "";
             if(data.size != 0){
                 html = "<section class='gunDon'><ul style='overflow: hidden;padding:15px;'>" +
-                    "<li class='titles'><p>类型</p><p style='width: 34%;'>时间</p><p>相关名称</p><p>所花金额</p></li>";
+                    "<li class='titles'><p>类型</p><p style='width: 34%;'>时间</p><p>相关名称</p><p>金额</p></li>";
                 var lists = data.list;
                 for(var i = 0;i<lists.length;i++){  //循环LIST
                     var veh = lists[i];
                     var money = veh.reMoney;
                     var name = veh.bankName;
                     var type = typeName(veh.t);
+                    if(type === '充值' || type === '提现') money+='元';
+                    else money+='万';
                     var dates = formatDateTime(veh.reTime);
 
-                    html += "<li class='lie'><p>"+type+"</p><p style='width: 34%;'>"
-                        +dates+"</p><p>"+name+"</p><p>"+money+"元</p></li>";
+                    if(name === '0') name='贷款所得';
+
+                    if(veh.reMoney !== 0){
+                        html += "<li class='lie'><p>"+type+"</p><p style='width: 34%;'>"
+                            +dates+"</p><p>"+name+"</p><p>"+money+"</p></li>";
+                    }
                 }
                 html += "</ul></section>";
             }else {

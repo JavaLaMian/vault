@@ -196,53 +196,36 @@
         }
     });
     function tooexamine(id) {
-        $.confirm({
-            title: '提示',
-            content: '是否确认打款',
-            type: 'red',
-            typeAnimated: true,
-            buttons: {
-                omg: {
-                    text: '确定',
-                    btnClass: 'btn-green',
-                    confirm:function () {
-                        $.ajax({
-                            url:'/back_loan/toactivePayment',
-                            cache: false,//false是不缓存，true为缓存
-                            async: true,//true为异步，false为同步
-                            data:{
-                                Id:id
-                            },
-                            success:function (obj) {
-                                if(obj=="success"){
-                                    window.location.href='/XMN/Payment_track'
-                                }
-                            },
-                            error:function () {
-                                $.confirm({
-                                    title: '提示',
-                                    content: '请求失败',
-                                    type: 'red',
-                                    keyboardEnabled:true,
-                                    buttons: {
-                                        omg: {
-                                            text: '重试',
-                                            btnClass: 'btn-green',
-                                        },
-                                        close: {
-                                            text: '关闭',
-                                        }
-                                    }
-                                })
-                            }
-                        })
-                    }
-                },
-                close: {
-                    text: '关闭'
+        $.ajax({
+            url:'/back_loan/toactivePayment',
+            cache: false,//false是不缓存，true为缓存
+            async: true,//true为异步，false为同步
+            data:{
+                Id:id
+            },
+            success:function (obj) {
+                if(obj=="success"){
+                    window.location.href='/XMN/Payment_track'
                 }
+            },
+            error:function () {
+                $.confirm({
+                    title: '提示',
+                    content: '请求失败',
+                    type: 'red',
+                    keyboardEnabled:true,
+                    buttons: {
+                        omg: {
+                            text: '重试',
+                            btnClass: 'btn-green',
+                        },
+                        close: {
+                            text: '关闭',
+                        }
+                    }
+                })
             }
-        });
+        })
     }
 </script>
 </body>
