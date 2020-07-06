@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping("/add")
     public String addUser(Userimf user,RedirectAttributes m){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dates = df.format(new Date());// new Date()为获取当前系统时间
         try {
             Date date = df.parse(dates);
