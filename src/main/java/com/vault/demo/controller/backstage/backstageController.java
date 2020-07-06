@@ -220,8 +220,15 @@ public class backstageController {
     }
     //去往积分订单查询页面
     @RequestMapping("/userintegral")
-    public ModelAndView userintegral(ModelAndView mv,Model model){
-        List<Map> list = is.integralCoin();
+    public ModelAndView userintegral(ModelAndView mv,Model model,String email){
+        List<Map> list ;
+        System.out.println(email);
+        if(email != null && !"".equals(email)){
+             list = is.integralCoin2(email);
+             System.out.println("2");
+        }else{
+             list = is.integralCoin();
+        }
         model.addAttribute("list",list);
         mv.setViewName("backstage/integralCion");
         return mv;
