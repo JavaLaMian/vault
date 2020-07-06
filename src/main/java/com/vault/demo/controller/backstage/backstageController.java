@@ -3,11 +3,11 @@ package com.vault.demo.controller.backstage;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vault.demo.bean.*;
+import com.vault.demo.service.backstage.admin.AdminService;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
 import com.vault.demo.service.backstage.house.BackHouseService;
-import com.vault.demo.service.integral.integralService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,7 @@ public class backstageController {
     @Resource
     BackHouseService bhs;
     @Resource
-    private integralService service;
+    AdminService as;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv,Model model){
@@ -229,21 +229,18 @@ public class backstageController {
 
         System.out.println(email);
         if(email != null && !"".equals(email)){
-             pager.data = is.integralCoin2(pager,email);
+            pager.data = is.integralCoin2(pager,email);
         }else{
-             pager.data = is.integralCoin(pager);
+            pager.data = is.integralCoin(pager);
         }
         model.addAttribute("pager",pager);
         mv.setViewName("backstage/integralCion");
         return mv;
     }
     @RequestMapping("/integralList")
-    public String integralList(Model model, com.vault.demo.common.Pager pager){
-        pager.pageSize = 10;
-        pager.page(service.integral());
-        pager.data=service.plistpage(pager);
-//        List<Integral> integralList = is.integralList();
-        model.addAttribute("pager",pager);
+    public String integralList(Model model){
+        List<Integral> integralList = is.integralList();
+        model.addAttribute("integralList",integralList);
         return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")
@@ -318,6 +315,19 @@ public class backstageController {
         house.setStatus(an);
         bhs.updHouseStatus(house);
         return "redirect:/XMN/houseProperty";
+    }
+    @ResponseBody
+    @RequestMapping("/getRegNumber")
+    public List getRegNumber(String[] weekarry){
+        List  data = new ArrayList();
+        for(int i=0;i<weekarry.length;i++){
+            if(as.selUserRegWeek(weekarry[i])==null){
+                data.add(i,0);
+            }else{
+                data.add(i,as.selUserRegWeek(weekarry[i]).size());
+            }
+        }
+        return data;
     }
 //    @ResponseBody
 //    @RequestMapping("/dashChartBarsCnt")
