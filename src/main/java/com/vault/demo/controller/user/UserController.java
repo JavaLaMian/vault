@@ -127,10 +127,10 @@ public class UserController {
     @ResponseBody
     public Map getFList(HttpSession session){
         Userimf u = (Userimf) session.getAttribute("user");
-        List<Userimf> list = service.friendList(u.getuId());
-        System.out.println("==================="+list.toString());
+        List<Userimf> list = service.friendList(u.getuId(),u.getAccount());
         Map m = new HashMap();
         m.put("list",list);
+        m.put("size",list.size());
         return m;
     }
 
