@@ -29,4 +29,5 @@ public interface UserimfDao {
     List<Userimf> selectForReferee(Userimf userimf);
 
     void updateAvaBalanceByUId(Userimf userimf);//根据用户uId修改用户余额
+    void updateSexAndAge(Userimf userimf);//用户身份证正反面上传时修改性别年龄
 }
