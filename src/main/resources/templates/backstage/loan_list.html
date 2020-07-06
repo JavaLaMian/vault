@@ -183,6 +183,10 @@
                 disabledIndex[indexNum] = index;
                 indexNum+=1;
                 return '<span style="color: hotpink">通过等待确认</span>'
+            }else if(value==6){
+                disabledIndex[indexNum] = index;
+                indexNum+=1;
+                return '<span style="color: purple">坏账</span>'
             }
         };
         function formatTime(value, row, index) {
