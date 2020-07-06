@@ -645,57 +645,63 @@
                         </dl>
                     </div>
                 </div>
-                <div class="sub-right" style="width: 408px;" th:if="${p.perBid != null}" th:switch="${p.bidStatus}">
+                <div class="sub-right" style="width: 408px;" th:switch="${p.bidStatus}" th:if="${session.user!=null}">
+                    <div class="sellout abs" th:case="0" style="background: rgb(254,250,250)">
+                        <div th:if="${session.user.dealPsw!=null || session.user.dealPsw != ''}">
+                            <div class="info">将从余额扣除</div>
+                            <button class="goumai" onclick="zhifuKuan()">立即购买</button>
+                            <div class="collapse" id="coll2">
+                                <div class="well" style="background-color: #f2dede;color: #a94442;border-color:#ebccd1;text-align: center">
+                                    <div th:if="ylist!=null" style="width: 135px;position: absolute;left: -110px;">
+                                        <div th:each="e:${ylist}" class="yHlist" th:onclick="'javascript:yuHuixuan(this,'+${e.boId}+')'">
+                                            <p class="yHtext" style="text-align: left;padding-left: 3px;">
+                                                <span th:text="${e.boMoney}"></span>元 优惠券
+                                            </p>
+                                            <p class="yHtis" style="text-align: right;color: #aaa;font-size: 10px">点击使用</p>
+                                        </div>
+                                    </div>
+                                    <form th:action="@{/main/perPay}" method="post">
+                                        <input th:value="${session.user.getuId()}" type="hidden" name="uId">
+                                        <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bId">
+                                        <input id="yhHid" value="0" type="hidden" name="uhId">
+                                        <input type="hidden" name="daoqi" th:value="${#dates.format(p.expire,'yyyy-MM-dd')}">
+                                        `<input type="hidden" name="bType" value="3">
+                                        <input id="yhHmon" value="0" type="hidden" name="yhHmon">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">投资金额</span>
+                                            <input type="text" name="tenMoney" id="tmoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
+                                            <span class="input-group-addon">100元起投</span>
+                                        </div>
+                                        <div class="input-group" style="margin: 10px 0">
+                                            <span class="input-group-addon">交易密码</span>
+                                            <input type="password" id="pwd" name="pwd" class="form-control">
+                                        </div>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-danger" onclick="zhifuKuan()">取消</button>
+                                            <button class="btn btn-primary" onclick="return tiJiaoPad()">确认</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${session.user.dealPsw==null || session.user.dealPsw == ''}" >
+                            <div class="info">请先前往个人中心设置支付密码</div>
+                        </div>
+                    </div>
+                    <div class="sellout abs" th:case="1" style="background: rgb(254,250,250);">
+                        <div class="info">该标尚未开始销售 请留意开售时间</div>
+                    </div>
+                    <div class="sellout abs" th:case="3">
+                        <div class="info">该标已售馨 请浏览其它标</div>
+                    </div>
+                    <div class="sellout abs" th:case="2">
+                        <div class="info">该标已关闭交易</div>
+                    </div>
+                </div>
+                <div class="sub-right" style="width: 408px;" th:if="${session.user==null}">
                     <div class="sellout abs" th:if="${session.user==null}" style="background: rgb(254,250,250);">
                         <div class="info">请先登陆您的账号</div>
                     </div>
-                    <div class="sellout abs" th:case="0" th:if="${session.user!=null}" style="background: rgb(254,250,250)">
-                        <div class="info">将从余额扣除</div>
-                        <button class="goumai" onclick="zhifuKuan()">立即购买</button>
-                        <div class="collapse" id="coll2">
-                            <div class="well" style="background-color: #f2dede;color: #a94442;border-color:#ebccd1;text-align: center">
-                                <div th:if="ylist!=null" style="width: 135px;position: absolute;left: -110px;">
-                                    <div th:each="e:${ylist}" class="yHlist" th:onclick="'javascript:yuHuixuan(this,'+${e.boId}+')'">
-                                        <p class="yHtext" style="text-align: left;padding-left: 3px;">
-                                            <span th:text="${e.boMoney}"></span>元 优惠券
-                                        </p>
-                                        <p class="yHtis" style="text-align: right;color: #aaa;font-size: 10px">点击使用</p>
-                                    </div>
-                                </div>
-                                <form th:action="@{/main/perPay}" method="post">
-                                    <input th:value="${session.user.getuId()}" type="hidden" name="uId">
-                                    <input th:if="${p.perBid != null}" th:value="${p.perBid}" type="hidden" name="bId">
-                                    <input id="yhHid" value="0" type="hidden" name="uhId">
-                                    <input type="hidden" name="daoqi" th:value="${#dates.format(p.expire,'yyyy-MM-dd')}">
-                                    `<input type="hidden" name="bType" value="3">
-                                    <input id="yhHmon" value="0" type="hidden" name="yhHmon">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">投资金额</span>
-                                        <input type="text" name="tenMoney" id="tmoney" oninput="padMoney(this)" onblur="padXiao(this)" class="form-control">
-                                        <span class="input-group-addon">100元起投</span>
-                                    </div>
-                                    <div class="input-group" style="margin: 10px 0">
-                                        <span class="input-group-addon">交易密码</span>
-                                        <input type="password" id="pwd" name="pwd" class="form-control">
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-danger" onclick="zhifuKuan()">取消</button>
-                                        <button class="btn btn-primary" onclick="return tiJiaoPad()">确认</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sellout abs" th:case="1" th:if="${session.user!=null}" style="background: rgb(254,250,250);">
-                        <div class="info">该标尚未开始销售 请留意开售时间</div>
-                    </div>
-                    <div class="sellout abs" th:case="3" th:if="${session.user!=null}">
-                        <div class="info">该标已售馨 请浏览其它标</div>
-                    </div>
-                    <div class="sellout abs" th:case="2" th:if="${session.user!=null}">
-                        <div class="info">该标已关闭交易</div>
-                    </div>
-
                 </div>
             </div>
         </div>

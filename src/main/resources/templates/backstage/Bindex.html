@@ -184,15 +184,33 @@ $(document).ready(function(e) {
     var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
         $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
 
-  $.ajax({
-    type:"get",//请求类型
-    datatype:"json",//数据类型
-    url:"/XMN/dashChartBarsCnt",
-    success:function (data) {//请求成功后执行该函数
-      console.log(data.person.name)//tom
-    }
-  })
-    
+    $.ajax({
+      type:"get",//请求类型
+      datatype:"json",//数据类型
+      url:"/XMN/dashChartBarsCnt",
+      success:function (data) {//请求成功后执行该函数
+        console.log(data.person.name)//tom
+      }
+    });
+    var getWeek = (function(){
+        // 一周
+        var arr = [];  // 周一开始
+        var newdate = new Date();
+        var now = newdate.getTime();
+        var day = newdate.getDay();    // 星期
+        var oneDayTime = 60*60*24*1000;
+        for(var i=1; i<8; i++){
+            if(day >= i){
+                var dd = new Date(now - (day - i)*oneDayTime).getDate();
+                arr.push(dd < 10 ? '0' + dd : dd + '');
+            }else{
+                var aa = new Date(now + (i - day)*oneDayTime).getDate();
+                arr.push(aa < 10 ? '0' + aa : aa + '');
+            }
+        }
+        return arr
+    })();
+    console.log('getWeek: ',getWeek);
     var $dashChartBarsData = {
 		labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
 		datasets: [
