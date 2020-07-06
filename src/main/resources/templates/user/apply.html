@@ -29,53 +29,7 @@
         })
     </script>
     <link rel="stylesheet" href="//image.xiaoniu88.com/static/WebXn/dist/page/payment/deposit/apply/css/apply-73c8a78781.css" />
-
-    <style type="text/css">
-
-        .zhezhao{
-            position: fixed;
-            left: 0px;
-            top: 0px;
-            background: #000;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            background-color: rgba(234,238,247,0.3);
-            display: none;
-        }
-        .tankuang{
-            position: relative;
-            background: #fff;
-            width: 420px;
-            height: 300px;
-            border-radius: 5px;
-            margin: 5% auto;
-            border: 1px solid #ff7136;
-        }
-        #header{
-            height: 40px;
-        }
-        #header-right{
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-radius: 5px;
-            background: #ff7136;
-            color: #fff;
-            right: 5px;
-            top: 1px;
-            text-align: center;
-            font-size:25px;
-        }
-        .title{
-            font-size:15px;
-            color:#fff;
-            padding:10px;
-        }
-        #content{
-            height:100px;
-        }
-    </style>
+    <span th:replace="/common::bootstrap"></span>
 </head>
 <body>
 <input type="hidden" id="em" th:value="${session.user.email}"/>
@@ -131,7 +85,7 @@
                     <div>
                         <label>身份证号码：</label>
                         <input type="text" class="bindcard-input" name="identity" id="identity" maxlength="18" value="" onblur="checkIden()">
-                        <span class="bindcard-tip" id="iden" data-tip="请输入身份证号码">请输入身份证号码</span>
+                        <span class="bindcard-tip" id="iden">请输入身份证号码</span>
                     </div>
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
@@ -173,7 +127,7 @@
                         <label>邮箱验证码：</label>
                         <input name="code" id="code" class="bk_ipt bk_code" type="text" onblur="checkMa()">
                         <input class="btn-getcode" type="button" value="获取" id="getcodeBtn" onclick="getyhMa('smrz',this)"/>
-                        <span class="bindcard-tip" data-tip="" id="codeMsg"></span>
+                        <span class="bindcard-tip" id="codeMsg"></span>
                     </div>
                     <div class="code_msg js_code">
                         <span id="code_msg">验证码已发送到您的邮箱 <i th:text="${session.user.email}">178****7767</i></span>
@@ -244,7 +198,7 @@
                     <!--<div>-->
                         <!--<label>身份证号码：</label>-->
                         <!--<input type="text" class="bindcard-input" name="identity" id="identity" maxlength="18" value="" onblur="checkIden()">-->
-                        <!--<span class="bindcard-tip" id="iden" data-tip="请输入身份证号码">请输入身份证号码</span>-->
+                        <!--<span class="bindcard-tip" id="iden">请输入身份证号码</span>-->
                     <!--</div>-->
                     <div class="bk_cardnum">
                         <label>银行卡号：</label>
@@ -253,7 +207,7 @@
                     </div>
                     <div>
                         <label>开户银行：</label>
-                        <select name="bankName" id="bankName" class="bindcard-input selected" onblur="checkBn()">
+                        <select name="bankName" id="bankName" class="bindcard-input selected" onchange="checkBn()">
                             <option value="">请选择开户银行</option>
                             <option value="农业银行">农业银行</option>
                             <option value="中国银行">中国银行</option>
@@ -280,7 +234,7 @@
                         <label>邮箱验证码：</label>
                         <input name="code" id="code" class="bk_ipt bk_code" type="text" onblur="up_checkMa()">
                         <input class="btn-getcode" type="button" value="获取" id="getcodeBtn" onclick="getMa('upcard',this)"/>
-                        <span class="bindcard-tip" data-tip="" id="codeMsg"></span>
+                        <span class="bindcard-tip" id="codeMsg"></span>
                     </div>
                     <div class="code_msg js_code">
                         <span id="code_msg">验证码已发送到您的邮箱 <i th:text="${session.user.email}">178****7767</i></span>
@@ -373,7 +327,7 @@
     </span>
 </div>
 <!--推荐人弹窗-->
-<div th:replace="/user/AccountSafe::referee"></div>
+<div th:replace="/user/AccountOverview::refereer"></div>
 
 <!--end 尾部-->
 <script type="text/javascript">
@@ -445,7 +399,7 @@
         var identity = $("#identity").val();
         if(identity==null||identity==""){
             couldsub=false;
-            $("#iden").replaceWith("<span class=\"bindcard-tip\" id=\"iden\" data-tip=\"请输入身份证号码\">请输入身份证号码</span>");
+            $("#iden").replaceWith("<span class=\"bindcard-tip\" id=\"iden\">请输入身份证号码</span>");
         }else if(identity!=null||identity!=""){
             var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(!(/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(identity))){
@@ -461,12 +415,21 @@
         if(cardId==null||cardId==""){
             couldsub=false;
             $("#cidmsg").replaceWith("<span class=\"bindcard-tip\" id=\"cidmsg\">仅支持储蓄卡</span>");
+        }else {
+            if (cardId.length<16){
+                couldsub=false;
+                $("#cidmsg").replaceWith("<span class=\"bindcard-tip errTip\" id=\"cidmsg\">请输入正确的银行卡号</span>");
+            }else {
+                $("#cidmsg").replaceWith("<span class=\"bindcard-tip\" id=\"cidmsg\"></span>");
+            }
         }
     }
     function checkBn() {
         var bankName = $("#bankName").val();
         if (bankName == null || bankName == "") {
             couldsub=false;
+            $("#bn").replaceWith("<span class=\"bindcard-tip\" id=\"bn\"></span>");
+        }else {
             $("#bn").replaceWith("<span class=\"bindcard-tip\" id=\"bn\"></span>");
         }
     }
@@ -612,7 +575,8 @@
             }else {
                 $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
             }
-        }else if($("#code").val()==null || $("#code").val()==""){
+        }
+        if($("#code").val()==null || $("#code").val()==""){
             couldUp = false;
             $("#codeMsg").replaceWith("<span class=\"bindcard-tip\" id=\"codeMsg\"></span>");
         }
@@ -648,38 +612,6 @@
             }, function (data) {
                 window.location.href="/user/toAS";
             }, "json");
-        }
-    }
-
-    function openwin(){
-        $("#zhezhao").css("display","block");
-    }
-    function closewin(){
-        $("#zhezhao").css("display","none");
-    }
-
-    function referee_check() {
-        var referee = $("#referee").val();
-        if (referee==null||referee==""){
-            $("#refereeTip").addClass("rp_error");
-            $("#refereeTip").text("推荐人ID不能为空");
-            return;
-        }
-    }
-    function referee_sub() {
-        referee_check();
-        var referee = $("#referee").val();
-        if (referee!=null&&referee!=""){
-            $.post("/user/bindReferee",{referee:referee},function (data) {
-                if(data){
-                    window.location.reload();
-                    return;
-                }else {
-                    $("#refereeTip").addClass("rp_error");
-                    $("#refereeTip").css("color","red");
-                    $("#refereeTip").text("认证失败，请检查推荐人ID是否正确");
-                }
-            },"json");
         }
     }
 </script>

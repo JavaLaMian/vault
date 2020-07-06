@@ -352,26 +352,33 @@ public class UserController2 {
     }
     @RequestMapping("/bindReferee")
     @ResponseBody
-    public Boolean bindReferee(String referee,HttpSession session){
-        if (null==referee || "".equals(referee)){
-            return false;
-        }
+    public Map bindReferee(String referee,HttpSession session){
+        Map map = new  HashMap();
         Userimf refereer = new Userimf();
         refereer.setAccount(referee);
         Userimf user = (Userimf) session.getAttribute("user");
-        user.setRefereer(referee);
 
-        Bounty bounty = new Bounty();
-        bounty.setuId(user.getuId());
-        bounty.setBoMoney(10);
-        bounty.setBoTime(new Date());
-        bounty.setBoType(3);
-        integralService.bountyAdd(bounty);
+        if (user.getAccount().equals(referee)){
+            map.put("msg","推荐人不能写自己");
+            return map;
+        }
+
         if (service.bindReferee(refereer,user)){
+            user.setRefereer(referee);
+
+            Bounty bounty = new Bounty();
+            bounty.setuId(user.getuId());
+            bounty.setBoMoney(10);
+            bounty.setBoTime(new Date());
+            bounty.setBoType(3);
+            integralService.bountyAdd(bounty);
+
             session.setAttribute("user",user);
-            return true;
+            map.put("msg","success");
+            return map;
         }else {
-            return false;
+            map.put("msg","该用户不存在，请重试");
+            return map;
         }
     }
 }

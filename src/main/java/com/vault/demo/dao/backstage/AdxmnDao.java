@@ -39,4 +39,8 @@ public interface AdxmnDao {
     void updateTender(@Param("tid") int tid,@Param("tentype") int tentype);//修改订单状态
     int slectBidtotalTitle();//查询出标的总条数
     List<Map> Bidlistall();//查询出标的所有信息加上投的金额
+    int userimfaccount();//查询出用户总数
+    int tendermoney();//今日收入
+    int licaimoney();//理财金额
+    int daikuanmoney();//贷款金额
 }
