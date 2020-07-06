@@ -1,6 +1,7 @@
 package com.vault.demo.service.backstage.adxmn;
 
 import com.vault.demo.bean.*;
+import com.vault.demo.common.Pager;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public interface selevicexmn {
     List<Credit> CreditList();//查询贷款用户提交的信用信息
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
-    List<Map> integralCoin();//查询出积分兑换信息
+    int integralCount();
+    List<Map> integralCoin(Pager pager);//查询出积分兑换信息
+    List<Map> integralCoin2(Pager pager ,String email);//查询出积分兑换信息
     List<Integral> integralList();//查出商品列表
     void updategetbiBid(int bidStatus,int id);//根据id修改投标状态
     float selectBidmoney(int bidType);//根据标种查询出标的总金额

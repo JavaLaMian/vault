@@ -2,6 +2,7 @@ package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
+import com.vault.demo.dao.PerBidDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.backstage.BackLoanDao;
@@ -42,6 +43,9 @@ public class loanController {
 
     @Resource
     BackLoanDao backLoanDao;
+
+    @Resource
+    PerBidDao perBidDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -131,6 +135,85 @@ public class loanController {
         return "loan/loanJie";
     }
 
+    //判断用户哪些信用信息没绑定
+    public String notPushModel(Credit credit, UserBank userBank, Userimf userimf, WorryCall worryCall){
+        String model = "";
+
+        if (credit == null) {
+            if (!"".equals(model)){
+                model += "、用户姓名、身份证号、岗位信息、工资情况";
+            }else {
+                model += "用户姓名、身份证号、岗位信息、工资情况";
+            }
+        }else {
+            if (credit.getName() == null || "".equals(credit.getName())){
+                if (!"".equals(model)){
+                    model += "、用户姓名";
+                }else {
+                    model += "用户姓名";
+                }
+            }
+
+            if (credit.getIdentity() == null || "".equals(credit.getIdentity())){
+                if (!"".equals(model)){
+                    model += "、身份证";
+                }else {
+                    model += "身份证";
+                }
+            }
+
+            if (credit.getDepart() == null || "".equals(credit.getDepart())){
+                if (!"".equals(model)){
+                    model += "、岗位信息";
+                }else {
+                    model += "岗位信息";
+                }
+            }
+
+            if (credit.getWages() == null || "".equals(credit.getWages())){
+                if (!"".equals(model)){
+                    model += "、工资情况";
+                }else {
+                    model += "工资情况";
+                }
+            }
+        }
+
+        if (userBank == null){
+            if (!"".equals(model)){
+                model += "、银行卡";
+            }else {
+                model += "银行卡";
+            }
+        }
+
+        if (userimf.getPhe() == null || "".equals(userimf.getPhe())){
+            if (!"".equals(model)){
+                model += "、联系电话";
+            }else {
+                model += "联系电话";
+            }
+        }
+
+        if (userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())){
+            if (!"".equals(model)){
+                model += "、支付密码";
+            }else {
+                model += "支付密码";
+            }
+        }
+
+        if (worryCall == null){
+            if (!"".equals(model)){
+                model += "、紧急联系人";
+            }else {
+                model += "紧急联系人";
+            }
+        }
+
+        return model;
+    }
+
     //去借款申请页面
     @RequestMapping("/toloanJie")
     public String toloanJie(@Param( "step") Integer step, Model model, HttpSession session, String loanTypeStr , Loan loan, Action action) {
@@ -152,23 +235,10 @@ public class loanController {
 
             model.addAttribute("loanTypeStr",1);
 
-            if (credit == null
-                    || credit.getName() == null || "".equals(credit.getName())
-                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
-                    || userBank == null
-                    || credit.getDepart() == null || "".equals(credit.getDepart())
-                    || credit.getWages() == null || "".equals(credit.getWages())
-                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
-                    ||  worryCall == null
-                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
-                    ){
-                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
+            String notPushModelStr = notPushModel(credit,userBank,userimf,worryCall);
+
+            if (!"".equals(notPushModelStr)){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（" + notPushModelStr +"）");
 
                 return "loan/creditNotPush";
             }
@@ -189,23 +259,10 @@ public class loanController {
 
             model.addAttribute("loanTypeStr",2);
 
-            if (credit == null
-                    || credit.getName() == null || "".equals(credit.getName())
-                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
-                    || userBank == null
-                    || credit.getDepart() == null || "".equals(credit.getDepart())
-                    || credit.getWages() == null || "".equals(credit.getWages())
-                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
-                    ||  worryCall == null
-                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
-            ){
-                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
+            String notPushModelStr = notPushModel(credit,userBank,userimf,worryCall);
+
+            if (!"".equals(notPushModelStr)){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（" + notPushModelStr +"）");
 
                 return "loan/creditNotPush";
             }
@@ -250,25 +307,10 @@ public class loanController {
 
             model.addAttribute("loanTypeStr",2);
 
-            if (credit == null
-                    || credit.getName() == null || "".equals(credit.getName())
-                    || credit.getIdentity() == null || "".equals(credit.getIdentity())
-                    || userBank == null
-                    || credit.getDepart() == null || "".equals(credit.getDepart())
-                    || credit.getWages() == null || "".equals(credit.getWages())
-                    || userimf.getSex() == null || "".equals(userimf.getSex())
-                    || userimf.getAge() == 0
-                    || userimf.getPhe() == null || "".equals(userimf.getPhe())
-                    || worryCall == null
-                    || userimf.getDealPsw() == null || "".equals(userimf.getDealPsw())
-            ){
-                model.addAttribute("loanNotPushType","请完善您的个人详细信息（真实姓名、性别、年龄、身份证、银行卡、职业、收入、紧急联系人、联系电话、支付密码）");
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
-//                model.addAttribute("Name",true);
+            String notPushModelStr = notPushModel(credit,userBank,userimf,worryCall);
+
+            if (!"".equals(notPushModelStr)){
+                model.addAttribute("loanNotPushType","请完善您的个人详细信息（" + notPushModelStr +"）");
 
                 return "loan/creditNotPush";
             }
@@ -412,7 +454,7 @@ public class loanController {
             lowLimitYear += 1;
         }
 
-        calendar.add(Calendar.YEAR,lowLimitYear);
+//        calendar.add(Calendar.YEAR,lowLimitYear);
         calendar.add(Calendar.MONTH,lowLimit);//获取最短还贷时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("最短：" + simpleDateFormat.format(calendar.getTime()) + "\n" + "lowLimit:" + lowLimit + " lowYearLimit:" + lowLimitYear);
@@ -421,7 +463,7 @@ public class loanController {
 
         action.setMinRepayTime(minTime);
 
-        calendar = Calendar.getInstance();
+        Calendar calendarEX = Calendar.getInstance();
 
         int topLimitYear = 0;
         int topLimit = loan.getTopLimit();
@@ -431,18 +473,19 @@ public class loanController {
             topLimit = topLimit % 12;
         }
 
-        if ((calendar.get(Calendar.MONTH) + topLimit) > 12){
+        if ((calendarEX.get(Calendar.MONTH) + topLimit) > 12){
             topLimitYear += 1;
         }
 
-        calendar.add(Calendar.YEAR,topLimitYear);
-        calendar.add(Calendar.MONTH,topLimit);//获取最长还贷时间
-        System.out.println("最长：" + simpleDateFormat.format(calendar.getTime()) + "\n" + "topLimit:" + topLimit + " topYearLimit:" + topLimitYear);                                //不改变年份，明天继续奋斗
+//        calendarEX.add(Calendar.YEAR,topLimitYear);
+        calendarEX.add(Calendar.MONTH,topLimit);//获取最长还贷时间
+        System.out.println("最长：" + simpleDateFormat.format(calendarEX.getTime()) + "\n" + "topLimit:" + topLimit + " topYearLimit:" + topLimitYear);                    //不改变年份，明天继续奋斗
+
+        action.setMaxRepayTime(calendarEX.getTime());
 
         float acMoney = action.getAcMoney();
         acMoney = (float) (acMoney * 0.0001);
         action.setAcMoney(acMoney);
-        action.setMaxRepayTime(calendar.getTime());
         action.setAcStatus(5);
 
         float tobePay = (float) (acMoney + (acMoney * loan.getInterest() * 0.01));
@@ -640,6 +683,11 @@ public class loanController {
         repaymen.setRepayMoney(action.getTobePay());
 
         loanService.insertRepaymen(repaymen);
+
+        PerBid perBid = perBidDao.selectPerBidByPerBidId(loan);
+        perBid.setBidStatus(2);
+
+        perBidDao.updatePerBidStatus(perBid);//还款后把散标状态改为  关闭交易（CLOSE=2）
 
         return "loan/loanHuanEnd";
     }

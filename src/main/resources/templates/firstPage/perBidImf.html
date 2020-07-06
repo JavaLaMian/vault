@@ -581,7 +581,7 @@
                                 <span class="f-rest" id="maxMoney" th:text="${#numbers.formatDecimal(p.enquiry*10000,1,'COMMA',2,'POINT')}"></span>元
                             </dt>
                             <dt th:if="${p.enquiry==null||p.enquiry==0}">
-                                <span class="f-rest" id="maxMoney" th:text="${p.combination*10000}"></span>元
+                                <span class="f-rest" id="maxMoney" th:text="${#numbers.formatDecimal(p.combination*10000,1,'COMMA',2,'POINT')}"></span>元
                             </dt>
                             <dd>
                                 可购金额

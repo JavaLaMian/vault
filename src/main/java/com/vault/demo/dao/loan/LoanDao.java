@@ -22,4 +22,6 @@ public interface LoanDao {
     Loan loanNow(@Param("u") Userimf userimf);
 
     void updateLoanStatus(Loan loan);
+
+    List<Loan> listForStatusEq1();
 }

@@ -1,6 +1,7 @@
 package com.vault.demo.service.backstage.adxmn.adxmnImpl;
 
 import com.vault.demo.bean.*;
+import com.vault.demo.common.Pager;
 import com.vault.demo.dao.backstage.AdxmnDao;
 import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import org.springframework.stereotype.Service;
@@ -63,9 +64,20 @@ public class selevicexmnImpl implements selevicexmn {
     }
 
     @Override
-    public List<Map> integralCoin() {
-        return dao.integralCoin();
+    public int integralCount() {
+        return dao.integralCount();
     }
+
+    @Override
+    public List<Map> integralCoin(Pager pager) {
+        return dao.integralCoin((pager.currPage-1)*pager.pageSize,pager.currPage*pager.pageSize);
+    }
+
+    @Override
+    public List<Map> integralCoin2(Pager pager, String email) {
+        return dao.integralCoin2((pager.currPage-1)*pager.pageSize,pager.currPage*pager.pageSize,email);
+    }
+
 
     @Override
     public List<Integral> integralList() {

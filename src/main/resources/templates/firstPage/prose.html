@@ -411,7 +411,7 @@
             <!---->
             <div class="sub-right" style="width: 408px;" th:if="${session.user!=null}" th:switch="${bx.bidStatus}">
                 <div class="sellout abs" th:case="0" th:if="${session.user.dealPsw !=null}" style="background: rgb(254,250,250)">
-                    <div th:if="${session.user.dealPsw!=null || session.user.dealPsw != ''}">
+                    <div th:if="${session.user.dealPsw!=null && session.user.dealPsw != ''}">
                         <div th:if="${ketou != 0}">
                             <div class="info">将从余额扣除</div>
                             <button class="goumai" onclick="zhifuKuan()">立即购买</button>
@@ -460,9 +460,6 @@
                     <div th:if="${session.user.dealPsw==null || session.user.dealPsw == ''}" >
                         <div class="info">请先前往个人中心设置支付密码</div>
                    </div>
-                </div>
-                <div class="sellout abs" th:case="0" th:if="${session.user.dealPsw ==null}" style="background: rgb(254,250,250)">
-                    <div class="info">请先前往个人中心设置支付密码</div>
                 </div>
                 <div class="sellout abs" th:case="1" style="background: rgb(254,250,250);">
                     <div class="info">该标尚未开始销售 请留意开售时间</div>

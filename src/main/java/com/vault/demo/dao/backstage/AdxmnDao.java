@@ -1,6 +1,7 @@
 package com.vault.demo.dao.backstage;
 
 import com.vault.demo.bean.*;
+import com.vault.demo.common.Pager;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,9 @@ public interface AdxmnDao {
     List<Credit> CreditList();//查询贷款用户提交的信用信息
     List<Map> selectgetCredit(Credit bid);//根据id查询出信用信息
     int updateCredit(Credit credit);//根据id修改信用信息
-    List<Map> integralCoin();//查询出积分兑换信息
+    int integralCount();
+    List<Map> integralCoin(@Param("startRow") int startRow, @Param("pageSize") int pageSize);//查询出积分兑换信息
+    List<Map> integralCoin2(@Param("startRow") int startRow, @Param("pageSize") int pageSize,@Param("email") String email);//查询出积分兑换信息
     List<Integral> integralList();//查出商品列表
     void updategetbiBid(@Param("bidStatus") int bidStatus,@Param("id") int id);//根据id修改投标状态
     float selectBidmoney(int bidType);//根据标种查询出标的总金额

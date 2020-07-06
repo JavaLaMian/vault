@@ -4,15 +4,20 @@ import com.vault.demo.bean.*;
 import com.vault.demo.common.Contants;
 import com.vault.demo.common.Pager;
 import com.vault.demo.common.commonUtil;
+import com.vault.demo.dao.file.FileUpload;
 import com.vault.demo.service.integral.integralService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,6 +29,9 @@ public class integralController {
     private integralService  service;
     @Resource
     private commonUtil util ;
+
+    @Resource
+    FileUpload fileUpload;
 
     //积分商城主页面
     @RequestMapping("/main")
@@ -109,9 +117,38 @@ public class integralController {
 
     //添加商品
     @RequestMapping("/addIntegral")
-    public String addIntegral(MultipartFile file,Integral integral){
-        String newFileName= util.fileUpload(file, Contants.PRO_IMG_SAVE_PATH+"integral/");
-        integral.setIntegralImg(newFileName);
+    public String addIntegral(MultipartFile file, Integral integral, HttpServletRequest request) throws FileNotFoundException {
+
+        //找到项目根目录
+        String dirPath = System.getProperty("user.dir");
+        dirPath = dirPath + "\\src\\main\\resources\\static\\img\\integral\\";
+//        System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
+
+        File path = new File(ResourceUtils.getURL("classpath:").getPath());
+
+        File upload = new File(path.getAbsolutePath(),"static/img/integral");
+
+        //找到项目发布路径根目录
+        String dirPathEx = upload.getAbsolutePath();
+
+        System.out.println(dirPath + "\n" + dirPathEx);
+
+        String fileName = null;
+        String fileNameEx = null;
+
+        try {
+            fileName = fileUpload.upload(file,dirPathEx,dirPath,request,null);//优先存到项目发布目录了，如果要优先存到项目根目录，第二三参数对调，第二参数是优先存的参数
+        }catch (Exception e){
+            e.printStackTrace();
+
+            System.out.println("文件存储出错了");
+
+            return "redirect:toCreditRegisterPage";
+        }
+
+        System.out.println(fileName + "\n" + fileNameEx);
+//        String newFileName= util.fileUpload(file, Contants.PRO_IMG_SAVE_PATH+"integral/");
+        integral.setIntegralImg(fileName);
 
         service.addIntrgral(integral);
         return "redirect:/XMN/integralList";
@@ -124,12 +161,37 @@ public class integralController {
         return "integral/update";
     }
     @RequestMapping("/Update")
-    public String update(Integral integral,MultipartFile file){
-
+    public String update(Integral integral,MultipartFile file,HttpServletRequest request) throws FileNotFoundException {
+        System.out.println("updateId:"+integral.getId());
         if(!file.isEmpty()){
             System.out.println("file为空");
-            String newFileName =  util.fileUpload(file,Contants.PRO_IMG_SAVE_PATH);
-            integral.setIntegralImg("/img/integral/"+newFileName);
+            //找到项目根目录
+            String dirPath = System.getProperty("user.dir");
+            dirPath = dirPath + "\\src\\main\\resources\\static\\img\\integral\\";
+//        System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
+
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+
+            File upload = new File(path.getAbsolutePath(),"static/img/integral");
+
+            //找到项目发布路径根目录
+            String dirPathEx = upload.getAbsolutePath();
+
+            System.out.println(dirPath + "\n" + dirPathEx);
+
+            String fileName = null;
+            String fileNameEx = null;
+
+            try {
+                fileName = fileUpload.upload(file,dirPathEx,dirPath,request,null);//优先存到项目发布目录了，如果要优先存到项目根目录，第二三参数对调，第二参数是优先存的参数
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println("文件存储出错了");
+            }
+
+            System.out.println(fileName + "\n" + fileNameEx);
+//        String newFileName= util.fileUpload(file, Contants.PRO_IMG_SAVE_PATH+"integral/");
+            integral.setIntegralImg(fileName);
         }
         int i = service.Update(integral);
         if(i == 1){
@@ -176,6 +238,7 @@ public class integralController {
         session.setAttribute("total",myTotal.getTotal());
 
         session.setAttribute("user",user);
+
         pager.page(service.integral());
         String integralType ;
 
