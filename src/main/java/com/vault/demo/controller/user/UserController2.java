@@ -7,6 +7,7 @@ import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.vault.demo.bean.*;
+import com.vault.demo.common.CardUtil;
 import com.vault.demo.config.AlipayConfig;
 import com.vault.demo.bean.*;
 import com.vault.demo.service.integral.integralService;
@@ -144,9 +145,10 @@ public class UserController2 {
     }
     @RequestMapping("/smrz")
     @ResponseBody
-    public Map smrz(String uName, UserBank userBank, Credit credit, HttpSession session){
+    public Map smrz(String uName, UserBank userBank, Credit credit,String phe, HttpSession session) throws Exception {
         Userimf user = (Userimf) session.getAttribute("user");
         user.setuName(uName);
+        user.setPhe(phe);
         userBank.setuId(user.getuId());
         userBank.setBcUserName(uName);
         credit.setuId(user.getuId());
@@ -154,6 +156,9 @@ public class UserController2 {
 //        System.out.println(user.toString());
 //        System.out.println(userBank.toString());
 //        System.out.println(credit.toString());
+        Map<String, Object> carInfo = CardUtil.getCarInfo(credit.getIdentity());
+        user.setAge(Integer.parseInt(carInfo.get("age")+""));
+        user.setSex((String) carInfo.get("sex"));
         service.upUser(user);
         service.bindBank(userBank);
         service.bindCredit(credit);

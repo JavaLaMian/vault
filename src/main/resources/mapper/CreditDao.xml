@@ -53,4 +53,8 @@
           select * from withdraw where uId = #{uId}
         ]]>
     </select>
+
+    <update id="updateIdentity" parameterType="com.vault.demo.bean.Credit">
+        update credit set positiveIDPhoto = #{positiveIDPhoto},negativeIDPhoto = #{negativeIDPhoto} where creId = #{creId}
+    </update>
 </mapper>
