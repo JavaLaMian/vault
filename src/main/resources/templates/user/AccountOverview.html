@@ -145,52 +145,10 @@
 			}
 		}
 	</style>
-	<style type="text/css">
 
-		.zhezhao{
-			position: fixed;
-			left: 0px;
-			top: 0px;
-			background: #000;
-			width: 100%;
-			height: 100%;
-			z-index: 1000;
-			background-color: rgba(234,238,247,0.3);
-			display: none;
-		}
-		.tankuang{
-			position: relative;
-			background: #fff;
-			width: 420px;
-			height: 300px;
-			border-radius: 5px;
-			margin: 5% auto;
-			border: 1px solid #ff7136;
-		}
-		#header{
-			height: 40px;
-		}
-		#header-right{
-			position: absolute;
-			width: 25px;
-			height: 25px;
-			border-radius: 5px;
-			background: #ff7136;
-			color: #fff;
-			right: 5px;
-			top: 1px;
-			text-align: center;
-			font-size:25px;
-		}
-		.title{
-			font-size:15px;
-			color:#fff;
-			padding:10px;
-		}
-		#content{
-			height:100px;
-		}
-	</style>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/jquery-1.12.4.js"></script>
+    <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 <input value="true" type="hidden" id="isLogin"/>
@@ -248,7 +206,7 @@
 						<li>
 							<a target="_blank" th:href="@{/loan/main2}">我的网贷</a>
 						</li>
-						<li >
+						<li id="zj">
 							<a href="/user/tozj">资金记录</a>
 						</li>
 						<li id="safe">
@@ -257,14 +215,14 @@
 						<li class="last" id="card">
 							<a href="/user/viewApply">银行卡管理</a>
 						</li>
-						<li class="last">
+						<li class="last" id="gj">
 							<a th:href="@{/user/toCreditRegisterPage}">高级借贷信息管理</a>
 						</li>
-						<li>
+						<li id="yh">
 							<a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
 						</li>
-						<li class="planner last" data-type="planner">
-							<a href="#">邀请好友<span>赚收益</span></a>
+						<li class="planner last" id="yq">
+							<a href="/user/toYq">邀请好友<span>赚收益</span></a>
 						</li>
 					</ul>
 					<div class="qqun">
@@ -478,28 +436,120 @@
 <!--start 尾部-->
 <div th:replace="/common::commonEnd"></div>
 <!--推荐人弹窗-->
-<div class="zhezhao" id="zhezhao">
-	<div class="tankuang">
-		<div id="header" style="background-color:#ff7136">
-			<p class="title">填写推荐人</p>
-			<a id="header-right" onclick="closewin()">×</a>
-		</div>
-		<div id="content">
-			<div style="padding:30px;">
-				<div style="text-align:right;font-size:13px;color:#999999;width:110px;display:inline-block;float:left;padding-top:9px;">我的推荐人：</div>
-				<div style="float:left">
-					<input id="referee" onclick="referee_check()" style="width: 190px;height: 30px;line-height: 30px;padding-left: 7px;" type="text" placeholder="请填写推荐人ID"/><br>
-					<div id="refereeTip" style="visibility: visible;margin:5px 0;color: #aaa;height: 20px;"> </div>
-				</div>
-				<div style="text-align:center">
-					<button onclick="referee_sub()" style="width:132px;height:39px;line-height:39px;color:#fff;background-color:#ff7136;border-radius:5px;
+<div th:fragment="refereer">
+    <div class="zhezhao" id="zhezhao">
+        <div class="tankuang">
+            <div id="header" style="background-color:#ff7136">
+                <p class="title">填写推荐人</p>
+                <a id="header-right" onclick="closewin()">×</a>
+            </div>
+            <div id="content">
+                <div style="padding:30px;">
+                    <div style="text-align:right;font-size:13px;color:#999999;width:110px;display:inline-block;float:left;padding-top:9px;">我的推荐人：</div>
+                    <div style="float:left">
+                        <input id="referee" onclick="referee_check()" style="width: 190px;height: 30px;line-height: 30px;padding-left: 7px;" type="text" placeholder="请填写推荐人ID"/><br>
+                        <div id="refereeTip" style="visibility: visible;margin:5px 0;color: #aaa;height: 20px;">
+                            <span id="span1"></span>
+                            <span id="span2"></span>
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        <button onclick="referee_sub()" style="width:132px;height:39px;line-height:39px;color:#fff;background-color:#ff7136;border-radius:5px;
 							border: 1px solid;margin-top: 15px;margin-right: 7px">
-						提交</button>
-				</div>
-				<p class="rp_tips" style="text-align: center;padding: 10px 5px 10px 5px;border: 1px solid #e0af48;background-color: #FFF9E3;margin-top: 39px;font-size: 14px;">您的推荐人成功提交后,将不可更改。</p>
-			</div>
-		</div>
-	</div>
+                            提交</button>
+                    </div>
+                    <p style="text-align: center;padding: 10px 5px 10px 5px;border: 1px solid #e0af48;background-color: #FFF9E3;margin-top: 39px;font-size: 14px;"><span class="glyphicon glyphicon-warning-sign" style="color: #ff7136;margin-right: 20px"></span>您的推荐人成功提交后,将不可更改。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+
+        .zhezhao{
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: #000;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background-color: rgba(234,238,247,0.3);
+            display: none;
+        }
+        .tankuang{
+            position: relative;
+            background: #fff;
+            width: 420px;
+            height: 300px;
+            border-radius: 5px;
+            margin: 5% auto;
+            border: 1px solid #ff7136;
+        }
+        #header{
+            height: 40px;
+        }
+        #header-right{
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            background: #ff7136;
+            color: #fff;
+            right: 5px;
+            top: 1px;
+            text-align: center;
+            font-size:25px;
+        }
+        .title{
+            font-size:15px;
+            color:#fff;
+            padding:10px;
+        }
+        #content{
+            height:100px;
+        }
+    </style>
+    <script>
+        function openwin(){
+            $("#zhezhao").css("display","block");
+        }
+        function closewin(){
+            $("#zhezhao").css("display","none");
+        }
+
+        function referee_check() {
+            var referee = $("#referee").val();
+            if (referee==null||referee==""){
+                $("#span1").removeClass("glyphicon glyphicon-minus-sign");
+                $("#span2").text("");
+            }else {
+
+            }
+        }
+        function referee_sub() {
+            var referee = $("#referee").val();
+            if (referee!=null&&referee!=""){
+                $.post("/user/bindReferee",{referee:referee},function (data) {
+                    if(data.msg=="success"){
+                        window.location.reload();
+                        return;
+                    }else if(data.msg=="该用户不存在，请重试") {
+                        $("#span1").addClass("glyphicon glyphicon-minus-sign");
+                        $("#span1").css("color","red");
+                        $("#span2").text("认证失败，请检查推荐人ID是否正确");
+                    }else{
+                        $("#span1").addClass("glyphicon glyphicon-minus-sign");
+                        $("#span1").css("color","red");
+                        $("#span2").text("推荐人不能写自己");
+                    }
+                },"json");
+            }else {
+                $("#span1").addClass("glyphicon glyphicon-minus-sign");
+                $("#span1").css("color","red");
+                $("#span2").text("推荐人ID不能为空");
+            }
+        }
+    </script>
 </div>
 <!--end 尾部-->
 <script>
@@ -739,38 +789,6 @@
         $("#ov").addClass("cur");
     })
 
-
-    function openwin(){
-        $("#zhezhao").css("display","block");
-    }
-    function closewin(){
-        $("#zhezhao").css("display","none");
-    }
-
-    function referee_check() {
-        var referee = $("#referee").val();
-        if (referee==null||referee==""){
-            $("#refereeTip").addClass("rp_error");
-            $("#refereeTip").text("推荐人ID不能为空");
-            return;
-        }
-    }
-    function referee_sub() {
-        referee_check();
-        var referee = $("#referee").val();
-        if (referee!=null&&referee!=""){
-            $.post("/user/bindReferee",{referee:referee},function (data) {
-                if(data){
-                    window.location.reload();
-                    return;
-                }else {
-                    $("#refereeTip").addClass("rp_error");
-                    $("#refereeTip").css("color","red");
-                    $("#refereeTip").text("认证失败，请检查推荐人ID是否正确");
-                }
-            },"json");
-        }
-    }
 </script>
 <div class="code2d-pop">
 	    <div class="g-o">
