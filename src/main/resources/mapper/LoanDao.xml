@@ -30,4 +30,8 @@
     <update id="updateLoanStatus" parameterType="com.vault.demo.bean.Loan">
         update loan set loanStatue = #{loanStatue} where lId = #{lId}
     </update>
+
+    <select id="listForStatusEq1" resultType="com.vault.demo.bean.Loan">
+        select * from loan where loanStatue = 1
+    </select>
 </mapper>

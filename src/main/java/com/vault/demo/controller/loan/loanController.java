@@ -454,7 +454,7 @@ public class loanController {
             lowLimitYear += 1;
         }
 
-        calendar.add(Calendar.YEAR,lowLimitYear);
+//        calendar.add(Calendar.YEAR,lowLimitYear);
         calendar.add(Calendar.MONTH,lowLimit);//获取最短还贷时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("最短：" + simpleDateFormat.format(calendar.getTime()) + "\n" + "lowLimit:" + lowLimit + " lowYearLimit:" + lowLimitYear);
@@ -463,7 +463,7 @@ public class loanController {
 
         action.setMinRepayTime(minTime);
 
-        calendar = Calendar.getInstance();
+        Calendar calendarEX = Calendar.getInstance();
 
         int topLimitYear = 0;
         int topLimit = loan.getTopLimit();
@@ -473,18 +473,19 @@ public class loanController {
             topLimit = topLimit % 12;
         }
 
-        if ((calendar.get(Calendar.MONTH) + topLimit) > 12){
+        if ((calendarEX.get(Calendar.MONTH) + topLimit) > 12){
             topLimitYear += 1;
         }
 
-        calendar.add(Calendar.YEAR,topLimitYear);
-        calendar.add(Calendar.MONTH,topLimit);//获取最长还贷时间
-        System.out.println("最长：" + simpleDateFormat.format(calendar.getTime()) + "\n" + "topLimit:" + topLimit + " topYearLimit:" + topLimitYear);                                //不改变年份，明天继续奋斗
+//        calendarEX.add(Calendar.YEAR,topLimitYear);
+        calendarEX.add(Calendar.MONTH,topLimit);//获取最长还贷时间
+        System.out.println("最长：" + simpleDateFormat.format(calendarEX.getTime()) + "\n" + "topLimit:" + topLimit + " topYearLimit:" + topLimitYear);                    //不改变年份，明天继续奋斗
+
+        action.setMaxRepayTime(calendarEX.getTime());
 
         float acMoney = action.getAcMoney();
         acMoney = (float) (acMoney * 0.0001);
         action.setAcMoney(acMoney);
-        action.setMaxRepayTime(calendar.getTime());
         action.setAcStatus(5);
 
         float tobePay = (float) (acMoney + (acMoney * loan.getInterest() * 0.01));
