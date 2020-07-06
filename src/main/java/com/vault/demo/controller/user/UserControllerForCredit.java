@@ -45,9 +45,6 @@ public class UserControllerForCredit {
         model.addAttribute("user",(Userimf)session.getAttribute("user"));
         Credit credit = userService.getCredit(((Userimf) session.getAttribute("user")).getuId());
         model.addAttribute("credit",credit);
-        if(credit.getDepart()==null||credit.getDepart().equals("")){
-            model.addAttribute("credit",null);
-        }
         model.addAttribute("house",loanService.selectHouseByUId((Userimf)session.getAttribute("user")));
         model.addAttribute("car",loanService.selectCarByUId((Userimf)session.getAttribute("user")));
         model.addAttribute("car",loanService.selectCarByUId((Userimf)session.getAttribute("user")));
