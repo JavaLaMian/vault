@@ -2,6 +2,7 @@ package com.vault.demo.controller.loan;
 
 import com.vault.demo.bean.*;
 import com.vault.demo.dao.BankDao;
+import com.vault.demo.dao.PerBidDao;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.WorryCallDao;
 import com.vault.demo.dao.backstage.BackLoanDao;
@@ -42,6 +43,9 @@ public class loanController {
 
     @Resource
     BackLoanDao backLoanDao;
+
+    @Resource
+    PerBidDao perBidDao;
 
     @RequestMapping("/main")
     public String loanmain(){
@@ -678,6 +682,11 @@ public class loanController {
         repaymen.setRepayMoney(action.getTobePay());
 
         loanService.insertRepaymen(repaymen);
+
+        PerBid perBid = perBidDao.selectPerBidByPerBidId(loan);
+        perBid.setBidStatus(2);
+
+        perBidDao.updatePerBidStatus(perBid);//还款后把散标状态改为  关闭交易（CLOSE=2）
 
         return "loan/loanHuanEnd";
     }
