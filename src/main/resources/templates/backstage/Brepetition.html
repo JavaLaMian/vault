@@ -12,7 +12,7 @@
         <link th:href="@{/css/style.css}" rel="stylesheet">
 
         <link rel="stylesheet" th:href="@{/js/jconfirm/jquery-confirm.min.css}"/>
-
+        <link th:href="@{https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.css}" rel="stylesheet">
       <!--标签插件-->
         <link rel="stylesheet" th:href="@{/js/jquery-tags-input/jquery.tagsinput.min.css}">
         <!--滑块插件-->
@@ -34,7 +34,7 @@
                 <li class="nav-item nav-item-has-subnav">
                   <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 用户管理</a>
                   <ul class="nav nav-subnav">
-                   <li> <a th:href="@{/XMN/integralList}">积分商城管理</a> </li>
+                    <li> <a th:href="@{/XMN/integralList}">积分商城管理</a> </li>
                     <li> <a th:href="@{/XMN/userintegral}">积分兑换详情</a> </li>
                     <li> <a href="ui_buttons.html">用户分析</a> </li>
                     <li> <a href="ui_buttons.html">用户日志</a> </li>
@@ -258,6 +258,23 @@
         <script th:src="@{https://cdn.bootcss.com/bootstrap-table/1.15.4/locale/bootstrap-table-zh-CN.min.js}"></script>
         <script th:src="@{/js/jquery.bootstrap.wizard.min.js}"></script>
         <script th:src="@{https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
+        <script type="text/javascript">
+          $(function () {
+              var divId = localStorage.getItem("id");
+              $("#" + divId + "").addClass('in');
+              var liId = localStorage.getItem("liId");
+              $("#" + liId + "").addClass('active');
+
+              $(".panel-body ul li a").click(function () {
+                  var all_lis = $(this).parents("div").find(".in");
+                  var id = all_lis[0].id;
+                  var parent = $(this).parent(); // 父节点
+                  var liId = parent[0].id;
+                  localStorage.setItem("liId", liId);
+                  localStorage.setItem("id", id);
+              })
+          })
+        </script>
     </span>
 </body>
 </html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head runat="server">
+    <title>测试页面</title>
+    <div th:replace="/backstage/Brepetition::backstageJS"></div>
+    <style type="text/css">
+        .header
+        {
+            width: 99%;
+            height: 43px;
+            background: #96b97d;
+            line-height: 40px;
+        }
+        .col-sm-2
+        {
+            position: relative;
+            min-height: 1px;
+            padding-right: 0px;
+            padding-left: 0px;
+            top: 0px;
+            left: 0px;
+        }
+        div.col-sm-10
+        {
+            position: relative;
+            min-height: 1px;
+            padding-right: 5px;
+            padding-left: 5px;
+            top: 0px;
+            left: 0px;
+        }
+        h2
+        {
+            margin-top: 0px;
+        }
+        .panel-group
+        {
+            background: #dff0d8;
+        }
+        .panel-default > .panel-heading
+        {
+            color: #333;
+            background-color: #dff0d8;
+            border-color: #ddd;
+        }
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover
+        {
+            color: #333333;
+            background-color: #dff0d8;
+        }
+        a
+        {
+            color: #333333;
+            text-decoration: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var divId = localStorage.getItem("id");
+            $("#" + divId + "").addClass('in');
+            var liId = localStorage.getItem("liId");
+            $("#" + liId + "").addClass('active');
+
+            $(".panel-body ul li a").click(function () {
+                var all_lis = $(this).parents("div").find(".in");
+                var id = all_lis[0].id;
+                var parent = $(this).parent(); // 父节点
+                var liId = parent[0].id;
+                localStorage.setItem("liId", liId);
+                localStorage.setItem("id", id);
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="header">
+    <center>
+        <h2>
+            企业管理系统</h2>
+    </center>
+</div>
+<div class="col-md-2">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">产品管理</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li id="dbdz"><a th:href="@{/XMN/backstage}">检验表单管理</a></li>
+                        <li id="ycllr"><a href="ycllr.aspx">原材料录入</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">客户管理</a></h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li id="jgdx1"><a href="jgdx1.aspx">供货商管理</a></li>
+                        <li id="ghsgl"><a href="ghsgl.aspx">购货商管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">库存管理</a></h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li id="kcgl"><a href="kcgl.aspx">库存管理</a></li>
+                        <li id="qyxxwh"><a href="qyxxwh.aspx">入库记录</a></li>
+                        <li id="xsjl"><a href="xsjl.aspx">出厂记录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">产品追溯及公众平台</a></h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse ">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li id="yaopinflow2"><a href="yaopinflow2.aspx">产品追溯</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">系统管理</a></h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li id="yhgl"><a href="yhgl.aspx">操作员管理</a></li>
+                        <li id="gzbm"><a href="gzbm.aspx">工作部门</a></li>
+                        <li id="xtsz2"><a href="xtsz2.aspx">系统信息维护</a></li>
+                        <li id="changePwd"><a href="changePwd.aspx">密码修改</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-10">
+</div>
+<div th:replace="/backstage/Brepetition::javascript"></div>
+</body>
+</html>
