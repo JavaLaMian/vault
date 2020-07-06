@@ -129,7 +129,7 @@
                         </div>
                     </li>
                 </ul>
-<!--                分页-->
+                <!--                分页-->
                 <div class="page">第<i class="pg" th:text="${pager.currPage}"></i>页/共<i class="cal" th:text="${pager.totalPage}"></i>页
                     <a data-page="fast" th:href="@{/integral/list(currPage=1,spId = ${spId},sort=0)}">首页</a>
                     <a data-page="up" th:href="@{/integral/list(currPage=${pager.currPage - 1},spId = ${spId},sort=0)}">上一页</a>

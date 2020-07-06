@@ -8,6 +8,15 @@
     <meta name="author" content="yinqi">
     <!--引入相应的bootstrap.JS支持文件-->
     <div th:replace="/backstage/Brepetition::backstageJS"></div>
+    <style>
+        .page {
+            text-align: center;
+            height: 23px;
+            margin: 0 auto;
+            padding: 15px 0;
+            color: #666;
+        }
+    </style>
 </head>
 <body data-logobg="color_8" data-sidebarbg="color_8">
 <div class="layout-web">
@@ -53,7 +62,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="p,pStart:${list}">
+                                        <tr th:each="p,pStart:${pager.data}">
                                             <td>
                                                 <label class="checkbox checkbox-primary">
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
@@ -74,15 +83,16 @@
                                             <td th:if="${p.total} ne null"><p th:text="${p.total}"></p></td>
                                             <td th:if="${p.conversionTime} eq null">无</td>
                                             <td th:if="${p.conversionTime} ne null"><p th:text="${p.conversionTime}"></p></td>
-
-                                            <td>
-                                                <div class="btn-group">
-
-                                                </div>
-                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="page">第<i class="pg" th:text="${pager.currPage}"></i>页/共<i class="cal" th:text="${pager.totalPage}"></i>页
+                                    <a data-page="fast" th:href="@{/XMN/userintegral(currPage=1)}">首页</a>
+                                    <a data-page="up" th:href="@{/XMN/userintegral(currPage=${pager.currPage - 1})}">上一页</a>
+                                    <a data-page="un" th:text="${pager.currPage}" class="cur"></a>
+                                    <a data-page="down" th:href="@{/XMN/userintegral(currPage=${pager.currPage + 1})}">下一页</a>
+                                    <a data-page="last" th:href="@{/XMN/userintegral(currPage=${pager.totalPage})}">末页</a>
                                 </div>
                             </div>
                         </div>

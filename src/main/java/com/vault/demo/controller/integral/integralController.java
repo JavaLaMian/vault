@@ -238,6 +238,7 @@ public class integralController {
         session.setAttribute("total",myTotal.getTotal());
 
         session.setAttribute("user",user);
+
         pager.page(service.integral());
         String integralType ;
 

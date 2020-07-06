@@ -232,8 +232,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Userimf> friendList(int id) {
-        return dao.friendList(id);
+    public List<Userimf> friendList(int id,String act) {
+        return dao.friendList(id,act);
     }
 
     @Override

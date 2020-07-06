@@ -93,7 +93,12 @@
                             <span class="name" id="username" th:text="${session.user.uName}">用户名</span>
                             <span class="member-level pop-tip" id="member-level" title="<a target='_blank' href='/user/member/benefits'>了解更多权益</a>">会员等级</span>
                         </div>
-                        <div class="security-level">邀请人账号：<span id="security-level" th:text="${session.user.refereer}"></span></div>
+
+                        <div class="security-level">邀请人账号：
+                            <span th:if="${session.user.refereer}=='无'">
+                                <a href="javascript:openwin()" th:if="${session.user.refereer} eq '无'">现在填写</a>
+                            </span>
+                        </div>
                     </div>
                     <div class="badge-info">
                         <i class="badge-icon badge-planner pop-tip" id="badge-planner"></i>
@@ -131,7 +136,7 @@
                         <a href="/user/toYuhui">我的优惠<span id="bonus-count"></span></a>
                     </li>
                     <li class="planner last" data-type="planner">
-                        <a href="/user/toYq" >邀请记录<span>赚收益</span></a>
+                        <a href="/user/toYq" >邀请记录<span>赚红包</span></a>
                     </li>
                 </ul>
                 <div class="qqun">
@@ -244,6 +249,7 @@
                     var name = veh.bankName;
                     var type = typeName(veh.t);
                     if(type === '充值' || type === '提现') money+='元';
+                    else if(type === '散标') money+='元';
                     else money+='万';
                     var dates = formatDateTime(veh.reTime);
 
