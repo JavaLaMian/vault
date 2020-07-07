@@ -60,6 +60,7 @@ public class QuartzTask implements Job {
                         }
                     }else if(bid.getBidStatus() == Bid.getNO()){//在售标
                        if((time == -1 && time1 == -1)){//售罄标
+                           System.out.println("标id"+bid.getbId());
                            is.updategetbiBid(Bid.getEMPTY(),bid.getbId());
                        }
                    }else if (bid.getBidStatus() == Bid.getEMPTY()){//售罄标
@@ -111,36 +112,43 @@ public class QuartzTask implements Job {
                                 if(days>=0 && days<=29){//判断这个人投了多久 小于29天按照天来算
                                     double SumMOney =usersummoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),days,String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("操作成功");
+                                    System.out.println("用户"+tender.getuId()+"标"+bid.getbId());
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("操作成功");
+                                    }
+
                                 }else if(days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("总金额"+SumMOney);
-                                    System.out.println("操作成功");
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                         aaa = (float)tenMoney.get(i);
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("总金额"+SumMOney);
+                                        System.out.println("操作成功");
+                                    }
                                 }
                             }
                             else if(bid.getClockLine().equals("6")  && tender.getbId() == bid.getbId()){
@@ -152,36 +160,44 @@ public class QuartzTask implements Job {
                                 if(days>0 && days<=29){//判断这个人投了多久 小于29天按照天来算
                                     double SumMOney =usersummoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),days,String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("操作成功");
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                         aaa = (float)tenMoney.get(i);
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("操作成功");
+                                    }
+
                                 }else if(days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("总金额"+SumMOney);
-                                    System.out.println("操作成功");
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                         aaa = (float)tenMoney.get(i);
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("总金额"+SumMOney);
+                                        System.out.println("操作成功");
+                                    }
+
                                 }
                             }
                             else if(bid.getClockLine().equals("9")  && tender.getbId() == bid.getbId()){
@@ -193,36 +209,44 @@ public class QuartzTask implements Job {
                                 if(days>0 && days<=29){//判断这个人投了多久 小于29天按照天来算
                                     double SumMOney =usersummoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),days,String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("操作成功");
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                         aaa = (float)tenMoney.get(i);
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("操作成功");
+                                    }
+
                                 }else if (days>=30 && (days/30)>=1){//大于30天按照月来算
                                     double SumMOney =userSumMoney(bid.getRate(),bid.getRewardRate(),tender.getTenMoney(),String.valueOf(tender.getuId()),n);
                                     //修改用户代收利息剪掉当前
-                                    Float tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updatetenderMoney((tenMoney-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
-                                    is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
-                                    Recharge recharge = new Recharge();
-                                    recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
-                                    recharge.setReMoney((float)summoney);//金额
-                                    recharge.setReTime(new Date());//时间
-                                    recharge.setBankId(0);
-                                    recharge.setBankName("利息金额");
-                                    is.addusermoney(recharge);
-                                    //将这个订单状态改为5 说明已经操作
-                                    is.updateTender(tender.gettId(),5);
-                                    System.out.println("总金额"+SumMOney);
-                                    System.out.println("操作成功");
+                                    List<Float> tenMoney = is.selecttendertenMoney(Integer.valueOf(tender.getuId()),bid.getbId());
+                                    for(Float aaa : tenMoney){
+                                         aaa = (float)tenMoney.get(i);
+                                        is.updatetenderMoney((aaa-tender.getTenMoney()),Integer.valueOf(tender.getuId()),bid.getbId());
+                                        is.updateuserMoney(SumMOney,Integer.valueOf(tender.getuId()));//将收益加上去
+                                        Recharge recharge = new Recharge();
+                                        recharge.setuId(Integer.valueOf(tender.getuId()));//用户id
+                                        recharge.setReMoney((float)summoney);//金额
+                                        recharge.setReTime(new Date());//时间
+                                        recharge.setBankId(0);
+                                        recharge.setBankName("利息金额");
+                                        is.addusermoney(recharge);
+                                        //将这个订单状态改为5 说明已经操作
+                                        is.updateTender(tender.gettId(),5);
+                                        System.out.println("总金额"+SumMOney);
+                                        System.out.println("操作成功");
+                                    }
+
                                 }
                             }
                         }
@@ -244,7 +268,9 @@ public class QuartzTask implements Job {
                 if(bid.getBidType() == Bid.getNEWHAND() || bid.getBidType() == Bid.getNORM()) {//新手标和优享标
                     if(bid.getBidStatus() == Bid.getNO()) {//在售标
                         if ((time == -1 && time1 == -1) || (moeny >= summoeny)) {//售罄标
-                            is.updategetbiBid(Bid.getEMPTY(), bid.getbId());
+                          if(Integer.valueOf(tenderid.get(j)) == Integer.valueOf(bid.getbId())){
+                              is.updategetbiBid(Bid.getEMPTY(), bid.getbId());
+                          }
                         }
                     }
                 }
@@ -366,7 +392,7 @@ public class QuartzTask implements Job {
         String ppts = decimalFormat.format(ss+summoney);
         double sum = Double.parseDouble(ppts);
         //总资金
-        double SumMOney = sum+usertenmoney;
+        double SumMOney = sum;
         return SumMOney;
     }
 
@@ -387,7 +413,7 @@ public class QuartzTask implements Job {
         String ppts = decimalFormat.format(ss+summoney);
         double sum = Double.parseDouble(ppts);
         //总资金
-        double SumMOney = sum+usertenmoney;
+        double SumMOney = sum;
         return SumMOney;
     }
 }

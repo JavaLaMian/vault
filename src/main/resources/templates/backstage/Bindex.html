@@ -28,7 +28,7 @@
               <div class="card-body clearfix">
                 <div class="pull-right">
                   <p class="h6 text-white m-t-0">今日收入</p>
-                  <p class="h3 text-white m-b-0">102,125.00</p>
+                  <p class="h3 text-white m-b-0"><a id="daymoney" style="color: white"></a>万</p>
                 </div>
                 <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-currency-cny fa-1-5x"></i></span> </div>
               </div>
@@ -40,7 +40,7 @@
               <div class="card-body clearfix">
                 <div class="pull-right">
                   <p class="h6 text-white m-t-0">用户总数</p>
-                  <p class="h3 text-white m-b-0">920,000</p>
+                  <p class="h3 text-white m-b-0"><a id="renshu" style="color: white"></a>人</p>
                 </div>
                 <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-account fa-1-5x"></i></span> </div>
               </div>
@@ -52,7 +52,7 @@
               <div class="card-body clearfix">
                 <div class="pull-right">
                   <p class="h6 text-white m-t-0">理财金额</p>
-                  <p class="h3 text-white m-b-0">34,005,000</p>
+                  <p class="h3 text-white m-b-0"><a id="licaimoney" style="color: white"></a>万</p>
                 </div>
                 <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-arrow-down-bold fa-1-5x"></i></span> </div>
               </div>
@@ -64,7 +64,7 @@
               <div class="card-body clearfix">
                 <div class="pull-right">
                   <p class="h6 text-white m-t-0">贷款金额</p>
-                  <p class="h3 text-white m-b-0">78,005,000</p>
+                  <p class="h3 text-white m-b-0"><a id="daikuanmoeny" style="color: white"></a>万</p>
                 </div>
                 <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-comment-outline fa-1-5x"></i></span> </div>
               </div>
@@ -187,14 +187,7 @@ $(document).ready(function(e) {
   var weeks = new Array();
   var newDate = formatDateTime(new Date().getTime());
   console.log(newDate);
-  $.ajax({
-    type:"get",//请求类型
-    datatype:"json",//数据类型
-    url:"/XMN/dashChartBarsCnt",
-    success:function (data) {//请求成功后执行该函数
-      console.log(data.person.name)//tom
-    }
-  });
+
   function formatDateTime(date) {
     var time = new Date(date);
     //time.setTime(time.setHours(time.getHours()));
@@ -321,6 +314,12 @@ $(document).ready(function(e) {
         data: $dashChartLinesData,
     });
 });
+$.post("/XMN/summ",{},function (data) {
+  $("#daymoney").text(data.daymoney);
+  $("#renshu").text(data.renshu);
+  $("#licaimoney").text(data.licaimoney);
+  $("#daikuanmoeny").text(data.daikuanmoeny);
+},"json");
 </script>
 </body>
 </html>

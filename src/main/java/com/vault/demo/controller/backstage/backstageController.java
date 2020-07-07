@@ -8,6 +8,7 @@ import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
 import com.vault.demo.service.backstage.house.BackHouseService;
+import com.vault.demo.service.integral.integralService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,8 @@ public class backstageController {
     BackHouseService bhs;
     @Resource
     AdminService as;
+    @Resource
+    private integralService service;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv,Model model){
@@ -257,9 +260,12 @@ public class backstageController {
         return mv;
     }
     @RequestMapping("/integralList")
-    public String integralList(Model model){
-        List<Integral> integralList = is.integralList();
-        model.addAttribute("integralList",integralList);
+    public String integralList(Model model, com.vault.demo.common.Pager pager){
+        pager.pageSize=8;
+        pager.page(service.integral());
+        pager.data = service.plistpage(pager);
+//        List<Integral> integralList = is.integralList();
+        model.addAttribute("pager",pager);
         return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")
@@ -338,7 +344,7 @@ public class backstageController {
     @ResponseBody
     @RequestMapping("/getRegNumber")
     public List getRegNumber(String[] weekarry){
-        //林学名傻逼
+        //林学名
         List  data = new ArrayList();
         for(int i=0;i<weekarry.length;i++){
             if(as.selUserRegWeek(weekarry[i])==null){
@@ -360,7 +366,7 @@ public class backstageController {
         if(ok == 1){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -377,7 +383,7 @@ public class backstageController {
         }else if(ok ==2){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1 ){//预售（READY=1）
+            if(time != -1 ){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -396,7 +402,7 @@ public class backstageController {
         } else if(ok == 3){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -415,7 +421,7 @@ public class backstageController {
         } else if(ok == 4){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());

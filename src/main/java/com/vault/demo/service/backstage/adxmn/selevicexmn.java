@@ -30,7 +30,7 @@ public interface selevicexmn {
     Float seleUsermoney(int id);//根据id查询出用户余额
     void updateuserMoney(double money,int id);//根据用户id相加余额
     void addusermoney(Recharge recharge);//新增用户余额增加记录
-    Float selecttendertenMoney(int uid,int bid);//根据标id和用户id确认代收本金
+    List selecttendertenMoney(int uid,int bid);//根据标id和用户id确认代收本金
     void updatetenderMoney(Float money,int uid,int bid);//根据标id和用户id修改代收本金
     List<Tender> tenderlist();//查询出用户投资的全部信息
     void updateTender(int tid,int tentype);//修改订单状态
@@ -40,4 +40,5 @@ public interface selevicexmn {
     int tendermoney();//今日收入
     int licaimoney();//理财金额
     int daikuanmoney();//贷款金额
+
 }
