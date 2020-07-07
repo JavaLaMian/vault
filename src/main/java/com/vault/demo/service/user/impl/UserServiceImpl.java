@@ -237,7 +237,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int userChongTi(String type, String money, Userimf userimf) {
+    public int userChongTi(String type, String money, Userimf userimf,Boolean cz) {
         BigDecimal user = new BigDecimal(""+userimf.getAvaBalance());
         BigDecimal bian = new BigDecimal(""+money);
         UserBank bank = getBC(userimf.getuId());
@@ -250,7 +250,11 @@ public class UserServiceImpl implements UserService{
             recharge.setuId(userimf.getuId());
             recharge.setReTime(new Date());
             recharge.setBankId(bank.getBankId());
-            recharge.setBankName("支付宝充值");
+            if(cz){
+                recharge.setBankName(bank.getBankName());
+            }else {
+                recharge.setBankName("支付宝充值");
+            }
             recharge.setReMoney(bian.floatValue());
             return cdao.addRecharge(recharge);
         }else {

@@ -104,6 +104,14 @@
 			margin-top: 25px;
 			text-align: center;
 		}
+		.conType{
+			height: 30px;
+			padding: 0 5px;
+			margin: 0 5px;
+			font-size: 14px;
+			color: #ff7186;
+			line-height: 28px;
+		}
 	</style>
 	<style>
 		.circle {
@@ -302,7 +310,11 @@
 											支付密码:<input class="zfk" style="width: 120px;" id="userPwd" type="password">
 										</p>
 										<p class="zfp" id="noPwd" style="display: none;height: 54px;line-height: 54px;">
-											支付宝充值
+											支付宝充值<input type="button" class="conType" onclick="conZhiType('yh')" value="银行卡充值"/>
+										</p>
+										<p class="zfp" id="noPwd2" style="display: none;height: 54px;line-height: 54px;">
+											支付密码:<input class="zfk" style="width: 120px;" id="userPwd2" type="password">
+											<input type="button" class="conType" onclick="conZhiType('zfb')" value="支付宝充值"/>
 										</p>
 										<p class="zfp">
 											<input type="button" class="zfbut" onclick="quXiaoZf('qx')"
@@ -557,7 +569,7 @@
     var types = '';
 	function chuFaBut(type) {
 	    types = type;
-        $("#chongZhiK").css("height","153px");
+        $("#chongZhiK").css("height","170px");
         $("#chongZhiK").css("padding-bottom","10px");
         $("#chongZhiK").css("margin","20px auto");
         $("#chongZhiK").css("margin-top","0");
@@ -601,7 +613,27 @@
 	        if(suo){
 	            suo = false;
                 if(types === 'cz'){
-                    return true;
+                    if(czhiType === 0){
+                        return true;
+					}else {
+                        var pwd = $("#userPwd2").val();
+                        var money = $("#moneyCz").val();
+
+                        $.post("/user/tiXian",{money: money,type:types,pwd:pwd},
+                            function (data) {
+                                if(data.msg === 'cg'){
+                                    $("#chufa").attr("checked", "true");
+                                    setTimeout("shuaXing()","1000");
+                                }else if(data.msg === "mmcw"){
+                                    $("#userPwd").css("border-color","red");
+                                    $("#userPwd2").css("border-color","red");
+                                }else {
+                                    alert(data.msg);
+                                }
+                                suo = true;
+                            }, "json");
+                        return false;
+					}
 				}else {
                     var pwd = $("#userPwd").val();
                     var money = $("#moneyTX").val();
@@ -621,6 +653,18 @@
                     return false;
 				}
 			}
+		}
+    }
+    var czhiType = 0;//充值类型 0 支付宝充值 1 银行卡充值
+    function conZhiType(type) {
+		if(type === 'zfb'){
+            czhiType = 0;
+            $("#noPwd2").css("display","none");
+            $("#noPwd").css("display","block");
+		}else {
+            czhiType = 1;
+		    $("#noPwd").css("display","none");
+            $("#noPwd2").css("display","block");
 		}
     }
     function padMoney(id) {

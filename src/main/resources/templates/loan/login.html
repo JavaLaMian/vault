@@ -391,7 +391,6 @@
                     if(data === "" || data == null){
                         if(type === "zc") errorShuru($("#zcEmail"));
                         else errorShuru($("#dlEmail"));
-
                         alert("请检查邮箱格式是否正确");
                     }else {
                         if(type === "zc")zcMa = data;
@@ -451,6 +450,7 @@
                 else errorShuru($("#pwdLook"));
                 return false;
             }else {
+                $(".logmsg").text("正在登陆...");
                 return true;
             }
         }else if(loginType === 1){
@@ -461,6 +461,7 @@
                 $("#dlmaKun").css("background-color","red");
                 return false;
             }else if(yunma === shuru){
+                $(".logmsg").text("正在登陆...");
                 return true;
             }
         }

@@ -22,7 +22,7 @@ public interface UserService {
     WorryCall getWorryCall(Userimf userimf);
 
     List<Userimf> friendList(int id,String act);
-    int userChongTi(String type,String money,Userimf userimf);
+    int userChongTi(String type,String money,Userimf userimf,Boolean cz);
     List<Map> useZhiJinList(int uId);//用户资金记录
     List<Bounty> yhList(int uId);
 

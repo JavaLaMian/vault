@@ -3,6 +3,7 @@ package com.vault.demo.service.test.impl;
 import com.vault.demo.bean.*;
 import com.vault.demo.dao.UserimfDao;
 import com.vault.demo.dao.test.BidDao;
+import com.vault.demo.service.integral.integralService;
 import com.vault.demo.service.test.BidSer;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,12 @@ import java.util.Map;
 @Service
 public class BidSerImpl implements BidSer{
     @Resource
-    UserimfDao useDao;
+    private UserimfDao useDao;
     @Resource
-    BidDao bidDao;
+    private BidDao bidDao;
+    @Resource
+    private integralService iDao;
+
 
     @Override
     public List<Bid> allList(int bId,int bType) {
@@ -228,7 +232,6 @@ public class BidSerImpl implements BidSer{
         BigDecimal useMoney = new BigDecimal(userMon);
 
         if(!(useMoney.compareTo(zcMoney) == -1)) {
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date utilDate;
             //余额充足
@@ -243,6 +246,15 @@ public class BidSerImpl implements BidSer{
 
             if(setTender(tender) == 1) System.out.println("购买成功");
             if(gouMai(jieguo,userimf.getuId()) == 1) System.out.println("支付成功");
+
+            MyIntegral Integral = iDao.selectMyIntegral2(userimf.getuId());
+            MyIntegral myIntegral = new MyIntegral();
+            myIntegral.setuId(userimf.getuId());
+            myIntegral.setTotal(Integral.getTotal()+30);
+            myIntegral.setChange(10);
+            myIntegral.setChangeType("购买标奖励积分");
+            myIntegral.setConversionTime(new Date());
+            iDao.conversionAdd(myIntegral);
 
             return "cg";
         }else {

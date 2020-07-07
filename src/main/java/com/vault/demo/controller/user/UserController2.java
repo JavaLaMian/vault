@@ -193,7 +193,7 @@ public class UserController2 {
         Userimf userimf = (Userimf)session.getAttribute("user");
         String uPwd = userimf.getDealPsw();
         if(uPwd.equals(pwd)){
-            int pd = service.userChongTi(type,money,userimf);
+            int pd = service.userChongTi(type,money,userimf,true);
             if(pd == 1){
                 Userimf user = service.pandEmail(userimf.getEmail(),"e");
                 session.setAttribute("user",user);
@@ -306,7 +306,7 @@ public class UserController2 {
         if(signVerified) {//验证成功
             System.out.println("验证成功！");
             Userimf userimf = (Userimf)session.getAttribute("user");
-            int pd = service.userChongTi("cz",total_amount,userimf);
+            int pd = service.userChongTi("cz",total_amount,userimf,false);
             if(pd == 1){
                 Userimf user = service.pandEmail(userimf.getEmail(),"e");
                 session.setAttribute("user",user);
