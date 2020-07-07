@@ -238,7 +238,6 @@ public class BidSerImpl implements BidSer{
             BigDecimal cha = useMoney.subtract(zcMoney);
             float jieguo = cha.floatValue();
             System.out.println("差"+jieguo);
-
             utilDate = sdf.parse(daoqi+" 00:00:00");
 
             tender.setTenTime(new Date());
