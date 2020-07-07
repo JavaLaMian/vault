@@ -8,6 +8,7 @@ import com.vault.demo.service.backstage.adxmn.selevicexmn;
 import com.vault.demo.service.backstage.car.BackCarService;
 import com.vault.demo.service.backstage.credit.BackCreditService;
 import com.vault.demo.service.backstage.house.BackHouseService;
+import com.vault.demo.service.integral.integralService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,8 @@ public class backstageController {
     BackHouseService bhs;
     @Resource
     AdminService as;
+    @Resource
+    private integralService service;
     //首页
     @RequestMapping("/backstage")
     public ModelAndView backstage(ModelAndView mv,Model model){
@@ -257,9 +260,12 @@ public class backstageController {
         return mv;
     }
     @RequestMapping("/integralList")
-    public String integralList(Model model){
-        List<Integral> integralList = is.integralList();
-        model.addAttribute("integralList",integralList);
+    public String integralList(Model model, com.vault.demo.common.Pager pager){
+        pager.pageSize=8;
+        pager.page(service.integral());
+        pager.data = service.plistpage(pager);
+//        List<Integral> integralList = is.integralList();
+        model.addAttribute("pager",pager);
         return "backstage/integralList";
     }
     @RequestMapping("/Admin_information")
