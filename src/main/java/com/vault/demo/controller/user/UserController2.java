@@ -363,11 +363,12 @@ public class UserController2 {
             return map;
         }
 
-        if (service.bindReferee(refereer,user)){
+        Userimf userimf = service.bindReferee(refereer,user);
+        if (userimf!=null){
             user.setRefereer(referee);
 
             Bounty bounty = new Bounty();
-            bounty.setuId(user.getuId());
+            bounty.setuId(userimf.getuId());
             bounty.setBoMoney(10);
             bounty.setBoTime(new Date());
             bounty.setBoType(3);

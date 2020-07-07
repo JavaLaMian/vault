@@ -285,12 +285,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean bindReferee(Userimf refereerUser,Userimf curr) {
-        if (dao.selectByUserimf(refereerUser)!= null){
+    public Userimf bindReferee(Userimf refereerUser,Userimf curr) {
+        Userimf userimf = dao.selectByUserimf(refereerUser);
+        if (userimf != null){
             dao.upUser(curr);
-            return true;
+            return userimf;
         }
-        return false;
+        return userimf;
     }
 
     @Override
