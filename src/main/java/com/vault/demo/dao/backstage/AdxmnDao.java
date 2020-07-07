@@ -33,7 +33,7 @@ public interface AdxmnDao {
     Float seleUsermoney(int id);//根据id查询出用户余额
     void updateuserMoney(@Param("money") double money,@Param("id") int id);//根据用户id相加余额
     void addusermoney(Recharge recharge);//新增用户余额增加记录
-    Float selecttendertenMoney(@Param("uid") int uid,@Param("bid") int bid);//根据标id和用户id确认代收本金
+    List<Float> selecttendertenMoney(@Param("uid") int uid,@Param("bid") int bid);//根据标id和用户id确认代收本金
     void updatetenderMoney(@Param("money") Float money,@Param("uid") int uid,@Param("bid") int bid);//根据标id和用户id修改代收本金
     List<Tender> tenderlist();//查询出用户投资的全部信息
     void updateTender(@Param("tid") int tid,@Param("tentype") int tentype);//修改订单状态

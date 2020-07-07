@@ -266,6 +266,9 @@
 				<dd class="item" th:if="${nc.bidStatus==3}">
 					<em class="btn-primary disabled">售罄</em>
 				</dd>
+				<dd class="item" th:if="${nc.bidStatus==2}">
+					<em class="btn-primary disabled">已关闭</em>
+				</dd>
 			</dl>
 		</a>
 	</div>
@@ -332,9 +335,10 @@
 							</div>
 						</div>
 						<div class="extend">
-							<a href="javascript:" class="btn" th:if="${per.bidStatus==1}">预售</a>
-							<a href="javascript:" class="btn" th:if="${per.bidStatus==0}">可购</a>
-							<a href="javascript:" class="btn disabled-btn" th:if="${per.bidStatus==3}">售罄</a>
+							<a th:href="@{/main/perImf(id=${per.perBid})}" class="btn" th:if="${per.bidStatus==1}">预售</a>
+							<a th:href="@{/main/perImf(id=${per.perBid})}" class="btn" th:if="${per.bidStatus==0}">可购</a>
+							<a th:href="@{/main/perImf(id=${per.perBid})}" class="btn disabled-btn" th:if="${per.bidStatus==3}">售罄</a>
+							<a th:href="@{/main/perImf(id=${per.perBid})}" class="btn disabled-btn" th:if="${per.bidStatus==2}">已关闭</a>
 						</div>
 					</div>
 				</div>
@@ -377,9 +381,10 @@
 								</div>
 							</div>
 							<div class="extend">
-								<a href="javascript:" class="btn" th:if="${pc.bidStatus==1}">预售</a>
-								<a href="javascript:" class="btn" th:if="${pc.bidStatus==0}">可购</a>
-								<a href="javascript:" class="btn disabled-btn" th:if="${pc.bidStatus==3}">售罄</a>
+								<a th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" class="btn" th:if="${pc.bidStatus==1}">预售</a>
+								<a th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" class="btn" th:if="${pc.bidStatus==0}">可购</a>
+								<a th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" class="btn disabled-btn" th:if="${pc.bidStatus==3}">售罄</a>
+								<a th:href="@{/main/prose(t=${pc.bidType},id=${pc.bId})}" class="btn disabled-btn" th:if="${pc.bidStatus==2}">已关闭</a>
 							</div>
 						</div>
 					</div>

@@ -303,19 +303,20 @@ public class UserController2 {
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         System.out.println("同步SDK"+signVerified);
         //——请在这里编写您的程序（以下代码仅作参考）——
-        if(signVerified) {//验证成功
-            System.out.println("验证成功！");
-            Userimf userimf = (Userimf)session.getAttribute("user");
-            int pd = service.userChongTi("cz",total_amount,userimf);
-            if(pd == 1){
-                Userimf user = service.pandEmail(userimf.getEmail(),"e");
-                session.setAttribute("user",user);
-            }
-            return "redirect:toAO";//跳转到订单信息页面
-        }else {
-            System.out.println("验证失败");
-            return "index";
+//        if(signVerified) {//验证成功
+//
+//        }else {
+//            System.out.println("验证失败");
+//            return "index";
+//        }
+        System.out.println("验证成功！");
+        Userimf userimf = (Userimf)session.getAttribute("user");
+        int pd = service.userChongTi("cz",total_amount,userimf);
+        if(pd == 1){
+            Userimf user = service.pandEmail(userimf.getEmail(),"e");
+            session.setAttribute("user",user);
         }
+        return "redirect:toAO";//跳转到订单信息页面
     }
 
     @RequestMapping("/unbindCard")
