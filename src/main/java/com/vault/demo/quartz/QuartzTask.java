@@ -100,7 +100,7 @@ public class QuartzTask implements Job {
                     String userexprie = simpleDateFormat.format(tender.getTenCicle());//获取到用户投标的最后时间
                     Date dateexprie=simpleDateFormat.parse(userexprie);
                     int timeee = dateexprie.compareTo(new Date());
-                    if(timeee != -1){//到期时间小于当前时间
+                    if(timeee == -1){//到期时间小于当前时间
                         if(tender.getTenType() != 5){//判断是否进行过操作
                             //当用户投的标的时间到了就开始卖
                             if(bid.getClockLine().equals("3")  && tender.getbId() == bid.getbId()){

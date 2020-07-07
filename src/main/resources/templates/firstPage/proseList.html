@@ -146,7 +146,7 @@
             <div th:if="${session.user==null}" class="user">
             <span style="cursor: pointer;" class="title">
                 <div class="img-box"></div>
-                <span><a style="color: black" href="/user/tologin">点我登陆</a></span>
+
             </span>
             </div>
             <div th:if="${session.user!=null}"  class="user">
@@ -214,15 +214,15 @@
                 </form>
                 <div class="filtrate" id="filtrateModel">
                     <div class="content">
-                        <dl data-key="term" class="term">
-                            <dt>项目期限：</dt>
-                            <dd class="first-label active"><a href="javascript:void(0)" onclick="limit(0);">不限</a></dd>
-                            <dd><a href="javascript:void(0)" data-min="0" data-max="3" onclick="limit(3);">3个月以下</a></dd>
-                            <dd><a href="javascript:void(0)" data-min="3" data-max="6" onclick="limit(6);">3-6个月</a></dd>
-                            <dd><a href="javascript:void(0)" data-min="6" data-max="9" onclick="limit(9);">6-9个月</a></dd>
-                            <dd><a href="javascript:void(0)" data-min="9" data-max="12" onclick="limit(12);">9-12个月</a></dd>
-                            <dd><a href="javascript:void(0)" data-min="12" data-max="" onclick="limit(15);">12个月以上</a></dd>
-                        </dl>
+<!--                        <dl data-key="term" class="term">-->
+<!--                            <dt>项目期限：</dt>-->
+<!--                            <dd class="first-label active"><a href="javascript:void(0)" onclick="limit(0);">不限</a></dd>-->
+<!--                            <dd><a href="javascript:void(0)" data-min="0" data-max="3" onclick="limit(3);">3个月以下</a></dd>-->
+<!--                            <dd><a href="javascript:void(0)" data-min="3" data-max="6" onclick="limit(6);">3-6个月</a></dd>-->
+<!--                            <dd><a href="javascript:void(0)" data-min="6" data-max="9" onclick="limit(9);">6-9个月</a></dd>-->
+<!--                            <dd><a href="javascript:void(0)" data-min="9" data-max="12" onclick="limit(12);">9-12个月</a></dd>-->
+<!--                            <dd><a href="javascript:void(0)" data-min="12" data-max="" onclick="limit(15);">12个月以上</a></dd>-->
+<!--                        </dl>-->
                         <dl data-key="annualRate" class="annualRate">
                             <dt>参考利率：</dt>
                             <dd class="first-label"><a href="javascript:rate(2);">不限</a></dd>

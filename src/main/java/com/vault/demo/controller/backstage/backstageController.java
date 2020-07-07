@@ -344,7 +344,7 @@ public class backstageController {
     @ResponseBody
     @RequestMapping("/getRegNumber")
     public List getRegNumber(String[] weekarry){
-        //林学名傻逼
+        //林学名
         List  data = new ArrayList();
         for(int i=0;i<weekarry.length;i++){
             if(as.selUserRegWeek(weekarry[i])==null){
@@ -366,7 +366,7 @@ public class backstageController {
         if(ok == 1){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -383,7 +383,7 @@ public class backstageController {
         }else if(ok ==2){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1 ){//预售（READY=1）
+            if(time != -1 ){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -402,7 +402,7 @@ public class backstageController {
         } else if(ok == 3){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
@@ -421,7 +421,7 @@ public class backstageController {
         } else if(ok == 4){
             //状态
             int time =date1.compareTo(new Date());  //预售和上线判断
-            if(time == -1){//预售（READY=1）
+            if(time != -1){//预售（READY=1）
                 bid.setBidStatus(Bid.getREADY());
             }else {//在售（ON=0）
                 bid.setBidStatus(Bid.getNO());
